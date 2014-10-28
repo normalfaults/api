@@ -29,9 +29,6 @@ gem 'spring',        group: :development
 # for travis 
 gem 'rake',  group: :test
 
-# for code climate
-#gem "codeclimate-test-reporter", group: :test, require: nil
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
