@@ -29,6 +29,9 @@ gem 'spring',        group: :development
 # for travis 
 gem 'rake',  group: :test
 
+# Figaro Gem
+gem "figaro"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
