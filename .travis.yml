@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.1
+  - 2.1.4
 notifications:
   hipchat: 0cec1b70f63f549125690659d24ad6@827065
 script:

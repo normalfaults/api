@@ -26,11 +26,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring', group: :development
 
-# for travis 
+# for travis
 gem 'rake', group: :test
 
 # Figaro Gem
-gem "figaro"
+gem 'figaro'
 
 # Rubocop for testing
 gem 'rubocop', group: [:development, :test]
@@ -46,4 +46,3 @@ gem 'rubocop', group: [:development, :test]
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

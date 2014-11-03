@@ -3,3 +3,6 @@ AllCops:
     - config/unicorn.rb
     - db/**
   RunRailsCops: true
+
+Metrics/LineLength:
+  Enabled: false
