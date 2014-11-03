@@ -4,4 +4,4 @@ rvm:
 notifications:
   hipchat: 0cec1b70f63f549125690659d24ad6@827065
 script:
-  - rubocop
+  - bundle exec rubocop
