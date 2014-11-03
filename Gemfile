@@ -32,6 +32,9 @@ gem 'rake', group: :test
 # Figaro Gem
 gem "figaro"
 
+# Rubocop for testing
+gem 'rubocop', group: [:development, :test]
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
