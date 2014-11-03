@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'automate/catalog_item_initialization'
+
+  get 'automate/update_servicemix_and_chef'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
