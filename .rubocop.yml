@@ -1,10 +1,17 @@
 AllCops:
-  Excludes:
+  Exclude:
     - config/unicorn.rb
-    - db/**
+    #- db/**
+    - db/schema.rb
     - vendor/**
     - bin/**
   RunRailsCops: true
+
+MethodLength:
+  Max: 30
+
+Documentation:
+  Enabled: false
 
 Metrics/LineLength:
   Enabled: false
