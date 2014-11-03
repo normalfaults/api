@@ -3,6 +3,7 @@ AllCops:
     - config/unicorn.rb
     - db/**
     - vendor/**
+    - bin/**
   RunRailsCops: true
 
 Metrics/LineLength:
