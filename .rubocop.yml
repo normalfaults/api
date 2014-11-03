@@ -2,7 +2,7 @@ AllCops:
   Excludes:
     - config/unicorn.rb
     - db/**
-    - vendor/**
+    - vendor/**/*
     - bin/**
   RunRailsCops: true
 
