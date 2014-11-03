@@ -3,7 +3,7 @@ AllCops:
     - config/unicorn.rb
     #- db/**
     - db/schema.rb
-    - vendor/**
+    - vendor/**/*
     - bin/**
   RunRailsCops: true
 
