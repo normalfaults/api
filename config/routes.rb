@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
 
+  # Notifications Routes
+  get 'notifications', to: 'notifications#index'
+
   # Marketplace Routes
   get 'marketplace', to: 'marketplace#index'
 
   # Automate Routes
-  get 'automate/catalog_item_initialization'
-  get 'automate/update_servicemix_and_chef'
+  get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'
+  get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
