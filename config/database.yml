@@ -20,6 +20,13 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
+  database: <%= ENV['AWS_DATABASE'] %>
+  #username: bogus_crap
+  username: <%= ENV['AWS_USERNAME'] %>
+  password: <%= ENV['AWS_PASSWORD'] %>
+  host:     <%= ENV['AWS_HOST'] %>
+  port:     <%= ENV['AWS_PORT'] %>
+
 
 development:
   <<: *default
