@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
 
-  # Notifications Routes
-  get 'notifications', to: 'notifications#index'
-
   # Marketplace Routes
-  get 'marketplace', to: 'marketplace#index'
+  resources :marketplace
 
   # Automate Routes
   get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'
