@@ -1,5 +1,5 @@
 class MarketplaceController < ApplicationController
-  # TODO: FIGURE OUT IF PUTTING THIS HERE IS SAFE WRT CSRF?
+  # TODO: FIGURE OUT IF PUTTING THIS HERE IS SAFE, CSRF?
   protect_from_forgery
 
   def index   # display all items
