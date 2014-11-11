@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # Dashboard Routes
+  resources :dashboard
+
   # Marketplace Routes
   resources :marketplace
 
