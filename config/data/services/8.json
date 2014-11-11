@@ -1,0 +1,36 @@
+
+{
+    "id": 8,
+    "name": "Mq Light",
+    "description": "Provides an easy-to-use platform to gamify your apps",
+    "source": "THIRD PARTY",
+    "type": "Service",
+    "isWebService": true,
+    "isFeatured": true,
+    "isLatest": true,
+    "icon": "/i/assets/projects/10.png",
+    "iconBig": "/i/assets/boxes/8.png",
+    "startsFrom": 1.5,
+    "startsFromSuffix": "USD/GB Hour",
+    "publishDate": "8/1/2014",
+    "fullDescription": "Mq Light (powered by Cloudant) provides simple to use SDKs that give access to a scalable, fully managed database via familiar object-oriented APIs.",
+    "plans": {
+        "shared": {
+            "features": [
+                "2 GB of free data storage",
+                "50,000 Light API calls free",
+                "10,000 Heavy API calls free"
+            ],
+            "price": [
+                "$1.05 USD/GB",
+                "$0.03 USD/1000 Light API Calls",
+                "$0.16 USD/1000 Heavy API Calls"
+            ]
+        }
+    },
+    "feature": "\n                    <h3>Ease of Use</h3>\n                      <p>\n                        Work with data in the way that mobile developers are accustomed to, with iOS, \n                        Android, and JavaScript SDKs that provide powerful object-oriented APIs \n                        instead of raw database access. The provisioning, management, and scalability \n                        of the data store is taken care of by IBM, freeing up your time to focus on your \n                        application.\n                      </p> \n                    <h3>Streamlined Backend Access</h3>\n                      <p>\n                        No knowledge of databases, schemas, or SQL is required. Work with your data \n                        as objects that you can create, update, delete, and query, and let the SDKs \n                        handle cloud-based data storage and retrieval for you.\n                      </p>              \n                  ",
+    "specification": "\n                    <h3>Ease of Use</h3>\n                      <p>\n                        1Work with data in the way that mobile developers are accustomed to, with iOS, \n                        Android, and JavaScript SDKs that provide powerful object-oriented APIs \n                        instead of raw database access. The provisioning, management, and scalability \n                        of the data store is taken care of by IBM, freeing up your time to focus on your \n                        application.\n                      </p> \n                    <h3>Streamlined Backend Access</h3>\n                      <p>\n                        No knowledge of databases, schemas, or SQL is required. Work with your data \n                        as objects that you can create, update, delete, and query, and let the SDKs \n                        handle cloud-based data storage and retrieval for you.\n                      </p>              \n                  ",
+    "review": "\n                    <h3>Ease of Use</h3>\n                      <p>\n                        2Work with data in the way that mobile developers are accustomed to, with iOS, \n                        Android, and JavaScript SDKs that provide powerful object-oriented APIs \n                        instead of raw database access. The provisioning, management, and scalability \n                        of the data store is taken care of by IBM, freeing up your time to focus on your \n                        application.\n                      </p> \n                    <h3>Streamlined Backend Access</h3>\n                      <p>\n                        No knowledge of databases, schemas, or SQL is required. Work with your data \n                        as objects that you can create, update, delete, and query, and let the SDKs \n                        handle cloud-based data storage and retrieval for you.\n                      </p>              \n                  ",
+    "reviewCount": 1,
+    "similarSolutions": [2, 3, 4, 5]
+}
