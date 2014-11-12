@@ -1,0 +1,70 @@
+{
+    "id": 2,
+    "name": "Emoticon app",
+    "domain": "emoticonapp1.clouddealer.com",
+    "url": "http://emoticonapp1.clouddealer.com",
+    "state": "Running",
+    "stateOk": true,
+    "problemCount": 0,
+    "accountNumber": 77564,
+    "budget": 15000,
+    "resources": 512,
+    "resourcesUnit": "MB",
+    "icon": "/i/assets/projects/2.png",
+    "cpu": 6,
+    "hdd": "42 GB",
+    "ram": "4 GB",
+    "orderHistory": [
+        {
+            "orderId": 20011,
+            "project": {
+                "id": 2,
+                "name": "Emoticon App"
+            },
+            "items": 5,
+            "total": 5000,
+            "status": "On Progress",
+            "color": "orange",
+            "requestDate": "05/07/2014"
+        },
+        {
+            "orderId": 20023,
+            "project": {
+                "id": 2,
+                "name": "Emoticon App"
+            },
+            "items": 5,
+            "total": 3664,
+            "status": "Completed",
+            "color": "light-blue",
+            "requestDate": "01/07/2014"
+        }
+    ],
+    "services": [1, 2, 3, 4, 5, 6, 7],
+    "users": [
+        {
+            "email": "example.com",
+            "name": "Kevin",
+            "allowed": ["Add", "Delete", "Modify", "Services"]
+        },
+        {
+            "email": "example.com",
+            "name": "Marcopolo",
+            "allowed": ["Modify", "Services"]
+        }
+    ],
+    "details": {
+        "requestorName": "Name",
+        "requestorDate": "13 August 2014 22:49 EST",
+        "teamName": "Shadow Team",
+        "chargeNumber": 45789431,
+        "nteBudget": 10000,
+        "projectOwner": "Jack Sparrow",
+        "srAssociate": "Barbasira",
+        "principal": "Barbasira",
+        "estimatedTerminationDate": "25 November 2014 12:00 EST",
+        "dataType": "x type",
+        "others": "...."
+    },
+    "status": 1
+}

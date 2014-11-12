@@ -1,0 +1,22 @@
+{
+    "owners": [
+        {"name": "Jack Sparrow", "value": "1"},
+        {"name": "John", "value": "2"},
+        {"name": "Doe", "value": "3"}
+    ],
+    "associates": [
+        {"name": "Barbarosa", "value": "1"},
+        {"name": "John", "value": "2"},
+        {"name": "Doe", "value": "3"}
+    ],
+    "principals": [
+        {"name": "Mike", "value": "1"},
+        {"name": "John", "value": "2"},
+        {"name": "Doe", "value": "3"}
+    ],
+    "dataTypes": [
+        {"name": "Select Data Type", "value": ""},
+        {"name": "Type A", "value": "1"},
+        {"name": "Type B", "value": "2"}
+    ]
+}
