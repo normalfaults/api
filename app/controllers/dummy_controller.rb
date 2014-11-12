@@ -16,6 +16,24 @@ class DummyController < ApplicationController
     %w(dashboard header.html base.html dashboard.html left-sidebar.html solution-search.html problem-alerts.html)
   end
 
+  def self.manage_json
+    json = {}
+    json['solutions'] = solutions
+    json['projects'] = projects
+    json['applications'] = applications
+    json['bundles'] = bundles
+    json['header'] = header
+    json['manage_values'] = manage_values
+    json['recent_orders'] = recent_orders
+    json['recent_users'] = recent_users
+    json['alerts'] = alerts
+    json['html'] = manage_html
+    json
+  end
+  def self.manage_html
+    %w(manage header.html base.html manage.html orders-table.html left-sidebar.html solution-search.html solution-statistic.html problem-alerts)
+  end
+
   def self.recent_solutions
     projects[1]['services']
   end

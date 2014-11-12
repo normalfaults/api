@@ -7,8 +7,11 @@ AllCops:
     - bin/**
   RunRailsCops: true
 
+ClassLength:
+  Max: 150
+
 MethodLength:
-  Max: 30
+  Max: 50
 
 Documentation:
   Enabled: false

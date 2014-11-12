@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   # Dashboard Routes
   resources :dashboard
 
+  # Manage Routes
+  resources :manage
+
   # Marketplace Routes
   resources :marketplace
 
