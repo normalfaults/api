@@ -1,14 +1,7 @@
 Rails.application.routes.draw do
 
-<<<<<<< HEAD
-  get 'welcome/index'
-
-  # Notifications Routes
-  get 'notifications', to: 'notifications#index'
-=======
   # Dashboard Routes
   resources :dashboard
->>>>>>> FETCH_HEAD
 
   # Marketplace Routes
   resources :marketplace
