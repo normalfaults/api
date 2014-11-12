@@ -88,21 +88,8 @@ class DummyController < ApplicationController
 
   def self.services
     data = []
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/1.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/2.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/3.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/4.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/5.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/6.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/7.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/8.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/9.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/10.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/11.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/12.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/13.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/14.json'))
-    data << JSON.parse(File.read(Rails.root.to_s + '/config/data/services/15.json'))
+    (1..15).each { |id| data << JSON.parse(File.read(Rails.root.to_s + "/config/data/services/#{id}.json")) }
+    data
   end
 
   def self.service(id)
