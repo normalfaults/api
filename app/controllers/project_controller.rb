@@ -1,6 +1,6 @@
 class ProjectController < ApplicationController
-  # def index
-  # end
+  # TODO: FIGURE OUT IF PUTTING THIS HERE IS SAFE, CSRF?
+  protect_from_forgery
 
   def new
     json = DummyController.project_new_json

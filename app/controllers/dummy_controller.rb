@@ -42,7 +42,7 @@ class DummyController < ApplicationController
     json['bundles'] = bundles
     json['applications'] = applications
     json['solutions'] = solutions
-    json['manage_values'] = manage_values
+    json['marketplace_values'] = marketplace_values
     json['services'] = services
     json['html'] = marketplace_html
     json
@@ -82,6 +82,23 @@ class DummyController < ApplicationController
 
   def self.project_html(id)
     %w(left-sidebar.html solution_search.html service_box.html orders-table.html project.html base.html header.html ) << id
+  end
+
+  def self.service_json(id)
+    json = {}
+    json['applications'] = applications
+    json['header'] = header
+    json['projects'] = projects
+    json['bundles'] = bundles
+    json['marketplace_values'] = marketplace_values
+    json[id] = service(id)
+    json['solutions'] = solutions
+    json['html'] = service_html(id)
+    json
+  end
+
+  def self.service_html(id)
+    %w(header.html service.html base.html left-sidebar.html search-marketplace.html) << id
   end
 
   def self.recent_solutions
