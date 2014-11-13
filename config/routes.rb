@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # Marketplace Routes
   resources :marketplace
 
+  # Project Routes
+  resources :project
+
   # Automate Routes
   get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'
   get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'

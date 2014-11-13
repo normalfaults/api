@@ -52,6 +52,38 @@ class DummyController < ApplicationController
     %w(marketplace header.html base.html marketplace.html marketplace-items.html left-sidebar.html search-marketplace.html service-box.html)
   end
 
+  def self.project_new_json
+    json = {}
+    json['applications'] = applications
+    json['bundles'] = bundles
+    json['projects'] = projects
+    json['header'] = header
+    json['project_values'] = project_values
+    json['solutions'] = solutions
+    json['html'] = project_new_html
+    json
+  end
+
+  def self.project_new_html
+    %w(solution_search.html left-sidebar.html header.html new-project.html base.html new)
+  end
+
+  def self.project_json(id)
+    json = {}
+    json[id] = project(id)
+    json['bundles'] = bundles
+    json['applications'] = applications
+    json['solutions'] = solutions
+    json['header'] = header
+    json['projects'] = projects
+    json['html'] = project_html(id)
+    json
+  end
+
+  def self.project_html(id)
+    %w(left-sidebar.html solution_search.html service_box.html orders-table.html project.html base.html header.html ) << id
+  end
+
   def self.recent_solutions
     projects[1]['services']
   end
