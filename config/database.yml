@@ -30,6 +30,14 @@ default: &default
 development:
   <<: *default
   adapter:  postgresql
+  url: <%= ENV['DATABASE_URL'] %>
+
+  # QUICK SETUP
+  # Get and install Postgres.app http://postgresapp.com/
+  # > createuser jellyfish_user -dlPs
+  # password jellyfish_pass
+  # > figaro install
+  # > echo "DATABASE_URL: postgres://jellyfish_user:jellyfish_pass@localhost:5432/jellyfish" >> config/application.yml
 
   #database: jellyfish
 
