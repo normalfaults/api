@@ -58,7 +58,7 @@ RSpec.describe 'Organizations' do
 
   describe 'create' do
     it 'creates an organization' do
-      post '/organizations/', organization: { name: 'some name', img: 'img.png', desctiption: 'best org ever' }
+      post '/organizations/', organization: { name: 'some name', img: 'img.png', description: 'best org ever' }
       expect(response.body).to eq(Organization.first.to_json)
     end
 

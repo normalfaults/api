@@ -55,8 +55,14 @@ gem 'devise'
 # Authorization
 gem 'pundit'
 
+# Tests
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'database_cleaner', '~> 1.3.0'
 end
+
+# Documentation
+gem 'apipie-rails', '~> 0.2.6'
+
+
