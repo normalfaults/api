@@ -24,6 +24,12 @@ RSpec.describe 'Organizations' do
       get "/organizations/#{@organization.id}"
       expect(response.body).to eq(@organization.to_json)
     end
+
+    it 'returns an error when the organization does not exist' do
+      get "/organizations/#{@organization.id + 999}"
+      expect(response.status).to eq(404)
+      expect(JSON(response.body)).to eq('error' => 'Not found.')
+    end
   end
 
   describe 'update' do
@@ -37,16 +43,22 @@ RSpec.describe 'Organizations' do
       expect(JSON(response.body)['name']).to eq('some different name')
     end
 
-    it 'returns an error if the organization is missing' do
+    it 'returns an error if the organization parameter is missing' do
       put "/organizations/#{@organization.id}"
       expect(response.status).to eq(422)
       expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: organization')
+    end
+
+    it 'returns an error when the organization does not exist' do
+      put "/organizations/#{@organization.id + 999}", organization: { name: 'some different name' }
+      expect(response.status).to eq(404)
+      expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
   end
 
   describe 'create' do
     it 'creates an organization' do
-      post '/organizations/', organization: { name: 'some name', img: 'img.png', desctiption: 'best org ever' }
+      post '/organizations/', organization: { name: 'some name', img: 'img.png', description: 'best org ever' }
       expect(response.body).to eq(Organization.first.to_json)
     end
 
