@@ -50,7 +50,7 @@ class OrganizationsController < ApplicationController
     @organizations = Organization.all
   end
 
-  def param_missing
+  def param_missing(e)
     render json: { error: e.message }, status: 422
   end
 
