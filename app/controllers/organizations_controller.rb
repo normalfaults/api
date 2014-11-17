@@ -54,7 +54,7 @@ class OrganizationsController < ApplicationController
     render json: { error: e.message }, status: 422
   end
 
-  def record_note_found
+  def record_not_found
     render json: { error: 'Not found.' }, status: 404
   end
 end
