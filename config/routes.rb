@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   devise_for :staff
 
+  # Organizations
+  resources :organizations, only: [:create, :update, :show, :index]
+
   # Dashboard Routes
   resources :dashboard
 
