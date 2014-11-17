@@ -1,7 +1,7 @@
 class Staff < ActiveRecord::Base
   self.table_name = :staff
 
-  validates :phone, maximum: 30, allow_blank: true
+  validates_length_of :phone, maximum: 30, allow_blank: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
