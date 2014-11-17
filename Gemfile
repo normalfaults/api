@@ -54,3 +54,8 @@ gem 'devise'
 
 # Authorization
 gem 'pundit'
+
+group :development, :test do
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'rspec-rails', '~> 3.0'
+end
