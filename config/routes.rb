@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   # Organizations
-  resources :organizations, only: [:create, :update, :show, :index]
+  resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Dashboard Routes
   resources :dashboard

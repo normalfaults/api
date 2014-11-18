@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Organizations' do
-  describe 'index' do
+  describe 'GET index' do
     before(:each) do
-      FactoryGirl.create(:organization)
-      FactoryGirl.create(:organization)
+      create :organization
+      create :organization
       @organizations = Organization.all
+      sign_in_as create :staff, :admin
     end
 
     it 'returns a collection of all of the organizations' do
@@ -14,10 +15,11 @@ RSpec.describe 'Organizations' do
     end
   end
 
-  describe 'show' do
+  describe 'GET show' do
     before(:each) do
-      FactoryGirl.create(:organization)
+      create :organization
       @organization = Organization.first
+      sign_in_as create :staff, :admin
     end
 
     it 'returns an organization' do
@@ -32,10 +34,11 @@ RSpec.describe 'Organizations' do
     end
   end
 
-  describe 'update' do
+  describe 'PUT update' do
     before(:each) do
-      FactoryGirl.create(:organization)
+      create :organization
       @organization = Organization.first
+      sign_in_as create :staff, :admin
     end
 
     it 'updates an organization' do
@@ -56,7 +59,11 @@ RSpec.describe 'Organizations' do
     end
   end
 
-  describe 'create' do
+  describe 'POST create' do
+    before :each do
+      sign_in_as create :staff, :admin
+    end
+
     it 'creates an organization' do
       post '/organizations/', organization: { name: 'some name', img: 'img.png', description: 'best org ever' }
       expect(response.body).to eq(Organization.first.to_json)
@@ -66,6 +73,24 @@ RSpec.describe 'Organizations' do
       post '/organizations/'
       expect(response.status).to eq(422)
       expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: organization')
+    end
+  end
+
+  describe 'DELETE destroy' do
+    before :each do
+      @organization = create :organization
+      sign_in_as create :staff, :admin
+    end
+
+    it 'removes the organization' do
+      delete "/organizations/#{@organization.id}"
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns an error when the organization does not exist' do
+      delete "/organizations/#{@organization.id + 999}", organization: { name: 'some different name' }
+      expect(response.status).to eq(404)
+      expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
   end
 end
