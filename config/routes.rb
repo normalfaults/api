@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  unless Rails.env == 'production'
-    apipie
-  end
+  apipie unless Rails.env == 'production'
 
   devise_for :staff
   resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
@@ -14,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   # Organizations
-  resources :organizations, only: [:create, :update, :show, :index]
+  resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Dashboard Routes
   resources :dashboard
