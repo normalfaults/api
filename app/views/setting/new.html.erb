@@ -1,0 +1,8 @@
+<%= form_for @setting, :url => { :action => 'create' } do |form| %>
+    <div>
+      <%= form.label :name %><%= form.text_field :name %>
+      <br>
+      <%= form.label :value %><%= form.text_field :value %>
+    </div>
+    <%= form.submit 'Create Setting' %>
+<% end %>

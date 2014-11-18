@@ -20,6 +20,15 @@ Rails.application.routes.draw do
   # Project Routes
   resources :service
 
+  # Setting Routes
+  get '/settings' => 'setting#index'
+  get '/setting/new' => 'setting#new'
+  get '/setting/:id' => 'setting#show'
+  post '/setting' => 'setting#create'
+  get '/setting/:id/edit' => 'setting#edit'
+  put '/setting/:id' => 'setting#update'
+  delete '/setting/:id' => 'setting#destroy'
+
   # Automate Routes
   get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'
   get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'

@@ -1,0 +1,15 @@
+<h1>
+  <span>Id: <%= @setting.id %></span>
+  <br>
+  <span>Name: <%= @setting.name %></span>
+  <br>
+  <span>Value: <%= @setting.value %></span>
+  <br>
+  <span>Created: <%= @setting.created_at %></span>
+  <br>
+  <span>Updated: <%= @setting.updated_at %></span>
+  <br>
+  <%= link_to 'Edit Setting', "/setting/#{@setting.id}/edit" %>
+  <br>
+  <%= link_to 'Back to Settings', '/settings' %>
+</h1>
