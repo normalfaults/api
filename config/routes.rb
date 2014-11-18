@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   end
 
   devise_for :staff
+  resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
+    member do
+      get :projects, to: 'staff#projects', as: :projects_for
+      post :projects, to: 'staff#add_project', as: :add_project_to
+      delete :projects, to: 'staff#remove_project', as: :remove_project_from
+    end
+  end
 
   # Organizations
   resources :organizations, only: [:create, :update, :show, :index]
@@ -19,7 +26,13 @@ Rails.application.routes.draw do
   resources :marketplace
 
   # Project Routes
-  resources :project
+  resources :projects, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
+    member do
+      get :staff, to: 'projects#staff', as: :staff_for
+      post :staff, to: 'projects#add_staff', as: :add_staff_to
+      delete :staff, to: 'projects#remove_staff', as: :remove_staff_from
+    end
+  end
 
   # Project Routes
   resources :service

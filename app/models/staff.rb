@@ -1,12 +1,15 @@
 class Staff < ActiveRecord::Base
   self.table_name = :staff
 
+  has_many :staff_projects
+  has_many :projects, through: :staff_projects
+
   validates :phone, length: { maximum: 30 }, allow_blank: true
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :lockable, :timeoutable and :omniauthable, :registerable
   # Enabling others may require migrations to be made and run
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   enum role: [:user, :admin]
 end
