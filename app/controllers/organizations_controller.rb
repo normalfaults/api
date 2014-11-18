@@ -3,7 +3,7 @@ class OrganizationsController < ApplicationController
 
   respond_to :json
 
-  NOT_FOUND_MESSAGE = 'Not Found'.freeze
+  NOT_FOUND_MESSAGE = 'Not found.'.freeze
   MISSING_PARAMETER_MESSAGE = 'Missing parameter'.freeze
   RESPONSE_EXAMPLE = '{"id":1,"name":"123","description":null,"img":null,"created_at":"2014-11-17T18:33:04.202Z","updated_at":"2014-11-17T18:48:47.829Z"}'.freeze
   RESPONSE_EXAMPLE_COLLECTION = '[{"id":1,"name":"123","description":null,"img":null,"created_at":"2014-11-17T18:33:04.202Z","updated_at":"2014-11-17T18:48:47.829Z"}]'.freeze
