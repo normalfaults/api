@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  apipie unless Rails.env == 'production'
+  apipie unless 'production' == Rails.env
 
   devise_for :staff
   resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do

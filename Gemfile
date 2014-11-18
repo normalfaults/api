@@ -66,5 +66,3 @@ end
 
 # Documentation
 gem 'apipie-rails', '~> 0.2.6'
-
-
