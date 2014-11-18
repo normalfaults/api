@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117155651) do
+ActiveRecord::Schema.define(version: 20141118215348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
@@ -63,12 +64,12 @@ ActiveRecord::Schema.define(version: 20141117155651) do
     t.integer  "project_id"
     t.integer  "staff_id"
     t.integer  "cloud_id"
-    t.text     "options"
     t.text     "engine_response"
     t.string   "provision_status", limit: 50
     t.integer  "active",           limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json     "options"
   end
 
   create_table "organizations", force: true do |t|
@@ -86,11 +87,11 @@ ActiveRecord::Schema.define(version: 20141117155651) do
     t.integer  "service_catalog_id"
     t.integer  "cloud_id"
     t.string   "chef_role",          limit: 100
-    t.text     "options"
     t.integer  "active",             limit: 2
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json     "options"
   end
 
   create_table "project_questions", force: true do |t|
