@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'spring', group: :development
 
 # Pry for rails console
-gem 'pry-rails', :group => :development
+gem 'pry-rails', group: :development
 
 # for travis
 gem 'rake', group: :test
@@ -55,8 +55,14 @@ gem 'devise'
 # Authorization
 gem 'pundit'
 
+# Tests
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'database_cleaner', '~> 1.3.0'
 end
+
+# Documentation
+gem 'apipie-rails', '~> 0.2.6'
+
+

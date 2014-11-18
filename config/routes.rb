@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  unless Rails.env == 'production'
+    apipie
+  end
+
   devise_for :staff
 
   # Organizations
