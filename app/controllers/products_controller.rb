@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   extend Apipie::DSL::Concern
-  include MissingRecordDetection::Concern
-  include ParameterValidation::Concern
+  include MissingRecordDetection
+  include ParameterValidation
 
   respond_to :json
 
@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
 
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Concern.NOT_FOUND_MESSAGE
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     respond_with @product
@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
   param :product, Hash, desc: 'Product' do
     param :options, Array, desc: 'Options'
   end
-  error code: 422, desc: ParameterValidation::Concern.MISSING_PARAMETER_MESSAGE
+  error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
     @product = Order.new @products_params
@@ -44,8 +44,8 @@ class ProductsController < ApplicationController
   param :product, Hash, desc: 'Order' do
     param :options, Hash, desc: 'Name'
   end
-  error code: 404, desc: MissingRecordDetection::Concern.NOT_FOUND_MESSAGE
-  error code: 422, desc: ParameterValidation::Concern.MISSING_PARAMETER_MESSAGE
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+  error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     @product.update_attributes(@products_params)
@@ -59,7 +59,7 @@ class ProductsController < ApplicationController
 
   api :DELETE, '/products/:id', 'Deletes product with :id'
   param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Concern.NOT_FOUND_MESSAGE
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
     if @product.destroy
