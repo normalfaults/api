@@ -9,7 +9,7 @@
   <br>
   <span>Updated: <%= @setting.updated_at %></span>
   <br>
-  <%= link_to 'Edit Setting', "/setting/#{@setting.id}/edit" %>
+  <%= link_to 'Edit Setting', edit_setting_path(@setting.id) %>
   <br>
   <%= link_to 'Back to Settings', '/settings' %>
 </h1>

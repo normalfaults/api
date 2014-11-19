@@ -1,6 +1,4 @@
-class SettingController < ApplicationController
-  protect_from_forgery
-
+class SettingsController < ApplicationController
   def index
     @settings = Setting.all.order('id ASC')
   end
@@ -26,7 +24,7 @@ class SettingController < ApplicationController
   def update
     @setting = Setting.find(params[:id])
     @setting.update_attributes(setting_params)
-    redirect_to "/setting/#{@setting.id}"
+    redirect_to setting_path(@setting.id)
   end
 
   def destroy
