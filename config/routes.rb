@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Approvals
+  resources :approvals, except: [:edit, :new], defaults: { format: :json }
+
   # Organizations
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
