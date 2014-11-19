@@ -1,4 +1,8 @@
 class ProjectsController < ApplicationController
+  extend Apipie::DSL::Concern
+  include MissingRecordDetection
+  include ParameterValidation
+
   respond_to :json, :xml
 
   after_action :verify_authorized
@@ -8,18 +12,34 @@ class ProjectsController < ApplicationController
   before_action :load_staff, only: [:add_staff, :remove_staff]
   before_action :load_project_params, only: [:create, :update]
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from ActionController::ParameterMissing, with: :param_missing
+  api :GET, '/projects', 'Returns a collection of projects'
 
   def index
     authorize Project.new
     respond_with @projects
   end
 
+  api :GET, '/projects/:id', 'Shows project with :id'
+  param :id, :number, required: true
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
   def show
     authorize @project
     respond_with @project
   end
+
+  api :POST, '/projects', 'Creates projects'
+  param :project, Hash, desc: 'Project' do
+    param :name, String, required: false
+    param :description, String, required: false
+    param :cc, String, required: false
+    param :budget, :number, required: false
+    param :staff_id, String, required: false
+    param :end_data, Date, required: false
+    param :approved, String, required: false
+    param :img, String, required: false
+  end
+  error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
     @project = Project.new @project_params
@@ -31,6 +51,21 @@ class ProjectsController < ApplicationController
     end
   end
 
+  api :PUT, '/projects/:id', 'Updates project with :id'
+  param :id, :number, required: true
+  param :project, Hash, desc: 'Project' do
+    param :name, String, required: false
+    param :description, String, required: false
+    param :cc, String, required: false
+    param :budget, :number, required: false
+    param :staff_id, String, required: false
+    param :end_data, Date, required: false
+    param :approved, String, required: false
+    param :img, String, required: false
+  end
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+  error code: 422, desc: ParameterValidation::Messages.missing
+
   def update
     authorize @project
     if @project.update_attributes @project_params
@@ -39,6 +74,10 @@ class ProjectsController < ApplicationController
       respond_with @project.errors, status: :unprocessable_entity
     end
   end
+
+  api :DELETE, '/projects/:id', 'Deletes project with :id'
+  param :id, :number, required: true
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
     authorize @project
@@ -49,10 +88,20 @@ class ProjectsController < ApplicationController
     end
   end
 
+  api :GET, '/projects/:id/staff', 'Shows collection of staff for a project :id'
+  param :id, :number, required: true
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
   def staff
     authorize @project
     respond_with @project.staff
   end
+
+  api :POST, '/projects/:id/staff', 'Adds staff to a project'
+  param :id, :number, required: true
+  param :staff, Hash, desc: 'Staff' do
+  end
+  error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def add_staff
     authorize @project
@@ -62,6 +111,13 @@ class ProjectsController < ApplicationController
       respond_with @project.errors, status: :unprocessable_entity
     end
   end
+
+  api :DELETE, '/projects/:id/staff/:staff_id', 'Deletes staff from a project'
+  param :id, :number, required: true
+  param :staff, Hash, desc: 'Staff' do
+    param :id, :number, required: true
+  end
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def remove_staff
     authorize @project
@@ -88,48 +144,6 @@ class ProjectsController < ApplicationController
   end
 
   def load_staff
-    @staff = Staff.find params[:staff_id]
+    @staff = Staff.find params.require(:staff_id)
   end
-
-  def record_not_found
-    render json: { error: 'Not found.' }, status: 404
-  end
-
-  def param_missing(e)
-    render json: { error: e.message }, status: 422
-  end
-
-  # def new
-  #   authorize Post.new
-  #
-  #   json = DummyController.project_new_json
-  #   response = {}
-  #   response['verb'] = 'GET'
-  #   response['route'] = ''
-  #   response['status'] = 'OK'
-  #   response['applications'] = json['applications']
-  #   response['bundles'] = json['bundles']
-  #   response['projects'] = json['projects']
-  #   response['header'] = json['header']
-  #   response['projectValues'] = json['project_values']
-  #   response['solutions'] = json['solutions']
-  #   response['html'] = json['html']
-  #   render json: response.to_json
-  # end
-  #
-  # def show
-  #   json = DummyController.project_json(params[:id].to_s)
-  #   response = {}
-  #   response['verb'] = 'GET'
-  #   response['route'] = ''
-  #   response['status'] = 'OK'
-  #   response[params[:id].to_s] = json[params[:id].to_s]
-  #   response['bundles'] = json['bundles']
-  #   response['applications'] = json['applications']
-  #   response['solutions'] = json['solutions']
-  #   response['header'] = json['header']
-  #   response['projects'] = json['projects']
-  #   response['html'] = json['html']
-  #   render json: response.to_json
-  # end
 end

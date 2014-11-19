@@ -1,5 +1,5 @@
 Apipie.configure do |config|
-  config.app_name                = 'JellyfishCore'
+  config.app_name                = 'Jellyfish API'
   config.api_base_url            = ''
   config.doc_base_url            = '/documentation'
   # where is your API defined?
