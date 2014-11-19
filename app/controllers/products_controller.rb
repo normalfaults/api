@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    @product = Order.new @products_params
+    @product = Product.new @products_params
 
     if @product.save
       respond_with @product
@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
   api :PUT, '/products/:id', 'Updates product with :id'
   param :id, :number, required: true
   param :product, Hash, desc: 'Order' do
-    param :options, Hash, desc: 'Name'
+    param :options, Array, desc: 'options'
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -76,7 +76,7 @@ class ProductsController < ApplicationController
   end
 
   def load_product
-    @product = Order.find(params.require(:id))
+    @product = Product.find(params.require(:id))
   end
 
   def load_products

@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
   api :PUT, '/orders/:id', 'Updates order with :id'
   param :id, :number, required: true
   param :order, Hash, desc: 'Order' do
-    param :options, Hash, desc: 'Name'
+    param :options, Array, desc: 'Options'
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing

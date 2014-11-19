@@ -1,10 +1,8 @@
 describe Order do
-  context "options" do
-    let(:options) {
-      [{ dialog_name: "name", type:"text", default_value: "value"},
-       { dialog_name: "name2", type: "dropdown", default_value: "value", options: ["option1", "option2", "option3"]}]}
+  context options do
+    let(:options) { [{ dialog_name: 'name' }, { dialog_name: 'name2' }] }
 
-    it "can store unstructured options" do
+    it 'can store unstructured options' do
       create :order, options: options
       order = Order.first
 
