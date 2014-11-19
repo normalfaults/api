@@ -58,7 +58,7 @@ RSpec.describe 'Orders API' do
 
   describe 'POST create' do
     it 'creates an order' do
-      post '/orders/', order: { options: ['test'] }
+      post '/orders/', order: { product_id: 1, project_id: 1, staff_id: 1, cloud_id: 1, options: ['test'] }
       expect(response.body).to eq(Order.first.to_json)
     end
 

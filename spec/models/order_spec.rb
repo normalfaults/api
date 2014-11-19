@@ -1,5 +1,5 @@
 describe Order do
-  context options do
+  context 'options' do
     let(:options) { [{ dialog_name: 'name' }, { dialog_name: 'name2' }] }
 
     it 'can store unstructured options' do
