@@ -9,10 +9,7 @@ module Features
     end
 
     def signin(email, password)
-      visit new_user_session_path
-      fill_in 'Email', with: email
-      fill_in 'Password', with: password
-      click_button 'Sign in'
+      post '/staff/sign_in', staff: {email: email, password: password}
     end
   end
 end
