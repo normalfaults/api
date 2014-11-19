@@ -72,7 +72,7 @@ class OrdersController < ApplicationController
   private
 
   def load_order_params
-    @orders_params = params.require(:order).permit(options: [])
+    @orders_params = params.require(:order).permit(:product_id, :project_id, :staff_id, :cloud_id, options: [])
   end
 
   def load_order

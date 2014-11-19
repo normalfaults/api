@@ -66,3 +66,6 @@ end
 
 # Documentation
 gem 'apipie-rails', '~> 0.2.6'
+
+# Keep but hide deleted records
+gem 'paranoia'

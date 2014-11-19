@@ -1,6 +1,8 @@
 class Staff < ActiveRecord::Base
   self.table_name = :staff
 
+  acts_as_paranoid
+
   has_many :staff_projects
   has_many :projects, through: :staff_projects
 
