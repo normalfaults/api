@@ -45,7 +45,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Project Routes
+  # ProjectQuestion Routes
+  resources :project_questions, except: [:edit, :new], defaults: { format: :json }
+
+  # Service Routes
   resources :service
 
   # Setting Routes
