@@ -63,6 +63,27 @@ namespace :create do
     create_user :user
   end
 
+  desc 'Create a setting'
+  task setting: :environment do
+    create_setting
+  end
+
+  def create_setting
+    setting = Setting.new
+    loop do
+      setting.name = ask('Setting Value? ') { |q| q.default = setting.value }
+      setting.value = ask('Setting Value? ') { |q| q.default = setting.value }
+      unless setting.valid?
+        say "<%= color('There are some problems with your choices.', [:bold, :red]) %>"
+        setting.errors.full_messages.each do |message|
+          say "<%= color('#{message.gsub("'") { "\\'" }}', [:red]) %>"
+        end
+      end
+      break setting.valid? && agree?('Create setting with these values? ')
+    end
+    setting.save
+  end
+
   desc 'TODO'
   task project: :environment do
   end

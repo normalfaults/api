@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  #Docs
+  # Docs
   apipie unless 'production' == Rails.env
 
   # Auth
