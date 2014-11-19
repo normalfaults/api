@@ -39,7 +39,7 @@ RSpec.describe 'Projects API' do
     end
 
     it 'creates a new project record' do
-      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1.0, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img' }
+      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img' }
       post '/projects', project: project_data
       expect(json['name']).to eq(project_data[:name])
     end
@@ -114,7 +114,7 @@ RSpec.describe 'Projects API' do
       end
 
       it 'removes related staff' do
-        delete "/projects/#{@project.id}/staff", staff_id: @staff.id
+        delete "/projects/#{@project.id}/staff/#{@staff.id}"
         expect(response.status).to eq(204)
       end
     end
