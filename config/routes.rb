@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   resources :service
 
   # Setting Routes
-  resources :settings
+  resources :settings, defaults: { format: :json }, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   # Automate Routes
   get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'
