@@ -97,10 +97,9 @@ class ProjectsController < ApplicationController
     respond_with @project.staff
   end
 
-  api :POST, '/projects/:id/staff', 'Adds staff to a project'
+  api :POST, '/projects/:id/staff/:staff_id', 'Adds staff to a project'
   param :id, :number, required: true
-  param :staff, Hash, desc: 'Staff' do
-  end
+  param :staff_id, :number, desc: 'Staff'
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def add_staff
