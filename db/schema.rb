@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141118215348) do
+ActiveRecord::Schema.define(version: 20141119140944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,50 +26,71 @@ ActiveRecord::Schema.define(version: 20141118215348) do
     t.datetime "updated_at"
   end
 
+  add_index "alerts", ["project_id"], name: "index_alerts_on_project_id", using: :btree
+  add_index "alerts", ["staff_id"], name: "index_alerts_on_staff_id", using: :btree
+
   create_table "approvals", force: true do |t|
     t.integer  "staff_id"
     t.integer  "project_id"
-    t.string   "approved",   limit: 1
+    t.boolean  "approved"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "approvals", ["project_id"], name: "index_approvals_on_project_id", using: :btree
+  add_index "approvals", ["staff_id"], name: "index_approvals_on_staff_id", using: :btree
 
   create_table "chargebacks", force: true do |t|
     t.integer  "product_id"
     t.integer  "cloud_id"
-    t.float    "hourly_price"
+    t.decimal  "hourly_price", precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "chargebacks", ["cloud_id"], name: "index_chargebacks_on_cloud_id", using: :btree
+  add_index "chargebacks", ["product_id"], name: "index_chargebacks_on_product_id", using: :btree
 
   create_table "clouds", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "extra"
+    t.datetime "deleted_at"
   end
 
-  create_table "log", force: true do |t|
-    t.integer  "staff_id"
+  add_index "clouds", ["deleted_at"], name: "index_clouds_on_deleted_at", using: :btree
+
+  create_table "logs", force: true do |t|
+    t.integer  "staff_id",   null: false
     t.integer  "level"
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "logs", ["staff_id"], name: "index_logs_on_staff_id", using: :btree
+
   create_table "orders", force: true do |t|
-    t.integer  "product_id"
-    t.integer  "project_id"
-    t.integer  "staff_id"
-    t.integer  "cloud_id"
+    t.integer  "product_id",                  null: false
+    t.integer  "project_id",                  null: false
+    t.integer  "staff_id",                    null: false
+    t.integer  "cloud_id",                    null: false
     t.text     "engine_response"
     t.string   "provision_status", limit: 50
-    t.integer  "active",           limit: 2
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "options"
+    t.datetime "deleted_at"
   end
+
+  add_index "orders", ["cloud_id"], name: "index_orders_on_cloud_id", using: :btree
+  add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
+  add_index "orders", ["product_id"], name: "index_orders_on_product_id", using: :btree
+  add_index "orders", ["project_id"], name: "index_orders_on_project_id", using: :btree
+  add_index "orders", ["staff_id"], name: "index_orders_on_staff_id", using: :btree
 
   create_table "organizations", force: true do |t|
     t.string   "name"
@@ -77,7 +98,10 @@ ActiveRecord::Schema.define(version: 20141118215348) do
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
+
+  add_index "organizations", ["deleted_at"], name: "index_organizations_on_deleted_at", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -86,30 +110,31 @@ ActiveRecord::Schema.define(version: 20141118215348) do
     t.integer  "service_catalog_id"
     t.integer  "cloud_id"
     t.string   "chef_role",          limit: 100
-    t.integer  "active",             limit: 2
+    t.boolean  "active"
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "options"
+    t.datetime "deleted_at"
   end
+
+  add_index "products", ["cloud_id"], name: "index_products_on_cloud_id", using: :btree
+  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
 
   create_table "project_questions", force: true do |t|
     t.string   "question"
     t.string   "field_type", limit: 100
     t.string   "help_text"
     t.text     "options"
-    t.string   "required",   limit: 1
+    t.boolean  "required"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_id"
+    t.datetime "deleted_at"
   end
 
-  create_table "project_staff", force: true do |t|
-    t.integer  "project_id"
-    t.integer  "staff_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "project_questions", ["deleted_at"], name: "index_project_questions_on_deleted_at", using: :btree
+  add_index "project_questions", ["project_id"], name: "index_project_questions_on_project_id", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -119,19 +144,14 @@ ActiveRecord::Schema.define(version: 20141118215348) do
     t.string   "staff_id"
     t.date     "start_date"
     t.date     "end_date"
-    t.string   "approved",    limit: 1
+    t.boolean  "approved"
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
-  create_table "roles", force: true do |t|
-    t.string   "name"
-    t.integer  "access"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "name"
@@ -139,6 +159,8 @@ ActiveRecord::Schema.define(version: 20141118215348) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "settings", ["name"], name: "index_settings_on_name", using: :btree
 
   create_table "staff", force: true do |t|
     t.string   "first_name"
@@ -157,8 +179,10 @@ ActiveRecord::Schema.define(version: 20141118215348) do
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.integer  "role",                              default: 0
+    t.datetime "deleted_at"
   end
 
+  add_index "staff", ["deleted_at"], name: "index_staff_on_deleted_at", using: :btree
   add_index "staff", ["email"], name: "index_staff_on_email", unique: true, using: :btree
   add_index "staff", ["reset_password_token"], name: "index_staff_on_reset_password_token", unique: true, using: :btree
 
