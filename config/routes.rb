@@ -14,6 +14,12 @@ Rails.application.routes.draw do
   # Organizations
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
+  # Orders
+  resources :orders, except: [:edit, :new], defaults: { format: :json }
+
+  # Products
+  resources :products, except: [:edit, :new], defaults: { format: :json }
+
   # Dashboard Routes
   resources :dashboard
 
