@@ -99,7 +99,7 @@ RSpec.describe 'Projects API' do
       end
 
       it 'adds related staff' do
-        post "/projects/#{@project.id}/staff", staff_id: @staff.id
+        post "/projects/#{@project.id}/staff/#{@staff.id}"
         expect(response.status).to eq(201)
         expect(json['first_name']).to eq(@staff.first_name)
       end
