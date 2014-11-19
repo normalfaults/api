@@ -1,11 +1,11 @@
 class SettingsController < ApplicationController
-  #extend Apipie::DSL::Concern
+  # extend Apipie::DSL::Concern
   include MissingRecordDetection
   include ParameterValidation
 
   respond_to :json, :xml
 
-  #after_action :verify_authorized
+  # after_action :verify_authorized
 
   before_action :load_settings, only: [:index]
   before_action :load_setting, only: [:show, :edit, :update, :destroy]
