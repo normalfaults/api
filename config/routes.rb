@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
   apipie unless 'production' == Rails.env
 
-  devise_for :staff
+  devise_for :staff, controllers: {:sessions => "sessions"}
+
   resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
     member do
       get :projects, to: 'staff#projects', as: :projects_for
