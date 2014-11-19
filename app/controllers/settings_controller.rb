@@ -5,7 +5,7 @@ class SettingsController < ApplicationController
   end
 
   def create
-    @setting = Setting.new(setting_params)
+    @setting = Setting.new(create_setting_params)
     @setting.save
     if @setting.id.nil?
       render json: { 'status' => 'CRITICAL', 'error' => 'COULD NOT CREATE SETTING' }
@@ -31,7 +31,7 @@ class SettingsController < ApplicationController
 
   def update
     @setting = Setting.find(params[:id])
-    @setting.update_attributes(setting_params)
+    @setting.update_attributes(update_setting_params)
     render json: @setting
   end
 
@@ -43,7 +43,11 @@ class SettingsController < ApplicationController
 
   private
 
-  def setting_params
+  def create_setting_params
+    params.require(:setting).permit(:name, :value)
+  end
+
+  def update_setting_params
     params.require(:setting).permit(:value)
   end
 end
