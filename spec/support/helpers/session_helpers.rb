@@ -9,7 +9,7 @@ module Features
     end
 
     def signin(email, password)
-      post '/staff/sign_in', staff: {email: email, password: password}
+      post '/staff/sign_in', staff: { email: email, password: password }
     end
   end
 end
