@@ -1,4 +1,11 @@
 class SessionsController < Devise::SessionsController
+  extend Apipie::DSL::Concern
+
+  api :POST, '/staff/sign_in', 'Signs user in'
+  param :staff, Hash, desc: 'Staff' do
+    param :email, String, desc: 'Email'
+    param :email, String, desc: 'Password'
+  end
 
   def create
     self.resource = warden.authenticate!(auth_options)
@@ -14,6 +21,9 @@ class SessionsController < Devise::SessionsController
     end
   end
 
+
+  api :DELETE, '/staff/sign_out', 'Invalidates user session'
+
   def destroy
     respond_to do |format|
       format.json {
@@ -24,8 +34,6 @@ class SessionsController < Devise::SessionsController
         else
           render :json => {}.to_json, :status => :unprocessable_entity
         end
-
-
       }
     end
   end
