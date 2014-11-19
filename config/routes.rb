@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
     member do
       get :projects, to: 'staff#projects', as: :projects_for
-      post :projects, to: 'staff#add_project', as: :add_project_to
-      delete :projects, to: 'staff#remove_project', as: :remove_project_from
+      match 'projects/:project_id' => 'staff#remove_project', :via => :post, as: :add_project_to
+      match 'projects/:project_id' => 'staff#remove_project', :via => :delete, as: :remove_project_from
     end
   end
 
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   resources :projects, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
-      post :staff, to: 'projects#add_staff', as: :add_staff_to
+      match 'staff/:staff_id' => 'projects#remove_staff', :via => :post, as: :add_staff_to
       match 'staff/:staff_id' => 'projects#remove_staff', :via => :delete, as: :remove_staff_from
     end
   end

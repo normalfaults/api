@@ -99,7 +99,7 @@ RSpec.describe 'Staff API' do
       end
 
       it 'adds related project' do
-        post "/staff/#{@staff.id}/projects", project_id: @project.id
+        post "/staff/#{@staff.id}/projects/#{@project.id}"
         expect(response.status).to eq(201)
         expect(json['name']).to eq(@project.name)
       end
@@ -114,7 +114,7 @@ RSpec.describe 'Staff API' do
       end
 
       it 'removes related project' do
-        delete "/staff/#{@staff.id}/projects", project_id: @project.id
+        delete "/staff/#{@staff.id}/projects/#{@project.id}"
         expect(response.status).to eq(204)
       end
     end
