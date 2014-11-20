@@ -11,6 +11,7 @@ class SettingsController < ApplicationController
   before_action :load_setting, only: [:show, :edit, :update, :destroy]
   before_action :load_update_params, only: [:update]
   before_action :load_create_params, only: [:create]
+  before_action :load_id_for_setting_name, only: [:create]
 
   api :GET, '/settings', 'Returns a collection of settings'
 
@@ -38,10 +39,17 @@ class SettingsController < ApplicationController
   def create
     @setting = Setting.new @create_params
     authorize @setting
-    if @setting.save
-      respond_with @setting
-    else
-      respond_with @setting.errors, status: :unprocessable_entity
+    if @id_for_setting_name.nil?
+      if @setting.save
+        respond_with @setting
+      else
+        respond_with @setting.errors, status: :unprocessable_entity
+      end
+    else # ON DUPLICATE KEY UPDATE
+      params[:id] = @id_for_setting_name
+      load_setting
+      load_update_params
+      update
     end
   end
 
@@ -108,5 +116,10 @@ class SettingsController < ApplicationController
 
   def load_setting
     @setting = Setting.find params.require(:id)
+  end
+
+  def load_id_for_setting_name
+    setting = Setting.where({ name: @create_params['name'] }).first
+    @id_for_setting_name = (setting.nil? || setting.id.nil?) ? nil : setting.id
   end
 end

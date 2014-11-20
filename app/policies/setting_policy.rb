@@ -4,7 +4,7 @@ class SettingPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    admin_or_related
   end
 
   def show?
@@ -12,8 +12,7 @@ class SettingPolicy < ApplicationPolicy
   end
 
   def new?
-    # TODO: Can anyone create a new setting?
-    true
+    admin_or_related
   end
 
   def update?
