@@ -33,6 +33,6 @@ class SettingPolicy < ApplicationPolicy
   private
 
   def admin_or_related
-    user.admin? || user.project_ids.include?(record.id)
+    user.admin?
   end
 end
