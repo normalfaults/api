@@ -119,7 +119,7 @@ class SettingsController < ApplicationController
   end
 
   def load_id_for_setting_name
-    setting = Setting.where({ name: @create_params['name'] }).first
+    setting = Setting.where(name: @create_params['name']).first
     @id_for_setting_name = (setting.nil? || setting.id.nil?) ? nil : setting.id
   end
 end
