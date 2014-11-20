@@ -71,7 +71,7 @@ namespace :create do
   def create_setting
     setting = Setting.new
     loop do
-      setting.name = ask('Setting Name? ') { |q| q.default = setting.value }
+      setting.name = ask('Setting Name? ') { |q| q.default = setting.name }
       setting.value = ask('Setting Value? ') { |q| q.default = setting.value }
       unless setting.valid?
         say "<%= color('There are some problems with your choices.', [:bold, :red]) %>"
