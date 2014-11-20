@@ -1,11 +1,11 @@
 class SettingsController < ApplicationController
-  # extend Apipie::DSL::Concern
+  extend Apipie::DSL::Concern
   include MissingRecordDetection
   include ParameterValidation
 
   respond_to :json, :xml
 
-  # after_action :verify_authorized
+  after_action :verify_authorized
 
   before_action :load_settings, only: [:index]
   before_action :load_setting, only: [:show, :edit, :update, :destroy]
@@ -15,6 +15,7 @@ class SettingsController < ApplicationController
   api :GET, '/settings', 'Returns a collection of settings'
 
   def index
+    authorize Setting.new
     respond_with @settings
   end
 
@@ -23,6 +24,7 @@ class SettingsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
+    authorize @setting
     respond_with @setting
   end
 
@@ -35,6 +37,7 @@ class SettingsController < ApplicationController
 
   def create
     @setting = Setting.new @create_params
+    authorize @setting
     if @setting.save
       respond_with @setting
     else
@@ -51,6 +54,7 @@ class SettingsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
+    authorize @setting
     if @setting.update_attributes @update_params
       respond_with @setting
     else
@@ -62,6 +66,7 @@ class SettingsController < ApplicationController
 
   def new
     @setting = Setting.new
+    authorize @setting
     render json: @setting
   end
 
@@ -70,6 +75,7 @@ class SettingsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def edit
+    authorize @setting
     respond_with @setting
   end
 
@@ -78,6 +84,7 @@ class SettingsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
+    authorize @setting
     if @setting.destroy
       respond_with @setting
     else
