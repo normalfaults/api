@@ -52,7 +52,7 @@ RSpec.describe 'Chargebacks API' do
       expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: chargeback')
     end
 
-    it 'returns an error when the order does not exist' do
+    it 'returns an error when the chargeback does not exist' do
       put "/chargebacks/#{@chargeback.id + 999}", chargeback: { hourly_price: '9' }
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
