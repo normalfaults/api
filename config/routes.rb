@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   # Chargebacks
   resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
 
+  # Clouds
+  resources :clouds, except: [:edit, :new], defaults: { format: :json }
+
   # Dashboard Routes
   resources :dashboard
 
