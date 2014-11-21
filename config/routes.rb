@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   # Products
   resources :products, except: [:edit, :new], defaults: { format: :json }
 
+  # Chargebacks
+  resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
+
   # Dashboard Routes
   resources :dashboard
 
