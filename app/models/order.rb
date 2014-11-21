@@ -6,5 +6,7 @@ class Order < ActiveRecord::Base
   belongs_to :project
   belongs_to :cloud
 
+  has_many :chargebacks
+
   store_accessor :options
 end
