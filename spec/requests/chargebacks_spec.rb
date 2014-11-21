@@ -5,6 +5,7 @@ RSpec.describe 'Chargebacks API' do
     before(:each) do
       create :chargeback
       create :chargeback
+      sign_in_as create :staff, :admin
       @chargebacks = Chargeback.all
     end
 
@@ -17,6 +18,7 @@ RSpec.describe 'Chargebacks API' do
   describe 'GET show' do
     before(:each) do
       create :chargeback
+      sign_in_as create :staff, :admin
       @chargeback = Chargeback.first
     end
 
@@ -35,6 +37,7 @@ RSpec.describe 'Chargebacks API' do
   describe 'PUT update' do
     before(:each) do
       create :chargeback
+      sign_in_as create :staff, :admin
       @chargeback = Chargeback.first
     end
 
@@ -57,6 +60,10 @@ RSpec.describe 'Chargebacks API' do
   end
 
   describe 'POST create' do
+    before(:each) do
+      sign_in_as create :staff, :admin
+    end
+
     it 'creates an chargeback', :show_in_doc do
       post '/chargebacks/', chargeback: { hourly_price: '9' }
       expect(response.body).to eq(Chargeback.first.to_json)
@@ -71,6 +78,7 @@ RSpec.describe 'Chargebacks API' do
 
   describe 'DELETE destroy' do
     before :each do
+      sign_in_as create :staff, :admin
       @chargeback = create :chargeback
     end
 

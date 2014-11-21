@@ -5,6 +5,8 @@ class ChargebacksController < ApplicationController
 
   respond_to :json
 
+  after_action :verify_authorized
+
   before_action :load_chargeback, only: [:show, :update, :destroy]
   before_action :load_chargeback_params, only: [:create, :update]
   before_action :load_chargebacks, only: [:index]
@@ -12,6 +14,7 @@ class ChargebacksController < ApplicationController
   api :GET, '/chargebacks', 'Returns a collection of chargebacks'
 
   def index
+    authorize Chargeback
     respond_with @chargebacks
   end
 
@@ -20,6 +23,7 @@ class ChargebacksController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
+    authorize @chargeback
     respond_with @chargeback
   end
 
@@ -33,6 +37,7 @@ class ChargebacksController < ApplicationController
 
   def create
     @chargeback = Chargeback.new @chargeback_params
+    authorize @chargeback
     if @chargeback.save
       render json: @chargeback
     else
@@ -52,7 +57,7 @@ class ChargebacksController < ApplicationController
 
   def update
     @chargeback.update_attributes @chargeback_params
-
+    authorize @chargeback
     if @chargeback.save
       render json: @chargeback
     else
@@ -65,6 +70,7 @@ class ChargebacksController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
+    authorize @chargeback
     if @chargeback.destroy
       respond_with @chargeback
     else
