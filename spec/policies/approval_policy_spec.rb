@@ -16,7 +16,7 @@ describe ApprovalPolicy do
 
   permissions :show? do
     it 'allows users to view approvals' do
-      expect(subject).to permit(user, approval)
+      expect(subject).to permit(current_staff, approval)
     end
     it 'allows an admin to see any approval' do
       expect(subject).to permit(admin, approval)
@@ -33,8 +33,8 @@ describe ApprovalPolicy do
   end
 
   permissions :update? do
-    it 'does not allow users to update approvals' do
-      expect(subject).not_to permit(user, approval)
+    it 'allows users to update approvals' do
+      expect(subject).to permit(current_staff, approval)
     end
     it 'allows an admin to make updates' do
       expect(subject).to permit(admin, approval)
@@ -43,7 +43,7 @@ describe ApprovalPolicy do
 
   permissions :destroy? do
     it 'does not allow users to delete approvals' do
-      expect(subject).to_not permit(user, approval)
+      expect(subject).to_not permit(current_staff, approval)
     end
     it 'allows an admin to delete any approval' do
       expect(subject).to permit(admin, approval)

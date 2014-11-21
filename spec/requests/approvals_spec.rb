@@ -9,7 +9,7 @@ RSpec.describe 'Approvals API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all of the approvals' do
+    it 'returns a collection of all of the approvals', :show_in_doc do
       get '/approvals'
       expect(json.length).to eq(2)
     end
@@ -21,7 +21,7 @@ RSpec.describe 'Approvals API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns an approval' do
+    it 'returns an approval', :show_in_doc do
       get "/approvals/#{@approval.id}"
       expect(json['id']).to eq(@approval.id)
     end
@@ -40,7 +40,7 @@ RSpec.describe 'Approvals API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'updates a approval' do
+    it 'updates a approval', :show_in_doc do
       put "/approvals/#{@approval.id}", approval: { approved: true }
       expect(response.status).to eq(204)
     end
@@ -64,7 +64,7 @@ RSpec.describe 'Approvals API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'creates an approval' do
+    it 'creates an approval', :show_in_doc do
       post '/approvals/', approval: @approval.as_json
       expect(response.body).to eq(Approval.first.to_json)
     end
@@ -82,7 +82,7 @@ RSpec.describe 'Approvals API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'removes the product' do
+    it 'removes the product', :show_in_doc do
       delete "/approvals/#{@approval.id}"
       expect(response.status).to eq(204)
     end

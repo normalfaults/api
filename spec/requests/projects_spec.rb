@@ -9,7 +9,7 @@ RSpec.describe 'Projects API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all projects' do
+    it 'returns a collection of all projects', :show_in_doc do
       get '/projects'
       expect(json.length).to eq(2)
     end
@@ -21,7 +21,7 @@ RSpec.describe 'Projects API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'retrieves project by id' do
+    it 'retrieves project by id', :show_in_doc do
       get "/projects/#{@project.id}"
       expect(json['name']).to eq(@project.name)
     end
@@ -38,7 +38,7 @@ RSpec.describe 'Projects API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'creates a new project record' do
+    it 'creates a new project record', :show_in_doc do
       project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img' }
       post '/projects', project: project_data
       expect(json['name']).to eq(project_data[:name])
@@ -57,7 +57,7 @@ RSpec.describe 'Projects API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'changes existing project' do
+    it 'changes existing project', :show_in_doc do
       put "/projects/#{@project.id}", project: { name: 'Updated' }
       expect(response.status).to eq(204)
     end
@@ -84,7 +84,7 @@ RSpec.describe 'Projects API' do
         sign_in_as create :staff, :admin
       end
 
-      it 'retrieves a list of related staff' do
+      it 'retrieves a list of related staff', :show_in_doc do
         get "/projects/#{@project.id}/staff"
         expect(response.status).to eq(200)
         expect(json.length).to eq(1)
@@ -98,7 +98,7 @@ RSpec.describe 'Projects API' do
         sign_in_as create :staff, :admin
       end
 
-      it 'adds related staff' do
+      it 'adds related staff', :show_in_doc do
         post "/projects/#{@project.id}/staff/#{@staff.id}"
         expect(response.status).to eq(201)
         expect(json['first_name']).to eq(@staff.first_name)
@@ -113,7 +113,7 @@ RSpec.describe 'Projects API' do
         sign_in_as create :staff, :admin
       end
 
-      it 'removes related staff' do
+      it 'removes related staff', :show_in_doc do
         delete "/projects/#{@project.id}/staff/#{@staff.id}"
         expect(response.status).to eq(204)
       end
