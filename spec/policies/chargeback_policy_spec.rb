@@ -19,7 +19,7 @@ describe ChargebackPolicy do
       expect(subject).to_not permit(current_staff, chargeback)
     end
     it 'allows an admin to see any chargeback' do
-      expect(subject).to permit(admin,chargeback)
+      expect(subject).to permit(admin, chargeback)
     end
   end
 

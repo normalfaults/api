@@ -56,9 +56,8 @@ class OrganizationsController < ApplicationController
 
   def update
     authorize @organization
-    @organization.update_attributes(@org_params)
 
-    if @organization.save
+    if @organization.update_attributes(@org_params)
       render json: @organization
     else
       respond_with @organization.errors, status: :unprocessable_entity
