@@ -4,14 +4,24 @@ RSpec.describe 'Projects API' do
 
   describe 'GET index' do
     before :each do
-      create :project
-      create :project
       sign_in_as create :staff, :admin
     end
 
     it 'returns a collection of all projects', :show_in_doc do
+      create :project
+      create :project
       get '/projects'
       expect(json.length).to eq(2)
+    end
+
+    it 'returns a collection of all of the products w/ staff', :show_in_doc do
+      project = create :project
+      staff = create :staff
+      staff_project = create :staff_project, staff_id: staff.id, project_id: project.id
+
+      get '/projects', include: ['staff']
+
+      expect(json[0]['staff']).to_not eq(nil)
     end
   end
 
@@ -31,6 +41,16 @@ RSpec.describe 'Projects API' do
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
+
+    it 'returns a product w/ staff', :show_in_doc do
+      staff = create :staff
+      staff_project = create :staff_project, staff_id: staff.id, project_id: @project.id
+
+      get "/projects/#{@project.id}", include: ['staff']
+
+      expect(json['staff']).to_not eq(nil)
+    end
+
   end
 
   describe 'POST create' do
