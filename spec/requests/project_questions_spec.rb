@@ -9,7 +9,7 @@ RSpec.describe 'ProjectQuestions API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all of the project_questions' do
+    it 'returns a collection of all of the project_questions', :show_in_doc do
       get '/project_questions'
       expect(json.length).to eq(2)
     end
@@ -21,7 +21,7 @@ RSpec.describe 'ProjectQuestions API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns an project_question' do
+    it 'returns an project_question', :show_in_doc do
       get "/project_questions/#{@project_question.id}"
       expect(json['id']).to eq(@project_question.id)
     end
@@ -40,7 +40,7 @@ RSpec.describe 'ProjectQuestions API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'updates a project_question' do
+    it 'updates a project_question', :show_in_doc do
       put "/project_questions/#{@project_question.id}", project_question: { required: true }
       expect(response.status).to eq(204)
     end
@@ -64,7 +64,7 @@ RSpec.describe 'ProjectQuestions API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'creates an project_question' do
+    it 'creates an project_question', :show_in_doc do
       post '/project_questions/', project_question: @project_question.as_json
       expect(response.body).to eq(ProjectQuestion.first.to_json)
     end
@@ -82,7 +82,7 @@ RSpec.describe 'ProjectQuestions API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'removes the product' do
+    it 'removes the product', :show_in_doc do
       delete "/project_questions/#{@project_question.id}"
       expect(response.status).to eq(204)
     end

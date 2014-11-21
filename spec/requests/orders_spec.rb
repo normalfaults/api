@@ -8,7 +8,7 @@ RSpec.describe 'Orders API' do
       @orders = Order.all
     end
 
-    it 'returns a collection of all of the orders' do
+    it 'returns a collection of all of the orders', :show_in_doc do
       get '/orders'
       expect(response.body).to eq(@orders.to_json)
     end
@@ -20,7 +20,7 @@ RSpec.describe 'Orders API' do
       @order = Order.first
     end
 
-    it 'returns an order' do
+    it 'returns an order', :show_in_doc do
       get "/orders/#{@order.id}"
       expect(response.body).to eq(@order.to_json)
     end
@@ -38,7 +38,7 @@ RSpec.describe 'Orders API' do
       @order = Order.first
     end
 
-    it 'updates a order' do
+    it 'updates a order', :show_in_doc do
       put "/orders/#{@order.id}", order: { options: ['test'] }
       expect(JSON(response.body)['options']).to eq(['test'])
     end
@@ -57,7 +57,7 @@ RSpec.describe 'Orders API' do
   end
 
   describe 'POST create' do
-    it 'creates an order' do
+    it 'creates an order', :show_in_doc do
       post '/orders/', order: { product_id: 1, project_id: 1, staff_id: 1, cloud_id: 1, options: ['test'] }
       expect(response.body).to eq(Order.first.to_json)
     end
@@ -74,7 +74,7 @@ RSpec.describe 'Orders API' do
       @order = create :order
     end
 
-    it 'removes the product' do
+    it 'removes the product', :show_in_doc do
       delete "/orders/#{@order.id}"
       expect(response.status).to eq(200)
     end

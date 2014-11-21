@@ -9,7 +9,7 @@ RSpec.describe 'Organizations' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all of the organizations' do
+    it 'returns a collection of all of the organizations', :show_in_doc do
       get '/organizations'
       expect(response.body).to eq(@organizations.to_json)
     end
@@ -22,7 +22,7 @@ RSpec.describe 'Organizations' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns an organization' do
+    it 'returns an organization', :show_in_doc do
       get "/organizations/#{@organization.id}"
       expect(response.body).to eq(@organization.to_json)
     end
@@ -41,7 +41,7 @@ RSpec.describe 'Organizations' do
       sign_in_as create :staff, :admin
     end
 
-    it 'updates an organization' do
+    it 'updates an organization', :show_in_doc do
       put "/organizations/#{@organization.id}", organization: { name: 'some different name' }
       expect(JSON(response.body)['name']).to eq('some different name')
     end
@@ -64,7 +64,7 @@ RSpec.describe 'Organizations' do
       sign_in_as create :staff, :admin
     end
 
-    it 'creates an organization' do
+    it 'creates an organization', :show_in_doc do
       post '/organizations/', organization: { name: 'some name', img: 'img.png', description: 'best org ever' }
       expect(response.body).to eq(Organization.first.to_json)
     end
@@ -82,7 +82,7 @@ RSpec.describe 'Organizations' do
       sign_in_as create :staff, :admin
     end
 
-    it 'removes the organization' do
+    it 'removes the organization', :show_in_doc do
       delete "/organizations/#{@organization.id}"
       expect(response.status).to eq(200)
     end

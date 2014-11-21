@@ -9,7 +9,7 @@ RSpec.describe 'Staff API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all staff' do
+    it 'returns a collection of all staff', :show_in_doc do
       get '/staff'
       expect(json.length).to eq(3)
     end
@@ -21,7 +21,7 @@ RSpec.describe 'Staff API' do
       sign_in_as @staff
     end
 
-    it 'retrieves staff by id' do
+    it 'retrieves staff by id', :show_in_doc do
       get "/staff/#{@staff.id}"
       expect(json['first_name']).to eq(@staff.first_name)
     end
@@ -38,7 +38,7 @@ RSpec.describe 'Staff API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'creates a new staff record' do
+    it 'creates a new staff record', :show_in_doc do
       staff_data = { first_name: 'Created', last_name: 'User', email: 'created@test.com', role: 'user', password: 'created_pass', password_confirmation: 'created_pass' }
       post '/staff', staff: staff_data
       expect(json['first_name']).to eq(staff_data[:first_name])
@@ -57,7 +57,7 @@ RSpec.describe 'Staff API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'changes existing staff' do
+    it 'changes existing staff', :show_in_doc do
       put "/staff/#{@staff.id}", staff: { first_name: 'Updated' }
       expect(response.status).to eq(204)
     end
@@ -84,7 +84,7 @@ RSpec.describe 'Staff API' do
         sign_in_as create :staff, :admin
       end
 
-      it 'retrieves a list of related projects' do
+      it 'retrieves a list of related projects', :show_in_doc do
         get "/staff/#{@staff.id}/projects"
         expect(response.status).to eq(200)
         expect(json.length).to eq(1)
@@ -98,7 +98,7 @@ RSpec.describe 'Staff API' do
         sign_in_as create :staff, :admin
       end
 
-      it 'adds related project' do
+      it 'adds related project', :show_in_doc do
         post "/staff/#{@staff.id}/projects/#{@project.id}"
         expect(response.status).to eq(201)
         expect(json['name']).to eq(@project.name)
@@ -113,7 +113,7 @@ RSpec.describe 'Staff API' do
         sign_in_as create :staff, :admin
       end
 
-      it 'removes related project' do
+      it 'removes related project', :show_in_doc do
         delete "/staff/#{@staff.id}/projects/#{@project.id}"
         expect(response.status).to eq(204)
       end

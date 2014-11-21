@@ -8,7 +8,7 @@ RSpec.describe 'Products API' do
       @products = Product.all
     end
 
-    it 'returns a collection of all of the products' do
+    it 'returns a collection of all of the products', :show_in_doc do
       get '/products'
       expect(response.body).to eq(@products.to_json)
     end
@@ -20,7 +20,7 @@ RSpec.describe 'Products API' do
       @product = Product.first
     end
 
-    it 'returns an product' do
+    it 'returns an product', :show_in_doc do
       get "/products/#{@product.id}"
       expect(response.body).to eq(@product.to_json)
     end
@@ -38,7 +38,7 @@ RSpec.describe 'Products API' do
       @product = Product.first
     end
 
-    it 'updates a product' do
+    it 'updates a product', :show_in_doc do
       put "/products/#{@product.id}", product: { options: ['test'] }
       expect(JSON(response.body)['options']).to eq(['test'])
     end
@@ -57,7 +57,7 @@ RSpec.describe 'Products API' do
   end
 
   describe 'POST create' do
-    it 'creates an product' do
+    it 'creates an product', :show_in_doc do
       post '/products/', product: { options: ['test'] }
       expect(response.body).to eq(Product.first.to_json)
     end
@@ -74,7 +74,7 @@ RSpec.describe 'Products API' do
       @product = create :product
     end
 
-    it 'removes the product' do
+    it 'removes the product', :show_in_doc do
       delete "/products/#{@product.id}"
       expect(response.status).to eq(200)
     end
