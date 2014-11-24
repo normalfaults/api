@@ -12,6 +12,11 @@ RSpec.describe 'Products API' do
       get '/products'
       expect(response.body).to eq(@products.to_json)
     end
+
+    it 'returns a collection of all of the products w/ chargebacks', :show_in_doc do
+      get '/products', include: %w(chargebacks)
+      expect(json[0]['chargebacks']).to_not eq(nil)
+    end
   end
 
   describe 'GET show' do
@@ -23,6 +28,11 @@ RSpec.describe 'Products API' do
     it 'returns an product', :show_in_doc do
       get "/products/#{@product.id}"
       expect(response.body).to eq(@product.to_json)
+    end
+
+    it 'returns an product w/ chargebacks', :show_in_doc do
+      get "/products/#{@product.id}", include: %w(chargebacks)
+      expect(json['chargebacks']).to_not eq(nil)
     end
 
     it 'returns an error when the product does not exist' do
