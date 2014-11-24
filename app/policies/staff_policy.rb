@@ -31,6 +31,26 @@ class StaffPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def user_settings?
+    admin_or_self
+  end
+
+  def show_user_setting?
+    admin_or_self
+  end
+
+  def add_user_setting?
+    admin_or_self
+  end
+
+  def update_user_setting?
+    admin_or_self
+  end
+
+  def remove_user_setting?
+    admin_or_self
+  end
+
   class Scope < Scope
     def resolve
       scope

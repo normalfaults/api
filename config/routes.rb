@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   # Approvals
   resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
     member do
+      get :user_settings, to: 'staff#user_settings', as: :user_settings_for
+      match 'user_settings/new' => 'staff#add_user_setting', :via => :post
+      match 'user_settings/:user_setting_id' => 'staff#show_user_setting', :via => :get
+      match 'user_settings/:user_setting_id' => 'staff#update_user_setting', :via => :put
+      match 'user_settings/:user_setting_id' => 'staff#remove_user_setting', :via => :delete
       get :projects, to: 'staff#projects', as: :projects_for
       match 'projects/:project_id' => 'staff#add_project', :via => :post, as: :add_project_to
       match 'projects/:project_id' => 'staff#remove_project', :via => :delete, as: :remove_project_from

@@ -8,8 +8,13 @@ class StaffController < ApplicationController
   after_action :verify_authorized
 
   before_action :load_staffs, only: [:index]
-  before_action :load_staff, only: [:show, :update, :destroy, :projects, :add_project, :remove_project]
+  before_action :load_staff, only: [:show, :update, :destroy, :projects, :add_project, :remove_project, :user_settings, :show_user_setting, :add_user_setting, :update_user_setting, :remove_user_setting]
   before_action :load_project, only: [:add_project, :remove_project]
+  before_action :load_user_settings, only: [:user_settings]
+  before_action :load_update_user_setting_params, only: [:update_user_setting]
+  before_action :load_add_user_setting_params, only: [:add_user_setting]
+  before_action :load_id_for_user_setting_name, only: [:add_user_setting]
+  before_action :load_user_setting, only: [:show_user_setting, :update_user_setting, :remove_user_setting]
   before_action :load_staff_params, only: [:create, :update]
 
   api :GET, '/staff', 'Returns a collection of staff'
@@ -111,6 +116,82 @@ class StaffController < ApplicationController
     end
   end
 
+  api :GET, '/staff/:id/user_settings', 'Shows collection of user settings for a staff :id'
+  param :id, :number, required: true, desc: 'staff_id'
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
+  def user_settings
+    authorize @staff
+    respond_with @user_settings
+  end
+
+  api :GET, '/staff/:id/user_settings/:user_setting_id', 'Shows user settings detail'
+  param :id, :number, required: true, desc: 'staff_id'
+  param :user_setting_id, :number, required: true, desc: 'user_setting_id'
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+
+  def show_user_setting
+    authorize @staff
+    respond_with @user_setting
+  end
+
+  api :POST, '/staff/:id/user_settings/new', 'Adds user setting to a staff member. Duplicate user setting name triggers update.'
+  param :id, :number, required: true, desc: 'staff_id'
+  param :user_setting, Hash, required: true, desc: 'User Setting' do
+    param :name, String, required: true
+    param :value, String, required: true
+  end
+  error code: 422, desc: MissingRecordDetection::Messages.not_found
+
+  def add_user_setting
+    authorize @staff
+    @user_setting = UserSetting.new @add_user_setting_params
+    @user_setting[:staff_id] = params[:id]
+    if @id_for_user_setting_name.nil?
+      if @user_setting.save
+        render json: @user_setting
+      else
+        respond_with @user_setting.errors, status: :unprocessable_entity
+      end
+    else # ON DUPLICATE KEY UPDATE
+      params[:user_setting_id] = @id_for_user_setting_name
+      load_update_user_setting_params
+      load_user_setting
+      update_user_setting
+    end
+  end
+
+  api :PUT, '/staff/:id/user_settings/:user_setting_id', 'Updates a staff member\'s user setting with a new value.'
+  param :id, :number, required: true, desc: 'staff_id'
+  param :user_setting_id, :number, required: true, desc: 'user_setting_id'
+  param :user_setting, Hash, required: true, desc: 'User Setting' do
+    param :value, String, required: true
+  end
+  error code: 422, desc: MissingRecordDetection::Messages.not_found
+
+  def update_user_setting
+    authorize @staff
+    if @user_setting.update_attributes @update_user_setting_params
+      render json: @user_setting
+    else
+      respond_with @user_setting.errors, status: :unprocessable_entity
+    end
+  end
+
+  api :DELETE, '/staff/:id/user_settings/:user_setting_id', 'Deletes a user setting from a staff member.'
+  param :id, :number, required: true, desc: 'staff_id'
+  param :user_setting_id, :number, required: true, desc: 'user_setting_id'
+  error code: 422, desc: MissingRecordDetection::Messages.not_found
+
+  def remove_user_setting
+    authorize @staff
+    if @user_setting.destroy
+      render json: @user_setting
+    else
+      respond_with @user_setting.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def load_staffs
@@ -128,5 +209,26 @@ class StaffController < ApplicationController
 
   def load_project
     @project = Project.find params.require(:project_id)
+  end
+
+  def load_user_setting
+    @user_setting = UserSetting.find params.require(:user_setting_id)
+  end
+
+  def load_user_settings
+    @user_settings = UserSetting.where('staff_id = ?', params[:id])
+  end
+
+  def load_add_user_setting_params
+    @add_user_setting_params = params.require(:user_setting).permit(:name, :value)
+  end
+
+  def load_update_user_setting_params
+    @update_user_setting_params = params.require(:user_setting).permit(:value)
+  end
+
+  def load_id_for_user_setting_name
+    user_setting = UserSetting.where('staff_id = ? AND name = ?', params[:id], @add_user_setting_params['name']).first
+    @id_for_user_setting_name = (user_setting.nil? || user_setting.id.nil?) ? nil : user_setting.id
   end
 end
