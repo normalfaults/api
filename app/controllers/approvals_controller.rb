@@ -1,8 +1,4 @@
 class ApprovalsController < ApplicationController
-  extend Apipie::DSL::Concern
-  include MissingRecordDetection
-  include ParameterValidation
-
   respond_to :json
 
   before_action :load_approval, only: [:show, :update, :destroy]
@@ -12,19 +8,21 @@ class ApprovalsController < ApplicationController
   after_action :verify_authorized
 
   api :GET, '/approvals', 'Returns a collection of approvals'
+  param :include, Array, required: false, in: %w(staff project)
 
   def index
     authorize Approval.new
-    respond_with @approvals
+    respond_with_resolved_associations @approvals
   end
 
   api :GET, '/approvals/:id', 'Shows approval with :id'
   param :id, :number, required: true
+  param :include, Array, required: false, in: %w(staff project)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @approval
-    respond_with @approval
+    respond_with_resolved_associations @approval
   end
 
   api :POST, '/approvals', 'Creates approval'

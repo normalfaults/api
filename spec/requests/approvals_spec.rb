@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Approvals API' do
   describe 'GET index' do
     before(:each) do
-      create :approval
-      create :approval
+      @approval = create :approval
+      @approval2 = create :approval
       @approvals = Approval.all
       sign_in_as create :staff, :admin
     end
@@ -12,6 +12,25 @@ RSpec.describe 'Approvals API' do
     it 'returns a collection of all of the approvals', :show_in_doc do
       get '/approvals'
       expect(json.length).to eq(2)
+    end
+
+    it 'returns a collection of all of the approvals /w staff members', :show_in_doc do
+      staff = create :staff
+      @approval.update_attributes(staff_id: staff.id)
+      @approval2.update_attributes(staff_id: staff.id)
+
+      get '/approvals', include: ['staff']
+      expect(json[0]['staff']).to_not eq(nil)
+    end
+
+    it 'returns a collection of all of the approvals /w staff projects', :show_in_doc do
+      project = create :project
+      @approval.update_attributes(project_id: project.id)
+      @approval2.update_attributes(project_id: project.id)
+
+      get '/approvals', include: ['project']
+
+      expect(json[0]['project']).to_not eq(nil)
     end
   end
 
@@ -24,6 +43,22 @@ RSpec.describe 'Approvals API' do
     it 'returns an approval', :show_in_doc do
       get "/approvals/#{@approval.id}"
       expect(json['id']).to eq(@approval.id)
+    end
+
+    it 'returns an approval w/ a staff member', :show_in_doc do
+      staff = create :staff
+      @approval.update_attributes(staff_id: staff.id)
+
+      get "/approvals/#{@approval.id}", include: ['staff']
+      expect(json['staff']).to_not eq(nil)
+    end
+
+    it 'returns an approval w/ a project', :show_in_doc do
+      project = create :project
+      @approval.update_attributes(project_id: project.id)
+
+      get "/approvals/#{@approval.id}", include: ['project']
+      expect(json['project']).to_not eq(nil)
     end
 
     it 'returns an error when the approval does not exist' do

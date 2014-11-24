@@ -1,8 +1,4 @@
 class OrganizationsController < ApplicationController
-  extend Apipie::DSL::Concern
-  include MissingRecordDetection
-  include ParameterValidation
-
   respond_to :json
 
   before_action :load_organization, only: [:show, :update, :destroy]
@@ -13,7 +9,7 @@ class OrganizationsController < ApplicationController
 
   def index
     authorize @organizations
-    respond_with @organizations
+    respond_with_resolved_associations @organizations
   end
 
   api :GET, '/organizations/:id', 'Shows organization with :id'
@@ -22,7 +18,7 @@ class OrganizationsController < ApplicationController
 
   def show
     authorize @organization
-    respond_with @organization
+    respond_with_resolved_associations @organization
   end
 
   api :POST, '/organizations', 'Creates organization'

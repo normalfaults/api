@@ -1,8 +1,4 @@
 class ProjectsController < ApplicationController
-  extend Apipie::DSL::Concern
-  include MissingRecordDetection
-  include ParameterValidation
-
   respond_to :json, :xml
 
   after_action :verify_authorized
@@ -13,19 +9,21 @@ class ProjectsController < ApplicationController
   before_action :load_project_params, only: [:create, :update]
 
   api :GET, '/projects', 'Returns a collection of projects'
+  param :include, Array, required: false, in: %w(staff)
 
   def index
     authorize Project.new
-    respond_with @projects
+    respond_with_resolved_associations @projects
   end
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
+  param :include, Array, required: false, in: %w(staff)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @project
-    respond_with @project
+    respond_with_resolved_associations @project
   end
 
   api :POST, '/projects', 'Creates projects'

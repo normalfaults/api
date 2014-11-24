@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Orders API' do
   describe 'GET index' do
     before(:each) do
-      create :order
-      create :order
+      @order1 = create :order
+      @order2 = create :order
       @orders = Order.all
     end
 
@@ -12,12 +12,46 @@ RSpec.describe 'Orders API' do
       get '/orders'
       expect(response.body).to eq(@orders.to_json)
     end
+
+    it 'returns orders w/ a product', :show_in_doc do
+      product = create :product
+      @order1.update_attributes(product_id: product.id)
+      @order2.update_attributes(product_id: product.id)
+
+      get '/orders', include: %w(product)
+      expect(json[0]['product']).to_not eq(nil)
+    end
+
+    it 'returns orders w/ a cloud', :show_in_doc do
+      cloud = create :cloud
+      @order1.update_attributes(cloud_id: cloud.id)
+      @order2.update_attributes(cloud_id: cloud.id)
+
+      get '/orders', include: %w(cloud)
+      expect(json[0]['cloud']).to_not eq(nil)
+    end
   end
 
   describe 'GET show' do
     before(:each) do
       create :order
       @order = Order.first
+    end
+
+    it 'returns an order w/ a cloud', :show_in_doc do
+      cloud = create :cloud
+      @order.update_attributes(cloud_id: cloud.id)
+
+      get "/orders/#{@order.id}", include: %w(cloud)
+      expect(json['cloud']).to_not eq(nil)
+    end
+
+    it 'returns an order w/ a product', :show_in_doc do
+      product = create :product
+      @order.update_attributes(product_id: product.id)
+
+      get "/orders/#{@order.id}", include: %w(product)
+      expect(json['product']).to_not eq(nil)
     end
 
     it 'returns an order', :show_in_doc do

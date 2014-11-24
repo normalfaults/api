@@ -1,6 +1,4 @@
 class SessionsController < Devise::SessionsController
-  extend Apipie::DSL::Concern
-
   api :POST, '/staff/sign_in', 'Signs user in'
   param :staff, Hash, desc: 'Staff' do
     param :email, String, desc: 'Email'

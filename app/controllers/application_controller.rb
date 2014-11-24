@@ -1,5 +1,9 @@
 # Default controller
 class ApplicationController < ActionController::Base
+  extend Apipie::DSL::Concern
+  include MissingRecordDetection
+  include ParameterValidation
+  include AssociationResolution
   include Pundit
 
   # Prevent CSRF attacks by raising an exception.
