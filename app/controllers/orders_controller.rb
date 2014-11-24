@@ -6,17 +6,19 @@ class OrdersController < ApplicationController
   before_action :load_orders, only: [:index]
 
   api :GET, '/orders', 'Returns a collection of orders'
+  param :include, Array, required: false, in: %w(staff product project cloud chargebacks)
 
   def index
-    respond_with @orders
+    respond_with_resolved_associations @orders
   end
 
   api :GET, '/orders/:id', 'Shows order with :id'
+  param :include, Array, required: false, in: %w(staff product project cloud chargebacks)
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    respond_with @order
+    respond_with_resolved_associations @order
   end
 
   api :POST, '/orders', 'Creates order'
