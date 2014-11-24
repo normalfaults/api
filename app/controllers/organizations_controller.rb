@@ -1,8 +1,4 @@
 class OrganizationsController < ApplicationController
-  extend Apipie::DSL::Concern
-  include MissingRecordDetection
-  include ParameterValidation
-
   respond_to :json
 
   before_action :load_organization, only: [:show, :update, :destroy]

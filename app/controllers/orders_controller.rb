@@ -1,8 +1,4 @@
 class OrdersController < ApplicationController
-  extend Apipie::DSL::Concern
-  include MissingRecordDetection
-  include ParameterValidation
-
   respond_to :json
 
   before_action :load_order, only: [:show, :update, :destroy]

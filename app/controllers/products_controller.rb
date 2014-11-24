@@ -1,8 +1,4 @@
 class ProductsController < ApplicationController
-  extend Apipie::DSL::Concern
-  include MissingRecordDetection
-  include ParameterValidation
-
   respond_to :json
 
   before_action :load_product, only: [:show, :update, :destroy]

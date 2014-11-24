@@ -1,9 +1,4 @@
 class CloudsController < ApplicationController
-  extend Apipie::DSL::Concern
-  include MissingRecordDetection
-  include ParameterValidation
-  include AssociationResolution
-
   respond_to :json
 
   after_action :verify_authorized
@@ -13,7 +8,7 @@ class CloudsController < ApplicationController
   before_action :load_clouds, only: [:index]
 
   api :GET, '/clouds', 'Returns a collection of clouds'
-  param :include, Array, required: false, in: ['chargebacks', 'orders', 'products']
+  param :include, Array, required: false, in: %w(chargebacks orders products)
 
   def index
     authorize Cloud
@@ -22,7 +17,7 @@ class CloudsController < ApplicationController
 
   api :GET, '/clouds/:id', 'Shows cloud with :id'
   param :id, :number, required: true
-  param :include, Array, required: false, in: ['chargebacks', 'orders', 'products']
+  param :include, Array, required: false, in: %w(chargebacks orders products)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
