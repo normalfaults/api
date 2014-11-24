@@ -14,19 +14,21 @@ class StaffController < ApplicationController
   before_action :load_staff_params, only: [:create, :update]
 
   api :GET, '/staff', 'Returns a collection of staff'
+  param :include, Array, required: false, in: %w(user_settings projects)
 
   def index
     authorize Staff.new
-    respond_with @staffs
+    respond_with_resolved_associations @staffs
   end
 
   api :GET, '/staff/:id', 'Shows staff member with :id'
   param :id, :number, required: true
+  param :include, Array, required: false, in: %w(user_settings projects)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @staff
-    respond_with @staff
+    respond_with_resolved_associations @staff
   end
 
   api :POST, '/staff', 'Creates a staff member'

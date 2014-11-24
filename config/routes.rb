@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   # Docs
-  apipie unless 'production' == Rails.env
+  apipie
 
   # Auth
   devise_for :staff, controllers: { sessions: 'sessions' }

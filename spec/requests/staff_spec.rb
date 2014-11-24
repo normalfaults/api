@@ -13,6 +13,16 @@ RSpec.describe 'Staff API' do
       get '/staff'
       expect(json.length).to eq(3)
     end
+
+    it 'returns a collection of all staff w/ projects', :show_in_doc do
+      get '/staff', include: %w(projects)
+      expect(json[0]['projects']).to_not eq(nil)
+    end
+
+    it 'returns a collection of all staff w/ user_settings', :show_in_doc do
+      get '/staff', include: %w(user_settings)
+      expect(json[0]['user_settings']).to_not eq(nil)
+    end
   end
 
   describe 'GET show' do
@@ -24,6 +34,16 @@ RSpec.describe 'Staff API' do
     it 'retrieves staff by id', :show_in_doc do
       get "/staff/#{@staff.id}"
       expect(json['first_name']).to eq(@staff.first_name)
+    end
+
+    it 'retrieves staff by id w/ projects', :show_in_doc do
+      get "/staff/#{@staff.id}", include: %w(projects)
+      expect(json['projects']).to_not eq(nil)
+    end
+
+    it 'retrieves staff by id w/ user_settings', :show_in_doc do
+      get "/staff/#{@staff.id}", include: %w(user_settings)
+      expect(json['user_settings']).to_not eq(nil)
     end
 
     it 'returns an error when the staff does not exist' do

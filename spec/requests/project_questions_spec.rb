@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'ProjectQuestions API' do
   describe 'GET index' do
     before(:each) do
-      create :project_question
-      create :project_question
+      @pq1 = create :project_question
+      @pq2 = create :project_question
       @project_questions = ProjectQuestion.all
       sign_in_as create :staff, :admin
     end
@@ -13,12 +13,31 @@ RSpec.describe 'ProjectQuestions API' do
       get '/project_questions'
       expect(json.length).to eq(2)
     end
+
+    it 'returns a collection of all of the project_questions w/ a project', :show_in_doc do
+      project = create :project
+      @pq1.update_attributes(project_id: project.id)
+      @pq2.update_attributes(project_id: project.id)
+
+      get '/project_questions', include: %w(project)
+
+      expect(json[0]['project']).to_not eq(nil)
+    end
   end
 
   describe 'GET show' do
     before(:each) do
       @project_question = create :project_question
       sign_in_as create :staff, :admin
+    end
+
+    it 'returns an project_question w/ a project', :show_in_doc do
+      get '/project_questions'
+      project = create :project
+      @project_question.update_attributes(project_id: project.id)
+
+      get "/project_questions/#{@project_question.id}", include: %w(project)
+      expect(json['project']).to_not eq(nil)
     end
 
     it 'returns an project_question', :show_in_doc do
