@@ -17,7 +17,7 @@ RSpec.describe 'Projects API' do
     it 'returns a collection of all of the products w/ staff', :show_in_doc do
       project = create :project
       staff = create :staff
-      staff_project = create :staff_project, staff_id: staff.id, project_id: project.id
+      create :staff_project, staff_id: staff.id, project_id: project.id
 
       get '/projects', include: ['staff']
 
@@ -44,7 +44,7 @@ RSpec.describe 'Projects API' do
 
     it 'returns a product w/ staff', :show_in_doc do
       staff = create :staff
-      staff_project = create :staff_project, staff_id: staff.id, project_id: @project.id
+      create :staff_project, staff_id: staff.id, project_id: @project.id
 
       get "/projects/#{@project.id}", include: ['staff']
 

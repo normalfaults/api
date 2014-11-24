@@ -7,9 +7,9 @@ FactoryGirl.define do
     role 'user'
     password 'test_pass'
 
-    created_at "2014-11-21T23:03:36.465Z"
+    created_at '2014-11-21T23:03:36.465Z'
 
-    updated_at "2014-11-21T23:03:36.465Z"
+    updated_at '2014-11-21T23:03:36.465Z'
 
     trait :user do
       email 'user@test.com'

@@ -1,8 +1,4 @@
 class StaffController < ApplicationController
-  extend Apipie::DSL::Concern
-  include MissingRecordDetection
-  include ParameterValidation
-
   respond_to :json, :xml
 
   after_action :verify_authorized
