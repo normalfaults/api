@@ -1,3 +1,3 @@
-ManageIQClient.host = 'https://miq-test.dpi.bah.com:3000'
-ManageIQClient.verify_ssl = false
-ManageIQClient.credentials = { user: 'admin', password: 'smartvm' }
+ManageIQClient.host = ENV['MANAGEIQ_HOST']
+ManageIQClient.verify_ssl = ENV['MANAGEIQ_SSL']
+ManageIQClient.credentials = { user: ENV['MANAGEIQ_USER'], password: ENV['MANAGEIQ_PASS'] }
