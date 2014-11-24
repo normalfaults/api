@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Chargebacks API' do
   describe 'GET index' do
     before(:each) do
-      create :chargeback
-      create :chargeback
+      @chargeback1 = create :chargeback
+      @chargeback2 = create :chargeback
       sign_in_as create :staff, :admin
       @chargebacks = Chargeback.all
     end
@@ -12,6 +12,24 @@ RSpec.describe 'Chargebacks API' do
     it 'returns a collection of all of the chargebacks', :show_in_doc do
       get '/chargebacks'
       expect(response.body).to eq(@chargebacks.to_json)
+    end
+
+    it 'returns a collection of all of the chargebacks w/ coulds', :show_in_doc do
+      cloud = create :cloud
+      @chargeback1.update_attributes(cloud_id: cloud.id)
+      @chargeback2.update_attributes(cloud_id: cloud.id)
+
+      get '/chargebacks', include: ['cloud']
+      expect(json[0]['cloud']).to_not eq(nil)
+    end
+
+    it 'returns a collection of all of the chargebacks w/ products', :show_in_doc do
+      product = create :product
+      @chargeback1.update_attributes(product_id: product.id)
+      @chargeback2.update_attributes(product_id: product.id)
+
+      get '/chargebacks', include: ['product']
+      expect(json[0]['product']).to_not eq(nil)
     end
   end
 
@@ -25,6 +43,22 @@ RSpec.describe 'Chargebacks API' do
     it 'returns an chargeback', :show_in_doc do
       get "/chargebacks/#{@chargeback.id}"
       expect(response.body).to eq(@chargeback.to_json)
+    end
+
+    it 'returns an chargeback w/ a cloud', :show_in_doc do
+      cloud = create :cloud
+      @chargeback.update_attributes(cloud_id: cloud.id)
+
+      get "/chargebacks/#{@chargeback.id}", include: ['cloud']
+      expect(json['cloud']).to_not eq(nil)
+    end
+
+    it 'returns an chargeback w/ a product', :show_in_doc do
+      product = create :product
+      @chargeback.update_attributes(product_id: product.id)
+
+      get "/chargebacks/#{@chargeback.id}", include: ['product']
+      expect(json['product']).to_not eq(nil)
     end
 
     it 'returns an error when the chargeback does not exist' do

@@ -2,6 +2,7 @@ class ChargebacksController < ApplicationController
   extend Apipie::DSL::Concern
   include MissingRecordDetection
   include ParameterValidation
+  include AssociationResolution
 
   respond_to :json
 
@@ -12,19 +13,21 @@ class ChargebacksController < ApplicationController
   before_action :load_chargebacks, only: [:index]
 
   api :GET, '/chargebacks', 'Returns a collection of chargebacks'
+  param :include, Array, required: false, in: ['cloud', 'product']
 
   def index
     authorize Chargeback
-    respond_with @chargebacks
+    respond_with_resolved_associations @chargebacks
   end
 
   api :GET, '/chargebacks/:id', 'Shows chargeback with :id'
   param :id, :number, required: true
+  param :include, Array, required: false, in: ['cloud', 'product']
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @chargeback
-    respond_with @chargeback
+    respond_with_resolved_associations @chargeback
   end
 
   api :POST, '/chargebacks', 'Creates a chargeback'
