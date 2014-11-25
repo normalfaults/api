@@ -95,6 +95,72 @@ RSpec.describe 'Staff API' do
     end
   end
 
+  context 'User Settings' do
+    describe 'GET' do
+      before :each do
+        @staff = create :staff, :user
+        @user_setting = create :user_setting
+        @staff.user_settings << @user_setting
+        sign_in_as create :staff, :admin
+      end
+
+      it 'retrieves a list of user settings', :show_in_doc do
+        get "/staff/#{@staff.id}/settings"
+        expect(response.status).to eq(200)
+      end
+
+      it 'looks up a user setting from id', :show_in_doc do
+        get "/staff/#{@staff.id}/settings/#{@user_setting.id}"
+        expect(response.status).to eq(200)
+        expect(json['name']).to eq(@user_setting.name)
+      end
+    end
+
+    describe 'POST' do
+      before :each do
+        @staff = create :staff, :user
+        sign_in_as @staff
+      end
+
+      it 'adds user setting to staff', :show_in_doc do
+        data = { user_setting: { name: 'foo', value: 'bar' } }
+        post "/staff/#{@staff.id}/settings", data
+        expect(json['name']).to eq(data[:user_setting][:name])
+        expect(json['staff_id']).to eq(@staff.id)
+      end
+    end
+
+    describe 'PUT' do
+      before :each do
+        @staff = create :staff, :user
+        @user_setting = create :user_setting
+        @staff.user_settings << @user_setting
+        sign_in_as @staff
+      end
+
+      it 'updates user setting of staff', :show_in_doc do
+        data = { user_setting: { value: 'updated' } }
+        put "/staff/#{@staff.id}/settings/#{@user_setting.id}", data
+        expect(json['value']).to eq(data[:user_setting][:value])
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe 'DELETE' do
+      before :each do
+        @staff = create :staff, :user
+        @user_setting = create :user_setting
+        @staff.user_settings << @user_setting
+        sign_in_as @staff
+      end
+
+      it 'removes user setting from staff', :show_in_doc do
+        delete "/staff/#{@staff.id}/settings/#{@user_setting.id}"
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+
   context 'Projects' do
     describe 'GET' do
       before :each do
