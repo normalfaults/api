@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124003901) do
+ActiveRecord::Schema.define(version: 20141125152838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,17 @@ ActiveRecord::Schema.define(version: 20141124003901) do
   add_index "products", ["cloud_id"], name: "index_products_on_cloud_id", using: :btree
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
 
+  create_table "project_answers", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "project_question_id"
+    t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_answers", ["project_id"], name: "index_project_answers_on_project_id", using: :btree
+  add_index "project_answers", ["project_question_id"], name: "index_project_answers_on_project_question_id", using: :btree
+
   create_table "project_questions", force: true do |t|
     t.string   "question"
     t.string   "field_type", limit: 100
@@ -131,12 +142,11 @@ ActiveRecord::Schema.define(version: 20141124003901) do
     t.boolean  "required"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "project_id"
     t.datetime "deleted_at"
+    t.integer  "load_order"
   end
 
   add_index "project_questions", ["deleted_at"], name: "index_project_questions_on_deleted_at", using: :btree
-  add_index "project_questions", ["project_id"], name: "index_project_questions_on_project_id", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "name"

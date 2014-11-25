@@ -1,5 +1,5 @@
 class ProjectQuestion < ActiveRecord::Base
   acts_as_paranoid
 
-  belongs_to :project
+  has_many :project_answers
 end

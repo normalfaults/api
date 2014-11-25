@@ -7,7 +7,7 @@ RSpec.describe 'Projects API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all projects', :show_in_doc do
+    it 'returns a collection of all projects' do
       create :project
       create :project
       get '/projects'
@@ -31,7 +31,7 @@ RSpec.describe 'Projects API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'retrieves project by id', :show_in_doc do
+    it 'retrieves project by id' do
       get "/projects/#{@project.id}"
       expect(json['name']).to eq(@project.name)
     end
@@ -54,14 +54,26 @@ RSpec.describe 'Projects API' do
   end
 
   describe 'POST create' do
+    let(:question) { 'Why did the chicken cross the road?' }
+    let(:answer) { 'To get to the other side.' }
+    let(:project_name) { 'To get to the other side.' }
+    let(:question_model) { create :project_question, question: question, load_order: 0 }
+
     before :each do
       sign_in_as create :staff, :admin
     end
 
-    it 'creates a new project record', :show_in_doc do
+    it 'creates a new project record' do
       project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img' }
       post '/projects', project: project_data
       expect(json['name']).to eq(project_data[:name])
+    end
+
+    it 'creates a new project record w/ project answers', :show_in_doc do
+      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
+      post '/projects', project: project_data, include: %w(project_answers)
+
+      expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
     end
 
     it 'returns an error if the project data is missing' do
