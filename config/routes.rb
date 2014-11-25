@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
     member do
       match 'settings' => 'staff#user_settings', :via => :get, as: :user_settings_for
-      match 'settings/new' => 'staff#add_user_setting', :via => :post
+      match 'settings' => 'staff#add_user_setting', :via => :post, as: :add_user_setting_to
       match 'settings/:user_setting_id' => 'staff#show_user_setting', :via => :get
       match 'settings/:user_setting_id' => 'staff#update_user_setting', :via => :put
-      match 'settings/:user_setting_id' => 'staff#remove_user_setting', :via => :delete
+      match 'settings/:user_setting_id' => 'staff#remove_user_setting', :via => :delete, as: :remove_user_setting_from
       get :projects, to: 'staff#projects', as: :projects_for
       match 'projects/:project_id' => 'staff#add_project', :via => :post, as: :add_project_to
       match 'projects/:project_id' => 'staff#remove_project', :via => :delete, as: :remove_project_from
