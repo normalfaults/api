@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  rescue_from ActiveRecord::RecordInvalid, with: :invalid_record_error
+
   respond_to :json, :xml
 
   after_action :verify_authorized
@@ -9,7 +11,7 @@ class ProjectsController < ApplicationController
   before_action :load_project_params, only: [:create, :update]
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :include, Array, required: false, in: %w(staff)
+  param :include, Array, required: false, in: %w(staff project_answers)
 
   def index
     authorize Project.new
@@ -18,7 +20,7 @@ class ProjectsController < ApplicationController
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :include, Array, required: false, in: %w(staff)
+  param :include, Array, required: false, in: %w(staff project_answers)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -28,6 +30,9 @@ class ProjectsController < ApplicationController
 
   api :POST, '/projects', 'Creates projects'
   param :project, Hash, desc: 'Project' do
+    param :project_answers, Array, desc: 'Project answers', required: false do
+      param :project_question_id, :number, desc: 'Id for valid project question', require: true
+    end
     param :name, String, required: false
     param :description, String, required: false
     param :cc, String, required: false
@@ -37,13 +42,16 @@ class ProjectsController < ApplicationController
     param :approved, String, required: false
     param :img, String, required: false
   end
+  param :include, Array, required: false, in: %w(staff project_answers)
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
-    @project = Project.new @project_params
-    authorize @project
-    if @project.save
-      respond_with @project
+    authorize Project
+
+    @project = Project.create_with_answers @project_params
+
+    if @project
+      respond_with_resolved_associations @project
     else
       respond_with @project.errors, status: :unprocessable_entity
     end
@@ -127,13 +135,17 @@ class ProjectsController < ApplicationController
 
   private
 
+  def invalid_record_error(e)
+    render json: { error: e.message }, status: 422
+  end
+
   def load_projects
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
     @projects = Project.all
   end
 
   def load_project_params
-    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_data, :approved, :img)
+    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_data, :approved, :img, project_answers: [:project_question_id, :answer])
   end
 
   def load_project
