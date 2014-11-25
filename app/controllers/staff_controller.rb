@@ -114,7 +114,7 @@ class StaffController < ApplicationController
     end
   end
 
-  api :GET, '/staff/:id/user_settings', 'Shows collection of user settings for a staff :id'
+  api :GET, '/staff/:id/settings', 'Shows collection of user settings for a staff :id'
   param :id, :number, required: true, desc: 'staff_id'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -123,7 +123,7 @@ class StaffController < ApplicationController
     respond_with @user_settings
   end
 
-  api :GET, '/staff/:id/user_settings/:user_setting_id', 'Shows user settings detail'
+  api :GET, '/staff/:id/settings/:user_setting_id', 'Shows user settings detail'
   param :id, :number, required: true, desc: 'staff_id'
   param :user_setting_id, :number, required: true, desc: 'user_setting_id'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -133,7 +133,7 @@ class StaffController < ApplicationController
     respond_with @user_setting
   end
 
-  api :POST, '/staff/:id/user_settings/new', 'Adds user setting to a staff member. Duplicate user setting name triggers update.'
+  api :POST, '/staff/:id/settings', 'Adds user setting to a staff member. Duplicate user setting name triggers update.'
   param :id, :number, required: true, desc: 'staff_id'
   param :user_setting, Hash, required: true, desc: 'User Setting' do
     param :name, String, required: true
@@ -159,7 +159,7 @@ class StaffController < ApplicationController
     end
   end
 
-  api :PUT, '/staff/:id/user_settings/:user_setting_id', 'Updates a staff member\'s user setting with a new value.'
+  api :PUT, '/staff/:id/settings/:user_setting_id', 'Updates a staff member\'s user setting with a new value.'
   param :id, :number, required: true, desc: 'staff_id'
   param :user_setting_id, :number, required: true, desc: 'user_setting_id'
   param :user_setting, Hash, required: true, desc: 'User Setting' do
@@ -176,7 +176,7 @@ class StaffController < ApplicationController
     end
   end
 
-  api :DELETE, '/staff/:id/user_settings/:user_setting_id', 'Deletes a user setting from a staff member.'
+  api :DELETE, '/staff/:id/settings/:user_setting_id', 'Deletes a user setting from a staff member.'
   param :id, :number, required: true, desc: 'staff_id'
   param :user_setting_id, :number, required: true, desc: 'user_setting_id'
   error code: 422, desc: MissingRecordDetection::Messages.not_found
