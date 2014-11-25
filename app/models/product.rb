@@ -4,4 +4,5 @@ class Product < ActiveRecord::Base
   store_accessor :options
 
   has_many :chargebacks
+  belongs_to :cloud
 end
