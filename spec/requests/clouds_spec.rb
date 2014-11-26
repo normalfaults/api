@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Clouds API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
       create :cloud

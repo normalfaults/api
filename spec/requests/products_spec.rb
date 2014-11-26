@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Products API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
       create :product
@@ -25,7 +27,7 @@ RSpec.describe 'Products API' do
       @product = Product.first
     end
 
-    it 'returns an product', :show_in_doc do
+    it 'returns an product' do
       get "/products/#{@product.id}"
       expect(response.body).to eq(@product.to_json)
     end

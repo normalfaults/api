@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'ProjectQuestions API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
       @pq1 = create :project_question

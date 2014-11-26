@@ -60,6 +60,9 @@ class ProjectsController < ApplicationController
   api :PUT, '/projects/:id', 'Updates project with :id'
   param :id, :number, required: true
   param :project, Hash, desc: 'Project' do
+    param :project_answers, Array, desc: 'Project answers', required: false do
+      param :project_question_id, :number, desc: 'Id for valid project question', require: true
+    end
     param :name, String, required: false
     param :description, String, required: false
     param :cc, String, required: false
@@ -69,16 +72,14 @@ class ProjectsController < ApplicationController
     param :approved, String, required: false
     param :img, String, required: false
   end
+  param :include, Array, required: false, in: %w(staff project_answers)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     authorize @project
-    if @project.update_attributes @project_params
-      respond_with @project
-    else
-      respond_with @project.errors, status: :unprocessable_entity
-    end
+    @project.update_with_answers! @project_params
+    respond_with_resolved_associations @project
   end
 
   api :DELETE, '/projects/:id', 'Deletes project with :id'

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Approvals API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
       @approval = create :approval
