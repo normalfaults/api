@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125152838) do
+ActiveRecord::Schema.define(version: 20141126153315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,14 +136,14 @@ ActiveRecord::Schema.define(version: 20141125152838) do
 
   create_table "project_questions", force: true do |t|
     t.string   "question"
-    t.string   "field_type", limit: 100
     t.string   "help_text"
-    t.text     "options"
     t.boolean  "required"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "load_order"
+    t.json     "options"
+    t.integer  "field_type", default: 0
   end
 
   add_index "project_questions", ["deleted_at"], name: "index_project_questions_on_deleted_at", using: :btree

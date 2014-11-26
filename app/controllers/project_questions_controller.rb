@@ -28,9 +28,9 @@ class ProjectQuestionsController < ApplicationController
   api :POST, '/project_questions', 'Creates project_question'
   param :project_question, Hash, desc: 'ProjectQuestion' do
     param :question, String, desc: 'Question'
-    param :field_type, String, desc: 'Field Type'
+    param :field_type, String, desc: 'Field Type', in: %w(radio select_option text date)
     param :help_text, String, desc: 'Help Text'
-    param :options, String, desc: 'Options'
+    param :options, Array, desc: 'Options'
     param :required, :bool, desc: 'Required?'
   end
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -48,8 +48,8 @@ class ProjectQuestionsController < ApplicationController
   api :PUT, '/project_questions/:id', 'Updates project_question with :id'
   param :id, :number, required: true
   param :project_question, Hash, desc: 'ProjectQuestion' do
-    param :question, String, desc: 'Question'
-    param :field_type, String, desc: 'Field Type'
+    param :question, Array, desc: 'Question'
+    param :field_type, String, desc: 'Field Type', in: %w(radio select_option text date)
     param :help_text, String, desc: 'Help Text'
     param :options, String, desc: 'Options'
     param :required, :bool, desc: 'Required?'

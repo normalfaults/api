@@ -1,6 +1,7 @@
 # Default controller
 class ApplicationController < ActionController::Base
   extend Apipie::DSL::Concern
+  include InvalidRecordDetection
   include MissingRecordDetection
   include ParameterValidation
   include AssociationResolution

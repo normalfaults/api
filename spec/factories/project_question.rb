@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :project_question do
     question 'Question?'
-    field_type 'mock'
+    field_type :text
     help_text 'helping'
-    options %w(one tow three).to_s
+    options %w(one tow three)
     required true
 
     trait :optional do
