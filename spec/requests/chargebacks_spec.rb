@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Chargebacks API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
       @chargeback1 = create :chargeback

@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Projects API' do
+  let(:default_params) { { format: :json } }
+
+  let(:question) { 'Why did the chicken cross the road?' }
+  let(:answer) { 'To get to the other side.' }
+  let(:project_name) { 'To get to the other side.' }
+  let(:question_model) { create :project_question, question: question, load_order: 0 }
 
   describe 'GET index' do
     before :each do
@@ -54,10 +60,6 @@ RSpec.describe 'Projects API' do
   end
 
   describe 'POST create' do
-    let(:question) { 'Why did the chicken cross the road?' }
-    let(:answer) { 'To get to the other side.' }
-    let(:project_name) { 'To get to the other side.' }
-    let(:question_model) { create :project_question, question: question, load_order: 0 }
 
     before :each do
       sign_in_as create :staff, :admin
@@ -89,9 +91,16 @@ RSpec.describe 'Projects API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'changes existing project', :show_in_doc do
+    it 'changes existing project' do
       put "/projects/#{@project.id}", project: { name: 'Updated' }
-      expect(response.status).to eq(204)
+      expect(response.status).to eq(200)
+    end
+
+    it 'updates a project record w/ project answers', :show_in_doc do
+      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
+      put "/projects/#{@project.id}", project: project_data, include: %w(project_answers)
+
+      expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
     end
 
     it 'returns an error if the project data is missing' do

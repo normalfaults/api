@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Orders API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
       @order1 = create :order
