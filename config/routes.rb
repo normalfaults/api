@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   # Auth
   devise_for :staff, controllers: { sessions: 'sessions' }
 
+  # User Setting Options Routes
+  resources :user_setting_options, defaults: { format: :json }
+
   # Approvals
   resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
     member do
