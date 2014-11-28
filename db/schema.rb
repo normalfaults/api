@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125152838) do
+ActiveRecord::Schema.define(version: 20141125222152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,20 @@ ActiveRecord::Schema.define(version: 20141125152838) do
 
   add_index "staff_projects", ["project_id"], name: "index_staff_projects_on_project_id", using: :btree
   add_index "staff_projects", ["staff_id", "project_id"], name: "index_staff_projects_on_staff_id_and_project_id", unique: true, using: :btree
+
+  create_table "user_setting_options", force: true do |t|
+    t.string   "label"
+    t.string   "field_type", limit: 100
+    t.string   "help_text"
+    t.text     "options"
+    t.boolean  "required",               default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "user_setting_options", ["deleted_at"], name: "index_user_setting_options_on_deleted_at", using: :btree
+  add_index "user_setting_options", ["label"], name: "index_user_setting_options_on_label", unique: true, using: :btree
 
   create_table "user_settings", force: true do |t|
     t.integer  "staff_id"
