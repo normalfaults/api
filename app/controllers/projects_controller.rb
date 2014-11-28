@@ -1,6 +1,4 @@
 class ProjectsController < ApplicationController
-  rescue_from ActiveRecord::RecordInvalid, with: :invalid_record_error
-
   respond_to :json, :xml
 
   after_action :verify_authorized
@@ -135,10 +133,6 @@ class ProjectsController < ApplicationController
   end
 
   private
-
-  def invalid_record_error(e)
-    render json: { error: e.message }, status: 422
-  end
 
   def load_projects
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
