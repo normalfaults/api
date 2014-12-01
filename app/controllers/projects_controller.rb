@@ -4,9 +4,10 @@ class ProjectsController < ApplicationController
   after_action :verify_authorized
 
   before_action :load_projects, only: [:index]
-  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff]
+  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff, :approve, :reject]
   before_action :load_staff, only: [:add_staff, :remove_staff]
   before_action :load_project_params, only: [:create, :update]
+  before_action :load_approval, only: [:approve, :reject]
 
   api :GET, '/projects', 'Returns a collection of projects'
   param :include, Array, required: false, in: %w(staff project_answers)
@@ -132,6 +133,26 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def approve
+    authorize @project
+    @approval.approved = true
+    if @approval.save
+      respond_with @approval
+    else
+      respond_with @approval.errors, status: :unprocessable_entity
+    end
+  end
+
+  def reject
+    authorize @project
+    @approval.approved = false
+    if @approval.save
+      respond_with @approval
+    else
+      respond_with @approval.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def load_projects
@@ -149,5 +170,9 @@ class ProjectsController < ApplicationController
 
   def load_staff
     @staff = Staff.find params.require(:staff_id)
+  end
+
+  def load_approval
+    @approval = Approval.where(project_id: params.require(:id), staff_id: current_user.id).first
   end
 end
