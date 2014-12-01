@@ -181,7 +181,7 @@ RSpec.describe 'Projects API' do
 
       it 'non-approvers cannot approve' do
         put "/projects/#{@extra_project.id}/approve"
-        expect(response.status).to eq(302)
+        expect(response.status).to eq(401)
       end
     end
 
@@ -204,7 +204,7 @@ RSpec.describe 'Projects API' do
 
       it 'non-approvers cannot reject' do
         put "/projects/#{@extra_project.id}/reject"
-        expect(response.status).to eq(302)
+        expect(response.status).to eq(401)
       end
     end
   end
