@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # Docs
   apipie
 
@@ -11,6 +10,10 @@ Rails.application.routes.draw do
 
   # Approvals
   resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
+    collection do
+      match 'current_member' => 'staff#current_member', via: :get, defaults: { format: :json }
+    end
+
     member do
       match 'settings' => 'staff#user_settings', :via => :get, as: :user_settings_for
       match 'settings' => 'staff#add_user_setting', :via => :post, as: :add_user_setting_to
