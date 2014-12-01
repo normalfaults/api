@@ -6,7 +6,8 @@ RSpec.describe 'ProjectQuestions API' do
   describe 'GET index' do
     before(:each) do
       @pq1 = create :project_question
-      @pq2 = create :project_question
+      @pq2 = create :project_question, :required_text
+
       @project_questions = ProjectQuestion.all
       sign_in_as create :staff, :admin
     end
