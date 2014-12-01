@@ -1,0 +1,364 @@
+#
+# Description: This miq method will update chef and send back information to servicemix
+#
+require 'json'
+require 'aws-sdk'
+require 'chef'
+require 'chef/config'
+require 'chef/log'
+require 'chef/rest'
+require 'chef/http'
+require 'chef/node'
+require 'rest-client' # must be after chef/rest
+require 'erb'
+
+# =================================
+# miq connector module 
+# =================================
+module MiqConnector
+
+  class ServicemixPayload
+    attr_accessor :data, :template
+
+    def initialize(data)
+      # if we want to specify the template in an external file we could get it this way
+      # vs declaring it inline.
+      #@template = File.read(template)
+
+      # We aren't sending the engine tags as of 2014-09-18
+      # "tags": [ <%= item[:tags].map{|i| '"' + i + '"'}.join(',') %> ],
+
+      # status should be one of the following: OK, WARNING, CRITICAL, UNKNOWN
+      @template = %{
+        {
+          "status": "#{data[:status]}",
+          "description": "#{data[:description]}",
+          "order_id":"#{data[:order_id]}",
+          "items": [
+            <% data[:items].each_with_index do |item, index| %>
+            {
+              "order_product_id":"#{data[:order_product_id]}",
+              "mpuuid": "<%= item[:mpuuid] %>",
+              "public_fqdn": "<%=item[:fqdn] %>",
+              "cloudforms_guid": "<%= item[:cloudforms_guid] %>",
+              "public_ip_addr": "<%= item[:public_ip_address] %>",
+              "aws_instance_id": "<%= item[:aws_instance_id] %>",
+              "private_fqdn": "<%= item[:private_fqdn] %>",
+              "private_ip_addr": "<%= item[:private_ip_address] %>",
+              "status": "<%= item[:status] %>",
+              "vmid": "<%= item[:vmid] %>"
+            }<% if index+1 != data[:items].length %>,<% end %>
+            <% end %>
+          ]
+        }
+      }
+      @data = data
+    end
+
+    def json()
+      b = binding
+      template = ERB.new(@template, 0, "%<>")
+      return template.result(b)
+    end
+
+  end
+
+  class MiqConnector
+    attr_accessor :aws_instance_data, :miq_request_data
+
+    def log(msg)
+      #@logger_file.puts(msg)
+      $evm.log("info", msg)
+    end
+
+    def initialize(miq_request_data)
+      @miq_request_data = miq_request_data
+      #@logger_file = File.open('/home/miqbuilder/miq_connector.log', 'a')
+      
+      raise "Unexpected/Incomplete configuration" if !self.is_configured?
+      # extract the vm ids
+      aws_vm_ids = @miq_request_data[:aws_vms].map {|vm| vm.uid_ems}
+      log("Loading AWS data ....")
+      @aws_instance_data = load_amazon_instance_collection_info(aws_vm_ids)
+      log("AWS data loaded")
+      log("== AWS data ===============")
+      log(@aws_instance_data.inspect)
+      log("== END AWS data ===============")
+    end
+
+    def process_order
+      # json template for servicemix
+      data = {}
+      data[:status] = "completed"
+      data[:description] = "Order Provisioned Successfully"
+      data[:order_product_id] = @miq_request_data[:order_product_id]
+      data[:order_id] = @miq_request_data[:order_id]
+      items = [] # this should only be one item
+
+      if @aws_instance_data.data.has_key?(:instances_set)
+        puts "has 'instances_set'"
+        instances = @aws_instance_data.data[:instances_set]
+      else
+        instances = @aws_instance_data.data[:instance_index]
+      end
+
+      # this should only be a single instance
+      instances.each do |aws_i|
+        aws_instance = aws_i[1]
+        # find the aws vm object that matches the current aws instance
+        miq_vm = @miq_request_data[:aws_vms].find{|e| e.uid_ems == aws_instance[:instance_id]}
+
+        # must be done in the loop because we have to update each chef server indvidually
+        update_chef(aws_instance[:private_ip_address], @miq_request_data[:chef_roles])
+
+        # build the item array of hashes for servicemix
+        item = {
+          :order_product_id => @miq_request_data[:order_product_id],
+          :mpuuid => @miq_request_data[:mpuuid],
+          :public_fqdn => aws_instance[:dns_name],
+          :cloudforms_guid => miq_vm.guid,
+          :public_ip_address => aws_instance[:ip_address],
+          :aws_instance_id => aws_instance[:instance_id],
+          :private_fqdn => aws_instance[:private_dns_name],
+          :private_ip_address => aws_instance[:private_ip_address],
+          :chef_roles => @miq_request_data[:chef_roles],
+          :ip_addr => aws_instance[:ip_address],
+          :vmid => miq_vm.id,
+          :status => "completed"
+          
+        }
+
+        # add the item to items array for this order
+        items.push item
+      end
+
+
+      data[:items] = items
+      
+      # inject the data into the template
+      servicemix_payload = ServicemixPayload.new(data)
+      servicemix_data = servicemix_payload.json()
+
+      # send the data off to servicemix with all of the instance data
+log(servicemix_data.to_json)
+      update_servicemix(servicemix_data)
+    end
+
+    def is_configured?
+      if (is_chef_configured? && is_servicemix_configured? && is_amazon_configured?)
+        return true
+      else
+        return false
+      end
+    end
+
+    def is_chef_configured?
+      if !@miq_request_data[:chef_server_url].nil?  && !@miq_request_data[:chef_client_name].nil? && !@miq_request_data[:chef_signing_key_filename].nil?
+        # TODO test to see that pem file is accessible
+        return true
+      else
+        return false
+      end
+    end
+
+    def is_servicemix_configured?
+      if !@miq_request_data[:servicemix_url].nil?
+        return true
+      else
+        return false
+      end
+    end
+
+    # this should probably be more generic for any cloud provider configuration
+    def is_amazon_configured?
+      if !@miq_request_data[:aws_access_key_id].nil? && !@miq_request_data[:aws_secret_access_key].nil?
+        return true
+      else
+        return false
+      end
+    end
+
+    def chef_node_name(private_ip_address)
+      chef_name = "ip-#{private_ip_address.gsub('.','-')}"
+      return chef_name
+    end
+
+    def load_amazon_instance_collection_info(instance_ids)
+      ec2_client = AWS::EC2::Client.new(
+          :access_key_id => @miq_request_data[:aws_access_key_id],
+          :secret_access_key => @miq_request_data[:aws_secret_access_key]
+        )
+      log("== EC2 Client created")
+      return ec2_client.describe_instances(:instance_ids => instance_ids)
+    end
+
+    def update_chef(private_ip, roles)
+      begin
+        rest = Chef::REST.new(@miq_request_data[:chef_server_url], @miq_request_data[:chef_client_name], @miq_request_data[:chef_signing_key_filename])
+        resource = "nodes/#{chef_node_name(private_ip)}"
+        log("== Chef Node Name")
+        log(resource)
+        log("== End Chef Node Name")
+        
+        log("== Chef Roles ============================")
+        log(roles.inspect)
+        log("Roles is a: #{roles.class}")
+        log("== End Chef Roles ============================")
+
+        chef_node = rest.get_rest(resource)
+
+        log("== Chef Data Fetched ============================")
+        log(chef_node.to_json)
+        log("== End Chef Data Fetched============================")
+
+        #reformat the role list to use the format "role[rolname]"
+        roles.map {|r| "role[#{r}]"}
+
+        # set the roles 
+        chef_node.run_list(roles)
+
+        log("== Updated Chef Data ============================")
+        log(chef_node.to_json)
+        log("== End  Updated Chef Data ============================")
+
+
+        # update this chef node with the roles
+        rest.put(resource, chef_node)
+
+        updated_node = rest.get(resource)
+        
+        log("== Retrieved Chef Data ============================")
+        log(updated_node.to_json)
+        log("== End Retrieved Chef Data ============================")
+        log("== Chef successfully updated")
+
+        return chef_node.to_json
+      rescue => err
+         failed_msg = %{
+          {
+            "status": "WARNING",
+            "description": "There was a problem updating chef.",
+            "order_id":"#{@miq_request_data[:order_id]}",
+            "items": [{
+              "order_product_id": "#{@miq_request_data[:order_product_id]}",
+              "mpuuid": "none",
+              "public_fqdn": "none",
+              "cloudforms_guid": "none",
+              "public_ip_addr": "none",
+              "aws_instance_id": "none",
+              "private_fqdn": "",
+              "private_ip_addr": "",
+              "status": "failed",
+              "vmid": "none"
+            }]
+          }
+        }
+
+        update_servicemix(failed_msg)
+        log(err.message)
+        log(err.backtrace.inspect)
+      end
+    end
+
+    def update_servicemix(json_to_post)
+      begin
+        resp = RestClient.post(@miq_request_data[:servicemix_url], json_to_post, :content_type => :json){|response, request, result, &block|
+          log("== Data sent to servicemix ============================")
+          log(json_to_post)
+          log("== End Data sent to servicemix ============================")
+          case response.code
+
+          when 200
+            log("servicemix returned code 200 and updated successfully")
+          else
+            log("servicemix returned code #{response.code}")
+          end
+
+        }
+      rescue => e
+        log("== Problem sending data to servicemix")
+      end
+    end
+
+  end
+end
+
+# =================================
+# end miq connector module
+# =================================
+
+begin
+
+  @method = '======= Update servicemix and Chef  =========='
+  @debug = true
+
+  $evm.log("info", "#{@method}")
+
+  if ($evm.root['dialog_chef_roles'].nil?)
+    chef_roles = ['boozallen']
+  else
+    # extract the chef roles from the json
+    chef_roles = JSON.parse($evm.root['dialog_chef_roles'])
+    # make sure that the roles include "boozallen"
+    chef_roles.unshift('boozallen')
+  end
+  
+  # build the data that the miq connector class need to be instantiated
+  miq_request_data = {
+    :chef_server_url => $evm.root['dialog_chef_url'],
+    :chef_client_name => $evm.root['dialog_chef_client_name'],
+    :chef_signing_key_filename => $evm.root['dialog_chef_signing_key_filename'],
+    :servicemix_url => $evm.root['dialog_servicemix_url'],
+    :order_id => $evm.root['dialog_order_id'],
+    :order_product_id => $evm.root['dialog_order_product_id'],
+    :aws_access_key_id => $evm.root['dialog_aws_access_id'],
+    :aws_secret_access_key => $evm.root['dialog_aws_secret_access_key'],
+    :aws_vms => $evm.root['service_template_provision_task'].destination.vms,
+    :chef_roles => chef_roles,
+    :mpuuid => $evm.root['dialog_mpuuid']
+  }
+
+  # Get current provisioning status
+  task = $evm.root['service_template_provision_task']
+  task_status = task['status']
+
+  $evm.log("info", "Task Status==#{task_status}")
+  dpi = MiqConnector::MiqConnector.new(miq_request_data)
+  $evm.log("info", "dpi object instantiated successfully")
+
+  # if the order wasn't provisioned return 
+  if task.status != 'ok'
+    $evm.log("warn", "Provision Failed for order: #{$evm.root['dialog_order_id']}, order_product_id:#{$evm.root['dialog_order_product_id']}")
+    failed_msg = %{
+      {
+        "status": "failed",
+        "description": "The order has failed",
+        "order_id":"#{$evm.root['dialog_order_id']}",
+        "items": [{
+            "order_product_id": "#{@miq_request_data[:order_product_id]}",
+            "mpuuid": "none",
+            "public_fqdn": "none",
+            "cloudforms_guid": "none",
+            "public_ip_addr": "none",
+            "aws_instance_id": "none",
+            "private_fqdn": "",
+            "private_ip_addr": "",
+            "status": "failed",
+            "vmid": "none"
+          }]
+      }
+    }
+    dpi.update_servicemix(failed_msg)
+  else
+    dpi.process_order()
+  end
+  $evm.log("info", "servicemix and Chef updated successfully.")
+
+
+
+exit MIQ_OK
+
+rescue => err
+  $evm.log("error", "#{@method} - [#{err}]\n#{err.backtrace.join("\n")}")
+  exit MIQ_STOP
+end
