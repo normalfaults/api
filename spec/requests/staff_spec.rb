@@ -54,6 +54,40 @@ RSpec.describe 'Staff API' do
     end
   end
 
+  describe 'GET current_member' do
+    before(:each) do
+      @staff = create :staff
+    end
+
+    it 'retrieves the current member for logged in users', :show_in_doc do
+      sign_in_as @staff
+
+      get '/staff/current_member'
+
+      expect(json['first_name']).to eq(@staff.first_name)
+    end
+
+    it 'retrieves staff w/ notifications' do
+      sign_in_as @staff
+
+      get '/staff/current_member', include: %w(notifications)
+      expect(json['notifications']).to_not eq(nil)
+    end
+
+    it 'retrieves staff w/ a cart', :show_in_doc do
+      create :cart, staff_id: @staff.id
+      sign_in_as @staff
+
+      get '/staff/current_member', include: %w(cart)
+      expect(json['cart']).to_not eq(nil)
+    end
+
+    it 'returns a 401 when the user is not logged in' do
+      get '/staff/current_member'
+      expect(response.status).to eq(401)
+    end
+  end
+
   describe 'POST create' do
     before(:each) do
       sign_in_as create :staff, :admin

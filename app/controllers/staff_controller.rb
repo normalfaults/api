@@ -1,7 +1,7 @@
 class StaffController < ApplicationController
   respond_to :json, :xml
 
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:current_member]
 
   before_action :load_staffs, only: [:index]
   before_action :load_staff, only: [:show, :update, :destroy, :projects, :add_project, :remove_project, :user_settings, :show_user_setting, :add_user_setting, :update_user_setting, :remove_user_setting]
@@ -15,7 +15,6 @@ class StaffController < ApplicationController
 
   api :GET, '/staff', 'Returns a collection of staff'
   param :include, Array, required: false, in: %w(user_settings projects)
-
   def index
     authorize Staff.new
     respond_with_resolved_associations @staffs
@@ -25,17 +24,28 @@ class StaffController < ApplicationController
   param :id, :number, required: true
   param :include, Array, required: false, in: %w(user_settings projects)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
-
   def show
     authorize @staff
     respond_with_resolved_associations @staff
+  end
+
+  api :GET, '/staff/current_member', 'Shows logged in member'
+  param :include, Array, required: false, in: %w(user_settings projects notifications cart)
+  error code: 401, desc: 'User is not signed in.'
+  def current_member
+    @staff = current_user
+
+    if @staff
+      respond_with_resolved_associations @staff
+    else
+      render json: { error: 'No session.' }, status: 401
+    end
   end
 
   api :POST, '/staff', 'Creates a staff member'
   param :staff, Hash, desc: 'Staff' do
   end
   error code: 422, desc: MissingRecordDetection::Messages.not_found
-
   def create
     @staff = Staff.new @staff_params
     authorize @staff
@@ -52,7 +62,6 @@ class StaffController < ApplicationController
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
-
   def update
     authorize @staff
     if @staff.update_attributes @staff_params
@@ -65,7 +74,6 @@ class StaffController < ApplicationController
   api :DELETE, '/staff/:id', 'Deletes staff member with :id'
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
-
   def destroy
     authorize @staff
     if @staff.destroy
@@ -78,7 +86,6 @@ class StaffController < ApplicationController
   api :GET, '/staff/:id/project', 'Shows collection of projects for a staff :id'
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
-
   def projects
     authorize @staff
     respond_with @staff.projects
@@ -88,7 +95,6 @@ class StaffController < ApplicationController
   param :id, :number, required: true
   param :project_id, :number, desc: 'Project'
   error code: 422, desc: MissingRecordDetection::Messages.not_found
-
   def add_project
     authorize @staff
     if @staff.projects << @project
@@ -104,7 +110,6 @@ class StaffController < ApplicationController
     param :id, :number, required: true
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
-
   def remove_project
     authorize @staff
     if @staff.projects.delete @project
@@ -117,7 +122,6 @@ class StaffController < ApplicationController
   api :GET, '/staff/:id/settings', 'Shows collection of user settings for a staff :id'
   param :id, :number, required: true, desc: 'staff_id'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
-
   def user_settings
     authorize @staff
     respond_with @user_settings
@@ -127,7 +131,6 @@ class StaffController < ApplicationController
   param :id, :number, required: true, desc: 'staff_id'
   param :user_setting_id, :number, required: true, desc: 'user_setting_id'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
-
   def show_user_setting
     authorize @staff
     respond_with @user_setting
@@ -140,7 +143,6 @@ class StaffController < ApplicationController
     param :value, String, required: true
   end
   error code: 422, desc: MissingRecordDetection::Messages.not_found
-
   def add_user_setting
     authorize @staff
     @user_setting = UserSetting.new @add_user_setting_params
@@ -166,7 +168,6 @@ class StaffController < ApplicationController
     param :value, String, required: true
   end
   error code: 422, desc: MissingRecordDetection::Messages.not_found
-
   def update_user_setting
     authorize @staff
     if @user_setting.update_attributes @update_user_setting_params
@@ -180,7 +181,6 @@ class StaffController < ApplicationController
   param :id, :number, required: true, desc: 'staff_id'
   param :user_setting_id, :number, required: true, desc: 'user_setting_id'
   error code: 422, desc: MissingRecordDetection::Messages.not_found
-
   def remove_user_setting
     authorize @staff
     if @user_setting.destroy

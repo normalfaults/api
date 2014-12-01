@@ -5,7 +5,10 @@ class Staff < ActiveRecord::Base
 
   has_many :user_settings
   has_many :staff_projects
+  has_many :notifications
   has_many :projects, through: :staff_projects
+
+  has_one :cart
 
   validates :phone, length: { maximum: 30 }, allow_blank: true
 

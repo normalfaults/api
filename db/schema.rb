@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141126153315) do
+ActiveRecord::Schema.define(version: 20141201193235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 20141126153315) do
 
   add_index "approvals", ["project_id"], name: "index_approvals_on_project_id", using: :btree
   add_index "approvals", ["staff_id"], name: "index_approvals_on_staff_id", using: :btree
+
+  create_table "carts", force: true do |t|
+    t.integer  "count"
+    t.integer  "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "carts", ["staff_id"], name: "index_carts_on_staff_id", using: :btree
 
   create_table "chargebacks", force: true do |t|
     t.integer  "product_id"
@@ -73,6 +82,16 @@ ActiveRecord::Schema.define(version: 20141126153315) do
   end
 
   add_index "logs", ["staff_id"], name: "index_logs_on_staff_id", using: :btree
+
+  create_table "notifications", force: true do |t|
+    t.text     "text"
+    t.text     "ago"
+    t.integer  "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["staff_id"], name: "index_notifications_on_staff_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.integer  "product_id",                  null: false
