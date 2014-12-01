@@ -160,4 +160,52 @@ RSpec.describe 'Projects API' do
       end
     end
   end
+
+  context 'Approvals' do
+    describe 'PUT approve' do
+      before :each do
+        @staff = create :staff, :user
+        @project = create :project
+        @extra_project = create :project
+        @approval = build :approval
+        @approval.staff = @staff
+        @project.approvals << @approval
+        sign_in_as @staff
+      end
+
+      it 'approves an approval' do
+        put "/projects/#{@project.id}/approve"
+        @approval.reload
+        expect(@approval.approved).to eq(true)
+      end
+
+      it 'non-approvers cannot approve' do
+        put "/projects/#{@extra_project.id}/approve"
+        expect(response.status).to eq(302)
+      end
+    end
+
+    describe 'PUT reject' do
+      before :each do
+        @staff = create :staff, :user
+        @project = create :project
+        @extra_project = create :project
+        @approval = build :approval
+        @approval.staff = @staff
+        @project.approvals << @approval
+        sign_in_as @staff
+      end
+
+      it 'rejects an approval' do
+        put "/projects/#{@project.id}/reject"
+        @approval.reload
+        expect(@approval.approved).to eq(false)
+      end
+
+      it 'non-approvers cannot reject' do
+        put "/projects/#{@extra_project.id}/reject"
+        expect(response.status).to eq(302)
+      end
+    end
+  end
 end

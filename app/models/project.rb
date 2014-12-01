@@ -5,6 +5,9 @@ class Project < ActiveRecord::Base
   has_many :staff_projects
   has_many :staff, through: :staff_projects
 
+  has_many :approvals
+  has_many :approvers, through: :approvals, source: :staff
+
   def self.create_with_answers(attributes)
     answers = attributes[:project_answers]
     attributes.delete :project_answers
