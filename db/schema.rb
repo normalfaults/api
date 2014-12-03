@@ -11,23 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201193235) do
+ActiveRecord::Schema.define(version: 20141202193310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
-    t.integer  "app_id"
     t.integer  "staff_id"
     t.string   "status",     limit: 20
     t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "start_date"
+    t.datetime "end_date"
   end
 
+  add_index "alerts", ["end_date"], name: "index_alerts_on_end_date", using: :btree
   add_index "alerts", ["project_id"], name: "index_alerts_on_project_id", using: :btree
   add_index "alerts", ["staff_id"], name: "index_alerts_on_staff_id", using: :btree
+  add_index "alerts", ["start_date"], name: "index_alerts_on_start_date", using: :btree
+  add_index "alerts", ["status"], name: "index_alerts_on_status", using: :btree
 
   create_table "approvals", force: true do |t|
     t.integer  "staff_id"
