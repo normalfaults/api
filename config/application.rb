@@ -24,10 +24,12 @@ module JellyfishCore
     config.generators.views = false
     config.generators.assets = false
 
-    config.middleware.insert_before 'Warden::Manager', 'Rack::Cors' do
-      allow do
-        origins(*ENV['CORS_ALLOW_ORIGIN'].split(','))
-        resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options, :head]
+    unless ENV['CORS_ALLOW_ORIGIN'].nil?
+      config.middleware.insert_before 'Warden::Manager', 'Rack::Cors' do
+        allow do
+          origins(*ENV['CORS_ALLOW_ORIGIN'].split(','))
+          resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options, :head]
+        end
       end
     end
   end
