@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # Auth
   devise_for :staff, controllers: { sessions: 'sessions' }
 
+  # Alerts Routes
+  resources :alerts, defaults: { format: :json }
+
   # User Setting Options Routes
   resources :user_setting_options, defaults: { format: :json }
 
