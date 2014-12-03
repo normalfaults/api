@@ -13,21 +13,33 @@ RSpec.describe 'Projects API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all projects' do
-      create :project
-      create :project
+    it 'returns a collection of all projects', :show_in_doc  do
+      project = create :project
+      project2 = create :project
+      create :project_detail, project_id: project.id
+      create :project_detail, project_id: project2.id
+      staff = create :staff
+      create :staff_project, staff_id: staff.id, project_id: project.id
       get '/projects'
       expect(json.length).to eq(2)
     end
 
-    it 'returns a collection of all of the products w/ staff', :show_in_doc do
+    it 'returns a collection of all of the projects w/ staff' do
       project = create :project
       staff = create :staff
       create :staff_project, staff_id: staff.id, project_id: project.id
 
-      get '/projects', include: ['staff']
-
+      get '/projects', includes: ['staff']
       expect(json[0]['staff']).to_not eq(nil)
+    end
+
+    it 'returns a collection of all of the projects w/ details' do
+      project = create :project
+      create :project_detail, project_id: project.id
+
+      get '/projects', includes: ['project_detail']
+
+      expect(json[0]['project_detail']).to_not eq(nil)
     end
   end
 
@@ -52,7 +64,7 @@ RSpec.describe 'Projects API' do
       staff = create :staff
       create :staff_project, staff_id: staff.id, project_id: @project.id
 
-      get "/projects/#{@project.id}", include: ['staff']
+      get "/projects/#{@project.id}", includes: ['staff']
 
       expect(json['staff']).to_not eq(nil)
     end
@@ -73,7 +85,7 @@ RSpec.describe 'Projects API' do
 
     it 'creates a new project record w/ project answers', :show_in_doc do
       project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
-      post '/projects', project: project_data, include: %w(project_answers)
+      post '/projects', project: project_data, includes: %w(project_answers)
 
       expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
     end
@@ -98,7 +110,7 @@ RSpec.describe 'Projects API' do
 
     it 'updates a project record w/ project answers', :show_in_doc do
       project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
-      put "/projects/#{@project.id}", project: project_data, include: %w(project_answers)
+      put "/projects/#{@project.id}", project: project_data, includes: %w(project_answers)
 
       expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
     end
@@ -181,7 +193,7 @@ RSpec.describe 'Projects API' do
 
       it 'non-approvers cannot approve' do
         put "/projects/#{@extra_project.id}/approve"
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
 
@@ -204,7 +216,7 @@ RSpec.describe 'Projects API' do
 
       it 'non-approvers cannot reject' do
         put "/projects/#{@extra_project.id}/reject"
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end
