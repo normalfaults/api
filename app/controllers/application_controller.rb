@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   include InvalidRecordDetection
   include MissingRecordDetection
   include ParameterValidation
+  include RenderWithParams
   include AssociationResolution
+  include MethodResolution
   include Pundit
 
   # Prevent CSRF attacks by raising an exception.
@@ -29,6 +31,6 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    render json: { error: 'No session.' }, status: 401
+    render json: { error: 'Not authorized.' }, status: 403
   end
 end

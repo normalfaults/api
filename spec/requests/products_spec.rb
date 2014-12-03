@@ -12,11 +12,11 @@ RSpec.describe 'Products API' do
 
     it 'returns a collection of all of the products', :show_in_doc do
       get '/products'
-      expect(response.body).to eq(@products.to_json)
+      expect(json.to_json).to eq(@products.to_json)
     end
 
     it 'returns a collection of all of the products w/ chargebacks', :show_in_doc do
-      get '/products', include: %w(chargebacks)
+      get '/products', includes: %w(chargebacks)
       expect(json[0]['chargebacks']).to_not eq(nil)
     end
   end
@@ -33,14 +33,14 @@ RSpec.describe 'Products API' do
     end
 
     it 'returns an product w/ chargebacks', :show_in_doc do
-      get "/products/#{@product.id}", include: %w(chargebacks)
+      get "/products/#{@product.id}", includes: %w(chargebacks)
       expect(json['chargebacks']).to_not eq(nil)
     end
 
     it 'returns an error when the product does not exist' do
       get "/products/#{@product.id + 999}"
       expect(response.status).to eq(404)
-      expect(JSON(response.body)).to eq('error' => 'Not found.')
+      expect(json).to eq('error' => 'Not found.')
     end
   end
 
@@ -52,19 +52,19 @@ RSpec.describe 'Products API' do
 
     it 'updates a product', :show_in_doc do
       put "/products/#{@product.id}", product: { options: ['test'] }
-      expect(JSON(response.body)['options']).to eq(['test'])
+      expect(json['options']).to eq(['test'])
     end
 
     it 'returns an error if the product parameter is missing' do
       put "/products/#{@product.id}"
       expect(response.status).to eq(422)
-      expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: product')
+      expect(json).to eq('error' => 'param is missing or the value is empty: product')
     end
 
     it 'returns an error when the product does not exist' do
       put "/products/#{@product.id + 999}", product: { options: ['test']  }
       expect(response.status).to eq(404)
-      expect(JSON(response.body)).to eq('error' => 'Not found.')
+      expect(json).to eq('error' => 'Not found.')
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe 'Products API' do
     it 'returns an error if the product is missing' do
       post '/products/'
       expect(response.status).to eq(422)
-      expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: product')
+      expect(json).to eq('error' => 'param is missing or the value is empty: product')
     end
   end
 
@@ -94,7 +94,7 @@ RSpec.describe 'Products API' do
     it 'returns an error when the product does not exist' do
       delete "/products/#{@product.id + 999}"
       expect(response.status).to eq(404)
-      expect(JSON(response.body)).to eq('error' => 'Not found.')
+      expect(json).to eq('error' => 'Not found.')
     end
   end
 end

@@ -10,18 +10,18 @@ RSpec.describe 'Staff API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all staff', :show_in_doc do
+    it 'returns a collection of all staff' do
       get '/staff'
       expect(json.length).to eq(3)
     end
 
     it 'returns a collection of all staff w/ projects', :show_in_doc do
-      get '/staff', include: %w(projects)
+      get '/staff', includes: %w(projects)
       expect(json[0]['projects']).to_not eq(nil)
     end
 
-    it 'returns a collection of all staff w/ user_settings', :show_in_doc do
-      get '/staff', include: %w(user_settings)
+    it 'returns a collection of all staff w/ user_settings' do
+      get '/staff', includes: %w(user_settings)
       expect(json[0]['user_settings']).to_not eq(nil)
     end
   end
@@ -38,12 +38,12 @@ RSpec.describe 'Staff API' do
     end
 
     it 'retrieves staff by id w/ projects', :show_in_doc do
-      get "/staff/#{@staff.id}", include: %w(projects)
+      get "/staff/#{@staff.id}", includes: %w(projects)
       expect(json['projects']).to_not eq(nil)
     end
 
     it 'retrieves staff by id w/ user_settings', :show_in_doc do
-      get "/staff/#{@staff.id}", include: %w(user_settings)
+      get "/staff/#{@staff.id}", includes: %w(user_settings)
       expect(json['user_settings']).to_not eq(nil)
     end
 
@@ -70,7 +70,7 @@ RSpec.describe 'Staff API' do
     it 'retrieves staff w/ notifications' do
       sign_in_as @staff
 
-      get '/staff/current_member', include: %w(notifications)
+      get '/staff/current_member', includes: %w(notifications)
       expect(json['notifications']).to_not eq(nil)
     end
 
@@ -78,7 +78,7 @@ RSpec.describe 'Staff API' do
       create :cart, staff_id: @staff.id
       sign_in_as @staff
 
-      get '/staff/current_member', include: %w(cart)
+      get '/staff/current_member', includes: %w(cart)
       expect(json['cart']).to_not eq(nil)
     end
 

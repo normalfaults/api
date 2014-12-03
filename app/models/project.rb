@@ -8,6 +8,8 @@ class Project < ActiveRecord::Base
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
 
+  has_one :project_detail
+
   def self.create_with_answers(attributes)
     answers = attributes[:project_answers]
     attributes.delete :project_answers
@@ -38,4 +40,75 @@ class Project < ActiveRecord::Base
       insert_answers!(answers)
     end
   end
+
+  # NOTE: Theses are just stubs and should be replace with real stuff
+  # START OF STUBS
+  def services
+    [1, 2, 3, 4, 5, 6, 7, 4, 5, 6, 7]
+  end
+
+  def domain
+    'companyapp1.clouddealer.com/'
+  end
+
+  def url
+    'http://companyapp1.clouddealer.com'
+  end
+
+  def state
+    '2 Problems'
+  end
+
+  def state_ok
+    false
+  end
+
+  def problem_count
+    0
+  end
+
+  def account_number
+    785
+  end
+
+  def resources
+    256
+  end
+
+  def resource_unit
+    'MB'
+  end
+
+  def icon
+    '/images/assets/projects/1.png'
+  end
+
+  def cpu
+    8
+  end
+
+  def hdd
+    '42 GB'
+  end
+
+  def ram
+    '2 GB'
+  end
+
+  def status
+    2
+  end
+
+  # Note: these ones are real bad because the names for these relations are different
+  # in the ux. I am adding placeholders until I have time to change the ux.
+
+  def users
+    staff.as_json
+  end
+
+  def details
+    project_detail.as_json
+  end
+
+  # END OF STUBS
 end
