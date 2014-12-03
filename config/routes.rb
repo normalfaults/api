@@ -46,18 +46,9 @@ Rails.application.routes.draw do
 
   # Clouds
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
-
-  # Dashboard Routes
-  resources :dashboard
-
-  # Manage Routes
-  resources :manage
-
-  # Marketplace Routes
-  resources :marketplace
-
   # Project Routes
-  resources :projects, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
+  resources :projects, defaults: { format: :json, methods: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users details) }, only: [:index, :show]
+  resources :projects, defaults: { format: :json }, except: [:index, :show, :edit, :new] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
       match 'staff/:staff_id' => 'projects#add_staff', :via => :post, as: :add_staff_to
@@ -70,9 +61,6 @@ Rails.application.routes.draw do
   # ProjectQuestion Routes
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
 
-  # Service Routes
-  resources :service
-
   # Setting Routes
   resources :settings, defaults: { format: :json }, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
@@ -81,4 +69,34 @@ Rails.application.routes.draw do
   get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'
 
   root 'welcome#index'
+
+  # # Dashboard Routes
+  # resources :dashboard
+  #
+  # # Manage Routes
+  # resources :manage
+  #
+  # # Marketplace Routes
+  # resources :marketplace
+  #
+  # # Service Routes
+  # resources :service
+
+  # Mocks routes
+  # TODO: Remove when implemented
+  get 'applications/:id', to: 'mocks#application', defaults: { format: :json }
+  get 'applications', to: 'mocks#applications', defaults: { format: :json }
+  get 'bundles/:id', to: 'mocks#bundle', defaults: { format: :json }
+  get 'bundles', to: 'mocks#bundles', defaults: { format: :json }
+  get 'services/:id', to: 'mocks#service', defaults: { format: :json }
+  get 'services', to: 'mocks#services', defaults: { format: :json }
+  get 'solutions/:id', to: 'mocks#solution', defaults: { format: :json }
+  get 'solutions', to: 'mocks#solutions', defaults: { format: :json }
+  get 'alerts', to: 'mocks#alerts', defaults: { format: :json }
+  get 'alertPopup', to: 'mocks#alert_popup', defaults: { format: :json }
+  get 'header', to: 'mocks#header', defaults: { format: :json }
+  get 'manage', to: 'mocks#manage', defaults: { format: :json }
+  get 'marketplace', to: 'mocks#marketplace', defaults: { format: :json }
+  get 'new-project', to: 'mocks#new_project', defaults: { format: :json }
+
 end

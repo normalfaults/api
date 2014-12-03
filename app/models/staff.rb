@@ -18,4 +18,13 @@ class Staff < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   enum role: [:user, :admin]
+
+  # Note: This is just a stub for now.
+  def allowed
+    %w(Add Delete Modify Services)
+  end
+
+  def as_json(options = {})
+    super((options || {}).merge(methods: [:allowed]))
+  end
 end

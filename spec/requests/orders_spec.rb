@@ -20,7 +20,7 @@ RSpec.describe 'Orders API' do
       @order1.update_attributes(product_id: product.id)
       @order2.update_attributes(product_id: product.id)
 
-      get '/orders', include: %w(product)
+      get '/orders', includes: %w(product)
       expect(json[0]['product']).to_not eq(nil)
     end
 
@@ -29,7 +29,7 @@ RSpec.describe 'Orders API' do
       @order1.update_attributes(cloud_id: cloud.id)
       @order2.update_attributes(cloud_id: cloud.id)
 
-      get '/orders', include: %w(cloud)
+      get '/orders', includes: %w(cloud)
       expect(json[0]['cloud']).to_not eq(nil)
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe 'Orders API' do
       cloud = create :cloud
       @order.update_attributes(cloud_id: cloud.id)
 
-      get "/orders/#{@order.id}", include: %w(cloud)
+      get "/orders/#{@order.id}", includes: %w(cloud)
       expect(json['cloud']).to_not eq(nil)
     end
 
@@ -52,7 +52,7 @@ RSpec.describe 'Orders API' do
       product = create :product
       @order.update_attributes(product_id: product.id)
 
-      get "/orders/#{@order.id}", include: %w(product)
+      get "/orders/#{@order.id}", includes: %w(product)
       expect(json['product']).to_not eq(nil)
     end
 
