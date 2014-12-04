@@ -1,5 +1,6 @@
 class SessionsController < Devise::SessionsController
   skip_before_action :verify_signed_out_user, only: :destroy
+  skip_before_action :require_no_authentication, only: :create
 
   api :POST, '/staff/sign_in', 'Signs user in'
   param :staff, Hash, desc: 'Staff' do
