@@ -32,6 +32,10 @@ class AlertPolicy < ApplicationPolicy
   private
 
   def admin_or_related
-    true # user.admin?
+    user.admin? || system_generated
+  end
+
+  def system_generated
+    false # TODO: BUILD OUT SYSTEM GENERATED ALERTS LOGIC
   end
 end
