@@ -62,5 +62,9 @@ gem 'apipie-rails', '~> 0.2.6'
 # Keep but hide deleted records
 gem 'paranoia'
 
+# Communicating with external services
+gem 'rest-client'
+gem 'virtus'
+
 # CORS
 gem 'rack-cors'

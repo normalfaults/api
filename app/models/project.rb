@@ -43,8 +43,37 @@ class Project < ActiveRecord::Base
 
   # NOTE: Theses are just stubs and should be replace with real stuff
   # START OF STUBS
+  def order_history
+    [
+      {
+        orderId: 2001,
+        project: {
+          id: 1,
+          name: 'Emoticon App'
+        },
+        items: 5,
+        total: 5000,
+        status: 'On Progress',
+        color: 'orange',
+        request_date: '05/07/2014'
+      },
+      {
+        orderId: 2002,
+        project: {
+          id: 2,
+          name: 'Company App'
+        },
+        items: 1,
+        total: 4012,
+        status: 'Pending',
+        color: 'gray',
+        request_date: '06/07/2014'
+      }
+    ]
+  end
+
   def services
-    [1, 2, 3, 4, 5, 6, 7, 4, 5, 6, 7]
+    []
   end
 
   def domain
