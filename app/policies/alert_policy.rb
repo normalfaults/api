@@ -11,6 +11,18 @@ class AlertPolicy < ApplicationPolicy
     admin_or_related
   end
 
+  def show_all?
+    admin_or_related
+  end
+
+  def show_active?
+    admin_or_related
+  end
+
+  def show_inactive?
+    admin_or_related
+  end
+
   def new?
     admin_or_related
   end

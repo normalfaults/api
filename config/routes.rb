@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   devise_for :staff, controllers: { sessions: 'sessions' }
 
   # Alerts Routes
+  match 'alerts/all' => 'alerts#show_all', :via => :get, defaults: { format: :json }
+  match 'alerts/active' => 'alerts#show_active', :via => :get, defaults: { format: :json }
+  match 'alerts/inactive' => 'alerts#show_inactive', :via => :get, defaults: { format: :json }
   resources :alerts, defaults: { format: :json }
 
   # User Setting Options Routes
