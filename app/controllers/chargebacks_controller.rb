@@ -8,21 +8,21 @@ class ChargebacksController < ApplicationController
   before_action :load_chargebacks, only: [:index]
 
   api :GET, '/chargebacks', 'Returns a collection of chargebacks'
-  param :include, Array, required: false, in: %w(cloud product)
+  param :includes, Array, required: false, in: %w(cloud product)
 
   def index
     authorize Chargeback
-    respond_with_resolved_associations @chargebacks
+    respond_with_params @chargebacks
   end
 
   api :GET, '/chargebacks/:id', 'Shows chargeback with :id'
   param :id, :number, required: true
-  param :include, Array, required: false, in: %w(cloud product)
+  param :includes, Array, required: false, in: %w(cloud product)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @chargeback
-    respond_with_resolved_associations @chargeback
+    respond_with_params @chargeback
   end
 
   api :POST, '/chargebacks', 'Creates a chargeback'

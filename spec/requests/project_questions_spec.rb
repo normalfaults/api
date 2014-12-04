@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'ProjectQuestions API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
-      create :project_question
-      create :project_question
+      @pq1 = create :project_question
+      @pq2 = create :project_question, :required_text
+
       @project_questions = ProjectQuestion.all
       sign_in_as create :staff, :admin
     end

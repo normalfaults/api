@@ -4,7 +4,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    true
   end
 
   def show?
@@ -34,6 +34,14 @@ class ProjectPolicy < ApplicationPolicy
 
   def remove_staff?
     user.admin?
+  end
+
+  def approve?
+    record.approver_ids.include? user.id
+  end
+
+  def reject?
+    record.approver_ids.include? user.id
   end
 
   class Scope < Scope

@@ -4,30 +4,36 @@ class ProjectsController < ApplicationController
   after_action :verify_authorized
 
   before_action :load_projects, only: [:index]
-  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff]
+  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff, :approve, :reject]
   before_action :load_staff, only: [:add_staff, :remove_staff]
   before_action :load_project_params, only: [:create, :update]
+  before_action :load_approval, only: [:approve, :reject]
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :include, Array, required: false, in: %w(staff)
+  param :includes, Array, required: false, in: %w(staff project_answers project_detail)
+  param :methods, Array, required: false, in: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users details order_history)
 
   def index
     authorize Project.new
-    respond_with_resolved_associations @projects
+    respond_with_params @projects
   end
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :include, Array, required: false, in: %w(staff)
+  param :includes, Array, required: false, in: %w(staff project_answers project_detail)
+  param :methods, Array, required: false, in: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users details order_history)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @project
-    respond_with_resolved_associations @project
+    respond_with_params @project
   end
 
   api :POST, '/projects', 'Creates projects'
   param :project, Hash, desc: 'Project' do
+    param :project_answers, Array, desc: 'Project answers', required: false do
+      param :project_question_id, :number, desc: 'Id for valid project question', require: true
+    end
     param :name, String, required: false
     param :description, String, required: false
     param :cc, String, required: false
@@ -37,13 +43,16 @@ class ProjectsController < ApplicationController
     param :approved, String, required: false
     param :img, String, required: false
   end
+  param :includes, Array, required: false, in: %w(staff project_answers)
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
-    @project = Project.new @project_params
-    authorize @project
-    if @project.save
-      respond_with @project
+    authorize Project
+
+    @project = Project.create_with_answers @project_params
+
+    if @project
+      respond_with_params @project
     else
       respond_with @project.errors, status: :unprocessable_entity
     end
@@ -52,6 +61,9 @@ class ProjectsController < ApplicationController
   api :PUT, '/projects/:id', 'Updates project with :id'
   param :id, :number, required: true
   param :project, Hash, desc: 'Project' do
+    param :project_answers, Array, desc: 'Project answers', required: false do
+      param :project_question_id, :number, desc: 'Id for valid project question', require: true
+    end
     param :name, String, required: false
     param :description, String, required: false
     param :cc, String, required: false
@@ -61,16 +73,14 @@ class ProjectsController < ApplicationController
     param :approved, String, required: false
     param :img, String, required: false
   end
+  param :include, Array, required: false, in: %w(staff project_answers)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     authorize @project
-    if @project.update_attributes @project_params
-      respond_with @project
-    else
-      respond_with @project.errors, status: :unprocessable_entity
-    end
+    @project.update_with_answers! @project_params
+    respond_with_params @project
   end
 
   api :DELETE, '/projects/:id', 'Deletes project with :id'
@@ -125,6 +135,26 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def approve
+    authorize @project
+    @approval.approved = true
+    if @approval.save
+      respond_with @approval
+    else
+      respond_with @approval.errors, status: :unprocessable_entity
+    end
+  end
+
+  def reject
+    authorize @project
+    @approval.approved = false
+    if @approval.save
+      respond_with @approval
+    else
+      respond_with @approval.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def load_projects
@@ -133,7 +163,7 @@ class ProjectsController < ApplicationController
   end
 
   def load_project_params
-    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_data, :approved, :img)
+    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_data, :approved, :img, project_answers: [:project_question_id, :answer])
   end
 
   def load_project
@@ -142,5 +172,9 @@ class ProjectsController < ApplicationController
 
   def load_staff
     @staff = Staff.find params.require(:staff_id)
+  end
+
+  def load_approval
+    @approval = Approval.where(project_id: params.require(:id), staff_id: current_user.id).first
   end
 end

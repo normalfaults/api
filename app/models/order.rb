@@ -1,12 +1,10 @@
 class Order < ActiveRecord::Base
   acts_as_paranoid
 
-  belongs_to :staff
-  belongs_to :product
   belongs_to :project
+  belongs_to :product
   belongs_to :cloud
-
-  has_many :chargebacks
+  belongs_to :staff
 
   store_accessor :options
 end

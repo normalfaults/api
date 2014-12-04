@@ -65,3 +65,6 @@ gem 'paranoia'
 # Communicating with external services
 gem 'rest-client'
 gem 'virtus'
+
+# CORS
+gem 'rack-cors'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124003901) do
+ActiveRecord::Schema.define(version: 20141202230140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 20141124003901) do
 
   add_index "approvals", ["project_id"], name: "index_approvals_on_project_id", using: :btree
   add_index "approvals", ["staff_id"], name: "index_approvals_on_staff_id", using: :btree
+
+  create_table "carts", force: true do |t|
+    t.integer  "count"
+    t.integer  "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "carts", ["staff_id"], name: "index_carts_on_staff_id", using: :btree
 
   create_table "chargebacks", force: true do |t|
     t.integer  "product_id"
@@ -73,6 +82,16 @@ ActiveRecord::Schema.define(version: 20141124003901) do
   end
 
   add_index "logs", ["staff_id"], name: "index_logs_on_staff_id", using: :btree
+
+  create_table "notifications", force: true do |t|
+    t.text     "text"
+    t.text     "ago"
+    t.integer  "staff_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["staff_id"], name: "index_notifications_on_staff_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.integer  "product_id",                  null: false
@@ -123,20 +142,47 @@ ActiveRecord::Schema.define(version: 20141124003901) do
   add_index "products", ["cloud_id"], name: "index_products_on_cloud_id", using: :btree
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
 
+  create_table "project_answers", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "project_question_id"
+    t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_answers", ["project_id"], name: "index_project_answers_on_project_id", using: :btree
+  add_index "project_answers", ["project_question_id"], name: "index_project_answers_on_project_question_id", using: :btree
+
+  create_table "project_details", force: true do |t|
+    t.string  "requestor_name"
+    t.date    "requestor_date"
+    t.string  "team_name"
+    t.integer "charge_number"
+    t.float   "nte_budget"
+    t.string  "project_owner"
+    t.string  "sr_associate"
+    t.string  "principal"
+    t.date    "estimated_termination_date"
+    t.string  "data_type"
+    t.string  "others"
+    t.integer "project_id"
+  end
+
+  add_index "project_details", ["project_id"], name: "index_project_details_on_project_id", using: :btree
+
   create_table "project_questions", force: true do |t|
     t.string   "question"
-    t.string   "field_type", limit: 100
     t.string   "help_text"
-    t.text     "options"
     t.boolean  "required"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "project_id"
     t.datetime "deleted_at"
+    t.integer  "load_order"
+    t.json     "options"
+    t.integer  "field_type", default: 0
   end
 
   add_index "project_questions", ["deleted_at"], name: "index_project_questions_on_deleted_at", using: :btree
-  add_index "project_questions", ["project_id"], name: "index_project_questions_on_project_id", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -197,6 +243,20 @@ ActiveRecord::Schema.define(version: 20141124003901) do
 
   add_index "staff_projects", ["project_id"], name: "index_staff_projects_on_project_id", using: :btree
   add_index "staff_projects", ["staff_id", "project_id"], name: "index_staff_projects_on_staff_id_and_project_id", unique: true, using: :btree
+
+  create_table "user_setting_options", force: true do |t|
+    t.string   "label"
+    t.string   "field_type", limit: 100
+    t.string   "help_text"
+    t.text     "options"
+    t.boolean  "required",               default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "user_setting_options", ["deleted_at"], name: "index_user_setting_options_on_deleted_at", using: :btree
+  add_index "user_setting_options", ["label"], name: "index_user_setting_options_on_label", unique: true, using: :btree
 
   create_table "user_settings", force: true do |t|
     t.integer  "staff_id"

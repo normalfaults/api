@@ -1,9 +1,12 @@
 # Default controller
 class ApplicationController < ActionController::Base
   extend Apipie::DSL::Concern
+  include InvalidRecordDetection
   include MissingRecordDetection
   include ParameterValidation
+  include RenderWithParams
   include AssociationResolution
+  include MethodResolution
   include Pundit
 
   # Prevent CSRF attacks by raising an exception.
@@ -11,6 +14,7 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::AuthorizationNotPerformedError, with: :user_not_authorized
 
   def current_user
     current_staff
@@ -27,8 +31,6 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    # TODO: Change to a more RESTful response
-    flash[:error] = 'You are not authorized to perform this action.'
-    redirect_to(request.referrer || root_path)
+    render json: { error: 'Not authorized.' }, status: 403
   end
 end

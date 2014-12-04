@@ -5,7 +5,10 @@ class Staff < ActiveRecord::Base
 
   has_many :user_settings
   has_many :staff_projects
+  has_many :notifications
   has_many :projects, through: :staff_projects
+
+  has_one :cart
 
   validates :phone, length: { maximum: 30 }, allow_blank: true
 
@@ -15,4 +18,13 @@ class Staff < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   enum role: [:user, :admin]
+
+  # Note: This is just a stub for now.
+  def allowed
+    %w(Add Delete Modify Services)
+  end
+
+  def as_json(options = {})
+    super((options || {}).merge(methods: [:allowed]))
+  end
 end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions API' do
+  let(:default_params) { { format: :json } }
   let(:password) { 'test1234' }
   let(:email) { 'foo@bar.com' }
 

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Chargebacks API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
       @chargeback1 = create :chargeback
@@ -19,7 +21,7 @@ RSpec.describe 'Chargebacks API' do
       @chargeback1.update_attributes(cloud_id: cloud.id)
       @chargeback2.update_attributes(cloud_id: cloud.id)
 
-      get '/chargebacks', include: ['cloud']
+      get '/chargebacks', includes: ['cloud']
       expect(json[0]['cloud']).to_not eq(nil)
     end
 
@@ -28,7 +30,7 @@ RSpec.describe 'Chargebacks API' do
       @chargeback1.update_attributes(product_id: product.id)
       @chargeback2.update_attributes(product_id: product.id)
 
-      get '/chargebacks', include: ['product']
+      get '/chargebacks', includes: ['product']
       expect(json[0]['product']).to_not eq(nil)
     end
   end
@@ -49,7 +51,7 @@ RSpec.describe 'Chargebacks API' do
       cloud = create :cloud
       @chargeback.update_attributes(cloud_id: cloud.id)
 
-      get "/chargebacks/#{@chargeback.id}", include: ['cloud']
+      get "/chargebacks/#{@chargeback.id}", includes: ['cloud']
       expect(json['cloud']).to_not eq(nil)
     end
 
@@ -57,7 +59,7 @@ RSpec.describe 'Chargebacks API' do
       product = create :product
       @chargeback.update_attributes(product_id: product.id)
 
-      get "/chargebacks/#{@chargeback.id}", include: ['product']
+      get "/chargebacks/#{@chargeback.id}", includes: ['product']
       expect(json['product']).to_not eq(nil)
     end
 

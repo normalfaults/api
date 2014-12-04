@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Staff API' do
+  let(:default_params) { { format: :json } }
 
   describe 'GET index' do
     before(:each) do
@@ -9,9 +10,19 @@ RSpec.describe 'Staff API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns a collection of all staff', :show_in_doc do
+    it 'returns a collection of all staff' do
       get '/staff'
       expect(json.length).to eq(3)
+    end
+
+    it 'returns a collection of all staff w/ projects', :show_in_doc do
+      get '/staff', includes: %w(projects)
+      expect(json[0]['projects']).to_not eq(nil)
+    end
+
+    it 'returns a collection of all staff w/ user_settings' do
+      get '/staff', includes: %w(user_settings)
+      expect(json[0]['user_settings']).to_not eq(nil)
     end
   end
 
@@ -26,10 +37,54 @@ RSpec.describe 'Staff API' do
       expect(json['first_name']).to eq(@staff.first_name)
     end
 
+    it 'retrieves staff by id w/ projects', :show_in_doc do
+      get "/staff/#{@staff.id}", includes: %w(projects)
+      expect(json['projects']).to_not eq(nil)
+    end
+
+    it 'retrieves staff by id w/ user_settings', :show_in_doc do
+      get "/staff/#{@staff.id}", includes: %w(user_settings)
+      expect(json['user_settings']).to_not eq(nil)
+    end
+
     it 'returns an error when the staff does not exist' do
       get "/staff/#{@staff.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
+    end
+  end
+
+  describe 'GET current_member' do
+    before(:each) do
+      @staff = create :staff
+    end
+
+    it 'retrieves the current member for logged in users', :show_in_doc do
+      sign_in_as @staff
+
+      get '/staff/current_member'
+
+      expect(json['first_name']).to eq(@staff.first_name)
+    end
+
+    it 'retrieves staff w/ notifications' do
+      sign_in_as @staff
+
+      get '/staff/current_member', includes: %w(notifications)
+      expect(json['notifications']).to_not eq(nil)
+    end
+
+    it 'retrieves staff w/ a cart', :show_in_doc do
+      create :cart, staff_id: @staff.id
+      sign_in_as @staff
+
+      get '/staff/current_member', includes: %w(cart)
+      expect(json['cart']).to_not eq(nil)
+    end
+
+    it 'returns a 401 when the user is not logged in' do
+      get '/staff/current_member'
+      expect(response.status).to eq(401)
     end
   end
 
@@ -72,6 +127,72 @@ RSpec.describe 'Staff API' do
       put "/staff/#{@staff.id + 999}", staff: { first_name: 'Updated' }
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
+    end
+  end
+
+  context 'User Settings' do
+    describe 'GET' do
+      before :each do
+        @staff = create :staff, :user
+        @user_setting = create :user_setting
+        @staff.user_settings << @user_setting
+        sign_in_as create :staff, :admin
+      end
+
+      it 'retrieves a list of user settings', :show_in_doc do
+        get "/staff/#{@staff.id}/settings"
+        expect(response.status).to eq(200)
+      end
+
+      it 'looks up a user setting from id', :show_in_doc do
+        get "/staff/#{@staff.id}/settings/#{@user_setting.id}"
+        expect(response.status).to eq(200)
+        expect(json['name']).to eq(@user_setting.name)
+      end
+    end
+
+    describe 'POST' do
+      before :each do
+        @staff = create :staff, :user
+        sign_in_as @staff
+      end
+
+      it 'adds user setting to staff', :show_in_doc do
+        data = { user_setting: { name: 'foo', value: 'bar' } }
+        post "/staff/#{@staff.id}/settings", data
+        expect(json['name']).to eq(data[:user_setting][:name])
+        expect(json['staff_id']).to eq(@staff.id)
+      end
+    end
+
+    describe 'PUT' do
+      before :each do
+        @staff = create :staff, :user
+        @user_setting = create :user_setting
+        @staff.user_settings << @user_setting
+        sign_in_as @staff
+      end
+
+      it 'updates user setting of staff', :show_in_doc do
+        data = { user_setting: { value: 'updated' } }
+        put "/staff/#{@staff.id}/settings/#{@user_setting.id}", data
+        expect(json['value']).to eq(data[:user_setting][:value])
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe 'DELETE' do
+      before :each do
+        @staff = create :staff, :user
+        @user_setting = create :user_setting
+        @staff.user_settings << @user_setting
+        sign_in_as @staff
+      end
+
+      it 'removes user setting from staff', :show_in_doc do
+        delete "/staff/#{@staff.id}/settings/#{@user_setting.id}"
+        expect(response.status).to eq(200)
+      end
     end
   end
 

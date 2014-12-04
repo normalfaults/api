@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Approvals API' do
+  let(:default_params) { { format: :json } }
+
   describe 'GET index' do
     before(:each) do
       @approval = create :approval
@@ -19,7 +21,7 @@ RSpec.describe 'Approvals API' do
       @approval.update_attributes(staff_id: staff.id)
       @approval2.update_attributes(staff_id: staff.id)
 
-      get '/approvals', include: ['staff']
+      get '/approvals', includes: ['staff']
       expect(json[0]['staff']).to_not eq(nil)
     end
 
@@ -28,7 +30,7 @@ RSpec.describe 'Approvals API' do
       @approval.update_attributes(project_id: project.id)
       @approval2.update_attributes(project_id: project.id)
 
-      get '/approvals', include: ['project']
+      get '/approvals', includes: ['project']
 
       expect(json[0]['project']).to_not eq(nil)
     end
@@ -49,7 +51,7 @@ RSpec.describe 'Approvals API' do
       staff = create :staff
       @approval.update_attributes(staff_id: staff.id)
 
-      get "/approvals/#{@approval.id}", include: ['staff']
+      get "/approvals/#{@approval.id}", includes: ['staff']
       expect(json['staff']).to_not eq(nil)
     end
 
@@ -57,7 +59,7 @@ RSpec.describe 'Approvals API' do
       project = create :project
       @approval.update_attributes(project_id: project.id)
 
-      get "/approvals/#{@approval.id}", include: ['project']
+      get "/approvals/#{@approval.id}", includes: ['project']
       expect(json['project']).to_not eq(nil)
     end
 
