@@ -13,8 +13,10 @@ RSpec.describe 'Alerts API' do
       create :alert, :first
       create :alert, :second
       create :alert, :third
-      get '/alerts'
-      expect(json.length).to eq(4)
+      create :alert, :active
+      create :alert, :inactive
+      get '/alerts/all'
+      expect(json.length).to eq(6)
       true
     end
 
@@ -22,21 +24,41 @@ RSpec.describe 'Alerts API' do
 
   describe 'GET show' do
     before :each  do
-      @alert = create :alert
+      @active_alert = create :alert, :active
+      @inactive_alert = create :alert, :inactive
       sign_in_as create :staff, :admin
     end
 
     it 'retrieves alert by id', :show_in_doc do
-      get "/alerts/#{@alert.id}"
-      expect(json['id']).to eq(@alert.id)
+      get "/alerts/#{@active_alert.id}"
+      expect(json['id']).to eq(@active_alert.id)
+    end
+
+    it 'verifies show alerts, default behavior show active', :show_in_doc do
+      get '/alerts'
+      expect(json.length).to eq(1)
+    end
+
+    it 'verifies show all alerts', :show_in_doc do
+      get '/alerts/all'
+      expect(json.length).to eq(2)
+    end
+
+    it 'verifies show active alerts', :show_in_doc do
+      get '/alerts/active'
+      expect(json.length).to eq(1)
+    end
+
+    it 'verifies show inactive alerts', :show_in_doc do
+      get '/alerts/inactive'
+      expect(json.length).to eq(1)
     end
 
     it 'returns an error when the alert does not exist' do
-      get "/alerts/#{@alert.id + 999}"
+      get "/alerts/#{@active_alert.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
-
   end
 
   describe 'POST create' do
@@ -48,6 +70,16 @@ RSpec.describe 'Alerts API' do
       alert_data = { project_id: '0', staff_id: '0', status: 'OK', message: 'This is a test' }
       post '/alerts', alert_data
       expect(json['message']).to eq(alert_data[:message])
+    end
+
+    it 'verifies update alert on duplicate insert', :show_in_doc do
+      alert_data = { project_id: '0', staff_id: '0', status: 'OK', message: 'This is a test' }
+      post '/alerts', alert_data
+      original_id = json['id']
+      expect(json['message']).to eq(alert_data[:message])
+      alert_data = { project_id: '0', staff_id: '0', status: 'OK', message: 'This is a test' }
+      post '/alerts', alert_data
+      expect(json['id']).to eq(original_id)
     end
 
     it 'returns an error if the alert data is missing' do
@@ -64,7 +96,12 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'changes existing alert message', :show_in_doc do
-      put "/alerts/#{@alert.id}", message: 'Updated'
+      params = {};
+      params[:project_id] = @alert.project_id;
+      params[:staff_id] = @alert.staff_id;
+      params[:status] = @alert.status;
+      params[:message] = 'Updated';
+      put "/alerts/#{@alert.id}", params
       expect(response.status).to eq(204)
     end
 
