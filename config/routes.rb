@@ -43,8 +43,9 @@ Rails.application.routes.draw do
 
   # Clouds
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
+
   # Project Routes
-  resources :projects, defaults: { format: :json, methods: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users details) }, only: [:index, :show]
+  resources :projects, defaults: { format: :json, methods: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users details order_history) }, only: [:index, :show]
   resources :projects, defaults: { format: :json }, except: [:index, :show, :edit, :new] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
