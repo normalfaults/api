@@ -96,11 +96,11 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'changes existing alert message', :show_in_doc do
-      params = {};
-      params[:project_id] = @alert.project_id;
-      params[:staff_id] = @alert.staff_id;
-      params[:status] = @alert.status;
-      params[:message] = 'Updated';
+      params = {}
+      params[:project_id] = @alert.project_id
+      params[:staff_id] = @alert.staff_id
+      params[:status] = @alert.status
+      params[:message] = 'Updated'
       put "/alerts/#{@alert.id}", params
       expect(response.status).to eq(204)
     end

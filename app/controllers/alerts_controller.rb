@@ -9,7 +9,8 @@ class AlertsController < ApplicationController
   before_action :load_alert, only: [:show, :edit, :update, :destroy]
   before_action :load_update_params, only: [:update]
   before_action :load_create_params, only: [:create]
-  before_action :load_alert_id, only: [:create]
+  before_action :load_sensu_params, only: [:sensu]
+  before_action :load_alert_id, only: [:create, :sensu]
 
   api :GET, '/alerts', 'Returns all active alerts. (Default behavior)'
 
@@ -48,6 +49,31 @@ class AlertsController < ApplicationController
     respond_with @alerts
   end
 
+  api :POST, '/alerts/sensu', 'Create new setting from Sensu response.'
+  param :hostname, String, required: true, desc: 'The hostname associated with the service.'
+  param :service, String, required: true, desc: 'Name of service deployed on host'
+  param :status, String, required: true, desc: 'Status message associated issued with this service from Sense. <br>Current Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
+  param :message, String, required: true, desc: 'Actual message content of alert.'
+  param :event, String, required: true, desc: 'TBD'
+  error code: 422, desc: MissingRecordDetection::Messages.not_found
+
+  def sensu
+    @alert = Alert.new @alert_params
+    authorize @alert
+    if @alert_id.nil?
+      if @alert.save
+        respond_with @alert
+      else
+        respond_with @alert.errors, status: :unprocessable_entity
+      end
+    else # ON DUPLICATE ALERT UPDATE
+      params[:id] = @alert_id
+      load_alert
+      load_update_params
+      update
+    end
+  end
+
   api :POST, '/alerts', 'Create new setting'
   param :project_id, String, required: true, desc: 'The project id this notification is assigned to. <br>0 indicates system wide notification.'
   param :staff_id, String, required: true, desc: 'The staff id this notification is assigned to. <br>0 indicates system generated notification.'
@@ -58,7 +84,7 @@ class AlertsController < ApplicationController
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
-    @alert = Alert.new @create_params
+    @alert = Alert.new @alert_params
     authorize @alert
     if @alert_id.nil?
       if @alert.save
@@ -86,7 +112,17 @@ class AlertsController < ApplicationController
 
   def update
     authorize @alert
-    if @alert.update_attributes @update_params
+    # if update_conflict
+    #   # TODO: ADD ADDITIONAL GRANULARITY TO SUPPORT PRODUCT LEVEL ALERTS
+    #   respond_with @alert
+    # else
+    #   if @alert.update_attributes @alert_params
+    #     respond_with @alert
+    #   else
+    #     respond_with @alert.errors, status: :unprocessable_entity
+    #   end
+    # end
+    if @alert.update_attributes @alert_params
       respond_with @alert
     else
       respond_with @alert.errors, status: :unprocessable_entity
@@ -113,11 +149,27 @@ class AlertsController < ApplicationController
     params.require :staff_id
     params.require :status
     params.require :message
-    @create_params = params.permit(:project_id, :staff_id, :status, :message, :start_date, :end_date)
+    @alert_params = params.permit(:project_id, :staff_id, :status, :message, :start_date, :end_date)
   end
 
   def load_update_params
-    @update_params = params.permit(:status, :message, :start_date, :end_date)
+    @alert_params = params.permit(:project_id, :staff_id, :status, :message, :start_date, :end_date)
+  end
+
+  def load_sensu_params
+    params.require :hostname
+    params.require :status
+    params.require :service
+    # params.require :event
+    params.require :message
+    load_staff_and_project_id
+    params[:staff_id] = @id_mapping[:staff_id]
+    params[:project_id] = @id_mapping[:project_id]
+    @alert_params = params.permit(:staff_id, :project_id, :status, :message)
+  end
+
+  def load_staff_and_project_id
+    @id_mapping = { staff_id: '0', project_id: '0' }
   end
 
   def load_all_alerts
@@ -138,10 +190,20 @@ class AlertsController < ApplicationController
 
   def load_alert_id
     conditions = {}
-    conditions[:status] = @create_params['status']
-    conditions[:message] = @create_params['message']
-    conditions[:project_id] = @create_params['project_id']
-    conditions[:staff_id] = @create_params['staff_id']
+    conditions[:status] = @alert_params['status']
+    conditions[:message] = @alert_params['message']
+    conditions[:project_id] = @alert_params['project_id']
+    conditions[:staff_id] = @alert_params['staff_id']
     @alert_id = Alert.where(conditions).first
+  end
+
+  def update_conflict
+    conditions = {}
+    conditions[:status] = @alert_params['status']
+    conditions[:message] = @alert_params['message']
+    conditions[:project_id] = @alert_params['project_id']
+    conditions[:staff_id] = @alert_params['staff_id']
+    @condition_id = Alert.where(conditions).first.id
+    @alert.id != @condition_id
   end
 end

@@ -7,6 +7,10 @@ class AlertPolicy < ApplicationPolicy
     admin_or_related
   end
 
+  def sensu?
+    admin_or_related
+  end
+
   def show?
     admin_or_related
   end
