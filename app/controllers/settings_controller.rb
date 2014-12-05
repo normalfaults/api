@@ -107,7 +107,7 @@ class SettingsController < ApplicationController
   end
 
   def load_settings
-    @settings = Setting.all.order('id ASC')
+    @settings = query_with_includes Setting.all.order('id ASC')
   end
 
   def load_setting

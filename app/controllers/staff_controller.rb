@@ -194,7 +194,7 @@ class StaffController < ApplicationController
 
   def load_staffs
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @staffs = Staff.all
+    @staffs = query_with_includes Staff.all
   end
 
   def load_staff_params

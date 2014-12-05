@@ -78,6 +78,6 @@ class OrdersController < ApplicationController
   end
 
   def load_orders
-    @orders = Order.all
+    @orders = query_with_includes Order.all
   end
 end

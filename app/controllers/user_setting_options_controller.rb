@@ -113,7 +113,7 @@ class UserSettingOptionsController < ApplicationController
   end
 
   def load_user_setting_options
-    @user_setting_options = UserSettingOption.all.order('id ASC')
+    @user_setting_options = query_with_includes UserSettingOption.all.order('id ASC')
   end
 
   def load_user_setting_option
