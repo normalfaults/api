@@ -10,6 +10,8 @@ class Project < ActiveRecord::Base
 
   has_one :project_detail
 
+  default_scope { includes(:staff).includes(:project_detail) }
+
   def self.create_with_answers(attributes)
     answers = attributes[:project_answers]
     attributes.delete :project_answers

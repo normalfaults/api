@@ -84,6 +84,6 @@ class OrganizationsController < ApplicationController
   end
 
   def load_organizations
-    @organizations = Organization.all
+    @organizations = query_with_includes Organization.all
   end
 end

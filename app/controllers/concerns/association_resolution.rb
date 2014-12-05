@@ -10,8 +10,16 @@ module AssociationResolution
 
   protected
 
+  def model_const
+    controller_name.classify.constantize
+  end
+
   def model_associations
-    @model_associations_symbols ||= controller_name.classify.constantize.reflect_on_all_associations.collect(&:name)
+    @model_associations_symbols ||= model_const.reflect_on_all_associations.collect(&:name)
+  end
+
+  def query_with_includes(query)
+    @association_inclusions.inject(query) { |a, e| a.includes(e) } || query
   end
 
   def set_association_inclusions!

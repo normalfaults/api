@@ -91,6 +91,6 @@ class ProjectQuestionsController < ApplicationController
 
   def load_project_questions
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @project_questions = ProjectQuestion.all
+    @project_questions = query_with_includes ProjectQuestion.all
   end
 end

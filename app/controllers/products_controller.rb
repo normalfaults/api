@@ -78,6 +78,6 @@ class ProductsController < ApplicationController
   end
 
   def load_products
-    @products = Product.all
+    @products = query_with_includes Product.all
   end
 end

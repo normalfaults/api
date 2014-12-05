@@ -87,6 +87,6 @@ class ChargebacksController < ApplicationController
   end
 
   def load_chargebacks
-    @chargebacks = Chargeback.all
+    @chargebacks = query_with_includes Chargeback.all
   end
 end
