@@ -106,7 +106,7 @@ class AlertsController < ApplicationController
   end
 
   api :PUT, '/alerts/:id', 'Updates alert with given :id'
-  param :message, String, required: true, desc: 'The message content to update alert with.'
+  param :message, String, required: false, desc: 'The message content to update alert with.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
   param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
   description 'Attempts to update an existing alert. <br>To preserve referential integrity, only the following attributes can be changed: message, start_date, end_date.'
@@ -195,16 +195,6 @@ class AlertsController < ApplicationController
     conditions[:status] = @alert_params['status']
     result = Alert.where(conditions).order('updated_at DESC').first
     @alert_id = (result.nil? || result.id.nil?) ? nil : result.id
-  end
-
-  def update_conflict
-    conditions = {}
-    conditions[:status] = @alert_params['status']
-    conditions[:message] = @alert_params['message']
-    conditions[:project_id] = @alert_params['project_id']
-    conditions[:staff_id] = @alert_params['staff_id']
-    @condition_id = Alert.where(conditions).first.id
-    @alert.id != @condition_id
   end
 
   def service_alerts_exist
