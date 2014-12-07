@@ -1,6 +1,5 @@
 class SessionsController < Devise::SessionsController
   skip_before_action :verify_signed_out_user, only: :destroy
-  skip_before_action :require_no_authentication, only: :create
 
   api :POST, '/staff/sign_in', 'Signs user in'
   param :staff, Hash, desc: 'Staff' do
@@ -34,9 +33,7 @@ class SessionsController < Devise::SessionsController
         super
       end
       format.json do
-        if resource
-          Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
-        end
+        Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
         render json: {}, status: :ok
       end
     end

@@ -159,7 +159,7 @@ class ProjectsController < ApplicationController
 
   def load_projects
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @projects = Project.all
+    @projects = query_with_includes Project.all
   end
 
   def load_project_params

@@ -87,6 +87,6 @@ class CloudsController < ApplicationController
   end
 
   def load_clouds
-    @clouds = Cloud.all
+    @clouds = query_with_includes Cloud.all
   end
 end
