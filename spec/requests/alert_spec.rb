@@ -67,17 +67,23 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'creates a new alert', :show_in_doc do
-      alert_data = { project_id: '0', staff_id: '0', status: 'OK', message: 'This is a test' }
+      alert_data = { project_id: '0', staff_id: '0', order_id: '0', host: 'foo.bar.com', port: '5000', status: 'OK', message: 'This is a test' }
       post '/alerts', alert_data
       expect(json['message']).to eq(alert_data[:message])
     end
 
+    it 'verifies creation of a new sensu alert', :show_in_doc do
+      alert_data = { hostname: 'foo.bar.com', port: '5000', service: 'postgresql', status: 'OK', message: 'This is a test', event: 'tbd' }
+      post '/alerts/sensu', alert_data
+      expect(json['message']).to eq(alert_data[:message])
+    end
+
     it 'verifies update alert on duplicate insert', :show_in_doc do
-      alert_data = { project_id: '0', staff_id: '0', status: 'OK', message: 'This is a test' }
+      alert_data = { project_id: '0', staff_id: '0', order_id: '0', host: 'foo.bar.com', port: '5000', status: 'OK', message: 'This is a test' }
       post '/alerts', alert_data
       original_id = json['id']
       expect(json['message']).to eq(alert_data[:message])
-      alert_data = { project_id: '0', staff_id: '0', status: 'OK', message: 'This is a test' }
+      alert_data = { project_id: '0', staff_id: '0', order_id: '0', host: 'foo.bar.com', port: '5000', status: 'OK', message: 'This is a test' }
       post '/alerts', alert_data
       expect(json['id']).to eq(original_id)
     end

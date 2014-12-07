@@ -1,4 +1,32 @@
 {
+  "alerts#sensu" : [
+    {
+      "verb": "POST",
+      "path": "/alerts/sensu/",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "host=foo.bar.com&port=5000&service=www&status=OK&message=This+is+a+test&event=tbd",
+      "response_data": {
+        "id": 12,
+        "project_id": 0,
+        "staff_id": 0,
+        "order_id": 0,
+        "host": "foo.bar.com",
+        "port": 5000,
+        "status": "OK",
+        "message": "This is a test",
+        "start_date" : null,
+        "end_date" : null,
+        "created_at": "2014-12-03T18:18:31.240Z",
+        "updated_at": "2014-12-03T18:18:31.240Z"
+      },
+      "code": 201,
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "approvals#create": [
     {
       "verb": "POST",
