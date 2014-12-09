@@ -49,13 +49,14 @@ class AlertsController < ApplicationController
     respond_with @alerts
   end
 
-  api :POST, '/alerts/sensu', 'Create new alert from Sensu response.'
+  api :POST, '/alerts/sensu', 'Create new Sensu alert.'
   param :hostname, String, required: true, desc: 'The host of the product associated with this alert.'
   param :port, String, required: true, desc: 'The port of the product associated with this alert.'
   param :service, String, required: true, desc: 'Name of service deployed on host'
   param :status, String, required: true, desc: 'Status message associated issued with this service from Sense. <br>Current Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: true, desc: 'Actual message content of alert.'
-  param :event, String, required: true, desc: 'TBD'
+  param :event, String, required: true, desc: 'TBD. Stubbed out for now.'
+  description 'Endpoint to push an alert from Sensu to Core. <br>If an alert already exists for this order, then update that order.'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def sensu
@@ -78,14 +79,12 @@ class AlertsController < ApplicationController
   api :POST, '/alerts', 'Creates a new alert'
   param :project_id, String, required: true, desc: 'The project id issued with this new alert. <br>A 0 indicates system wide alert.'
   param :staff_id, String, required: true, desc: 'The staff id of the user who is posting this new alert. <br>0 indicates a system generated alert.'
-  param :order_id, String, required: true, desc: 'The order id associated with this new alert. <br>A 0 indicates a system wide alert.'
-  param :host, String, required: true, desc: 'The host this product is deployed on.'
-  param :port, String, required: true, desc: 'The port this product is deployed on.'
+  param :order_id, String, required: true, desc: 'The order id associated with this new alert. <br>A 0 indicates a project wide alert.'
   param :status, String, required: true, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: true, desc: 'The message content of the new alert.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
   param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
-  description 'Attempts to create a new alert using the unique key of [project_id, staff_id, product_it, host, port, status]. <br>If the alert already exists, then run an on duplicate key update.'
+  description 'Endpoint to create a new status alert for an order. <br>If a status alert is the same as the last one recorded for the service, then the existing status alert is updated. <br> Otherwise, a new status alert is created for the service.'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -109,7 +108,7 @@ class AlertsController < ApplicationController
   param :message, String, required: false, desc: 'The message content to update alert with.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
   param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
-  description 'Attempts to update an existing alert. <br>To preserve referential integrity, only the following attributes can be changed: message, start_date, end_date.'
+  description 'Endpoint to update an existing alert. <br>To preserve referential integrity, only the following attributes can be changed: message, start_date, end_date.'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def update
@@ -141,11 +140,9 @@ class AlertsController < ApplicationController
     params.require :project_id
     params.require :staff_id
     params.require :order_id
-    params.require :host
-    params.require :port
     params.require :status
     params.require :message
-    @alert_params = params.permit(:project_id, :staff_id, :order_id, :host, :port, :status, :message, :start_date, :end_date)
+    @alert_params = params.permit(:project_id, :staff_id, :order_id, :status, :message, :start_date, :end_date)
   end
 
   def load_update_params
@@ -153,20 +150,18 @@ class AlertsController < ApplicationController
   end
 
   def load_sensu_params
-    params.require :hostname
-    params[:host] = params[:hostname]
     params.require :status
     params.require :service
     params.require :message
     load_staff_and_project_id
-    params[:staff_id] = @id_mapping[:staff_id]
     params[:project_id] = @id_mapping[:project_id]
-    # params.require :event
-    @alert_params = params.permit(:project_id, :staff_id, :order_id, :host, :port, :status, :message, :start_date, :end_date)
+    params[:staff_id] = @id_mapping[:staff_id]
+    params[:order_id] = @id_mapping[:order_id]
+    @alert_params = params.permit(:project_id, :staff_id, :order_id, :status, :message, :start_date, :end_date)
   end
 
   def load_staff_and_project_id
-    @id_mapping = { staff_id: '0', project_id: '0' }
+    @id_mapping = { project_id: '2', staff_id: '1', order_id: '3' }
   end
 
   def load_all_alerts
@@ -190,8 +185,6 @@ class AlertsController < ApplicationController
     conditions[:project_id] = @alert_params['project_id']
     conditions[:staff_id] = @alert_params['staff_id']
     conditions[:order_id] = @alert_params['order_id']
-    conditions[:host] = @alert_params['host']
-    conditions[:port] = @alert_params['port']
     conditions[:status] = @alert_params['status']
     result = Alert.where(conditions).order('updated_at DESC').first
     @alert_id = (result.nil? || result.id.nil?) ? nil : result.id
@@ -202,8 +195,6 @@ class AlertsController < ApplicationController
     conditions[:project_id] = @alert_params['project_id']
     conditions[:staff_id] = @alert_params['staff_id']
     conditions[:order_id] = @alert_params['order_id']
-    conditions[:host] = @alert_params['host']
-    conditions[:port] = @alert_params['port']
     !Alert.where(conditions).first.nil?
   end
 
@@ -212,8 +203,6 @@ class AlertsController < ApplicationController
     conditions[:project_id] = @alert_params['project_id']
     conditions[:staff_id] = @alert_params['staff_id']
     conditions[:order_id] = @alert_params['order_id']
-    conditions[:host] = @alert_params['host']
-    conditions[:port] = @alert_params['port']
     Alert.where(conditions).order('updated_at DESC').first
   end
 

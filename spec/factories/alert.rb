@@ -1,49 +1,78 @@
 FactoryGirl.define do
   factory :alert do
-    project_id '0'
+    project_id '1'
     staff_id '0'
+    order_id '2'
     status 'OK'
-    message 'test alert'
+    message 'THIS IS A BASIC TEST'
     start_date 'NULL'
     end_date 'NULL'
 
     trait :active do
-      project_id '0'
+      project_id '2'
       staff_id '0'
+      order_id '2'
       status 'OK'
       message 'This is an active alert'
       start_date "#{Time.now}" # START DATE NOW
-      end_date "#{Date.today + 1}" # END DATE NOT SET
+      end_date "#{Date.today + 1}" # END DATE TOMORROW
     end
 
     trait :inactive do
-      project_id '0'
+      project_id '2'
       staff_id '0'
-      status 'OK'
+      order_id '2'
       message 'This is an inactive alert'
-      start_date "#{Date.today - 2}" # YESTERDAY - 1
+      start_date "#{Date.today - 2}" # 2 DAYS AGO
       end_date "#{Date.today - 1}" # YESTERDAY
     end
 
     trait :first do
-      project_id '1'
-      staff_id '1'
+      project_id '3'
+      staff_id '0'
+      order_id '1'
       status 'WARNING'
-      message 'first alert'
+      message 'This is a WARNING alert for the first service of project 3.'
     end
 
     trait :second do
-      project_id '2'
-      staff_id '2'
+      project_id '3'
+      staff_id '0'
+      order_id '2'
       status 'CRITICAL'
-      message 'second alert'
+      message 'This is a CRITICAL alert for the second service of project 3'
     end
 
     trait :third do
-      project_id '1'
-      staff_id '1'
+      project_id '3'
+      staff_id '0'
+      order_id '3'
       status 'UNKNOWN'
-      message 'third alert'
+      message 'This is an UNKNOWN alert for the third service of project 3'
+    end
+
+    trait :warning do
+      project_id '4'
+      staff_id '0'
+      order_id '1'
+      status 'WARNING'
+      message 'This is a WARNING alert for the first service of project 4.'
+    end
+
+    trait :critical do
+      project_id '4'
+      staff_id '0'
+      order_id '1'
+      status 'CRITICAL'
+      message 'This is a CRITICAL alert for the first service of project 4.'
+    end
+
+    trait :unknown do
+      project_id '4'
+      staff_id '0'
+      order_id '1'
+      status 'UNKNOWN'
+      message 'This is an UNKNOWN alert for the first service of project 4.'
     end
   end
 end
