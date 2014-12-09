@@ -23,7 +23,7 @@ gem 'pry-rails', group: :development
 gem 'rake', group: :test
 
 # for console, rake
-gem 'highline', group: [:development]
+gem 'highline'
 
 # Figaro Gem
 gem 'figaro'

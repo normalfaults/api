@@ -14,8 +14,8 @@ FactoryGirl.define do
       order_id '2'
       status 'OK'
       message 'This is an active alert'
-      start_date "#{Time.now}" # START DATE NOW
-      end_date "#{Date.today + 1}" # END DATE TOMORROW
+      start_date "#{DateTime.now}" # START DATE NOW
+      end_date "#{DateTime.now + 1.day}" # END DATE NOT SET
     end
 
     trait :inactive do
@@ -23,8 +23,8 @@ FactoryGirl.define do
       staff_id '0'
       order_id '2'
       message 'This is an inactive alert'
-      start_date "#{Date.today - 2}" # 2 DAYS AGO
-      end_date "#{Date.today - 1}" # YESTERDAY
+      start_date "#{DateTime.now - 2.days}" # YESTERDAY - 1
+      end_date "#{DateTime.now - 1.day}" # YESTERDAY
     end
 
     trait :first do

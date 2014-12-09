@@ -165,15 +165,15 @@ class AlertsController < ApplicationController
   end
 
   def load_all_alerts
-    @alerts = Alert.all.order('id ASC')
+    @alerts = Alert.all.order('created_at ASC')
   end
 
   def load_active_alerts
-    @alerts = Alert.where('(start_date IS NULL OR start_date <= ?) AND (end_date IS NULL OR end_date > ?)', Time.now, Time.now).order('id ASC')
+    @alerts = Alert.where('(start_date IS NULL OR start_date <= ?) AND (end_date IS NULL OR end_date > ?)', DateTime.now, DateTime.now).order('created_at ASC')
   end
 
   def load_inactive_alerts
-    @alerts = Alert.where('end_date < ? OR start_date > ?', Time.now, Time.now).order('id ASC')
+    @alerts = Alert.where('end_date < ? OR start_date > ?', DateTime.now, DateTime.now).order('created_at ASC')
   end
 
   def load_alert
