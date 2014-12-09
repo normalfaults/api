@@ -40,7 +40,12 @@ Rails.application.routes.draw do
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Orders
-  resources :orders, except: [:edit, :new], defaults: { format: :json }
+  resources :orders, except: [:edit, :new], defaults: { format: :json } do
+    member do
+      post :start_service, to: 'orders#start_service', as: :start_service
+      post :stop_service, to: 'orders#stop_service', as: :stop_service
+    end
+  end
 
   # Products
   resources :products, except: [:edit, :new], defaults: { format: :json }
