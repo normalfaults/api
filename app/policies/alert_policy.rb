@@ -1,14 +1,14 @@
 class AlertPolicy < ApplicationPolicy
   def index?
-    admin_or_related
+    true
   end
 
   def create?
-    admin_or_related
+    user.admin?
   end
 
   def sensu?
-    admin_or_related
+    admin_or_system
   end
 
   def show?
@@ -16,27 +16,27 @@ class AlertPolicy < ApplicationPolicy
   end
 
   def show_all?
-    admin_or_related
+    admin_or_system
   end
 
   def show_active?
-    admin_or_related
+    admin_or_system
   end
 
   def show_inactive?
-    admin_or_related
+    admin_or_system
   end
 
   def new?
-    admin_or_related
+    admin_or_system
   end
 
   def update?
-    admin_or_related
+    admin_or_system
   end
 
   def destroy?
-    admin_or_related
+    admin_or_system
   end
 
   class Scope < Scope
@@ -48,6 +48,10 @@ class AlertPolicy < ApplicationPolicy
   private
 
   def admin_or_related
+    user.admin? || record.staff_id == user.id
+  end
+
+  def admin_or_system
     user.admin? || system_generated
   end
 
