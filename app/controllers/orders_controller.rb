@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
   respond_to :json
 
-  before_action :load_order, only: [:show, :update, :destroy]
+  after_action :verify_authorized
+
+  before_action :load_order, only: [:show, :update, :destroy, :start_service, :stop_service]
   before_action :load_order_params, only: [:create, :update]
   before_action :load_orders, only: [:index]
 
@@ -9,6 +11,7 @@ class OrdersController < ApplicationController
   param :includes, Array, required: false, in: %w(product cloud)
 
   def index
+    authorize Order
     respond_with_params @orders
   end
 
@@ -18,6 +21,7 @@ class OrdersController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
+    authorize @order
     respond_with_params @order
   end
 
@@ -29,6 +33,8 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new @orders_params
+
+    authorize @order
 
     if @order.save
       respond_with @order
@@ -46,9 +52,9 @@ class OrdersController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    @order.update_attributes(@orders_params)
+    authorize @order
 
-    if @order.save
+    if @order.update_attributes @orders_params
       render json: @order
     else
       respond_with @order.errors, status: :unprocessable_entity
@@ -60,11 +66,24 @@ class OrdersController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
+    authorize @order
     if @order.destroy
       render json: @order
     else
       respond_with @order.errors, status: :unprocessable_entity
     end
+  end
+
+  def start_service
+    authorize @order
+    # TODO: Direct ManageIQ to pass along a start request
+    render nothing: true, status: :ok
+  end
+
+  def stop_service
+    authorize @order
+    # TODO: Direct ManageIQ to pass along a stop request
+    render nothing: true, status: :ok
   end
 
   private
