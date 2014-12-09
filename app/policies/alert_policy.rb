@@ -58,5 +58,4 @@ class AlertPolicy < ApplicationPolicy
   def system_generated
     false # TODO: BUILD OUT SYSTEM GENERATED ALERTS LOGIC
   end
-
 end
