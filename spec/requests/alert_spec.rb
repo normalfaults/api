@@ -93,6 +93,31 @@ RSpec.describe 'Alerts API' do
       expect(response.status).to eq(422)
       expect(json).to eq('error' => 'param is missing or the value is empty: project_id')
     end
+
+    it 'verifies alerts are only created for a new service status and updated otherwise.', :show_in_doc do
+      # TIMESTAMP: N
+      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'OK', message: 'NO ISSUES.' }
+      post '/alerts', alert_data
+      # TIMESTAMP: N + 1
+      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'OK', message: 'NO ISSUES.' }
+      post '/alerts', alert_data
+      # TIMESTAMP: N + 2
+      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'CRITICAL', message: 'FIX ME!' }
+      post '/alerts', alert_data
+      # TIMESTAMP: N + 3
+      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'CRITICAL', message: 'STILL BROKEN!' }
+      post '/alerts', alert_data
+      # TIMESTAMP: N + 4
+      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'OK', message: 'NO ISSUES.' }
+      post '/alerts', alert_data
+      # TIMESTAMP: N + 5
+      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'WARNING', message: 'REVIEW LOGS.' }
+      post '/alerts', alert_data
+      # VERIFY CREATE/UPDATE LOGIC IS WORKING
+      get '/alerts/all'
+      json = JSON.parse(response.body)
+      expect(json.length).to eq(4)
+    end
   end
 
   describe 'PUT update' do

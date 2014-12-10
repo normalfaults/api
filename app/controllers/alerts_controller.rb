@@ -105,6 +105,7 @@ class AlertsController < ApplicationController
   end
 
   api :PUT, '/alerts/:id', 'Updates alert with given :id'
+  param :staff_id, String, required: false, desc: 'The staff id of the user who is posting this new alert. <br>0 indicates a system generated alert.'
   param :message, String, required: false, desc: 'The message content to update alert with.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
   param :end_date, String, required: false, desc: 'Date this alert should no longer be displayed after. Null indicates the alert does not expire.'
@@ -146,7 +147,7 @@ class AlertsController < ApplicationController
   end
 
   def load_update_params
-    @alert_params = params.permit(:message, :start_date, :end_date)
+    @alert_params = params.permit(:staff_id, :message, :start_date, :end_date)
   end
 
   def load_sensu_params
@@ -161,7 +162,7 @@ class AlertsController < ApplicationController
   end
 
   def load_staff_and_project_id
-    @id_mapping = { project_id: '2', staff_id: '1', order_id: '3' }
+    @id_mapping = { project_id: '1', staff_id: '0', order_id: '1' }
   end
 
   def load_all_alerts
@@ -183,7 +184,6 @@ class AlertsController < ApplicationController
   def load_alert_id
     conditions = {}
     conditions[:project_id] = @alert_params['project_id']
-    conditions[:staff_id] = @alert_params['staff_id']
     conditions[:order_id] = @alert_params['order_id']
     conditions[:status] = @alert_params['status']
     result = Alert.where(conditions).order('updated_at DESC').first
@@ -193,7 +193,6 @@ class AlertsController < ApplicationController
   def service_alerts_exist
     conditions = {}
     conditions[:project_id] = @alert_params['project_id']
-    conditions[:staff_id] = @alert_params['staff_id']
     conditions[:order_id] = @alert_params['order_id']
     !Alert.where(conditions).first.nil?
   end
@@ -201,7 +200,6 @@ class AlertsController < ApplicationController
   def last_alert_for_service
     conditions = {}
     conditions[:project_id] = @alert_params['project_id']
-    conditions[:staff_id] = @alert_params['staff_id']
     conditions[:order_id] = @alert_params['order_id']
     Alert.where(conditions).order('updated_at DESC').first
   end
