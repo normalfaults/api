@@ -10,7 +10,7 @@ class Project < ActiveRecord::Base
 
   has_one :project_detail
 
-  default_scope { includes(:staff).includes(:project_detail) }
+  default_scope { includes(:staff).includes(:project_answers) }
 
   def self.create_with_answers(attributes)
     answers = attributes[:project_answers]
@@ -135,10 +135,6 @@ class Project < ActiveRecord::Base
 
   def users
     staff.as_json
-  end
-
-  def details
-    project_detail.as_json
   end
 
   # END OF STUBS
