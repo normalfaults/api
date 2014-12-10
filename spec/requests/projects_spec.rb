@@ -23,24 +23,6 @@ RSpec.describe 'Projects API' do
       get '/projects'
       expect(json.length).to eq(2)
     end
-
-    it 'returns a collection of all of the projects w/ staff' do
-      project = create :project
-      staff = create :staff
-      create :staff_project, staff_id: staff.id, project_id: project.id
-
-      get '/projects', includes: ['staff']
-      expect(json[0]['staff']).to_not eq(nil)
-    end
-
-    it 'returns a collection of all of the projects w/ details' do
-      project = create :project
-      create :project_detail, project_id: project.id
-
-      get '/projects', includes: ['project_detail']
-
-      expect(json[0]['project_detail']).to_not eq(nil)
-    end
   end
 
   describe 'GET show' do
@@ -58,15 +40,6 @@ RSpec.describe 'Projects API' do
       get "/projects/#{@project.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
-    end
-
-    it 'returns a product w/ staff', :show_in_doc do
-      staff = create :staff
-      create :staff_project, staff_id: staff.id, project_id: @project.id
-
-      get "/projects/#{@project.id}", includes: ['staff']
-
-      expect(json['staff']).to_not eq(nil)
     end
 
   end

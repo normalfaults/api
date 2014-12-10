@@ -2,6 +2,7 @@ module AssociationResolution
   extend ActiveSupport::Concern
 
   included do
+    attr_reader :render_params
     before_action :set_association_inclusions!
   end
 
@@ -19,12 +20,13 @@ module AssociationResolution
   end
 
   def query_with_includes(query)
-    @association_inclusions.inject(query) { |a, e| a.includes(e) } || query
+    @association_inclusions.keys.inject(query) { |a, e| a.includes(e) } || query
   end
 
   def set_association_inclusions!
     raw_inclusion = params[:includes] || []
-    @association_inclusions = raw_inclusion.map(&:to_sym)
+    @association_inclusions = {}
+    raw_inclusion.each { |inc| @association_inclusions[inc.to_sym] = {} }
     @render_params ||= {}
     @render_params[:include] = @association_inclusions
   end
