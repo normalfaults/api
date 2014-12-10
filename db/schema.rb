@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209235824) do
+ActiveRecord::Schema.define(version: 20141210192400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(version: 20141209235824) do
     t.datetime "updated_at"
     t.json     "options"
     t.datetime "deleted_at"
+    t.string   "host"
+    t.integer  "port"
   end
 
   add_index "orders", ["cloud_id"], name: "index_orders_on_cloud_id", using: :btree
@@ -127,19 +129,26 @@ ActiveRecord::Schema.define(version: 20141209235824) do
 
   add_index "organizations", ["deleted_at"], name: "index_organizations_on_deleted_at", using: :btree
 
+  create_table "product_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "service_type_id"
     t.integer  "service_catalog_id"
     t.integer  "cloud_id"
-    t.string   "chef_role",          limit: 100
+    t.string   "chef_role",           limit: 100
     t.boolean  "active"
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "options"
     t.datetime "deleted_at"
+    t.integer  "product_category_id"
   end
 
   add_index "products", ["cloud_id"], name: "index_products_on_cloud_id", using: :btree
