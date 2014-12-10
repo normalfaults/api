@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(version: 20141209235824) do
     t.datetime "updated_at"
     t.json     "options"
     t.datetime "deleted_at"
+    t.string   "host"
+    t.integer  "port"
   end
 
   add_index "orders", ["cloud_id"], name: "index_orders_on_cloud_id", using: :btree
