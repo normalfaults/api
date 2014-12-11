@@ -14,6 +14,7 @@ class StaffController < ApplicationController
   before_action :load_staff_params, only: [:create, :update]
 
   api :GET, '/staff', 'Returns a collection of staff'
+  param :query, String, required: false, desc: 'queries against first name, last name, and email'
   param :includes, Array, required: false, in: %w(user_settings projects)
   def index
     authorize Staff.new
@@ -193,8 +194,13 @@ class StaffController < ApplicationController
   private
 
   def load_staffs
-    # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @staffs = query_with_includes Staff.all
+    @staffs_params = params.permit :query, :includes
+
+    if @staffs_params[:query]
+      @staffs = Staff.search @staffs_params[:query]
+    else
+      @staffs = query_with_includes Staff.all
+    end
   end
 
   def load_staff_params
