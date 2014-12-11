@@ -50,6 +50,9 @@ Rails.application.routes.draw do
   # Products
   resources :products, except: [:edit, :new], defaults: { format: :json }
 
+  # ProductCategories
+  resources :product_categories, except: [:edit, :new], defaults: { format: :json }
+
   # Chargebacks
   resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
 
@@ -106,7 +109,7 @@ Rails.application.routes.draw do
   get 'alertPopup', to: 'mocks#alert_popup', defaults: { format: :json }
   get 'header', to: 'mocks#header', defaults: { format: :json }
   get 'manage', to: 'mocks#manage', defaults: { format: :json }
-  get 'marketplace', to: 'mocks#marketplace', defaults: { format: :json }
+  get 'marketplaceValues', to: 'mocks#marketplace', defaults: { format: :json }
   get 'new-project', to: 'mocks#new_project', defaults: { format: :json }
 
 end
