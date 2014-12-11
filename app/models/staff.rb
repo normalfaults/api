@@ -1,4 +1,6 @@
 class Staff < ActiveRecord::Base
+  include PgSearch
+
   self.table_name = :staff
 
   acts_as_paranoid
@@ -18,6 +20,8 @@ class Staff < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   enum role: [:user, :admin]
+
+  pg_search_scope :search, against: [:first_name, :last_name, :email], using: { tsearch: { prefix: true } }
 
   # Note: This is just a stub for now.
   def allowed

@@ -5,7 +5,7 @@ RSpec.describe 'Staff API' do
 
   describe 'GET index' do
     before(:each) do
-      create :staff
+      create :staff, first_name: 'john', last_name: 'smith', email: 'foo@bar.com'
       create :staff, :user
       sign_in_as create :staff, :admin
     end
@@ -23,6 +23,11 @@ RSpec.describe 'Staff API' do
     it 'returns a collection of all staff w/ user_settings' do
       get '/staff', includes: %w(user_settings)
       expect(json[0]['user_settings']).to_not eq(nil)
+    end
+
+    it 'returns a search of all staff using the query' do
+      get '/staff', query: 'joh'
+      expect(json[0]['first_name']).to eq('john')
     end
   end
 

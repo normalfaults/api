@@ -93,6 +93,10 @@ GEM
       ast (>= 1.1, < 3.0)
       slop (~> 3.4, >= 3.4.5)
     pg (0.17.1)
+    pg_search (0.7.8)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     powerpack (0.0.9)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -198,7 +202,8 @@ DEPENDENCIES
   highline
   jbuilder (~> 2.0)
   paranoia
-  pg
+  pg (~> 0.17.1)
+  pg_search (~> 0.7.8)
   pry-rails
   pundit
   rack-cors
