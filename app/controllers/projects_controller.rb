@@ -41,7 +41,8 @@ class ProjectsController < ApplicationController
     param :cc, String, required: false
     param :budget, :number, required: false
     param :staff_id, String, required: false
-    param :end_data, Date, required: false
+    param :start_date, String, required: false
+    param :end_date, String, required: false
     param :approved, String, required: false
     param :img, String, required: false
   end
@@ -165,7 +166,7 @@ class ProjectsController < ApplicationController
   end
 
   def load_project_params
-    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_data, :approved, :img, project_answers: [:project_question_id, :answer])
+    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer])
   end
 
   def load_project
