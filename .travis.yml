@@ -11,4 +11,7 @@ deploy:
   api_key:
     secure: r0eHefnPazYspJ7c9Jrf1QqO5fAfSiUU8wc/2fcqfEmR5BH2/VDoin3Z9TfYCW2k7vZ5OUSKzEX25oelyV6rOoaEEX/nC7gZ3U0IS6cyPgpAd9ApcfXwyZo8XwIAnGtkG+B9x+xE4aeoro9FdqSALDF2U5n8dUlOvf3OXKSMgoE=
   app: jellyfish-core-dev
-  run: "rake db:migrate"
+  run:
+    - "rake db:schema:load"
+    - "rake"
+    - "rake sample:jenkins"
