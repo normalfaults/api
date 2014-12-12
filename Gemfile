@@ -74,3 +74,6 @@ gem 'virtus'
 
 # CORS
 gem 'rack-cors'
+
+# CRONTAB SCHEDULER
+gem 'whenever'
