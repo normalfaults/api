@@ -3,7 +3,7 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, 'log/cron.log'
-job_type :upkeep_cron, 'cd :path && :environment_variable=:environment :task :output'
-every 1.day do
+
+every 1.minute do
   rake 'upkeep:prune_alerts'
 end
