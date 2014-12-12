@@ -28,7 +28,7 @@ class Staff < ActiveRecord::Base
     %w(Add Delete Modify Services)
   end
 
-  def as_json(options = {})
-    super((options || {}).merge(methods: [:allowed]))
+  def gravatar
+    '3fc88b95c85e43f157cb1ffd0e37e832'
   end
 end

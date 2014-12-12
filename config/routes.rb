@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   resources :user_setting_options, defaults: { format: :json }
 
   # Approvals
-  resources :staff, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
+  resources :staff, defaults: { format: :json, methods: %w(gravatar allowed) }, only: [:index]
+  resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
     collection do
       match 'current_member' => 'staff#current_member', via: :get, defaults: { format: :json }
     end

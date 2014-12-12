@@ -15,6 +15,7 @@ class StaffController < ApplicationController
 
   api :GET, '/staff', 'Returns a collection of staff'
   param :query, String, required: false, desc: 'queries against first name, last name, and email'
+  param :methods, Array, required: false, in: %w(gravatar allowed)
   param :includes, Array, required: false, in: %w(user_settings projects)
   def index
     authorize Staff.new
