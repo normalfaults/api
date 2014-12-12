@@ -23,11 +23,6 @@ class Staff < ActiveRecord::Base
 
   pg_search_scope :search, against: [:first_name, :last_name, :email], using: { tsearch: { prefix: true } }
 
-  # Note: This is just a stub for now.
-  def allowed
-    %w(Add Delete Modify Services)
-  end
-
   def gravatar
     '3fc88b95c85e43f157cb1ffd0e37e832'
   end
