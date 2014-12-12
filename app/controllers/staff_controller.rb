@@ -24,6 +24,7 @@ class StaffController < ApplicationController
 
   api :GET, '/staff/:id', 'Shows staff member with :id'
   param :id, :number, required: true
+  param :methods, Array, required: false, in: %w(gravatar allowed)
   param :includes, Array, required: false, in: %w(user_settings projects)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   def show
