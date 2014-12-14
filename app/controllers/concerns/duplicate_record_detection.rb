@@ -9,6 +9,6 @@ module DuplicateRecordDetection
   end
 
   def duplicate_record_error(e)
-    render json: { error: "Duplicate record.", details: e.message }, status: 422
+    render json: { error: 'Duplicate record.', details: e.message }, status: 422
   end
 end

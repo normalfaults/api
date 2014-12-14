@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   include InvalidRecordDetection
   include DuplicateRecordDetection
+  include UnauthorizedAccessDetection
   include MissingRecordDetection
   include ParameterValidation
   include RenderWithParams
