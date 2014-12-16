@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   before_action :load_products, only: [:index]
 
   api :GET, '/products', 'Returns a collection of products'
-  param :includes, Array, required: false, in: %w(chargebacks)
+  param :includes, Array, required: false, in: %w(chargebacks cloud)
 
   def index
     respond_with_params @products
@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
 
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
-  param :includes, Array, required: false, in: %w(chargebacks)
+  param :includes, Array, required: false, in: %w(chargebacks cloud)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
