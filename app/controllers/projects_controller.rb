@@ -162,7 +162,7 @@ class ProjectsController < ApplicationController
 
   def load_projects
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @projects = query_with_includes Project.all
+    @projects = query_with_includes Project.all.main_inclusions
   end
 
   def load_project_params
@@ -170,7 +170,7 @@ class ProjectsController < ApplicationController
   end
 
   def load_project
-    @project = Project.find params.require(:id)
+    @project = Project.find(params.require(:id))
   end
 
   def load_staff
