@@ -17,17 +17,18 @@ RSpec.describe 'Clouds API' do
     end
 
     it 'returns a collection of clouds w/ chargebacks', :show_in_doc do
-      get '/clouds', include: [:chargebacks]
+      get '/clouds', includes: [:chargebacks]
       expect(json[0]['chargebacks']).to_not eq(nil)
     end
 
     it 'returns a collection of clouds w/ orders', :show_in_doc do
-      get '/clouds', include: [:orders]
+      get '/clouds', includes: [:orders]
       expect(json[0]['orders']).to_not eq(nil)
     end
 
     it 'returns a collection of clouds w/ products', :show_in_doc do
-      get '/clouds', include: [:products]
+      get '/clouds', includes: [:products]
+
       expect(json[0]['products']).to_not eq(nil)
     end
   end
@@ -51,17 +52,17 @@ RSpec.describe 'Clouds API' do
     end
 
     it 'returns a cloud w/ chargebacks', :show_in_doc do
-      get "/clouds/#{@cloud.id}", include: [:chargebacks]
+      get "/clouds/#{@cloud.id}", includes: [:chargebacks]
       expect(json['chargebacks']).to_not eq(nil)
     end
 
     it 'returns a cloud w/ orders', :show_in_doc do
-      get "/clouds/#{@cloud.id}", include: [:orders]
+      get "/clouds/#{@cloud.id}", includes: [:orders]
       expect(json['orders']).to_not eq(nil)
     end
 
     it 'returns a cloud w/ products', :show_in_doc do
-      get "/clouds/#{@cloud.id}", include: [:products]
+      get "/clouds/#{@cloud.id}", includes: [:products]
       expect(json['products']).to_not eq(nil)
     end
   end

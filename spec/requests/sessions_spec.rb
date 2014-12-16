@@ -25,7 +25,12 @@ RSpec.describe 'Sessions API' do
     before :each do
       @staff_member = create :staff, :admin, email: email, password: password, password_confirmation: password
       post '/staff/sign_in.json', staff: { email: email, password: 'invalidpassword' }
-      request.cookies = response.cookies
+    end
+
+    it 'does not create a session for invalid users', :show_in_doc do
+      delete '/staff/sign_out.json'
+      expect(json).to eq({})
+      expect(response.code).to eq('200')
     end
   end
 end

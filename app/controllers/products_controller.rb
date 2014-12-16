@@ -6,19 +6,19 @@ class ProductsController < ApplicationController
   before_action :load_products, only: [:index]
 
   api :GET, '/products', 'Returns a collection of products'
-  param :include, Array, required: false, in: %w(chargebacks)
+  param :includes, Array, required: false, in: %w(chargebacks)
 
   def index
-    respond_with_resolved_associations @products
+    respond_with_params @products
   end
 
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
-  param :include, Array, required: false, in: %w(chargebacks)
+  param :includes, Array, required: false, in: %w(chargebacks)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    respond_with_resolved_associations @product
+    respond_with_params @product
   end
 
   api :POST, '/products', 'Creates product'
@@ -78,6 +78,6 @@ class ProductsController < ApplicationController
   end
 
   def load_products
-    @products = Product.all
+    @products = query_with_includes Product.all
   end
 end

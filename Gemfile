@@ -2,14 +2,20 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7'
+
 # Use postgresql as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.17.1'
+gem 'pg_search', '~> 0.7.8'
+
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
@@ -23,7 +29,7 @@ gem 'pry-rails', group: :development
 gem 'rake', group: :test
 
 # for console, rake
-gem 'highline', group: [:development]
+gem 'highline'
 
 # Figaro Gem
 gem 'figaro'
@@ -35,7 +41,7 @@ gem 'rubocop', group: [:development, :test]
 gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -62,5 +68,12 @@ gem 'apipie-rails', '~> 0.2.6'
 # Keep but hide deleted records
 gem 'paranoia'
 
+# Communicating with external services
+gem 'rest-client'
+gem 'virtus'
+
 # CORS
 gem 'rack-cors'
+
+# CRONTAB SCHEDULER
+gem 'whenever'

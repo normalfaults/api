@@ -10,21 +10,25 @@ class ProjectsController < ApplicationController
   before_action :load_approval, only: [:approve, :reject]
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :include, Array, required: false, in: %w(staff project_answers)
+  param :includes, Array, required: false, in: %w(project_answers project_detail)
+  param :methods, Array, required: false, in: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
 
   def index
     authorize Project.new
-    respond_with_resolved_associations @projects
+    render_params[:include][:project_answers][:include] = :project_question unless render_params[:include].nil? || render_params[:include][:project_answers].nil?
+    respond_with_params @projects
   end
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :include, Array, required: false, in: %w(staff project_answers)
+  param :includes, Array, required: false, in: %w(project_answers project_detail)
+  param :methods, Array, required: false, in: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @project
-    respond_with_resolved_associations @project
+    render_params[:include][:project_answers][:include] = :project_question unless render_params[:include].nil? || render_params[:include][:project_answers].nil?
+    respond_with_params @project
   end
 
   api :POST, '/projects', 'Creates projects'
@@ -37,11 +41,12 @@ class ProjectsController < ApplicationController
     param :cc, String, required: false
     param :budget, :number, required: false
     param :staff_id, String, required: false
-    param :end_data, Date, required: false
+    param :start_date, String, required: false
+    param :end_date, String, required: false
     param :approved, String, required: false
     param :img, String, required: false
   end
-  param :include, Array, required: false, in: %w(staff project_answers)
+  param :includes, Array, required: false, in: %w(staff project_answers)
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
@@ -50,7 +55,7 @@ class ProjectsController < ApplicationController
     @project = Project.create_with_answers @project_params
 
     if @project
-      respond_with_resolved_associations @project
+      respond_with_params @project
     else
       respond_with @project.errors, status: :unprocessable_entity
     end
@@ -78,7 +83,7 @@ class ProjectsController < ApplicationController
   def update
     authorize @project
     @project.update_with_answers! @project_params
-    respond_with_resolved_associations @project
+    respond_with_params @project
   end
 
   api :DELETE, '/projects/:id', 'Deletes project with :id'
@@ -157,11 +162,11 @@ class ProjectsController < ApplicationController
 
   def load_projects
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @projects = Project.all
+    @projects = query_with_includes Project.all
   end
 
   def load_project_params
-    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_data, :approved, :img, project_answers: [:project_question_id, :answer])
+    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer])
   end
 
   def load_project

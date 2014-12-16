@@ -11,23 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201193235) do
+ActiveRecord::Schema.define(version: 20141210192400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
-    t.integer  "app_id"
     t.integer  "staff_id"
+    t.integer  "order_id"
     t.string   "status",     limit: 20
-    t.string   "message"
+    t.text     "message"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "alerts", ["project_id"], name: "index_alerts_on_project_id", using: :btree
-  add_index "alerts", ["staff_id"], name: "index_alerts_on_staff_id", using: :btree
+  add_index "alerts", ["end_date"], name: "index_alerts_on_end_date", using: :btree
+  add_index "alerts", ["project_id", "order_id", "status"], name: "service_status_index", using: :btree
+  add_index "alerts", ["start_date"], name: "index_alerts_on_start_date", using: :btree
 
   create_table "approvals", force: true do |t|
     t.integer  "staff_id"
@@ -105,6 +108,8 @@ ActiveRecord::Schema.define(version: 20141201193235) do
     t.datetime "updated_at"
     t.json     "options"
     t.datetime "deleted_at"
+    t.string   "host"
+    t.integer  "port"
   end
 
   add_index "orders", ["cloud_id"], name: "index_orders_on_cloud_id", using: :btree
@@ -124,19 +129,26 @@ ActiveRecord::Schema.define(version: 20141201193235) do
 
   add_index "organizations", ["deleted_at"], name: "index_organizations_on_deleted_at", using: :btree
 
+  create_table "product_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "service_type_id"
     t.integer  "service_catalog_id"
     t.integer  "cloud_id"
-    t.string   "chef_role",          limit: 100
+    t.string   "chef_role",           limit: 100
     t.boolean  "active"
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "options"
     t.datetime "deleted_at"
+    t.integer  "product_category_id"
   end
 
   add_index "products", ["cloud_id"], name: "index_products_on_cloud_id", using: :btree
@@ -152,6 +164,23 @@ ActiveRecord::Schema.define(version: 20141201193235) do
 
   add_index "project_answers", ["project_id"], name: "index_project_answers_on_project_id", using: :btree
   add_index "project_answers", ["project_question_id"], name: "index_project_answers_on_project_question_id", using: :btree
+
+  create_table "project_details", force: true do |t|
+    t.string  "requestor_name"
+    t.date    "requestor_date"
+    t.string  "team_name"
+    t.integer "charge_number"
+    t.float   "nte_budget"
+    t.string  "project_owner"
+    t.string  "sr_associate"
+    t.string  "principal"
+    t.date    "estimated_termination_date"
+    t.string  "data_type"
+    t.string  "others"
+    t.integer "project_id"
+  end
+
+  add_index "project_details", ["project_id"], name: "index_project_details_on_project_id", using: :btree
 
   create_table "project_questions", force: true do |t|
     t.string   "question"

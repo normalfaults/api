@@ -8,21 +8,21 @@ class ProjectQuestionsController < ApplicationController
   after_action :verify_authorized
 
   api :GET, '/project_questions', 'Returns a collection of project_questions'
-  param :include, Array, required: false, in: %w(project)
+  param :includes, Array, required: false, in: %w(project)
 
   def index
     authorize ProjectQuestion
-    respond_with_resolved_associations @project_questions
+    respond_with_params @project_questions
   end
 
   api :GET, '/project_questions/:id', 'Shows project_question with :id'
   param :id, :number, required: true
-  param :include, Array, required: false, in: %w(project)
+  param :includes, Array, required: false, in: %w(project)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @project_question
-    respond_with_resolved_associations @project_question
+    respond_with_params @project_question
   end
 
   api :POST, '/project_questions', 'Creates project_question'
@@ -91,6 +91,6 @@ class ProjectQuestionsController < ApplicationController
 
   def load_project_questions
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @project_questions = ProjectQuestion.all
+    @project_questions = query_with_includes ProjectQuestion.all
   end
 end

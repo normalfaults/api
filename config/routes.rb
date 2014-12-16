@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   # Auth
   devise_for :staff, controllers: { sessions: 'sessions' }
 
+  # Alerts Routes
+  match 'alerts/sensu' => 'alerts#sensu', :via => :post, defaults: { format: :json }
+  match 'alerts/all' => 'alerts#show_all', :via => :get, defaults: { format: :json }
+  match 'alerts/active' => 'alerts#show_active', :via => :get, defaults: { format: :json }
+  match 'alerts/inactive' => 'alerts#show_inactive', :via => :get, defaults: { format: :json }
+  resources :alerts, defaults: { format: :json }
+
   # User Setting Options Routes
   resources :user_setting_options, defaults: { format: :json }
 
@@ -33,18 +40,28 @@ Rails.application.routes.draw do
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Orders
-  resources :orders, except: [:edit, :new], defaults: { format: :json }
+  resources :orders, except: [:edit, :new], defaults: { format: :json } do
+    member do
+      post :start_service, to: 'orders#start_service', as: :start_service
+      post :stop_service, to: 'orders#stop_service', as: :stop_service
+    end
+  end
 
   # Products
   resources :products, except: [:edit, :new], defaults: { format: :json }
+
+  # ProductCategories
+  resources :product_categories, except: [:edit, :new], defaults: { format: :json }
 
   # Chargebacks
   resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
 
   # Clouds
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
+
   # Project Routes
-  resources :projects, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy] do
+  resources :projects, defaults: { format: :json, includes: %w(project_answers), methods: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history) }, only: [:index, :show]
+  resources :projects, defaults: { format: :json }, except: [:index, :show, :edit, :new] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
       match 'staff/:staff_id' => 'projects#add_staff', :via => :post, as: :add_staff_to
@@ -92,7 +109,7 @@ Rails.application.routes.draw do
   get 'alertPopup', to: 'mocks#alert_popup', defaults: { format: :json }
   get 'header', to: 'mocks#header', defaults: { format: :json }
   get 'manage', to: 'mocks#manage', defaults: { format: :json }
-  get 'marketplace', to: 'mocks#marketplace', defaults: { format: :json }
+  get 'marketplaceValues', to: 'mocks#marketplace', defaults: { format: :json }
   get 'new-project', to: 'mocks#new_project', defaults: { format: :json }
 
 end

@@ -14,29 +14,30 @@ class StaffController < ApplicationController
   before_action :load_staff_params, only: [:create, :update]
 
   api :GET, '/staff', 'Returns a collection of staff'
-  param :include, Array, required: false, in: %w(user_settings projects)
+  param :query, String, required: false, desc: 'queries against first name, last name, and email'
+  param :includes, Array, required: false, in: %w(user_settings projects)
   def index
     authorize Staff.new
-    respond_with_resolved_associations @staffs
+    respond_with_params @staffs
   end
 
   api :GET, '/staff/:id', 'Shows staff member with :id'
   param :id, :number, required: true
-  param :include, Array, required: false, in: %w(user_settings projects)
+  param :includes, Array, required: false, in: %w(user_settings projects)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   def show
     authorize @staff
-    respond_with_resolved_associations @staff
+    respond_with_params @staff
   end
 
   api :GET, '/staff/current_member', 'Shows logged in member'
-  param :include, Array, required: false, in: %w(user_settings projects notifications cart)
+  param :includes, Array, required: false, in: %w(user_settings projects notifications cart)
   error code: 401, desc: 'User is not signed in.'
   def current_member
     @staff = current_user
 
     if @staff
-      respond_with_resolved_associations @staff
+      respond_with_params @staff
     else
       render json: { error: 'No session.' }, status: 401
     end
@@ -193,8 +194,13 @@ class StaffController < ApplicationController
   private
 
   def load_staffs
-    # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @staffs = Staff.all
+    @staffs_params = params.permit :query, :includes
+
+    if @staffs_params[:query]
+      @staffs = Staff.search @staffs_params[:query]
+    else
+      @staffs = query_with_includes Staff.all
+    end
   end
 
   def load_staff_params

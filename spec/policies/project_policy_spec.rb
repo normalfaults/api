@@ -33,7 +33,7 @@ describe ProjectPolicy do
 
   permissions :create? do
     it 'prevents creation if not an admin' do
-      expect(subject).not_to permit(current_staff)
+      expect(subject).to permit(current_staff)
     end
     it 'allows an admin to create projects' do
       expect(subject).to permit(admin)

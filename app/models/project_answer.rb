@@ -2,6 +2,8 @@ class ProjectAnswer < ActiveRecord::Base
   belongs_to :project
   belongs_to :project_question
 
+  default_scope { includes(:project_question) }
+
   validates :project, presence: true
   validate :validate_project_id
 
