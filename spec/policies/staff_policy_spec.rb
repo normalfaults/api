@@ -52,5 +52,4 @@ describe StaffPolicy do
       expect(subject).to permit(admin, other_staff)
     end
   end
-
 end

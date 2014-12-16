@@ -19,7 +19,6 @@ RSpec.describe 'Alerts API' do
       expect(json.length).to eq(6)
       true
     end
-
   end
 
   describe 'GET show' do

@@ -15,7 +15,6 @@ RSpec.describe 'Settings API' do
       get '/settings'
       expect(json.length).to eq(3)
     end
-
   end
 
   describe 'GET show' do
@@ -34,7 +33,6 @@ RSpec.describe 'Settings API' do
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
-
   end
 
   describe 'POST create' do

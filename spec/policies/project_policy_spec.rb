@@ -63,5 +63,4 @@ describe ProjectPolicy do
       expect(subject).to permit(admin, project)
     end
   end
-
 end

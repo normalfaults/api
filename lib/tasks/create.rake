@@ -1,7 +1,6 @@
 require 'highline/import'
 
 namespace :create do
-
   def agree?(question)
     'Y' == ask(question) do |q|
       q.case = :up
@@ -95,5 +94,4 @@ namespace :create do
   desc 'TODO'
   task application: :environment do
   end
-
 end
