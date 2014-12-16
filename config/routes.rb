@@ -111,5 +111,4 @@ Rails.application.routes.draw do
   get 'manage', to: 'mocks#manage', defaults: { format: :json }
   get 'marketplaceValues', to: 'mocks#marketplace', defaults: { format: :json }
   get 'new-project', to: 'mocks#new_project', defaults: { format: :json }
-
 end

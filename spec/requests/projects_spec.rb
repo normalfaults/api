@@ -41,11 +41,9 @@ RSpec.describe 'Projects API' do
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
-
   end
 
   describe 'POST create' do
-
     before :each do
       sign_in_as create :staff, :admin
     end
