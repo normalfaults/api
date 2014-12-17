@@ -84,7 +84,7 @@ class ProjectQuestionsController < ApplicationController
   private
 
   def load_project_question_params
-    @project_question_params = params.require(:project_question).permit(:question, :field_type, :help_text, :required, :load_order, :options => [])
+    @project_question_params = params.require(:project_question).permit(:question, :field_type, :help_text, :required, :load_order, options: [])
   end
 
   def load_project_question
