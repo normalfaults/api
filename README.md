@@ -21,7 +21,7 @@ https://github.com/booz-allen-hamilton/jellyfish-core
 bundle install
 ````
 
-4.  Add an application.yml file with DB info to app/config
+4.  Add this data to ./config/application.yml
 
 ````
 AWS_HOST:     "localhost"
