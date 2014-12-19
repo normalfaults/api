@@ -20,7 +20,8 @@ echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bash_profile
 source ~/.bash_profile
 ````
 
-####Step 3: Run brew doctor to make sure all is good
+####Step 3: Run brew doctor
+This will make sure that all is good
 
 ````
 brew doctor
@@ -42,11 +43,13 @@ rbenv global 2.1.5
 ````
 
 ####Step 6: Install bundler
+
 ````
 gem install bundler
 ````
 
-####Step 7: Install rbenv-default-gems plugin to install bundler automatically for us whenever we install a new version of Ruby.
+####Step 7: Install rbenv-default-gems plugin
+This will re-install gems automatically for us whenever we install a new version of Ruby.
 
 ````
 brew install rbenv-default-gems
@@ -65,13 +68,16 @@ gem install rails
 echo "rails" >> "~/.rbenv/default-gems"
 ````
 
-####Step 10: Install posgreSQL (via command line, so you get the libs to install the pg gem)
+####Step 10: Install posgreSQL / pg gem
+This will install via command line, so you get the libs to install the pg gem
 
 ````
 brew install postgresql
+gem install pg
 ````
 
 ####Step 11: Get postgres.app
+You can use the PostreSQL from step 10, but this app is easier to use
 Download at: http://postgresapp.com
 
 
