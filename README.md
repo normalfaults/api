@@ -85,6 +85,7 @@ Download at: http://postgresapp.com
 
 ````
 git clone https://github.com/booz-allen-hamilton/jellyfish-core.git
+````
 
 ####Step 13:  Install any dependancies
 
