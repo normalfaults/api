@@ -27,13 +27,11 @@ source ~/.bash_profile
 ````
 
 Step 3: Run brew doctor to make sure all is good
-
 ````
 brew doctor
 ````
 
 Step 4: Install rbenv
-
 ````
 brew install rbenv ruby-build rbenv-gem-rehash
 echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
@@ -41,27 +39,27 @@ source ~/.bash_profile
 ````
 
 Step 5: Install to Ruby 2.1.5, and set that as the global version
-
 ````
 rbenv install 2.1.5
 rbenv global 2.1.5
 ````
 
 Step 6: Install bundler
-
 ````
 gem install bundler
 ````
 
 Step 7: Install rbenv-default-gems plugin to install bundler automatically for us whenever we install a new version of Ruby.
+
 ````
 brew install rbenv-default-gems
 echo "bundler" >> ~/.rbenv/default-gems
 ````
 
 Step 8 (optional): Skip rdoc generation
-
+````
 echo "gem: --no-document" >> ~/.gemrc
+````
 
 Step 9: Install rails
 
@@ -80,17 +78,15 @@ Step 11: Get postgres.app
 Download at: http://postgresapp.com
 
 
-Step 12.  Check out the latest code
+Step 12:  Check out the latest code from https://github.com/booz-allen-hamilton/jellyfish-core
 
-https://github.com/booz-allen-hamilton/jellyfish-core
-
-Step 13.  Run
+Step 13:  Install any dependancies
 
 ````
 bundle install
 ````
 
-Step 14.  Add this data to ./config/application.yml
+Step 14:  Add this data to ./config/application.yml
 
 ````
 AWS_HOST:     "localhost"
@@ -101,13 +97,14 @@ AWS_PORT:     "5432"
 CORS_ALLOW_ORIGIN: [fqdn for ux]
 ````
 
-Step 15.  Populate the database (run the following commands)
+Step 15:  Populate the database (run the following commands)
 
 ````
 rake db:schema:load
 rake
 rake sample:jenkins
 ````
+
 Step 16.  Start the server
 
 ````
