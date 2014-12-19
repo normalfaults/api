@@ -25,8 +25,10 @@ class ProductsController < ApplicationController
   param :product, Hash, desc: 'Product' do
     param :name, String, desc: 'Product Name'
     param :description, String, desc: 'Short description'
-    param :product_category_id, Integer, desc: 'ProductCategory id'
-    param :cloud_id, Integer, desc: 'Cloud id'
+    param :service_catalog_id, Integer, desc: 'ManageIQ Catalog Id'
+    param :service_type_id, Integer, desc: 'ManageIQ Catalog Item Id'
+    param :product_category_id, Integer, desc: 'ProductCategory Id'
+    param :cloud_id, Integer, desc: 'Cloud Id'
     param :options, Array, desc: 'Options', allow_nil: true
   end
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -46,8 +48,10 @@ class ProductsController < ApplicationController
   param :product, Hash, desc: 'Order' do
     param :name, String, desc: 'Product Name'
     param :description, String, desc: 'Short description'
-    param :product_category_id, Integer, desc: 'ProductCategory id'
-    param :cloud_id, Integer, desc: 'Cloud id'
+    param :service_catalog_id, Integer, desc: 'ManageIQ Catalog Id'
+    param :service_type_id, Integer, desc: 'ManageIQ Catalog Item Id'
+    param :product_category_id, Integer, desc: 'ProductCategory Id'
+    param :cloud_id, Integer, desc: 'Cloud Id'
     param :options, Array, desc: 'options', allow_nil: true
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -78,7 +82,7 @@ class ProductsController < ApplicationController
   private
 
   def load_product_params
-    @products_params = params.require(:product).permit(:name, :description, :product_category_id, :cloud_id, { options: [] }, :img, :active)
+    @products_params = params.require(:product).permit(:name, :description, :service_type_id, :service_catalog_id, :product_category_id, :cloud_id, { options: [] }, :img, :active)
   end
 
   def load_product
