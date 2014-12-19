@@ -1,7 +1,7 @@
 class ProjectQuestion < ActiveRecord::Base
   acts_as_paranoid
 
-  default_scope { order('load_order') }
+  scope :ordered, -> { order('load_order') }
 
   has_many :project_answers
 

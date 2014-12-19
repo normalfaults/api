@@ -165,6 +165,7 @@ class AlertsController < ApplicationController
     @id_mapping = { project_id: '1', staff_id: '0', order_id: '1' }
   end
 
+  # Note: We should move these to named scopes in the model.
   def load_all_alerts
     @alerts = Alert.all.order('created_at ASC')
   end

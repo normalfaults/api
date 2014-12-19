@@ -30,6 +30,7 @@ class ProjectQuestionsController < ApplicationController
     param :question, String, desc: 'Question'
     param :field_type, String, desc: 'Field Type', in: %w(radio select_option text date)
     param :help_text, String, desc: 'Help Text'
+    param :load_order, :number, desc: 'Load order'
     param :options, Array, desc: 'Options'
     param :required, :bool, desc: 'Required?'
   end
@@ -48,10 +49,11 @@ class ProjectQuestionsController < ApplicationController
   api :PUT, '/project_questions/:id', 'Updates project_question with :id'
   param :id, :number, required: true
   param :project_question, Hash, desc: 'ProjectQuestion' do
-    param :question, Array, desc: 'Question'
+    param :question, String, desc: 'Question'
     param :field_type, String, desc: 'Field Type', in: %w(radio select_option text date)
     param :help_text, String, desc: 'Help Text'
-    param :options, String, desc: 'Options'
+    param :load_order, :number, desc: 'Load order'
+    param :options, Array, desc: 'Options'
     param :required, :bool, desc: 'Required?'
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -82,7 +84,7 @@ class ProjectQuestionsController < ApplicationController
   private
 
   def load_project_question_params
-    @project_question_params = params.require(:project_question).permit(:question, :field_type, :help_text, :options, :required)
+    @project_question_params = params.require(:project_question).permit(:question, :field_type, :help_text, :required, :load_order, options: [])
   end
 
   def load_project_question
