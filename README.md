@@ -104,7 +104,8 @@ AWS_PORT:     "5432"
 CORS_ALLOW_ORIGIN: [fqdn for ux]
 ````
 
-####Step 15:  Populate the database (run the following commands)
+####Step 15:  Populate the database 
+Run the following rake commands
 
 ````
 rake db:schema:load
