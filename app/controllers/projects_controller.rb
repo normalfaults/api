@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-
   CURRENCY_REGEX = /^\s*(?=.*[0-9])\d*(?:\.\d{1,2})?\s*$/.freeze
 
   respond_to :json, :xml
