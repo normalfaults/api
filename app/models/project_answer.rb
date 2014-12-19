@@ -2,7 +2,10 @@ class ProjectAnswer < ActiveRecord::Base
   belongs_to :project
   belongs_to :project_question
 
-  default_scope { includes(:project_question) }
+  scope :without_orphans, -> { ProjectAnswer.where(project_question_id: ProjectQuestion.select(:id).uniq) }
+  scope :including_questions, -> { includes(:project_question) }
+
+  default_scope { without_orphans.including_questions }
 
   validates :project, presence: true
   validate :validate_project_id
