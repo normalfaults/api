@@ -41,7 +41,7 @@ class ProjectsController < ApplicationController
     param :name, String, required: true
     param :description, String, required: false
     param :cc, String, required: false
-    param :budget, Float, required: true
+    param :budget, :number, required: true
     param :staff_id, String, required: false
     param :start_date, String, required: false
     param :end_date, String, required: false
