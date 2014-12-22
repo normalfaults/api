@@ -46,7 +46,12 @@ class ProjectPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope
+      if user.admin?
+        scope
+      else
+        # Users are only allowed to see projects they've created or have been added to
+        scope.joins(:staff_projects).where(staff_projects: { staff_id: user.id })
+      end
     end
   end
 

@@ -56,6 +56,9 @@ class ProjectsController < ApplicationController
 
     @project = Project.create_with_answers @project_params
 
+    # Relate user if not an admin
+    @project.staff << current_user unless current_user.admin?
+
     if @project
       respond_with_params @project
     else
@@ -69,10 +72,10 @@ class ProjectsController < ApplicationController
     param :project_answers, Array, desc: 'Project answers', required: false do
       param :project_question_id, :number, desc: 'Id for valid project question', require: true
     end
-    param :name, String, required: true
+    param :name, String, required: false
     param :description, String, required: false
     param :cc, String, required: false
-    param :budget, :number, required: true
+    param :budget, :number, required: false
     param :staff_id, String, required: false
     param :end_data, Date, required: false
     param :approved, String, required: false
@@ -163,8 +166,8 @@ class ProjectsController < ApplicationController
   private
 
   def load_projects
-    # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @projects = query_with_includes Project.all.main_inclusions
+    # TODO: Use a QueryObject to encapsulate search filters, ordering, pagination
+    @projects = query_with_includes policy_scope(Project).main_inclusions
   end
 
   def load_project_params
