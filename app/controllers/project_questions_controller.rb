@@ -54,7 +54,7 @@ class ProjectQuestionsController < ApplicationController
     param :help_text, String, desc: 'Help Text'
     param :load_order, :number, desc: 'Load order'
     param :options, Array, desc: 'Options'
-    param :required, :bool, desc: 'Required?'
+    param :required, :bool, desc: 'Required', allow_nil: true
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing

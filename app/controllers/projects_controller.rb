@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  CURRENCY_REGEX = /^\d+(.\d{2})?(.\d)?$/.freeze
+
   respond_to :json, :xml
 
   after_action :verify_authorized
@@ -36,10 +38,10 @@ class ProjectsController < ApplicationController
     param :project_answers, Array, desc: 'Project answers', required: false do
       param :project_question_id, :number, desc: 'Id for valid project question', require: true
     end
-    param :name, String, required: false
+    param :name, String, required: true
     param :description, String, required: false
     param :cc, String, required: false
-    param :budget, :number, required: false
+    param :budget, :number, required: true
     param :staff_id, String, required: false
     param :start_date, String, required: false
     param :end_date, String, required: false
@@ -67,10 +69,10 @@ class ProjectsController < ApplicationController
     param :project_answers, Array, desc: 'Project answers', required: false do
       param :project_question_id, :number, desc: 'Id for valid project question', require: true
     end
-    param :name, String, required: false
+    param :name, String, required: true
     param :description, String, required: false
     param :cc, String, required: false
-    param :budget, :number, required: false
+    param :budget, :number, required: true
     param :staff_id, String, required: false
     param :end_data, Date, required: false
     param :approved, String, required: false
