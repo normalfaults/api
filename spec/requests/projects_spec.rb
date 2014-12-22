@@ -75,7 +75,7 @@ RSpec.describe 'Projects API' do
     end
 
     it 'changes existing project' do
-      put "/projects/#{@project.id}", project: { name: 'Updated' }
+      put "/projects/#{@project.id}", project: { name: 'Updated', budget: 1.99 }
       expect(response.status).to eq(200)
     end
 
