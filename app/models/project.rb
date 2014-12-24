@@ -44,10 +44,8 @@ class Project < ActiveRecord::Base
     end
   end
 
-  # NOTE: Theses are just stubs and should be replace with real stuff
-  # START OF STUBS
   def order_history
-    orders.as_json
+    orders.as_json(include: [:product], methods: [:total, :status])
   end
 
   def services

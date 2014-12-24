@@ -7,18 +7,18 @@
         "1.0"
       ],
       "query": null,
-      "request_data": "project_id=0&staff_id=0&order_id=0&status=OK&message=This+is+a+test",
+      "request_data": "project_id=1&staff_id=2&order_id=3&status=OK&message=NO+ISSUES.",
       "response_data": {
-        "id": 18,
-        "project_id": 0,
-        "staff_id": 0,
-        "order_id": 0,
+        "id": 1,
+        "project_id": 1,
+        "staff_id": 2,
+        "order_id": 3,
         "status": "OK",
-        "message": "This is a test",
+        "message": "NO ISSUES.",
         "start_date": null,
         "end_date": null,
-        "created_at": "2014-12-18T18:36:53.237Z",
-        "updated_at": "2014-12-18T18:36:53.237Z"
+        "created_at": "2014-12-24T19:46:13.619Z",
+        "updated_at": "2014-12-24T19:46:13.619Z"
       },
       "code": 201,
       "show_in_doc": 1,
@@ -31,57 +31,9 @@
         "1.0"
       ],
       "query": null,
-      "request_data": "project_id=0&staff_id=0&order_id=0&status=OK&message=This+is+a+test",
-      "response_data": {
-        "id": 20,
-        "project_id": 0,
-        "staff_id": 0,
-        "order_id": 0,
-        "status": "OK",
-        "message": "This is a test",
-        "start_date": null,
-        "end_date": null,
-        "created_at": "2014-12-18T18:36:53.301Z",
-        "updated_at": "2014-12-18T18:36:53.301Z"
-      },
-      "code": 201,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/alerts",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "project_id=0&staff_id=0&order_id=0&status=OK&message=This+is+a+test",
-      "response_data": {
-        "id": 20,
-        "project_id": 0,
-        "staff_id": 0,
-        "order_id": 0,
-        "status": "OK",
-        "message": "This is a test",
-        "start_date": null,
-        "end_date": null,
-        "created_at": "2014-12-18T18:36:53.301Z",
-        "updated_at": "2014-12-18T18:36:53.315Z"
-      },
-      "code": 201,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/alerts",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
       "request_data": "project_id=1&staff_id=2&order_id=3&status=OK&message=NO+ISSUES.",
       "response_data": {
-        "id": 21,
+        "id": 1,
         "project_id": 1,
         "staff_id": 2,
         "order_id": 3,
@@ -89,32 +41,8 @@
         "message": "NO ISSUES.",
         "start_date": null,
         "end_date": null,
-        "created_at": "2014-12-18T18:36:53.346Z",
-        "updated_at": "2014-12-18T18:36:53.346Z"
-      },
-      "code": 201,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/alerts",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "project_id=1&staff_id=2&order_id=3&status=OK&message=NO+ISSUES.",
-      "response_data": {
-        "id": 21,
-        "project_id": 1,
-        "staff_id": 2,
-        "order_id": 3,
-        "status": "OK",
-        "message": "NO ISSUES.",
-        "start_date": null,
-        "end_date": null,
-        "created_at": "2014-12-18T18:36:53.346Z",
-        "updated_at": "2014-12-18T18:36:53.362Z"
+        "created_at": "2014-12-24T19:46:13.619Z",
+        "updated_at": "2014-12-24T19:46:13.641Z"
       },
       "code": 201,
       "show_in_doc": 0,
@@ -129,7 +57,7 @@
       "query": null,
       "request_data": "project_id=1&staff_id=2&order_id=3&status=CRITICAL&message=FIX+ME%21",
       "response_data": {
-        "id": 22,
+        "id": 2,
         "project_id": 1,
         "staff_id": 2,
         "order_id": 3,
@@ -137,8 +65,8 @@
         "message": "FIX ME!",
         "start_date": null,
         "end_date": null,
-        "created_at": "2014-12-18T18:36:53.377Z",
-        "updated_at": "2014-12-18T18:36:53.377Z"
+        "created_at": "2014-12-24T19:46:13.650Z",
+        "updated_at": "2014-12-24T19:46:13.650Z"
       },
       "code": 201,
       "show_in_doc": 0,
@@ -153,7 +81,7 @@
       "query": null,
       "request_data": "project_id=1&staff_id=2&order_id=3&status=CRITICAL&message=STILL+BROKEN%21",
       "response_data": {
-        "id": 22,
+        "id": 2,
         "project_id": 1,
         "staff_id": 2,
         "order_id": 3,
@@ -161,8 +89,8 @@
         "message": "STILL BROKEN!",
         "start_date": null,
         "end_date": null,
-        "created_at": "2014-12-18T18:36:53.377Z",
-        "updated_at": "2014-12-18T18:36:53.388Z"
+        "created_at": "2014-12-24T19:46:13.650Z",
+        "updated_at": "2014-12-24T19:46:13.661Z"
       },
       "code": 201,
       "show_in_doc": 0,
@@ -177,7 +105,7 @@
       "query": null,
       "request_data": "project_id=1&staff_id=2&order_id=3&status=OK&message=NO+ISSUES.",
       "response_data": {
-        "id": 23,
+        "id": 3,
         "project_id": 1,
         "staff_id": 2,
         "order_id": 3,
@@ -185,8 +113,8 @@
         "message": "NO ISSUES.",
         "start_date": null,
         "end_date": null,
-        "created_at": "2014-12-18T18:36:53.397Z",
-        "updated_at": "2014-12-18T18:36:53.397Z"
+        "created_at": "2014-12-24T19:46:13.670Z",
+        "updated_at": "2014-12-24T19:46:13.670Z"
       },
       "code": 201,
       "show_in_doc": 0,
@@ -201,7 +129,7 @@
       "query": null,
       "request_data": "project_id=1&staff_id=2&order_id=3&status=WARNING&message=REVIEW+LOGS.",
       "response_data": {
-        "id": 24,
+        "id": 4,
         "project_id": 1,
         "staff_id": 2,
         "order_id": 3,
@@ -209,8 +137,80 @@
         "message": "REVIEW LOGS.",
         "start_date": null,
         "end_date": null,
-        "created_at": "2014-12-18T18:36:53.407Z",
-        "updated_at": "2014-12-18T18:36:53.407Z"
+        "created_at": "2014-12-24T19:46:13.679Z",
+        "updated_at": "2014-12-24T19:46:13.679Z"
+      },
+      "code": 201,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/alerts",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "project_id=0&staff_id=0&order_id=0&status=OK&message=This+is+a+test",
+      "response_data": {
+        "id": 5,
+        "project_id": 0,
+        "staff_id": 0,
+        "order_id": 0,
+        "status": "OK",
+        "message": "This is a test",
+        "start_date": null,
+        "end_date": null,
+        "created_at": "2014-12-24T19:46:13.726Z",
+        "updated_at": "2014-12-24T19:46:13.726Z"
+      },
+      "code": 201,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/alerts",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "project_id=0&staff_id=0&order_id=0&status=OK&message=This+is+a+test",
+      "response_data": {
+        "id": 5,
+        "project_id": 0,
+        "staff_id": 0,
+        "order_id": 0,
+        "status": "OK",
+        "message": "This is a test",
+        "start_date": null,
+        "end_date": null,
+        "created_at": "2014-12-24T19:46:13.726Z",
+        "updated_at": "2014-12-24T19:46:13.738Z"
+      },
+      "code": 201,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/alerts",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "project_id=0&staff_id=0&order_id=0&status=OK&message=This+is+a+test",
+      "response_data": {
+        "id": 7,
+        "project_id": 0,
+        "staff_id": 0,
+        "order_id": 0,
+        "status": "OK",
+        "message": "This is a test",
+        "start_date": null,
+        "end_date": null,
+        "created_at": "2014-12-24T19:46:13.802Z",
+        "updated_at": "2014-12-24T19:46:13.802Z"
       },
       "code": 201,
       "show_in_doc": 0,
@@ -220,7 +220,7 @@
   "alerts#destroy": [
     {
       "verb": "DELETE",
-      "path": "/alerts/1",
+      "path": "/alerts/8",
       "versions": [
         "1.0"
       ],
@@ -243,16 +243,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 12,
+          "id": 16,
           "project_id": 2,
           "staff_id": 0,
           "order_id": 2,
           "status": "OK",
           "message": "This is an active alert",
-          "start_date": "2014-12-18T18:36:50.000Z",
-          "end_date": "2014-12-19T18:36:50.000Z",
-          "created_at": "2014-12-18T18:36:53.080Z",
-          "updated_at": "2014-12-18T18:36:53.080Z"
+          "start_date": "2014-12-24T19:46:10.000Z",
+          "end_date": "2014-12-25T19:46:10.000Z",
+          "created_at": "2014-12-24T19:46:13.987Z",
+          "updated_at": "2014-12-24T19:46:13.987Z"
         }
       ],
       "code": 200,
@@ -270,7 +270,7 @@
       "query": null,
       "request_data": "hostname=foo.bar.com&port=5000&service=postgresql&status=OK&message=This+is+a+test&event=tbd",
       "response_data": {
-        "id": 19,
+        "id": 6,
         "project_id": 1,
         "staff_id": 0,
         "order_id": 1,
@@ -278,8 +278,8 @@
         "message": "This is a test",
         "start_date": null,
         "end_date": null,
-        "created_at": "2014-12-18T18:36:53.263Z",
-        "updated_at": "2014-12-18T18:36:53.263Z"
+        "created_at": "2014-12-24T19:46:13.772Z",
+        "updated_at": "2014-12-24T19:46:13.772Z"
       },
       "code": 201,
       "show_in_doc": 1,
@@ -289,7 +289,7 @@
   "alerts#show": [
     {
       "verb": "GET",
-      "path": "/alerts/1",
+      "path": "/alerts/8",
       "versions": [
         "1.0"
       ],
@@ -304,23 +304,23 @@
     },
     {
       "verb": "GET",
-      "path": "/alerts/10",
+      "path": "/alerts/18",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 10,
+        "id": 18,
         "project_id": 2,
         "staff_id": 0,
         "order_id": 2,
         "status": "OK",
         "message": "This is an active alert",
-        "start_date": "2014-12-18T18:36:50.000Z",
-        "end_date": "2014-12-19T18:36:50.000Z",
-        "created_at": "2014-12-18T18:36:53.047Z",
-        "updated_at": "2014-12-18T18:36:53.047Z"
+        "start_date": "2014-12-24T19:46:10.000Z",
+        "end_date": "2014-12-25T19:46:10.000Z",
+        "created_at": "2014-12-24T19:46:14.018Z",
+        "updated_at": "2014-12-24T19:46:14.018Z"
       },
       "code": 200,
       "show_in_doc": 0,
@@ -338,16 +338,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 16,
+          "id": 14,
           "project_id": 2,
           "staff_id": 0,
           "order_id": 2,
           "status": "OK",
           "message": "This is an active alert",
-          "start_date": "2014-12-18T18:36:50.000Z",
-          "end_date": "2014-12-19T18:36:50.000Z",
-          "created_at": "2014-12-18T18:36:53.167Z",
-          "updated_at": "2014-12-18T18:36:53.167Z"
+          "start_date": "2014-12-24T19:46:10.000Z",
+          "end_date": "2014-12-25T19:46:10.000Z",
+          "created_at": "2014-12-24T19:46:13.948Z",
+          "updated_at": "2014-12-24T19:46:13.948Z"
         }
       ],
       "code": 200,
@@ -366,76 +366,52 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
+          "id": 1,
           "project_id": 1,
-          "staff_id": 0,
-          "order_id": 2,
+          "staff_id": 2,
+          "order_id": 3,
           "status": "OK",
-          "message": "THIS IS A BASIC TEST",
+          "message": "NO ISSUES.",
           "start_date": null,
           "end_date": null,
-          "created_at": "2014-12-18T18:36:52.984Z",
-          "updated_at": "2014-12-18T18:36:52.984Z"
+          "created_at": "2014-12-24T19:46:13.619Z",
+          "updated_at": "2014-12-24T19:46:13.641Z"
+        },
+        {
+          "id": 2,
+          "project_id": 1,
+          "staff_id": 2,
+          "order_id": 3,
+          "status": "CRITICAL",
+          "message": "STILL BROKEN!",
+          "start_date": null,
+          "end_date": null,
+          "created_at": "2014-12-24T19:46:13.650Z",
+          "updated_at": "2014-12-24T19:46:13.661Z"
         },
         {
           "id": 3,
-          "project_id": 3,
-          "staff_id": 0,
-          "order_id": 1,
-          "status": "WARNING",
-          "message": "This is a WARNING alert for the first service of project 3.",
+          "project_id": 1,
+          "staff_id": 2,
+          "order_id": 3,
+          "status": "OK",
+          "message": "NO ISSUES.",
           "start_date": null,
           "end_date": null,
-          "created_at": "2014-12-18T18:36:52.986Z",
-          "updated_at": "2014-12-18T18:36:52.986Z"
+          "created_at": "2014-12-24T19:46:13.670Z",
+          "updated_at": "2014-12-24T19:46:13.670Z"
         },
         {
           "id": 4,
-          "project_id": 3,
-          "staff_id": 0,
-          "order_id": 2,
-          "status": "CRITICAL",
-          "message": "This is a CRITICAL alert for the second service of project 3",
-          "start_date": null,
-          "end_date": null,
-          "created_at": "2014-12-18T18:36:52.988Z",
-          "updated_at": "2014-12-18T18:36:52.988Z"
-        },
-        {
-          "id": 5,
-          "project_id": 3,
-          "staff_id": 0,
+          "project_id": 1,
+          "staff_id": 2,
           "order_id": 3,
-          "status": "UNKNOWN",
-          "message": "This is an UNKNOWN alert for the third service of project 3",
+          "status": "WARNING",
+          "message": "REVIEW LOGS.",
           "start_date": null,
           "end_date": null,
-          "created_at": "2014-12-18T18:36:52.990Z",
-          "updated_at": "2014-12-18T18:36:52.990Z"
-        },
-        {
-          "id": 6,
-          "project_id": 2,
-          "staff_id": 0,
-          "order_id": 2,
-          "status": "OK",
-          "message": "This is an active alert",
-          "start_date": "2014-12-18T18:36:50.000Z",
-          "end_date": "2014-12-19T18:36:50.000Z",
-          "created_at": "2014-12-18T18:36:52.992Z",
-          "updated_at": "2014-12-18T18:36:52.992Z"
-        },
-        {
-          "id": 7,
-          "project_id": 2,
-          "staff_id": 0,
-          "order_id": 2,
-          "status": "OK",
-          "message": "This is an inactive alert",
-          "start_date": "2014-12-16T18:36:50.000Z",
-          "end_date": "2014-12-17T18:36:50.000Z",
-          "created_at": "2014-12-18T18:36:52.994Z",
-          "updated_at": "2014-12-18T18:36:52.994Z"
+          "created_at": "2014-12-24T19:46:13.679Z",
+          "updated_at": "2014-12-24T19:46:13.679Z"
         }
       ],
       "code": 200,
@@ -452,28 +428,28 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 14,
+          "id": 10,
           "project_id": 2,
           "staff_id": 0,
           "order_id": 2,
           "status": "OK",
           "message": "This is an active alert",
-          "start_date": "2014-12-18T18:36:50.000Z",
-          "end_date": "2014-12-19T18:36:50.000Z",
-          "created_at": "2014-12-18T18:36:53.116Z",
-          "updated_at": "2014-12-18T18:36:53.116Z"
+          "start_date": "2014-12-24T19:46:10.000Z",
+          "end_date": "2014-12-25T19:46:10.000Z",
+          "created_at": "2014-12-24T19:46:13.878Z",
+          "updated_at": "2014-12-24T19:46:13.878Z"
         },
         {
-          "id": 15,
+          "id": 11,
           "project_id": 2,
           "staff_id": 0,
           "order_id": 2,
           "status": "OK",
           "message": "This is an inactive alert",
-          "start_date": "2014-12-16T18:36:50.000Z",
-          "end_date": "2014-12-17T18:36:50.000Z",
-          "created_at": "2014-12-18T18:36:53.118Z",
-          "updated_at": "2014-12-18T18:36:53.118Z"
+          "start_date": "2014-12-22T19:46:10.000Z",
+          "end_date": "2014-12-23T19:46:10.000Z",
+          "created_at": "2014-12-24T19:46:13.881Z",
+          "updated_at": "2014-12-24T19:46:13.881Z"
         }
       ],
       "code": 200,
@@ -490,52 +466,76 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 21,
+          "id": 20,
           "project_id": 1,
-          "staff_id": 2,
-          "order_id": 3,
+          "staff_id": 0,
+          "order_id": 2,
           "status": "OK",
-          "message": "NO ISSUES.",
+          "message": "THIS IS A BASIC TEST",
           "start_date": null,
           "end_date": null,
-          "created_at": "2014-12-18T18:36:53.346Z",
-          "updated_at": "2014-12-18T18:36:53.362Z"
+          "created_at": "2014-12-24T19:46:14.073Z",
+          "updated_at": "2014-12-24T19:46:14.073Z"
+        },
+        {
+          "id": 21,
+          "project_id": 3,
+          "staff_id": 0,
+          "order_id": 1,
+          "status": "WARNING",
+          "message": "This is a WARNING alert for the first service of project 3.",
+          "start_date": null,
+          "end_date": null,
+          "created_at": "2014-12-24T19:46:14.075Z",
+          "updated_at": "2014-12-24T19:46:14.075Z"
         },
         {
           "id": 22,
-          "project_id": 1,
-          "staff_id": 2,
-          "order_id": 3,
+          "project_id": 3,
+          "staff_id": 0,
+          "order_id": 2,
           "status": "CRITICAL",
-          "message": "STILL BROKEN!",
+          "message": "This is a CRITICAL alert for the second service of project 3",
           "start_date": null,
           "end_date": null,
-          "created_at": "2014-12-18T18:36:53.377Z",
-          "updated_at": "2014-12-18T18:36:53.388Z"
+          "created_at": "2014-12-24T19:46:14.080Z",
+          "updated_at": "2014-12-24T19:46:14.080Z"
         },
         {
           "id": 23,
-          "project_id": 1,
-          "staff_id": 2,
+          "project_id": 3,
+          "staff_id": 0,
           "order_id": 3,
-          "status": "OK",
-          "message": "NO ISSUES.",
+          "status": "UNKNOWN",
+          "message": "This is an UNKNOWN alert for the third service of project 3",
           "start_date": null,
           "end_date": null,
-          "created_at": "2014-12-18T18:36:53.397Z",
-          "updated_at": "2014-12-18T18:36:53.397Z"
+          "created_at": "2014-12-24T19:46:14.085Z",
+          "updated_at": "2014-12-24T19:46:14.085Z"
         },
         {
           "id": 24,
-          "project_id": 1,
-          "staff_id": 2,
-          "order_id": 3,
-          "status": "WARNING",
-          "message": "REVIEW LOGS.",
-          "start_date": null,
-          "end_date": null,
-          "created_at": "2014-12-18T18:36:53.407Z",
-          "updated_at": "2014-12-18T18:36:53.407Z"
+          "project_id": 2,
+          "staff_id": 0,
+          "order_id": 2,
+          "status": "OK",
+          "message": "This is an active alert",
+          "start_date": "2014-12-24T19:46:10.000Z",
+          "end_date": "2014-12-25T19:46:10.000Z",
+          "created_at": "2014-12-24T19:46:14.090Z",
+          "updated_at": "2014-12-24T19:46:14.090Z"
+        },
+        {
+          "id": 25,
+          "project_id": 2,
+          "staff_id": 0,
+          "order_id": 2,
+          "status": "OK",
+          "message": "This is an inactive alert",
+          "start_date": "2014-12-22T19:46:10.000Z",
+          "end_date": "2014-12-23T19:46:10.000Z",
+          "created_at": "2014-12-24T19:46:14.092Z",
+          "updated_at": "2014-12-24T19:46:14.092Z"
         }
       ],
       "code": 200,
@@ -554,16 +554,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 9,
+          "id": 13,
           "project_id": 2,
           "staff_id": 0,
           "order_id": 2,
           "status": "OK",
           "message": "This is an inactive alert",
-          "start_date": "2014-12-16T18:36:50.000Z",
-          "end_date": "2014-12-17T18:36:50.000Z",
-          "created_at": "2014-12-18T18:36:53.011Z",
-          "updated_at": "2014-12-18T18:36:53.011Z"
+          "start_date": "2014-12-22T19:46:10.000Z",
+          "end_date": "2014-12-23T19:46:10.000Z",
+          "created_at": "2014-12-24T19:46:13.918Z",
+          "updated_at": "2014-12-24T19:46:13.918Z"
         }
       ],
       "code": 200,
@@ -574,7 +574,7 @@
   "alerts#update": [
     {
       "verb": "PUT",
-      "path": "/alerts/25",
+      "path": "/alerts/9",
       "versions": [
         "1.0"
       ],
@@ -596,12 +596,12 @@
       "query": null,
       "request_data": "approval[id]&approval[staff_id]=1&approval[project_id]=1&approval[approved]=true&approval[created_at]&approval[updated_at]",
       "response_data": {
-        "id": 12,
+        "id": 3,
         "staff_id": 1,
         "project_id": 1,
         "approved": true,
-        "created_at": "2014-12-18T18:36:55.105Z",
-        "updated_at": "2014-12-18T18:36:55.105Z"
+        "created_at": "2014-12-24T19:46:14.288Z",
+        "updated_at": "2014-12-24T19:46:14.288Z"
       },
       "code": 201,
       "show_in_doc": 1,
@@ -611,7 +611,7 @@
   "approvals#destroy": [
     {
       "verb": "DELETE",
-      "path": "/approvals/1",
+      "path": "/approvals/2",
       "versions": [
         "1.0"
       ],
@@ -630,24 +630,54 @@
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=project",
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
+          "id": 7,
           "staff_id": 1,
-          "project_id": 1,
+          "project_id": 12,
           "approved": true,
-          "created_at": "2014-12-18T18:36:54.805Z",
-          "updated_at": "2014-12-18T18:36:54.805Z"
+          "created_at": "2014-12-24T19:46:14.417Z",
+          "updated_at": "2014-12-24T19:46:14.447Z",
+          "project": {
+            "id": 12,
+            "name": "Test Project",
+            "description": "A description",
+            "cc": "--cc--",
+            "budget": 100.0,
+            "staff_id": "-staff_id--",
+            "start_date": "2014-12-31",
+            "end_date": "2015-01-07",
+            "approved": true,
+            "img": "--img--",
+            "created_at": "2014-12-24T19:46:14.445Z",
+            "updated_at": "2014-12-24T19:46:14.445Z",
+            "deleted_at": null
+          }
         },
         {
-          "id": 3,
+          "id": 8,
           "staff_id": 1,
-          "project_id": 1,
+          "project_id": 12,
           "approved": true,
-          "created_at": "2014-12-18T18:36:54.806Z",
-          "updated_at": "2014-12-18T18:36:54.806Z"
+          "created_at": "2014-12-24T19:46:14.418Z",
+          "updated_at": "2014-12-24T19:46:14.448Z",
+          "project": {
+            "id": 12,
+            "name": "Test Project",
+            "description": "A description",
+            "cc": "--cc--",
+            "budget": 100.0,
+            "staff_id": "-staff_id--",
+            "start_date": "2014-12-31",
+            "end_date": "2015-01-07",
+            "approved": true,
+            "img": "--img--",
+            "created_at": "2014-12-24T19:46:14.445Z",
+            "updated_at": "2014-12-24T19:46:14.445Z",
+            "deleted_at": null
+          }
         }
       ],
       "code": 200,
@@ -664,12 +694,12 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 4,
+          "id": 9,
           "staff_id": 89,
           "project_id": 1,
           "approved": true,
-          "created_at": "2014-12-18T18:36:54.833Z",
-          "updated_at": "2014-12-18T18:36:54.865Z",
+          "created_at": "2014-12-24T19:46:14.459Z",
+          "updated_at": "2014-12-24T19:46:14.485Z",
           "staff": {
             "id": 89,
             "first_name": "Test",
@@ -683,12 +713,12 @@
           }
         },
         {
-          "id": 5,
+          "id": 10,
           "staff_id": 89,
           "project_id": 1,
           "approved": true,
-          "created_at": "2014-12-18T18:36:54.834Z",
-          "updated_at": "2014-12-18T18:36:54.869Z",
+          "created_at": "2014-12-24T19:46:14.461Z",
+          "updated_at": "2014-12-24T19:46:14.486Z",
           "staff": {
             "id": 89,
             "first_name": "Test",
@@ -712,54 +742,24 @@
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=project",
+      "query": null,
       "request_data": null,
       "response_data": [
         {
-          "id": 6,
+          "id": 11,
           "staff_id": 1,
-          "project_id": 11,
+          "project_id": 1,
           "approved": true,
-          "created_at": "2014-12-18T18:36:54.884Z",
-          "updated_at": "2014-12-18T18:36:54.908Z",
-          "project": {
-            "id": 11,
-            "name": "Test Project",
-            "description": "A description",
-            "cc": "--cc--",
-            "budget": 100.0,
-            "staff_id": "-staff_id--",
-            "start_date": "2014-12-25",
-            "end_date": "2015-01-01",
-            "approved": true,
-            "img": "--img--",
-            "created_at": "2014-12-18T18:36:54.906Z",
-            "updated_at": "2014-12-18T18:36:54.906Z",
-            "deleted_at": null
-          }
+          "created_at": "2014-12-24T19:46:14.504Z",
+          "updated_at": "2014-12-24T19:46:14.504Z"
         },
         {
-          "id": 7,
+          "id": 12,
           "staff_id": 1,
-          "project_id": 11,
+          "project_id": 1,
           "approved": true,
-          "created_at": "2014-12-18T18:36:54.886Z",
-          "updated_at": "2014-12-18T18:36:54.910Z",
-          "project": {
-            "id": 11,
-            "name": "Test Project",
-            "description": "A description",
-            "cc": "--cc--",
-            "budget": 100.0,
-            "staff_id": "-staff_id--",
-            "start_date": "2014-12-25",
-            "end_date": "2015-01-01",
-            "approved": true,
-            "img": "--img--",
-            "created_at": "2014-12-18T18:36:54.906Z",
-            "updated_at": "2014-12-18T18:36:54.906Z",
-            "deleted_at": null
-          }
+          "created_at": "2014-12-24T19:46:14.507Z",
+          "updated_at": "2014-12-24T19:46:14.507Z"
         }
       ],
       "code": 200,
@@ -770,19 +770,34 @@
   "approvals#show": [
     {
       "verb": "GET",
-      "path": "/approvals/8",
+      "path": "/approvals/4",
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=project",
       "request_data": null,
       "response_data": {
-        "id": 8,
+        "id": 4,
         "staff_id": 1,
-        "project_id": 1,
+        "project_id": 11,
         "approved": true,
-        "created_at": "2014-12-18T18:36:54.924Z",
-        "updated_at": "2014-12-18T18:36:54.924Z"
+        "created_at": "2014-12-24T19:46:14.303Z",
+        "updated_at": "2014-12-24T19:46:14.325Z",
+        "project": {
+          "id": 11,
+          "name": "Test Project",
+          "description": "A description",
+          "cc": "--cc--",
+          "budget": 100.0,
+          "staff_id": "-staff_id--",
+          "start_date": "2014-12-31",
+          "end_date": "2015-01-07",
+          "approved": true,
+          "img": "--img--",
+          "created_at": "2014-12-24T19:46:14.323Z",
+          "updated_at": "2014-12-24T19:46:14.323Z",
+          "deleted_at": null
+        }
       },
       "code": 200,
       "show_in_doc": 1,
@@ -790,21 +805,21 @@
     },
     {
       "verb": "GET",
-      "path": "/approvals/9",
+      "path": "/approvals/5",
       "versions": [
         "1.0"
       ],
       "query": "includes[]=staff",
       "request_data": null,
       "response_data": {
-        "id": 9,
-        "staff_id": 93,
+        "id": 5,
+        "staff_id": 85,
         "project_id": 1,
         "approved": true,
-        "created_at": "2014-12-18T18:36:54.957Z",
-        "updated_at": "2014-12-18T18:36:54.980Z",
+        "created_at": "2014-12-24T19:46:14.338Z",
+        "updated_at": "2014-12-24T19:46:14.366Z",
         "staff": {
-          "id": 93,
+          "id": 85,
           "first_name": "Test",
           "last_name": "Staff",
           "email": "staff@test.com",
@@ -821,34 +836,19 @@
     },
     {
       "verb": "GET",
-      "path": "/approvals/10",
+      "path": "/approvals/6",
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=project",
+      "query": null,
       "request_data": null,
       "response_data": {
-        "id": 10,
+        "id": 6,
         "staff_id": 1,
-        "project_id": 12,
+        "project_id": 1,
         "approved": true,
-        "created_at": "2014-12-18T18:36:54.993Z",
-        "updated_at": "2014-12-18T18:36:55.033Z",
-        "project": {
-          "id": 12,
-          "name": "Test Project",
-          "description": "A description",
-          "cc": "--cc--",
-          "budget": 100.0,
-          "staff_id": "-staff_id--",
-          "start_date": "2014-12-25",
-          "end_date": "2015-01-01",
-          "approved": true,
-          "img": "--img--",
-          "created_at": "2014-12-18T18:36:55.032Z",
-          "updated_at": "2014-12-18T18:36:55.032Z",
-          "deleted_at": null
-        }
+        "created_at": "2014-12-24T19:46:14.381Z",
+        "updated_at": "2014-12-24T19:46:14.381Z"
       },
       "code": 200,
       "show_in_doc": 0,
@@ -858,7 +858,7 @@
   "approvals#update": [
     {
       "verb": "PUT",
-      "path": "/approvals/11",
+      "path": "/approvals/1",
       "versions": [
         "1.0"
       ],
@@ -880,12 +880,12 @@
       "query": null,
       "request_data": "chargeback[hourly_price]=9",
       "response_data": {
-        "id": 12,
+        "id": 3,
         "product_id": null,
         "cloud_id": null,
         "hourly_price": "9.0",
-        "created_at": "2014-12-18T18:36:52.433Z",
-        "updated_at": "2014-12-18T18:36:52.433Z",
+        "created_at": "2014-12-24T19:46:13.312Z",
+        "updated_at": "2014-12-24T19:46:13.312Z",
         "deleted_at": null
       },
       "code": 200,
@@ -896,7 +896,7 @@
   "chargebacks#destroy": [
     {
       "verb": "DELETE",
-      "path": "/chargebacks/1",
+      "path": "/chargebacks/2",
       "versions": [
         "1.0"
       ],
@@ -915,26 +915,58 @@
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=product",
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
-          "product_id": null,
+          "id": 7,
+          "product_id": 2,
           "cloud_id": null,
           "hourly_price": "99.99",
-          "created_at": "2014-12-18T18:36:52.110Z",
-          "updated_at": "2014-12-18T18:36:52.110Z",
-          "deleted_at": null
+          "created_at": "2014-12-24T19:46:13.449Z",
+          "updated_at": "2014-12-24T19:46:13.473Z",
+          "deleted_at": null,
+          "product": {
+            "id": 2,
+            "name": null,
+            "description": null,
+            "service_type_id": null,
+            "service_catalog_id": null,
+            "cloud_id": null,
+            "chef_role": null,
+            "active": null,
+            "img": null,
+            "created_at": "2014-12-24T19:46:13.472Z",
+            "updated_at": "2014-12-24T19:46:13.472Z",
+            "options": null,
+            "deleted_at": null,
+            "product_category_id": null
+          }
         },
         {
-          "id": 3,
-          "product_id": null,
+          "id": 8,
+          "product_id": 2,
           "cloud_id": null,
           "hourly_price": "99.99",
-          "created_at": "2014-12-18T18:36:52.117Z",
-          "updated_at": "2014-12-18T18:36:52.117Z",
-          "deleted_at": null
+          "created_at": "2014-12-24T19:46:13.451Z",
+          "updated_at": "2014-12-24T19:46:13.475Z",
+          "deleted_at": null,
+          "product": {
+            "id": 2,
+            "name": null,
+            "description": null,
+            "service_type_id": null,
+            "service_catalog_id": null,
+            "cloud_id": null,
+            "chef_role": null,
+            "active": null,
+            "img": null,
+            "created_at": "2014-12-24T19:46:13.472Z",
+            "updated_at": "2014-12-24T19:46:13.472Z",
+            "options": null,
+            "deleted_at": null,
+            "product_category_id": null
+          }
         }
       ],
       "code": 200,
@@ -951,37 +983,37 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 4,
+          "id": 9,
           "product_id": null,
-          "cloud_id": 3,
+          "cloud_id": 2,
           "hourly_price": "99.99",
-          "created_at": "2014-12-18T18:36:52.144Z",
-          "updated_at": "2014-12-18T18:36:52.171Z",
+          "created_at": "2014-12-24T19:46:13.486Z",
+          "updated_at": "2014-12-24T19:46:13.521Z",
           "deleted_at": null,
           "cloud": {
-            "id": 3,
+            "id": 2,
             "name": null,
             "description": null,
-            "created_at": "2014-12-18T18:36:52.169Z",
-            "updated_at": "2014-12-18T18:36:52.169Z",
+            "created_at": "2014-12-24T19:46:13.519Z",
+            "updated_at": "2014-12-24T19:46:13.519Z",
             "extra": null,
             "deleted_at": null
           }
         },
         {
-          "id": 5,
+          "id": 10,
           "product_id": null,
-          "cloud_id": 3,
+          "cloud_id": 2,
           "hourly_price": "99.99",
-          "created_at": "2014-12-18T18:36:52.146Z",
-          "updated_at": "2014-12-18T18:36:52.177Z",
+          "created_at": "2014-12-24T19:46:13.491Z",
+          "updated_at": "2014-12-24T19:46:13.523Z",
           "deleted_at": null,
           "cloud": {
-            "id": 3,
+            "id": 2,
             "name": null,
             "description": null,
-            "created_at": "2014-12-18T18:36:52.169Z",
-            "updated_at": "2014-12-18T18:36:52.169Z",
+            "created_at": "2014-12-24T19:46:13.519Z",
+            "updated_at": "2014-12-24T19:46:13.519Z",
             "extra": null,
             "deleted_at": null
           }
@@ -997,58 +1029,26 @@
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=product",
+      "query": null,
       "request_data": null,
       "response_data": [
         {
-          "id": 6,
-          "product_id": 3,
+          "id": 11,
+          "product_id": null,
           "cloud_id": null,
           "hourly_price": "99.99",
-          "created_at": "2014-12-18T18:36:52.196Z",
-          "updated_at": "2014-12-18T18:36:52.232Z",
-          "deleted_at": null,
-          "product": {
-            "id": 3,
-            "name": null,
-            "description": null,
-            "service_type_id": null,
-            "service_catalog_id": null,
-            "cloud_id": null,
-            "chef_role": null,
-            "active": null,
-            "img": null,
-            "created_at": "2014-12-18T18:36:52.230Z",
-            "updated_at": "2014-12-18T18:36:52.230Z",
-            "options": null,
-            "deleted_at": null,
-            "product_category_id": null
-          }
+          "created_at": "2014-12-24T19:46:13.539Z",
+          "updated_at": "2014-12-24T19:46:13.539Z",
+          "deleted_at": null
         },
         {
-          "id": 7,
-          "product_id": 3,
+          "id": 12,
+          "product_id": null,
           "cloud_id": null,
           "hourly_price": "99.99",
-          "created_at": "2014-12-18T18:36:52.198Z",
-          "updated_at": "2014-12-18T18:36:52.234Z",
-          "deleted_at": null,
-          "product": {
-            "id": 3,
-            "name": null,
-            "description": null,
-            "service_type_id": null,
-            "service_catalog_id": null,
-            "cloud_id": null,
-            "chef_role": null,
-            "active": null,
-            "img": null,
-            "created_at": "2014-12-18T18:36:52.230Z",
-            "updated_at": "2014-12-18T18:36:52.230Z",
-            "options": null,
-            "deleted_at": null,
-            "product_category_id": null
-          }
+          "created_at": "2014-12-24T19:46:13.541Z",
+          "updated_at": "2014-12-24T19:46:13.541Z",
+          "deleted_at": null
         }
       ],
       "code": 200,
@@ -1059,20 +1059,36 @@
   "chargebacks#show": [
     {
       "verb": "GET",
-      "path": "/chargebacks/8",
+      "path": "/chargebacks/4",
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=product",
       "request_data": null,
       "response_data": {
-        "id": 8,
-        "product_id": null,
+        "id": 4,
+        "product_id": 1,
         "cloud_id": null,
         "hourly_price": "99.99",
-        "created_at": "2014-12-18T18:36:52.248Z",
-        "updated_at": "2014-12-18T18:36:52.248Z",
-        "deleted_at": null
+        "created_at": "2014-12-24T19:46:13.318Z",
+        "updated_at": "2014-12-24T19:46:13.349Z",
+        "deleted_at": null,
+        "product": {
+          "id": 1,
+          "name": null,
+          "description": null,
+          "service_type_id": null,
+          "service_catalog_id": null,
+          "cloud_id": null,
+          "chef_role": null,
+          "active": null,
+          "img": null,
+          "created_at": "2014-12-24T19:46:13.346Z",
+          "updated_at": "2014-12-24T19:46:13.346Z",
+          "options": null,
+          "deleted_at": null,
+          "product_category_id": null
+        }
       },
       "code": 200,
       "show_in_doc": 1,
@@ -1080,26 +1096,26 @@
     },
     {
       "verb": "GET",
-      "path": "/chargebacks/9",
+      "path": "/chargebacks/5",
       "versions": [
         "1.0"
       ],
       "query": "includes[]=cloud",
       "request_data": null,
       "response_data": {
-        "id": 9,
+        "id": 5,
         "product_id": null,
-        "cloud_id": 4,
+        "cloud_id": 1,
         "hourly_price": "99.99",
-        "created_at": "2014-12-18T18:36:52.285Z",
-        "updated_at": "2014-12-18T18:36:52.311Z",
+        "created_at": "2014-12-24T19:46:13.370Z",
+        "updated_at": "2014-12-24T19:46:13.399Z",
         "deleted_at": null,
         "cloud": {
-          "id": 4,
+          "id": 1,
           "name": null,
           "description": null,
-          "created_at": "2014-12-18T18:36:52.310Z",
-          "updated_at": "2014-12-18T18:36:52.310Z",
+          "created_at": "2014-12-24T19:46:13.397Z",
+          "updated_at": "2014-12-24T19:46:13.397Z",
           "extra": null,
           "deleted_at": null
         }
@@ -1110,36 +1126,20 @@
     },
     {
       "verb": "GET",
-      "path": "/chargebacks/10",
+      "path": "/chargebacks/6",
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=product",
+      "query": null,
       "request_data": null,
       "response_data": {
-        "id": 10,
-        "product_id": 4,
+        "id": 6,
+        "product_id": null,
         "cloud_id": null,
         "hourly_price": "99.99",
-        "created_at": "2014-12-18T18:36:52.326Z",
-        "updated_at": "2014-12-18T18:36:52.356Z",
-        "deleted_at": null,
-        "product": {
-          "id": 4,
-          "name": null,
-          "description": null,
-          "service_type_id": null,
-          "service_catalog_id": null,
-          "cloud_id": null,
-          "chef_role": null,
-          "active": null,
-          "img": null,
-          "created_at": "2014-12-18T18:36:52.354Z",
-          "updated_at": "2014-12-18T18:36:52.354Z",
-          "options": null,
-          "deleted_at": null,
-          "product_category_id": null
-        }
+        "created_at": "2014-12-24T19:46:13.415Z",
+        "updated_at": "2014-12-24T19:46:13.415Z",
+        "deleted_at": null
       },
       "code": 200,
       "show_in_doc": 0,
@@ -1149,19 +1149,19 @@
   "chargebacks#update": [
     {
       "verb": "PUT",
-      "path": "/chargebacks/11",
+      "path": "/chargebacks/1",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": "chargeback[cloud_id]=1",
       "response_data": {
-        "id": 11,
+        "id": 1,
         "product_id": null,
         "cloud_id": 1,
         "hourly_price": "99.99",
-        "created_at": "2014-12-18T18:36:52.369Z",
-        "updated_at": "2014-12-18T18:36:52.403Z",
+        "created_at": "2014-12-24T19:46:13.207Z",
+        "updated_at": "2014-12-24T19:46:13.245Z",
         "deleted_at": null
       },
       "code": 200,
@@ -1179,11 +1179,11 @@
       "query": null,
       "request_data": "cloud[name]=test",
       "response_data": {
-        "id": 19,
+        "id": 5,
         "name": "test",
         "description": null,
-        "created_at": "2014-12-18T18:36:55.714Z",
-        "updated_at": "2014-12-18T18:36:55.714Z",
+        "created_at": "2014-12-24T19:46:14.647Z",
+        "updated_at": "2014-12-24T19:46:14.647Z",
         "extra": null,
         "deleted_at": null
       },
@@ -1195,7 +1195,7 @@
   "clouds#destroy": [
     {
       "verb": "DELETE",
-      "path": "/clouds/5",
+      "path": "/clouds/4",
       "versions": [
         "1.0"
       ],
@@ -1214,26 +1214,32 @@
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=products",
       "request_data": null,
       "response_data": [
         {
-          "id": 7,
+          "id": 11,
           "name": null,
           "description": null,
-          "created_at": "2014-12-18T18:36:55.373Z",
-          "updated_at": "2014-12-18T18:36:55.373Z",
+          "created_at": "2014-12-24T19:46:14.789Z",
+          "updated_at": "2014-12-24T19:46:14.789Z",
           "extra": null,
-          "deleted_at": null
+          "deleted_at": null,
+          "products": [
+
+          ]
         },
         {
-          "id": 6,
+          "id": 10,
           "name": null,
           "description": null,
-          "created_at": "2014-12-18T18:36:55.371Z",
-          "updated_at": "2014-12-18T18:36:55.371Z",
+          "created_at": "2014-12-24T19:46:14.787Z",
+          "updated_at": "2014-12-24T19:46:14.787Z",
           "extra": null,
-          "deleted_at": null
+          "deleted_at": null,
+          "products": [
+
+          ]
         }
       ],
       "code": 200,
@@ -1246,94 +1252,18 @@
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=chargebacks",
-      "request_data": null,
-      "response_data": [
-        {
-          "id": 9,
-          "name": null,
-          "description": null,
-          "created_at": "2014-12-18T18:36:55.412Z",
-          "updated_at": "2014-12-18T18:36:55.412Z",
-          "extra": null,
-          "deleted_at": null,
-          "chargebacks": [
-
-          ]
-        },
-        {
-          "id": 8,
-          "name": null,
-          "description": null,
-          "created_at": "2014-12-18T18:36:55.410Z",
-          "updated_at": "2014-12-18T18:36:55.410Z",
-          "extra": null,
-          "deleted_at": null,
-          "chargebacks": [
-
-          ]
-        }
-      ],
-      "code": 200,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "GET",
-      "path": "/clouds",
-      "versions": [
-        "1.0"
-      ],
       "query": "includes[]=orders",
-      "request_data": null,
-      "response_data": [
-        {
-          "id": 11,
-          "name": null,
-          "description": null,
-          "created_at": "2014-12-18T18:36:55.444Z",
-          "updated_at": "2014-12-18T18:36:55.444Z",
-          "extra": null,
-          "deleted_at": null,
-          "orders": [
-
-          ]
-        },
-        {
-          "id": 10,
-          "name": null,
-          "description": null,
-          "created_at": "2014-12-18T18:36:55.443Z",
-          "updated_at": "2014-12-18T18:36:55.443Z",
-          "extra": null,
-          "deleted_at": null,
-          "orders": [
-
-          ]
-        }
-      ],
-      "code": 200,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "GET",
-      "path": "/clouds",
-      "versions": [
-        "1.0"
-      ],
-      "query": "includes[]=products",
       "request_data": null,
       "response_data": [
         {
           "id": 13,
           "name": null,
           "description": null,
-          "created_at": "2014-12-18T18:36:55.482Z",
-          "updated_at": "2014-12-18T18:36:55.482Z",
+          "created_at": "2014-12-24T19:46:14.820Z",
+          "updated_at": "2014-12-24T19:46:14.820Z",
           "extra": null,
           "deleted_at": null,
-          "products": [
+          "orders": [
 
           ]
         },
@@ -1341,13 +1271,83 @@
           "id": 12,
           "name": null,
           "description": null,
-          "created_at": "2014-12-18T18:36:55.481Z",
-          "updated_at": "2014-12-18T18:36:55.481Z",
+          "created_at": "2014-12-24T19:46:14.819Z",
+          "updated_at": "2014-12-24T19:46:14.819Z",
           "extra": null,
           "deleted_at": null,
-          "products": [
+          "orders": [
 
           ]
+        }
+      ],
+      "code": 200,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/clouds",
+      "versions": [
+        "1.0"
+      ],
+      "query": "includes[]=chargebacks",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 15,
+          "name": null,
+          "description": null,
+          "created_at": "2014-12-24T19:46:14.857Z",
+          "updated_at": "2014-12-24T19:46:14.857Z",
+          "extra": null,
+          "deleted_at": null,
+          "chargebacks": [
+
+          ]
+        },
+        {
+          "id": 14,
+          "name": null,
+          "description": null,
+          "created_at": "2014-12-24T19:46:14.855Z",
+          "updated_at": "2014-12-24T19:46:14.855Z",
+          "extra": null,
+          "deleted_at": null,
+          "chargebacks": [
+
+          ]
+        }
+      ],
+      "code": 200,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/clouds",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 17,
+          "name": null,
+          "description": null,
+          "created_at": "2014-12-24T19:46:14.888Z",
+          "updated_at": "2014-12-24T19:46:14.888Z",
+          "extra": null,
+          "deleted_at": null
+        },
+        {
+          "id": 16,
+          "name": null,
+          "description": null,
+          "created_at": "2014-12-24T19:46:14.886Z",
+          "updated_at": "2014-12-24T19:46:14.886Z",
+          "extra": null,
+          "deleted_at": null
         }
       ],
       "code": 200,
@@ -1358,20 +1358,23 @@
   "clouds#show": [
     {
       "verb": "GET",
-      "path": "/clouds/14",
+      "path": "/clouds/6",
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=products",
       "request_data": null,
       "response_data": {
-        "id": 14,
+        "id": 6,
         "name": null,
         "description": null,
-        "created_at": "2014-12-18T18:36:55.515Z",
-        "updated_at": "2014-12-18T18:36:55.515Z",
+        "created_at": "2014-12-24T19:46:14.654Z",
+        "updated_at": "2014-12-24T19:46:14.654Z",
         "extra": null,
-        "deleted_at": null
+        "deleted_at": null,
+        "products": [
+
+        ]
       },
       "code": 200,
       "show_in_doc": 1,
@@ -1379,42 +1382,18 @@
     },
     {
       "verb": "GET",
-      "path": "/clouds/15",
-      "versions": [
-        "1.0"
-      ],
-      "query": "includes[]=chargebacks",
-      "request_data": null,
-      "response_data": {
-        "id": 15,
-        "name": null,
-        "description": null,
-        "created_at": "2014-12-18T18:36:55.550Z",
-        "updated_at": "2014-12-18T18:36:55.550Z",
-        "extra": null,
-        "deleted_at": null,
-        "chargebacks": [
-
-        ]
-      },
-      "code": 200,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "GET",
-      "path": "/clouds/16",
+      "path": "/clouds/7",
       "versions": [
         "1.0"
       ],
       "query": "includes[]=orders",
       "request_data": null,
       "response_data": {
-        "id": 16,
+        "id": 7,
         "name": null,
         "description": null,
-        "created_at": "2014-12-18T18:36:55.585Z",
-        "updated_at": "2014-12-18T18:36:55.585Z",
+        "created_at": "2014-12-24T19:46:14.685Z",
+        "updated_at": "2014-12-24T19:46:14.685Z",
         "extra": null,
         "deleted_at": null,
         "orders": [
@@ -1427,23 +1406,44 @@
     },
     {
       "verb": "GET",
-      "path": "/clouds/17",
+      "path": "/clouds/8",
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=products",
+      "query": "includes[]=chargebacks",
       "request_data": null,
       "response_data": {
-        "id": 17,
+        "id": 8,
         "name": null,
         "description": null,
-        "created_at": "2014-12-18T18:36:55.621Z",
-        "updated_at": "2014-12-18T18:36:55.621Z",
+        "created_at": "2014-12-24T19:46:14.721Z",
+        "updated_at": "2014-12-24T19:46:14.721Z",
         "extra": null,
         "deleted_at": null,
-        "products": [
+        "chargebacks": [
 
         ]
+      },
+      "code": 200,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/clouds/9",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": null,
+      "response_data": {
+        "id": 9,
+        "name": null,
+        "description": null,
+        "created_at": "2014-12-24T19:46:14.751Z",
+        "updated_at": "2014-12-24T19:46:14.751Z",
+        "extra": null,
+        "deleted_at": null
       },
       "code": 200,
       "show_in_doc": 0,
@@ -1453,18 +1453,18 @@
   "clouds#update": [
     {
       "verb": "PUT",
-      "path": "/clouds/18",
+      "path": "/clouds/3",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": "cloud[name]=test",
       "response_data": {
-        "id": 18,
+        "id": 3,
         "name": "test",
         "description": null,
-        "created_at": "2014-12-18T18:36:55.650Z",
-        "updated_at": "2014-12-18T18:36:55.681Z",
+        "created_at": "2014-12-24T19:46:14.546Z",
+        "updated_at": "2014-12-24T19:46:14.581Z",
         "extra": null,
         "deleted_at": null
       },
@@ -1483,22 +1483,23 @@
       "query": null,
       "request_data": "order[product_id]=1&order[project_id]=1&order[staff_id]=1&order[cloud_id]=1&order[options][]=test",
       "response_data": {
-        "id": 14,
+        "id": 5,
         "product_id": 1,
         "project_id": 1,
         "staff_id": 1,
         "cloud_id": 1,
         "engine_response": null,
-        "provision_status": null,
+        "provision_status": "Pending",
         "active": null,
-        "created_at": "2014-12-18T18:36:52.028Z",
-        "updated_at": "2014-12-18T18:36:52.028Z",
+        "created_at": "2014-12-24T19:46:15.090Z",
+        "updated_at": "2014-12-24T19:46:15.090Z",
         "options": [
           "test"
         ],
         "deleted_at": null,
         "host": null,
-        "port": null
+        "port": null,
+        "total": 0.0
       },
       "code": 201,
       "show_in_doc": 1,
@@ -1508,27 +1509,28 @@
   "orders#destroy": [
     {
       "verb": "DELETE",
-      "path": "/orders/3",
+      "path": "/orders/4",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 3,
+        "id": 4,
         "product_id": 1,
         "project_id": 1,
         "staff_id": 1,
         "cloud_id": 1,
         "engine_response": null,
-        "provision_status": null,
+        "provision_status": "Pending",
         "active": null,
-        "created_at": "2014-12-18T18:36:51.658Z",
-        "updated_at": "2014-12-18T18:36:51.683Z",
+        "created_at": "2014-12-24T19:46:15.042Z",
+        "updated_at": "2014-12-24T19:46:15.063Z",
         "options": null,
-        "deleted_at": "2014-12-18T18:36:51.683Z",
+        "deleted_at": "2014-12-24T19:46:15.063Z",
         "host": null,
-        "port": null
+        "port": null,
+        "total": 0.0
       },
       "code": 200,
       "show_in_doc": 1,
@@ -1536,130 +1538,6 @@
     }
   ],
   "orders#index": [
-    {
-      "verb": "GET",
-      "path": "/orders",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": null,
-      "response_data": [
-        {
-          "id": 6,
-          "product_id": 1,
-          "project_id": 1,
-          "staff_id": 1,
-          "cloud_id": 1,
-          "engine_response": null,
-          "provision_status": null,
-          "active": null,
-          "created_at": "2014-12-18T18:36:51.730Z",
-          "updated_at": "2014-12-18T18:36:51.730Z",
-          "options": null,
-          "deleted_at": null,
-          "host": null,
-          "port": null
-        },
-        {
-          "id": 5,
-          "product_id": 1,
-          "project_id": 1,
-          "staff_id": 1,
-          "cloud_id": 1,
-          "engine_response": null,
-          "provision_status": null,
-          "active": null,
-          "created_at": "2014-12-18T18:36:51.729Z",
-          "updated_at": "2014-12-18T18:36:51.729Z",
-          "options": null,
-          "deleted_at": null,
-          "host": null,
-          "port": null
-        }
-      ],
-      "code": 200,
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "GET",
-      "path": "/orders",
-      "versions": [
-        "1.0"
-      ],
-      "query": "includes[]=product",
-      "request_data": null,
-      "response_data": [
-        {
-          "id": 8,
-          "product_id": 1,
-          "project_id": 1,
-          "staff_id": 1,
-          "cloud_id": 1,
-          "engine_response": null,
-          "provision_status": null,
-          "active": null,
-          "created_at": "2014-12-18T18:36:51.772Z",
-          "updated_at": "2014-12-18T18:36:51.772Z",
-          "options": null,
-          "deleted_at": null,
-          "host": null,
-          "port": null,
-          "product": {
-            "id": 1,
-            "name": null,
-            "description": null,
-            "service_type_id": null,
-            "service_catalog_id": null,
-            "cloud_id": null,
-            "chef_role": null,
-            "active": null,
-            "img": null,
-            "created_at": "2014-12-18T18:36:51.797Z",
-            "updated_at": "2014-12-18T18:36:51.797Z",
-            "options": null,
-            "deleted_at": null,
-            "product_category_id": null
-          }
-        },
-        {
-          "id": 7,
-          "product_id": 1,
-          "project_id": 1,
-          "staff_id": 1,
-          "cloud_id": 1,
-          "engine_response": null,
-          "provision_status": null,
-          "active": null,
-          "created_at": "2014-12-18T18:36:51.771Z",
-          "updated_at": "2014-12-18T18:36:51.771Z",
-          "options": null,
-          "deleted_at": null,
-          "host": null,
-          "port": null,
-          "product": {
-            "id": 1,
-            "name": null,
-            "description": null,
-            "service_type_id": null,
-            "service_catalog_id": null,
-            "cloud_id": null,
-            "chef_role": null,
-            "active": null,
-            "img": null,
-            "created_at": "2014-12-18T18:36:51.797Z",
-            "updated_at": "2014-12-18T18:36:51.797Z",
-            "options": null,
-            "deleted_at": null,
-            "product_category_id": null
-          }
-        }
-      ],
-      "code": 200,
-      "show_in_doc": 0,
-      "recorded": true
-    },
     {
       "verb": "GET",
       "path": "/orders",
@@ -1674,22 +1552,23 @@
           "product_id": 1,
           "project_id": 1,
           "staff_id": 1,
-          "cloud_id": 1,
+          "cloud_id": 19,
           "engine_response": null,
-          "provision_status": null,
+          "provision_status": "Pending",
           "active": null,
-          "created_at": "2014-12-18T18:36:51.833Z",
-          "updated_at": "2014-12-18T18:36:51.833Z",
+          "created_at": "2014-12-24T19:46:15.214Z",
+          "updated_at": "2014-12-24T19:46:15.245Z",
           "options": null,
           "deleted_at": null,
           "host": null,
           "port": null,
+          "total": 0.0,
           "cloud": {
-            "id": 1,
+            "id": 19,
             "name": null,
             "description": null,
-            "created_at": "2014-12-18T18:36:51.862Z",
-            "updated_at": "2014-12-18T18:36:51.862Z",
+            "created_at": "2014-12-24T19:46:15.242Z",
+            "updated_at": "2014-12-24T19:46:15.242Z",
             "extra": null,
             "deleted_at": null
           }
@@ -1699,25 +1578,154 @@
           "product_id": 1,
           "project_id": 1,
           "staff_id": 1,
-          "cloud_id": 1,
+          "cloud_id": 19,
           "engine_response": null,
-          "provision_status": null,
+          "provision_status": "Pending",
           "active": null,
-          "created_at": "2014-12-18T18:36:51.828Z",
-          "updated_at": "2014-12-18T18:36:51.828Z",
+          "created_at": "2014-12-24T19:46:15.211Z",
+          "updated_at": "2014-12-24T19:46:15.243Z",
           "options": null,
           "deleted_at": null,
           "host": null,
           "port": null,
+          "total": 0.0,
           "cloud": {
-            "id": 1,
+            "id": 19,
             "name": null,
             "description": null,
-            "created_at": "2014-12-18T18:36:51.862Z",
-            "updated_at": "2014-12-18T18:36:51.862Z",
+            "created_at": "2014-12-24T19:46:15.242Z",
+            "updated_at": "2014-12-24T19:46:15.242Z",
             "extra": null,
             "deleted_at": null
           }
+        }
+      ],
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/orders",
+      "versions": [
+        "1.0"
+      ],
+      "query": "includes[]=product",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 12,
+          "product_id": 12,
+          "project_id": 1,
+          "staff_id": 1,
+          "cloud_id": 1,
+          "engine_response": null,
+          "provision_status": "Pending",
+          "active": null,
+          "created_at": "2014-12-24T19:46:15.258Z",
+          "updated_at": "2014-12-24T19:46:15.280Z",
+          "options": null,
+          "deleted_at": null,
+          "host": null,
+          "port": null,
+          "total": 0.0,
+          "product": {
+            "id": 12,
+            "name": null,
+            "description": null,
+            "service_type_id": null,
+            "service_catalog_id": null,
+            "cloud_id": null,
+            "chef_role": null,
+            "active": null,
+            "img": null,
+            "created_at": "2014-12-24T19:46:15.277Z",
+            "updated_at": "2014-12-24T19:46:15.277Z",
+            "options": null,
+            "deleted_at": null,
+            "product_category_id": null
+          }
+        },
+        {
+          "id": 11,
+          "product_id": 12,
+          "project_id": 1,
+          "staff_id": 1,
+          "cloud_id": 1,
+          "engine_response": null,
+          "provision_status": "Pending",
+          "active": null,
+          "created_at": "2014-12-24T19:46:15.257Z",
+          "updated_at": "2014-12-24T19:46:15.279Z",
+          "options": null,
+          "deleted_at": null,
+          "host": null,
+          "port": null,
+          "total": 0.0,
+          "product": {
+            "id": 12,
+            "name": null,
+            "description": null,
+            "service_type_id": null,
+            "service_catalog_id": null,
+            "cloud_id": null,
+            "chef_role": null,
+            "active": null,
+            "img": null,
+            "created_at": "2014-12-24T19:46:15.277Z",
+            "updated_at": "2014-12-24T19:46:15.277Z",
+            "options": null,
+            "deleted_at": null,
+            "product_category_id": null
+          }
+        }
+      ],
+      "code": 200,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/orders",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 14,
+          "product_id": 1,
+          "project_id": 1,
+          "staff_id": 1,
+          "cloud_id": 1,
+          "engine_response": null,
+          "provision_status": "Pending",
+          "active": null,
+          "created_at": "2014-12-24T19:46:15.296Z",
+          "updated_at": "2014-12-24T19:46:15.296Z",
+          "options": null,
+          "deleted_at": null,
+          "host": null,
+          "port": null,
+          "total": 0.0
+        },
+        {
+          "id": 13,
+          "product_id": 1,
+          "project_id": 1,
+          "staff_id": 1,
+          "cloud_id": 1,
+          "engine_response": null,
+          "provision_status": "Pending",
+          "active": null,
+          "created_at": "2014-12-24T19:46:15.293Z",
+          "updated_at": "2014-12-24T19:46:15.293Z",
+          "options": null,
+          "deleted_at": null,
+          "host": null,
+          "port": null,
+          "total": 0.0
         }
       ],
       "code": 200,
@@ -1728,36 +1736,28 @@
   "orders#show": [
     {
       "verb": "GET",
-      "path": "/orders/11",
+      "path": "/orders/6",
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=cloud",
+      "query": null,
       "request_data": null,
       "response_data": {
-        "id": 11,
+        "id": 6,
         "product_id": 1,
         "project_id": 1,
         "staff_id": 1,
-        "cloud_id": 2,
+        "cloud_id": 1,
         "engine_response": null,
-        "provision_status": null,
+        "provision_status": "Pending",
         "active": null,
-        "created_at": "2014-12-18T18:36:51.888Z",
-        "updated_at": "2014-12-18T18:36:51.917Z",
+        "created_at": "2014-12-24T19:46:15.106Z",
+        "updated_at": "2014-12-24T19:46:15.106Z",
         "options": null,
         "deleted_at": null,
         "host": null,
         "port": null,
-        "cloud": {
-          "id": 2,
-          "name": null,
-          "description": null,
-          "created_at": "2014-12-18T18:36:51.915Z",
-          "updated_at": "2014-12-18T18:36:51.915Z",
-          "extra": null,
-          "deleted_at": null
-        }
+        "total": 0.0
       },
       "code": 200,
       "show_in_doc": 1,
@@ -1765,29 +1765,30 @@
     },
     {
       "verb": "GET",
-      "path": "/orders/12",
+      "path": "/orders/7",
       "versions": [
         "1.0"
       ],
       "query": "includes[]=product",
       "request_data": null,
       "response_data": {
-        "id": 12,
-        "product_id": 2,
+        "id": 7,
+        "product_id": 11,
         "project_id": 1,
         "staff_id": 1,
         "cloud_id": 1,
         "engine_response": null,
-        "provision_status": null,
+        "provision_status": "Pending",
         "active": null,
-        "created_at": "2014-12-18T18:36:51.930Z",
-        "updated_at": "2014-12-18T18:36:51.960Z",
+        "created_at": "2014-12-24T19:46:15.134Z",
+        "updated_at": "2014-12-24T19:46:15.158Z",
         "options": null,
         "deleted_at": null,
         "host": null,
         "port": null,
+        "total": 0.0,
         "product": {
-          "id": 2,
+          "id": 11,
           "name": null,
           "description": null,
           "service_type_id": null,
@@ -1796,8 +1797,8 @@
           "chef_role": null,
           "active": null,
           "img": null,
-          "created_at": "2014-12-18T18:36:51.957Z",
-          "updated_at": "2014-12-18T18:36:51.957Z",
+          "created_at": "2014-12-24T19:46:15.156Z",
+          "updated_at": "2014-12-24T19:46:15.156Z",
           "options": null,
           "deleted_at": null,
           "product_category_id": null
@@ -1809,27 +1810,37 @@
     },
     {
       "verb": "GET",
-      "path": "/orders/13",
+      "path": "/orders/8",
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=cloud",
       "request_data": null,
       "response_data": {
-        "id": 13,
+        "id": 8,
         "product_id": 1,
         "project_id": 1,
         "staff_id": 1,
-        "cloud_id": 1,
+        "cloud_id": 18,
         "engine_response": null,
-        "provision_status": null,
+        "provision_status": "Pending",
         "active": null,
-        "created_at": "2014-12-18T18:36:51.978Z",
-        "updated_at": "2014-12-18T18:36:51.978Z",
+        "created_at": "2014-12-24T19:46:15.178Z",
+        "updated_at": "2014-12-24T19:46:15.199Z",
         "options": null,
         "deleted_at": null,
         "host": null,
-        "port": null
+        "port": null,
+        "total": 0.0,
+        "cloud": {
+          "id": 18,
+          "name": null,
+          "description": null,
+          "created_at": "2014-12-24T19:46:15.197Z",
+          "updated_at": "2014-12-24T19:46:15.197Z",
+          "extra": null,
+          "deleted_at": null
+        }
       },
       "code": 200,
       "show_in_doc": 0,
@@ -1839,7 +1850,7 @@
   "orders#start_service": [
     {
       "verb": "POST",
-      "path": "/orders/1/start_service",
+      "path": "/orders/3/start_service",
       "versions": [
 
       ],
@@ -1869,29 +1880,30 @@
   "orders#update": [
     {
       "verb": "PUT",
-      "path": "/orders/4",
+      "path": "/orders/1",
       "versions": [
         "1.0"
       ],
       "query": null,
-      "request_data": "order[options][]=test",
+      "request_data": "order[product_id]=1&order[project_id]=1&order[staff_id]=1&order[options][]=test",
       "response_data": {
-        "id": 4,
+        "id": 1,
         "product_id": 1,
         "project_id": 1,
         "staff_id": 1,
         "cloud_id": 1,
         "engine_response": null,
-        "provision_status": null,
+        "provision_status": "Pending",
         "active": null,
-        "created_at": "2014-12-18T18:36:51.691Z",
-        "updated_at": "2014-12-18T18:36:51.723Z",
+        "created_at": "2014-12-24T19:46:14.929Z",
+        "updated_at": "2014-12-24T19:46:14.974Z",
         "options": [
           "test"
         ],
         "deleted_at": null,
         "host": null,
-        "port": null
+        "port": null,
+        "total": 0.0
       },
       "code": 200,
       "show_in_doc": 1,
@@ -1908,12 +1920,12 @@
       "query": null,
       "request_data": "organization[name]=some+name&organization[img]=img.png&organization[description]=best+org+ever",
       "response_data": {
-        "id": 6,
+        "id": 3,
         "name": "some name",
         "description": "best org ever",
         "img": null,
-        "created_at": "2014-12-18T18:36:52.671Z",
-        "updated_at": "2014-12-18T18:36:52.671Z",
+        "created_at": "2014-12-24T19:46:12.384Z",
+        "updated_at": "2014-12-24T19:46:12.384Z",
         "deleted_at": null
       },
       "code": 201,
@@ -1924,20 +1936,20 @@
   "organizations#destroy": [
     {
       "verb": "DELETE",
-      "path": "/organizations/1",
+      "path": "/organizations/2",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 1,
+        "id": 2,
         "name": "test",
         "description": "test desc",
         "img": "test.png",
         "created_at": "2014-11-17T20:00:57.711Z",
-        "updated_at": "2014-12-18T18:36:52.536Z",
-        "deleted_at": "2014-12-18T18:36:52.536Z"
+        "updated_at": "2014-12-24T19:46:12.358Z",
+        "deleted_at": "2014-12-24T19:46:12.358Z"
       },
       "code": 200,
       "show_in_doc": 1,
@@ -1955,7 +1967,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 3,
+          "id": 6,
           "name": "test",
           "description": "test desc",
           "img": "test.png",
@@ -1964,7 +1976,7 @@
           "deleted_at": null
         },
         {
-          "id": 2,
+          "id": 5,
           "name": "test",
           "description": "test desc",
           "img": "test.png",
@@ -2004,19 +2016,19 @@
   "organizations#update": [
     {
       "verb": "PUT",
-      "path": "/organizations/5",
+      "path": "/organizations/1",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": "organization[name]=some+different+name",
       "response_data": {
-        "id": 5,
+        "id": 1,
         "name": "some different name",
         "description": "test desc",
         "img": "test.png",
         "created_at": "2014-11-17T20:00:57.711Z",
-        "updated_at": "2014-12-18T18:36:52.641Z",
+        "updated_at": "2014-12-24T19:46:12.323Z",
         "deleted_at": null
       },
       "code": 200,
@@ -2034,7 +2046,7 @@
       "query": null,
       "request_data": "product[options][]=test",
       "response_data": {
-        "id": 12,
+        "id": 5,
         "name": null,
         "description": null,
         "service_type_id": null,
@@ -2043,8 +2055,8 @@
         "chef_role": null,
         "active": null,
         "img": null,
-        "created_at": "2014-12-18T18:36:53.980Z",
-        "updated_at": "2014-12-18T18:36:53.980Z",
+        "created_at": "2014-12-24T19:46:14.134Z",
+        "updated_at": "2014-12-24T19:46:14.134Z",
         "options": [
           "test"
         ],
@@ -2059,14 +2071,14 @@
   "products#destroy": [
     {
       "verb": "DELETE",
-      "path": "/products/5",
+      "path": "/products/4",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 5,
+        "id": 4,
         "name": null,
         "description": null,
         "service_type_id": null,
@@ -2075,10 +2087,10 @@
         "chef_role": null,
         "active": null,
         "img": null,
-        "created_at": "2014-12-18T18:36:53.900Z",
-        "updated_at": "2014-12-18T18:36:53.919Z",
+        "created_at": "2014-12-24T19:46:14.123Z",
+        "updated_at": "2014-12-24T19:46:14.127Z",
         "options": null,
-        "deleted_at": "2014-12-18T18:36:53.919Z",
+        "deleted_at": "2014-12-24T19:46:14.127Z",
         "product_category_id": null
       },
       "code": 200,
@@ -2093,9 +2105,28 @@
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=chargebacks",
       "request_data": null,
       "response_data": [
+        {
+          "id": 8,
+          "name": null,
+          "description": null,
+          "service_type_id": null,
+          "service_catalog_id": null,
+          "cloud_id": null,
+          "chef_role": null,
+          "active": null,
+          "img": null,
+          "created_at": "2014-12-24T19:46:14.156Z",
+          "updated_at": "2014-12-24T19:46:14.156Z",
+          "options": null,
+          "deleted_at": null,
+          "product_category_id": null,
+          "chargebacks": [
+
+          ]
+        },
         {
           "id": 7,
           "name": null,
@@ -2106,27 +2137,14 @@
           "chef_role": null,
           "active": null,
           "img": null,
-          "created_at": "2014-12-18T18:36:53.927Z",
-          "updated_at": "2014-12-18T18:36:53.927Z",
+          "created_at": "2014-12-24T19:46:14.154Z",
+          "updated_at": "2014-12-24T19:46:14.154Z",
           "options": null,
           "deleted_at": null,
-          "product_category_id": null
-        },
-        {
-          "id": 6,
-          "name": null,
-          "description": null,
-          "service_type_id": null,
-          "service_catalog_id": null,
-          "cloud_id": null,
-          "chef_role": null,
-          "active": null,
-          "img": null,
-          "created_at": "2014-12-18T18:36:53.926Z",
-          "updated_at": "2014-12-18T18:36:53.926Z",
-          "options": null,
-          "deleted_at": null,
-          "product_category_id": null
+          "product_category_id": null,
+          "chargebacks": [
+
+          ]
         }
       ],
       "code": 200,
@@ -2139,9 +2157,25 @@
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=chargebacks",
+      "query": null,
       "request_data": null,
       "response_data": [
+        {
+          "id": 10,
+          "name": null,
+          "description": null,
+          "service_type_id": null,
+          "service_catalog_id": null,
+          "cloud_id": null,
+          "chef_role": null,
+          "active": null,
+          "img": null,
+          "created_at": "2014-12-24T19:46:14.175Z",
+          "updated_at": "2014-12-24T19:46:14.175Z",
+          "options": null,
+          "deleted_at": null,
+          "product_category_id": null
+        },
         {
           "id": 9,
           "name": null,
@@ -2152,33 +2186,11 @@
           "chef_role": null,
           "active": null,
           "img": null,
-          "created_at": "2014-12-18T18:36:53.937Z",
-          "updated_at": "2014-12-18T18:36:53.937Z",
+          "created_at": "2014-12-24T19:46:14.173Z",
+          "updated_at": "2014-12-24T19:46:14.173Z",
           "options": null,
           "deleted_at": null,
-          "product_category_id": null,
-          "chargebacks": [
-
-          ]
-        },
-        {
-          "id": 8,
-          "name": null,
-          "description": null,
-          "service_type_id": null,
-          "service_catalog_id": null,
-          "cloud_id": null,
-          "chef_role": null,
-          "active": null,
-          "img": null,
-          "created_at": "2014-12-18T18:36:53.936Z",
-          "updated_at": "2014-12-18T18:36:53.936Z",
-          "options": null,
-          "deleted_at": null,
-          "product_category_id": null,
-          "chargebacks": [
-
-          ]
+          "product_category_id": null
         }
       ],
       "code": 200,
@@ -2189,14 +2201,14 @@
   "products#show": [
     {
       "verb": "GET",
-      "path": "/products/10",
+      "path": "/products/6",
       "versions": [
         "1.0"
       ],
       "query": "includes[]=chargebacks",
       "request_data": null,
       "response_data": {
-        "id": 10,
+        "id": 6,
         "name": null,
         "description": null,
         "service_type_id": null,
@@ -2205,8 +2217,8 @@
         "chef_role": null,
         "active": null,
         "img": null,
-        "created_at": "2014-12-18T18:36:53.948Z",
-        "updated_at": "2014-12-18T18:36:53.948Z",
+        "created_at": "2014-12-24T19:46:14.144Z",
+        "updated_at": "2014-12-24T19:46:14.144Z",
         "options": null,
         "deleted_at": null,
         "product_category_id": null,
@@ -2222,14 +2234,14 @@
   "products#update": [
     {
       "verb": "PUT",
-      "path": "/products/11",
+      "path": "/products/3",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": "product[options][]=test",
       "response_data": {
-        "id": 11,
+        "id": 3,
         "name": null,
         "description": null,
         "service_type_id": null,
@@ -2238,8 +2250,8 @@
         "chef_role": null,
         "active": null,
         "img": null,
-        "created_at": "2014-12-18T18:36:53.963Z",
-        "updated_at": "2014-12-18T18:36:53.968Z",
+        "created_at": "2014-12-24T19:46:14.103Z",
+        "updated_at": "2014-12-24T19:46:14.117Z",
         "options": [
           "test"
         ],
@@ -2261,12 +2273,12 @@
       "query": null,
       "request_data": "project_question[id]&project_question[question]=Question%3F&project_question[help_text]=helping&project_question[required]=true&project_question[created_at]&project_question[updated_at]&project_question[deleted_at]&project_question[load_order]=0&project_question[options][]=one&project_question[options][]=tow&project_question[options][]=three&project_question[field_type]=select_option",
       "response_data": {
-        "id": 6,
+        "id": 3,
         "question": "Question?",
         "help_text": "helping",
         "required": true,
-        "created_at": "2014-12-18T18:36:52.870Z",
-        "updated_at": "2014-12-18T18:36:52.870Z",
+        "created_at": "2014-12-24T19:46:12.199Z",
+        "updated_at": "2014-12-24T19:46:12.199Z",
         "deleted_at": null,
         "load_order": 0,
         "options": [
@@ -2284,7 +2296,7 @@
   "project_questions#destroy": [
     {
       "verb": "DELETE",
-      "path": "/project_questions/1",
+      "path": "/project_questions/2",
       "versions": [
         "1.0"
       ],
@@ -2307,12 +2319,26 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
+          "id": 6,
           "question": "Question?",
           "help_text": "helping",
           "required": true,
-          "created_at": "2014-12-18T18:36:52.750Z",
-          "updated_at": "2014-12-18T18:36:52.750Z",
+          "created_at": "2014-12-24T19:46:12.245Z",
+          "updated_at": "2014-12-24T19:46:12.245Z",
+          "deleted_at": null,
+          "load_order": 1,
+          "options": [
+
+          ],
+          "field_type": "text"
+        },
+        {
+          "id": 5,
+          "question": "Question?",
+          "help_text": "helping",
+          "required": true,
+          "created_at": "2014-12-24T19:46:12.242Z",
+          "updated_at": "2014-12-24T19:46:12.242Z",
           "deleted_at": null,
           "load_order": 0,
           "options": [
@@ -2321,20 +2347,6 @@
             "three"
           ],
           "field_type": "select_option"
-        },
-        {
-          "id": 3,
-          "question": "Question?",
-          "help_text": "helping",
-          "required": true,
-          "created_at": "2014-12-18T18:36:52.755Z",
-          "updated_at": "2014-12-18T18:36:52.755Z",
-          "deleted_at": null,
-          "load_order": 1,
-          "options": [
-
-          ],
-          "field_type": "text"
         }
       ],
       "code": 200,
@@ -2356,8 +2368,8 @@
         "question": "Question?",
         "help_text": "helping",
         "required": true,
-        "created_at": "2014-12-18T18:36:52.784Z",
-        "updated_at": "2014-12-18T18:36:52.784Z",
+        "created_at": "2014-12-24T19:46:12.214Z",
+        "updated_at": "2014-12-24T19:46:12.214Z",
         "deleted_at": null,
         "load_order": 0,
         "options": [
@@ -2375,7 +2387,7 @@
   "project_questions#update": [
     {
       "verb": "PUT",
-      "path": "/project_questions/5",
+      "path": "/project_questions/1",
       "versions": [
         "1.0"
       ],
@@ -2390,14 +2402,14 @@
   "projects#add_staff": [
     {
       "verb": "POST",
-      "path": "/projects/2/staff/50",
+      "path": "/projects/6/staff/49",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 50,
+        "id": 49,
         "first_name": "Test",
         "last_name": "Staff",
         "email": "user@test.com",
@@ -2420,7 +2432,7 @@
         "1.0"
       ],
       "query": null,
-      "request_data": "project[name]=Created&project[description]=description&project[cc]=cc&project[staff_id]=staff_id&project[budget]=1&project[start_date]=2014-12-18&project[end_date]=2014-12-25&project[approved]=Y&project[img]=img&project[project_answers][][project_question_id]=7&project[project_answers][][answer]=To+get+to+the+other+side.&includes[]=project_answers",
+      "request_data": "project[name]=Created&project[description]=description&project[cc]=cc&project[staff_id]=staff_id&project[budget]=1&project[start_date]=2014-12-24&project[end_date]=2014-12-31&project[approved]=Y&project[img]=img&project[project_answers][][project_question_id]=7&project[project_answers][][answer]=To+get+to+the+other+side.&includes[]=project_answers",
       "response_data": {
         "id": 4,
         "name": "Created",
@@ -2428,12 +2440,12 @@
         "cc": "cc",
         "budget": 1.0,
         "staff_id": "staff_id",
-        "start_date": "2014-12-18",
-        "end_date": "2014-12-25",
+        "start_date": "2014-12-24",
+        "end_date": "2014-12-31",
         "approved": false,
         "img": "img",
-        "created_at": "2014-12-18T18:36:53.712Z",
-        "updated_at": "2014-12-18T18:36:53.712Z",
+        "created_at": "2014-12-24T19:46:12.849Z",
+        "updated_at": "2014-12-24T19:46:12.849Z",
         "deleted_at": null,
         "project_answers": [
           {
@@ -2441,8 +2453,8 @@
             "project_id": 4,
             "project_question_id": 7,
             "answer": "To get to the other side.",
-            "created_at": "2014-12-18T18:36:53.732Z",
-            "updated_at": "2014-12-18T18:36:53.732Z"
+            "created_at": "2014-12-24T19:46:12.886Z",
+            "updated_at": "2014-12-24T19:46:12.886Z"
           }
         ]
       },
@@ -2462,18 +2474,18 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 6,
+          "id": 10,
           "name": "Test Project",
           "description": "A description",
           "cc": "--cc--",
           "budget": 100.0,
           "staff_id": "-staff_id--",
-          "start_date": "2014-12-25",
-          "end_date": "2015-01-01",
+          "start_date": "2014-12-31",
+          "end_date": "2015-01-07",
           "approved": true,
           "img": "--img--",
-          "created_at": "2014-12-18T18:36:53.777Z",
-          "updated_at": "2014-12-18T18:36:53.777Z",
+          "created_at": "2014-12-24T19:46:13.104Z",
+          "updated_at": "2014-12-24T19:46:13.104Z",
           "deleted_at": null,
           "services": [
 
@@ -2494,48 +2506,25 @@
 
           ],
           "order_history": [
-            {
-              "orderId": 2001,
-              "project": {
-                "id": 1,
-                "name": "Emoticon App"
-              },
-              "items": 5,
-              "total": 5000,
-              "status": "On Progress",
-              "color": "orange",
-              "request_date": "05/07/2014"
-            },
-            {
-              "orderId": 2002,
-              "project": {
-                "id": 2,
-                "name": "Company App"
-              },
-              "items": 1,
-              "total": 4012,
-              "status": "Pending",
-              "color": "gray",
-              "request_date": "06/07/2014"
-            }
+
           ],
           "project_answers": [
 
           ]
         },
         {
-          "id": 5,
+          "id": 9,
           "name": "Test Project",
           "description": "A description",
           "cc": "--cc--",
           "budget": 100.0,
           "staff_id": "-staff_id--",
-          "start_date": "2014-12-25",
-          "end_date": "2015-01-01",
+          "start_date": "2014-12-31",
+          "end_date": "2015-01-07",
           "approved": true,
           "img": "--img--",
-          "created_at": "2014-12-18T18:36:53.775Z",
-          "updated_at": "2014-12-18T18:36:53.775Z",
+          "created_at": "2014-12-24T19:46:13.102Z",
+          "updated_at": "2014-12-24T19:46:13.102Z",
           "deleted_at": null,
           "services": [
 
@@ -2554,7 +2543,7 @@
           "status": 2,
           "users": [
             {
-              "id": 56,
+              "id": 55,
               "first_name": "Test",
               "last_name": "Staff",
               "email": "staff@test.com",
@@ -2566,30 +2555,7 @@
             }
           ],
           "order_history": [
-            {
-              "orderId": 2001,
-              "project": {
-                "id": 1,
-                "name": "Emoticon App"
-              },
-              "items": 5,
-              "total": 5000,
-              "status": "On Progress",
-              "color": "orange",
-              "request_date": "05/07/2014"
-            },
-            {
-              "orderId": 2002,
-              "project": {
-                "id": 2,
-                "name": "Company App"
-              },
-              "items": 1,
-              "total": 4012,
-              "status": "Pending",
-              "color": "gray",
-              "request_date": "06/07/2014"
-            }
+
           ],
           "project_answers": [
 
@@ -2604,7 +2570,7 @@
   "projects#remove_staff": [
     {
       "verb": "DELETE",
-      "path": "/projects/3/staff/52",
+      "path": "/projects/5/staff/47",
       "versions": [
         "1.0"
       ],
@@ -2711,7 +2677,7 @@
   "projects#staff": [
     {
       "verb": "GET",
-      "path": "/projects/1/staff",
+      "path": "/projects/7/staff",
       "versions": [
         "1.0"
       ],
@@ -2719,7 +2685,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 48,
+          "id": 51,
           "first_name": "Test",
           "last_name": "Staff",
           "email": "user@test.com",
@@ -2738,34 +2704,34 @@
   "projects#update": [
     {
       "verb": "PUT",
-      "path": "/projects/7",
+      "path": "/projects/8",
       "versions": [
         "1.0"
       ],
       "query": null,
-      "request_data": "project[name]=Created&project[description]=description&project[cc]=cc&project[staff_id]=staff_id&project[budget]=1&project[start_date]=2014-12-18&project[end_date]=2014-12-25&project[approved]=Y&project[img]=img&project[project_answers][][project_question_id]=8&project[project_answers][][answer]=To+get+to+the+other+side.&includes[]=project_answers",
+      "request_data": "project[name]=Created&project[description]=description&project[cc]=cc&project[staff_id]=staff_id&project[budget]=1&project[start_date]=2014-12-24&project[end_date]=2014-12-31&project[approved]=Y&project[img]=img&project[project_answers][][project_question_id]=8&project[project_answers][][answer]=To+get+to+the+other+side.&includes[]=project_answers",
       "response_data": {
-        "id": 7,
+        "id": 8,
         "name": "Created",
         "description": "description",
         "cc": "cc",
         "budget": 1.0,
         "staff_id": "staff_id",
-        "start_date": "2014-12-18",
-        "end_date": "2014-12-25",
+        "start_date": "2014-12-24",
+        "end_date": "2014-12-31",
         "approved": false,
         "img": "img",
-        "created_at": "2014-12-18T18:36:53.848Z",
-        "updated_at": "2014-12-18T18:36:53.884Z",
+        "created_at": "2014-12-24T19:46:13.029Z",
+        "updated_at": "2014-12-24T19:46:13.059Z",
         "deleted_at": null,
         "project_answers": [
           {
             "id": 2,
-            "project_id": 7,
+            "project_id": 8,
             "project_question_id": 8,
             "answer": "To get to the other side.",
-            "created_at": "2014-12-18T18:36:53.892Z",
-            "updated_at": "2014-12-18T18:36:53.892Z"
+            "created_at": "2014-12-24T19:46:13.069Z",
+            "updated_at": "2014-12-24T19:46:13.069Z"
           }
         ]
       },
@@ -2834,7 +2800,137 @@
         "1.0"
       ],
       "query": null,
+      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=user%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=user%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=user%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
       "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
       "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
       "code": 302,
       "show_in_doc": 0,
@@ -3193,274 +3289,31 @@
     },
     {
       "verb": "POST",
-      "path": "/staff/sign_in",
+      "path": "/staff/sign_in.json",
       "versions": [
         "1.0"
       ],
       "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
+      "request_data": "staff[email]=foo%40bar.com&staff[password]=invalidpassword",
+      "response_data": {
+        "error": "Invalid Login"
+      },
+      "code": 401,
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/staff/sign_in",
+      "path": "/staff/sign_in.json",
       "versions": [
         "1.0"
       ],
       "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
+      "request_data": "staff[email]=foo%40bar.com&staff[password]=invalidpassword",
+      "response_data": {
+        "error": "Invalid Login"
+      },
+      "code": 401,
       "show_in_doc": 0,
       "recorded": true
     },
@@ -3479,7 +3332,7 @@
         "email": "foo@bar.com",
         "phone": null,
         "created_at": "2014-11-21T23:03:36.465Z",
-        "updated_at": "2014-12-18T18:36:54.001Z",
+        "updated_at": "2014-12-24T19:46:13.193Z",
         "role": "admin",
         "deleted_at": null
       },
@@ -3489,31 +3342,79 @@
     },
     {
       "verb": "POST",
-      "path": "/staff/sign_in.json",
+      "path": "/staff/sign_in",
       "versions": [
         "1.0"
       ],
       "query": null,
-      "request_data": "staff[email]=foo%40bar.com&staff[password]=invalidpassword",
-      "response_data": {
-        "error": "Invalid Login"
-      },
-      "code": 401,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/staff/sign_in.json",
+      "path": "/staff/sign_in",
       "versions": [
         "1.0"
       ],
       "query": null,
-      "request_data": "staff[email]=foo%40bar.com&staff[password]=invalidpassword",
-      "response_data": {
-        "error": "Invalid Login"
-      },
-      "code": 401,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
       "show_in_doc": 0,
       "recorded": true
     },
@@ -3602,59 +3503,7 @@
         "1.0"
       ],
       "query": null,
-      "request_data": "staff%5Bemail%5D=user%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=user%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=user%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
-      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
-      "code": 302,
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/staff/sign_in",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
       "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
       "code": 302,
       "show_in_doc": 0,
@@ -3680,7 +3529,7 @@
         "1.0"
       ],
       "query": null,
-      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
       "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
       "code": 302,
       "show_in_doc": 0,
@@ -3693,7 +3542,7 @@
         "1.0"
       ],
       "query": null,
-      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
       "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
       "code": 302,
       "show_in_doc": 0,
@@ -3706,7 +3555,124 @@
         "1.0"
       ],
       "query": null,
-      "request_data": "staff%5Bemail%5D=staff%40test.com&staff%5Bpassword%5D=test_pass",
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
+      "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
+      "code": 302,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/staff/sign_in",
+      "versions": [
+        "1.0"
+      ],
+      "query": null,
+      "request_data": "staff%5Bemail%5D=admin%40test.com&staff%5Bpassword%5D=test_pass",
       "response_data": "<html><body>You are being <a href=\"http://www.example.com/\">redirected</a>.</body></html>",
       "code": 302,
       "show_in_doc": 0,
@@ -4077,11 +4043,11 @@
       "query": null,
       "request_data": "setting[name]=foo&setting[value]=bar",
       "response_data": {
-        "id": 6,
+        "id": 1,
         "name": "foo",
         "value": "bar",
-        "created_at": "2014-12-18T18:36:55.285Z",
-        "updated_at": "2014-12-18T18:36:55.285Z",
+        "created_at": "2014-12-24T19:46:12.496Z",
+        "updated_at": "2014-12-24T19:46:12.496Z",
         "deleted_at": null
       },
       "code": 201,
@@ -4092,7 +4058,7 @@
   "settings#destroy": [
     {
       "verb": "DELETE",
-      "path": "/settings/1",
+      "path": "/settings/2",
       "versions": [
         "1.0"
       ],
@@ -4115,27 +4081,27 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
+          "id": 5,
           "name": "first setting",
           "value": "first value",
-          "created_at": "2014-12-18T18:36:55.214Z",
-          "updated_at": "2014-12-18T18:36:55.214Z",
+          "created_at": "2014-12-24T19:46:12.625Z",
+          "updated_at": "2014-12-24T19:46:12.625Z",
           "deleted_at": null
         },
         {
-          "id": 3,
+          "id": 6,
           "name": "second setting",
           "value": "second value",
-          "created_at": "2014-12-18T18:36:55.216Z",
-          "updated_at": "2014-12-18T18:36:55.216Z",
+          "created_at": "2014-12-24T19:46:12.627Z",
+          "updated_at": "2014-12-24T19:46:12.627Z",
           "deleted_at": null
         },
         {
-          "id": 4,
+          "id": 7,
           "name": "third setting",
           "value": "third value",
-          "created_at": "2014-12-18T18:36:55.218Z",
-          "updated_at": "2014-12-18T18:36:55.218Z",
+          "created_at": "2014-12-24T19:46:12.628Z",
+          "updated_at": "2014-12-24T19:46:12.628Z",
           "deleted_at": null
         }
       ],
@@ -4147,18 +4113,18 @@
   "settings#show": [
     {
       "verb": "GET",
-      "path": "/settings/1",
+      "path": "/settings/2",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 1,
+        "id": 2,
         "name": "test setting",
         "value": "test value",
-        "created_at": "2014-12-18T18:36:55.118Z",
-        "updated_at": "2014-12-18T18:36:55.118Z",
+        "created_at": "2014-12-24T19:46:12.503Z",
+        "updated_at": "2014-12-24T19:46:12.503Z",
         "deleted_at": null
       },
       "code": 200,
@@ -4167,18 +4133,18 @@
     },
     {
       "verb": "GET",
-      "path": "/settings/5",
+      "path": "/settings/4",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 5,
+        "id": 4,
         "name": "test setting",
         "value": "test value",
-        "created_at": "2014-12-18T18:36:55.228Z",
-        "updated_at": "2014-12-18T18:36:55.228Z",
+        "created_at": "2014-12-24T19:46:12.575Z",
+        "updated_at": "2014-12-24T19:46:12.575Z",
         "deleted_at": null
       },
       "code": 200,
@@ -4189,7 +4155,7 @@
   "settings#update": [
     {
       "verb": "PUT",
-      "path": "/settings/7",
+      "path": "/settings/3",
       "versions": [
         "1.0"
       ],
@@ -4204,25 +4170,25 @@
   "staff#add_project": [
     {
       "verb": "POST",
-      "path": "/staff/65/projects/9",
+      "path": "/staff/3/projects/2",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 9,
+        "id": 2,
         "name": "Test Project",
         "description": "A description",
         "cc": "--cc--",
         "budget": 100.0,
         "staff_id": "-staff_id--",
-        "start_date": "2014-12-25",
-        "end_date": "2015-01-01",
+        "start_date": "2014-12-31",
+        "end_date": "2015-01-07",
         "approved": true,
         "img": "--img--",
-        "created_at": "2014-12-18T18:36:54.151Z",
-        "updated_at": "2014-12-18T18:36:54.151Z",
+        "created_at": "2014-12-24T19:46:11.529Z",
+        "updated_at": "2014-12-24T19:46:11.529Z",
         "deleted_at": null
       },
       "code": 201,
@@ -4233,7 +4199,7 @@
   "staff#add_user_setting": [
     {
       "verb": "POST",
-      "path": "/staff/73/settings",
+      "path": "/staff/13/settings",
       "versions": [
         "1.0"
       ],
@@ -4241,11 +4207,11 @@
       "request_data": "user_setting[name]=foo&user_setting[value]=bar",
       "response_data": {
         "id": 3,
-        "staff_id": 73,
+        "staff_id": 13,
         "name": "foo",
         "value": "bar",
-        "created_at": "2014-12-18T18:36:54.384Z",
-        "updated_at": "2014-12-18T18:36:54.384Z",
+        "created_at": "2014-12-24T19:46:11.818Z",
+        "updated_at": "2014-12-24T19:46:11.818Z",
         "deleted_at": null
       },
       "code": 200,
@@ -4263,13 +4229,13 @@
       "query": null,
       "request_data": "staff[first_name]=Created&staff[last_name]=User&staff[email]=created%40test.com&staff[role]=user&staff[password]=created_pass&staff[password_confirmation]=created_pass",
       "response_data": {
-        "id": 85,
+        "id": 19,
         "first_name": "Created",
         "last_name": "User",
         "email": "created@test.com",
         "phone": null,
-        "created_at": "2014-12-18T18:36:54.719Z",
-        "updated_at": "2014-12-18T18:36:54.719Z",
+        "created_at": "2014-12-24T19:46:11.931Z",
+        "updated_at": "2014-12-24T19:46:11.931Z",
         "role": "user",
         "deleted_at": null
       },
@@ -4285,18 +4251,25 @@
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=cart",
       "request_data": null,
       "response_data": {
-        "id": 76,
+        "id": 9,
         "first_name": "Test",
         "last_name": "Staff",
         "email": "staff@test.com",
         "phone": null,
         "created_at": "2014-11-21T23:03:36.465Z",
-        "updated_at": "2014-12-18T18:36:54.473Z",
+        "updated_at": "2014-12-24T19:46:11.671Z",
         "role": "user",
-        "deleted_at": null
+        "deleted_at": null,
+        "cart": {
+          "id": 1,
+          "count": null,
+          "staff_id": 9,
+          "created_at": "2014-12-24T19:46:11.659Z",
+          "updated_at": "2014-12-24T19:46:11.659Z"
+        }
       },
       "code": 200,
       "show_in_doc": 1,
@@ -4308,25 +4281,18 @@
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=cart",
+      "query": null,
       "request_data": null,
       "response_data": {
-        "id": 77,
+        "id": 10,
         "first_name": "Test",
         "last_name": "Staff",
         "email": "staff@test.com",
         "phone": null,
         "created_at": "2014-11-21T23:03:36.465Z",
-        "updated_at": "2014-12-18T18:36:54.529Z",
+        "updated_at": "2014-12-24T19:46:11.699Z",
         "role": "user",
-        "deleted_at": null,
-        "cart": {
-          "id": 1,
-          "count": null,
-          "staff_id": 77,
-          "created_at": "2014-12-18T18:36:54.500Z",
-          "updated_at": "2014-12-18T18:36:54.500Z"
-        }
+        "deleted_at": null
       },
       "code": 200,
       "show_in_doc": 0,
@@ -4344,13 +4310,13 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 80,
+          "id": 25,
           "first_name": "Test",
           "last_name": "Staff",
           "email": "admin@test.com",
           "phone": null,
           "created_at": "2014-11-21T23:03:36.465Z",
-          "updated_at": "2014-12-18T18:36:54.569Z",
+          "updated_at": "2014-12-24T19:46:12.042Z",
           "role": "admin",
           "deleted_at": null,
           "gravatar": "3fc88b95c85e43f157cb1ffd0e37e832",
@@ -4359,7 +4325,7 @@
           ]
         },
         {
-          "id": 79,
+          "id": 24,
           "first_name": "Test",
           "last_name": "Staff",
           "email": "user@test.com",
@@ -4374,7 +4340,7 @@
           ]
         },
         {
-          "id": 78,
+          "id": 23,
           "first_name": "john",
           "last_name": "smith",
           "email": "foo@bar.com",
@@ -4397,7 +4363,7 @@
   "staff#projects": [
     {
       "verb": "GET",
-      "path": "/staff/63/projects",
+      "path": "/staff/5/projects",
       "versions": [
         "1.0"
       ],
@@ -4405,18 +4371,18 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 8,
+          "id": 3,
           "name": "Test Project",
           "description": "A description",
           "cc": "--cc--",
           "budget": 100.0,
           "staff_id": "-staff_id--",
-          "start_date": "2014-12-25",
-          "end_date": "2015-01-01",
+          "start_date": "2014-12-31",
+          "end_date": "2015-01-07",
           "approved": true,
           "img": "--img--",
-          "created_at": "2014-12-18T18:36:54.101Z",
-          "updated_at": "2014-12-18T18:36:54.101Z",
+          "created_at": "2014-12-24T19:46:11.567Z",
+          "updated_at": "2014-12-24T19:46:11.567Z",
           "deleted_at": null
         }
       ],
@@ -4428,7 +4394,7 @@
   "staff#remove_project": [
     {
       "verb": "DELETE",
-      "path": "/staff/67/projects/10",
+      "path": "/staff/1/projects/1",
       "versions": [
         "1.0"
       ],
@@ -4443,19 +4409,19 @@
   "staff#remove_user_setting": [
     {
       "verb": "DELETE",
-      "path": "/staff/75/settings/5",
+      "path": "/staff/11/settings/1",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 5,
-        "staff_id": 75,
+        "id": 1,
+        "staff_id": 11,
         "name": "test user setting",
         "value": "test user value",
-        "created_at": "2014-12-18T18:36:54.430Z",
-        "updated_at": "2014-12-18T18:36:54.432Z",
+        "created_at": "2014-12-24T19:46:11.731Z",
+        "updated_at": "2014-12-24T19:46:11.736Z",
         "deleted_at": null
       },
       "code": 200,
@@ -4466,22 +4432,25 @@
   "staff#show": [
     {
       "verb": "GET",
-      "path": "/staff/81",
+      "path": "/staff/20",
       "versions": [
         "1.0"
       ],
-      "query": null,
+      "query": "includes[]=user_settings",
       "request_data": null,
       "response_data": {
-        "id": 81,
+        "id": 20,
         "first_name": "Test",
         "last_name": "Staff",
         "email": "staff@test.com",
         "phone": null,
         "created_at": "2014-11-21T23:03:36.465Z",
-        "updated_at": "2014-12-18T18:36:54.607Z",
+        "updated_at": "2014-12-24T19:46:11.949Z",
         "role": "user",
-        "deleted_at": null
+        "deleted_at": null,
+        "user_settings": [
+
+        ]
       },
       "code": 200,
       "show_in_doc": 1,
@@ -4489,20 +4458,20 @@
     },
     {
       "verb": "GET",
-      "path": "/staff/82",
+      "path": "/staff/21",
       "versions": [
         "1.0"
       ],
       "query": "includes[]=projects",
       "request_data": null,
       "response_data": {
-        "id": 82,
+        "id": 21,
         "first_name": "Test",
         "last_name": "Staff",
         "email": "staff@test.com",
         "phone": null,
         "created_at": "2014-11-21T23:03:36.465Z",
-        "updated_at": "2014-12-18T18:36:54.629Z",
+        "updated_at": "2014-12-24T19:46:11.975Z",
         "role": "user",
         "deleted_at": null,
         "projects": [
@@ -4515,25 +4484,22 @@
     },
     {
       "verb": "GET",
-      "path": "/staff/83",
+      "path": "/staff/22",
       "versions": [
         "1.0"
       ],
-      "query": "includes[]=user_settings",
+      "query": null,
       "request_data": null,
       "response_data": {
-        "id": 83,
+        "id": 22,
         "first_name": "Test",
         "last_name": "Staff",
         "email": "staff@test.com",
         "phone": null,
         "created_at": "2014-11-21T23:03:36.465Z",
-        "updated_at": "2014-12-18T18:36:54.668Z",
+        "updated_at": "2014-12-24T19:46:12.007Z",
         "role": "user",
-        "deleted_at": null,
-        "user_settings": [
-
-        ]
+        "deleted_at": null
       },
       "code": 200,
       "show_in_doc": 0,
@@ -4543,19 +4509,19 @@
   "staff#show_user_setting": [
     {
       "verb": "GET",
-      "path": "/staff/71/settings/2",
+      "path": "/staff/14/settings/4",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 2,
-        "staff_id": 71,
+        "id": 4,
+        "staff_id": 14,
         "name": "test user setting",
         "value": "test user value",
-        "created_at": "2014-12-18T18:36:54.325Z",
-        "updated_at": "2014-12-18T18:36:54.326Z",
+        "created_at": "2014-12-24T19:46:11.829Z",
+        "updated_at": "2014-12-24T19:46:11.832Z",
         "deleted_at": null
       },
       "code": 200,
@@ -4566,7 +4532,7 @@
   "staff#update": [
     {
       "verb": "PUT",
-      "path": "/staff/61",
+      "path": "/staff/7",
       "versions": [
         "1.0"
       ],
@@ -4581,19 +4547,19 @@
   "staff#update_user_setting": [
     {
       "verb": "PUT",
-      "path": "/staff/74/settings/4",
+      "path": "/staff/12/settings/2",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": "user_setting[value]=updated",
       "response_data": {
-        "id": 4,
-        "staff_id": 74,
+        "id": 2,
+        "staff_id": 12,
         "name": "test user setting",
         "value": "updated",
-        "created_at": "2014-12-18T18:36:54.397Z",
-        "updated_at": "2014-12-18T18:36:54.416Z",
+        "created_at": "2014-12-24T19:46:11.766Z",
+        "updated_at": "2014-12-24T19:46:11.785Z",
         "deleted_at": null
       },
       "code": 200,
@@ -4604,7 +4570,7 @@
   "staff#user_settings": [
     {
       "verb": "GET",
-      "path": "/staff/69/settings",
+      "path": "/staff/16/settings",
       "versions": [
         "1.0"
       ],
@@ -4612,12 +4578,12 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 1,
-          "staff_id": 69,
+          "id": 5,
+          "staff_id": 16,
           "name": "test user setting",
           "value": "test user value",
-          "created_at": "2014-12-18T18:36:54.260Z",
-          "updated_at": "2014-12-18T18:36:54.281Z",
+          "created_at": "2014-12-24T19:46:11.872Z",
+          "updated_at": "2014-12-24T19:46:11.874Z",
           "deleted_at": null
         }
       ],
@@ -4636,14 +4602,14 @@
       "query": "field_type=bar&help_text=fizz&label=foo&options=buzz&required=true",
       "request_data": null,
       "response_data": {
-        "id": 6,
+        "id": 1,
         "label": "foo",
         "field_type": "bar",
         "help_text": "fizz",
         "options": "buzz",
         "required": true,
-        "created_at": "2014-12-18T18:36:51.524Z",
-        "updated_at": "2014-12-18T18:36:51.524Z",
+        "created_at": "2014-12-24T19:46:12.679Z",
+        "updated_at": "2014-12-24T19:46:12.679Z",
         "deleted_at": null
       },
       "code": 201,
@@ -4654,7 +4620,7 @@
   "user_setting_options#destroy": [
     {
       "verb": "DELETE",
-      "path": "/user_setting_options/1",
+      "path": "/user_setting_options/2",
       "versions": [
         "1.0"
       ],
@@ -4677,36 +4643,36 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
+          "id": 5,
           "label": "first label",
           "field_type": "text_area",
           "help_text": "click here",
           "options": "{ \"JSON PAYLOAD\": \"DATA\" }",
           "required": true,
-          "created_at": "2014-12-18T18:36:51.453Z",
-          "updated_at": "2014-12-18T18:36:51.453Z",
+          "created_at": "2014-12-24T19:46:12.796Z",
+          "updated_at": "2014-12-24T19:46:12.796Z",
           "deleted_at": null
         },
         {
-          "id": 3,
+          "id": 6,
           "label": "second label",
           "field_type": "text_area",
           "help_text": "click here",
           "options": "{ \"JSON PAYLOAD\": \"DATA\" }",
           "required": true,
-          "created_at": "2014-12-18T18:36:51.455Z",
-          "updated_at": "2014-12-18T18:36:51.455Z",
+          "created_at": "2014-12-24T19:46:12.798Z",
+          "updated_at": "2014-12-24T19:46:12.798Z",
           "deleted_at": null
         },
         {
-          "id": 4,
+          "id": 7,
           "label": "third label",
           "field_type": "text_area",
           "help_text": "click here",
           "options": "{ \"JSON PAYLOAD\": \"DATA\" }",
           "required": true,
-          "created_at": "2014-12-18T18:36:51.456Z",
-          "updated_at": "2014-12-18T18:36:51.456Z",
+          "created_at": "2014-12-24T19:46:12.799Z",
+          "updated_at": "2014-12-24T19:46:12.799Z",
           "deleted_at": null
         }
       ],
@@ -4718,21 +4684,21 @@
   "user_setting_options#show": [
     {
       "verb": "GET",
-      "path": "/user_setting_options/5",
+      "path": "/user_setting_options/4",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "id": 5,
+        "id": 4,
         "label": "test label",
         "field_type": "text_area",
         "help_text": "click here",
         "options": "{ \"JSON PAYLOAD\": \"DATA\" }",
         "required": true,
-        "created_at": "2014-12-18T18:36:51.469Z",
-        "updated_at": "2014-12-18T18:36:51.469Z",
+        "created_at": "2014-12-24T19:46:12.753Z",
+        "updated_at": "2014-12-24T19:46:12.753Z",
         "deleted_at": null
       },
       "code": 200,
@@ -4743,7 +4709,7 @@
   "user_setting_options#update": [
     {
       "verb": "PUT",
-      "path": "/user_setting_options/7",
+      "path": "/user_setting_options/3",
       "versions": [
         "1.0"
       ],

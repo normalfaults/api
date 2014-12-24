@@ -78,7 +78,7 @@ RSpec.describe 'Orders API' do
     end
 
     it 'updates a order', :show_in_doc do
-      put "/orders/#{@order.id}", order: { options: ['test'] }
+      put "/orders/#{@order.id}", order: { product_id: 1, project_id: 1, staff_id: 1, options: ['test'] }
       expect(json['options']).to eq(['test'])
     end
 

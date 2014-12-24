@@ -27,6 +27,12 @@ class OrdersController < ApplicationController
 
   api :POST, '/orders', 'Creates order'
   param :order, Hash, desc: 'Order' do
+    param :product_id, :number, required: true
+    param :project_id, :number, required: true
+    param :staff_id, :number, required: true
+    param :cloud_id, :number, required: false
+    param :total, :real_number, required: false
+    param :provision_status, String, in: %w(Pending Active), desc: 'Defaults to pending.'
     param :options, Array, desc: 'Options'
   end
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -46,7 +52,13 @@ class OrdersController < ApplicationController
   api :PUT, '/orders/:id', 'Updates order with :id'
   param :id, :number, required: true
   param :order, Hash, desc: 'Order' do
+    param :product_id, :number, required: true
+    param :project_id, :number, required: true
+    param :staff_id, :number, required: true
+    param :cloud_id, :number, required: false
     param :options, Array, desc: 'Options'
+    param :total, :real_number, required: false
+    param :provision_status, String, in: %w(Pending Active), desc: 'Defaults to pending.'
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
