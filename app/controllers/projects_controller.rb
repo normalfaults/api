@@ -41,7 +41,7 @@ class ProjectsController < ApplicationController
     param :name, String, required: true
     param :description, String, required: false
     param :cc, String, required: false
-    param :budget, :number, required: true
+    param :budget, :real_number, required: true
     param :staff_id, String, required: false
     param :start_date, String, required: false
     param :end_date, String, required: false
@@ -75,7 +75,7 @@ class ProjectsController < ApplicationController
     param :name, String, required: false
     param :description, String, required: false
     param :cc, String, required: false
-    param :budget, :number, required: false
+    param :budget, :real_number, required: true
     param :staff_id, String, required: false
     param :end_data, Date, required: false
     param :approved, String, required: false
