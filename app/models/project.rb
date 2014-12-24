@@ -4,13 +4,14 @@ class Project < ActiveRecord::Base
   has_many :project_answers
   has_many :staff_projects
   has_many :staff, through: :staff_projects
+  has_many :orders
 
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
 
   has_one :project_detail
 
-  scope :main_inclusions, -> { includes(:staff).includes(:project_answers) }
+  scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:orders) }
 
   def self.create_with_answers(attributes)
     answers = attributes[:project_answers]
@@ -46,32 +47,7 @@ class Project < ActiveRecord::Base
   # NOTE: Theses are just stubs and should be replace with real stuff
   # START OF STUBS
   def order_history
-    [
-      {
-        orderId: 2001,
-        project: {
-          id: 1,
-          name: 'Emoticon App'
-        },
-        items: 5,
-        total: 5000,
-        status: 'On Progress',
-        color: 'orange',
-        request_date: '05/07/2014'
-      },
-      {
-        orderId: 2002,
-        project: {
-          id: 2,
-          name: 'Company App'
-        },
-        items: 1,
-        total: 4012,
-        status: 'Pending',
-        color: 'gray',
-        request_date: '06/07/2014'
-      }
-    ]
+    orders.as_json
   end
 
   def services
