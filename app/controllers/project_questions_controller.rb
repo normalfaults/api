@@ -28,7 +28,7 @@ class ProjectQuestionsController < ApplicationController
   api :POST, '/project_questions', 'Creates project_question'
   param :project_question, Hash, desc: 'ProjectQuestion' do
     param :question, String, desc: 'Question'
-    param :field_type, String, desc: 'Field Type', in: %w(radio select_option text date)
+    param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
     param :help_text, String, desc: 'Help Text'
     param :load_order, :number, desc: 'Load order'
     param :options, Array, desc: 'Options'
@@ -50,7 +50,7 @@ class ProjectQuestionsController < ApplicationController
   param :id, :number, required: true
   param :project_question, Hash, desc: 'ProjectQuestion' do
     param :question, String, desc: 'Question'
-    param :field_type, String, desc: 'Field Type', in: %w(radio select_option text date)
+    param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
     param :help_text, String, desc: 'Help Text'
     param :load_order, :number, desc: 'Load order'
     param :options, Array, desc: 'Options'
