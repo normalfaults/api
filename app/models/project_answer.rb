@@ -14,17 +14,17 @@ class ProjectAnswer < ActiveRecord::Base
   validate :validate_project_question_id
 
   def answer=(answer)
-    write_attribute(:answer, answer.to_s)
+    self[:answer] = answer.to_s
   end
 
   def answer
     case project_question.field_type
-      when :date
-        DateTime.parse(read_attribute(:answer))
-      when :check_box
-        read_attribute(:answer) == 'true'
-      else
-        read_attribute(:answer)
+    when :date
+      DateTime.parse(self[:answer])
+    when :check_box
+      self[:answer] == 'true'
+    else
+      self[:answer]
     end
   end
 
