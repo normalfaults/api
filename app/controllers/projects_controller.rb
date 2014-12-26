@@ -171,9 +171,11 @@ class ProjectsController < ApplicationController
   end
 
   def add_empty_answers_to_project project
-    @project_questions.each do |pq|
-      unless project.project_answers.any? {|pa| pa.project_question_id == pq.id }
-        project.project_answers << ProjectAnswer.new(project_question: pq)
+    if @project_questions
+      @project_questions.each do |pq|
+        unless project.project_answers.any? {|pa| pa.project_question_id == pq.id }
+          project.project_answers << ProjectAnswer.new(project_question: pq)
+        end
       end
     end
   end
