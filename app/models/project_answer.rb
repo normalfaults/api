@@ -13,6 +13,21 @@ class ProjectAnswer < ActiveRecord::Base
   validates :project_question, presence: true
   validate :validate_project_question_id
 
+  def answer=(answer)
+    self[:answer] = answer.to_s
+  end
+
+  def answer
+    case project_question.field_type
+    when :date
+      DateTime.parse(self[:answer])
+    when :check_box
+      self[:answer] == 'true'
+    else
+      self[:answer]
+    end
+  end
+
   private
 
   def validate_project_id
