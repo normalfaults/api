@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
 
   after_action :verify_authorized
 
+  before_action :load_project_questions, only: [:show]
   before_action :load_projects, only: [:index]
   before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff, :approve, :reject]
   before_action :load_staff, only: [:add_staff, :remove_staff]
@@ -165,6 +166,18 @@ class ProjectsController < ApplicationController
 
   private
 
+  def load_project_questions
+    @project_questions = ProjectQuestion.all
+  end
+
+  def add_empty_answers_to_project(project)
+    @project_questions.each do |pq|
+      unless project.project_answers.any? { |pa| pa.project_question_id == pq.id }
+        project.project_answers << ProjectAnswer.new(project_question: pq)
+      end
+    end if @project_questions
+  end
+
   def load_projects
     # TODO: Use a QueryObject to encapsulate search filters, ordering, pagination
     @projects = query_with_includes policy_scope(Project).main_inclusions
@@ -176,6 +189,7 @@ class ProjectsController < ApplicationController
 
   def load_project
     @project = Project.find(params.require(:id))
+    add_empty_answers_to_project @project
   end
 
   def load_staff
