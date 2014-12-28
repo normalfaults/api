@@ -41,7 +41,7 @@ class OrderItemsController < ApplicationController
   private
 
   def orders_from_params
-    OrderItem.where(id:params.require(:id), order_id: params.require(:order_id))
+    OrderItem.where(id: params.require(:id), order_id: params.require(:order_id))
   end
 
   def load_order_item

@@ -18,8 +18,7 @@ Rails.application.routes.draw do
   # Approvals
   resources :staff, defaults: { format: :json, methods: %w(gravatar) }, only: [:index]
   resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
-
-    #staff orders
+    # Staff Orders
     resources :orders, controller: 'staff_orders', defaults: { format: :json }, only: [:show, :index]
 
     collection do
@@ -46,7 +45,6 @@ Rails.application.routes.draw do
 
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
-
     # Order Items
     resources :items, controller: 'order_items', except: [:index, :update, :destroy, :edit, :new, :create], defaults: { format: :json, includes: [] } do
       member do

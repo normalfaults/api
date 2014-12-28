@@ -13,7 +13,7 @@ RSpec.describe 'Orders API' do
 
     it 'returns a collection of all of the orders w/ itams', :show_in_doc do
       get '/orders'
-      expect(response.body).to eq(@orders.as_json(include:[:order_items]).to_json)
+      expect(response.body).to eq(@orders.as_json(include: [:order_items]).to_json)
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe 'Orders API' do
 
     it 'returns an order', :show_in_doc do
       get "/orders/#{@order.id}"
-      expect(response.body).to eq(@order.as_json(include:[:order_items]).to_json)
+      expect(response.body).to eq(@order.as_json(include: [:order_items]).to_json)
     end
 
     it 'returns an error when the order does not exist' do

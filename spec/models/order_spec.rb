@@ -8,7 +8,7 @@ describe Order do
 
     it 'creates items w/ a product' do
       items = [order_item_model]
-      order = Order.create_with_items(order_items: items, project_id: project.id, staff_id: staff.id,)
+      order = Order.create_with_items(order_items: items, project_id: project.id, staff_id: staff.id)
       expect(order.order_items.count).to eq(1)
     end
 
