@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # Approvals
   resources :staff, defaults: { format: :json, methods: %w(gravatar) }, only: [:index]
   resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
+    # Staff Orders
+    resources :orders, controller: 'staff_orders', defaults: { format: :json }, only: [:show, :index]
+
     collection do
       match 'current_member' => 'staff#current_member', via: :get, defaults: { format: :json }
     end
@@ -41,10 +44,13 @@ Rails.application.routes.draw do
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Orders
-  resources :orders, except: [:edit, :new], defaults: { format: :json } do
-    member do
-      post :start_service, to: 'orders#start_service', as: :start_service
-      post :stop_service, to: 'orders#stop_service', as: :stop_service
+  resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
+    # Order Items
+    resources :items, controller: 'order_items', except: [:index, :update, :destroy, :edit, :new, :create], defaults: { format: :json, includes: [] } do
+      member do
+        put :start_service
+        put :stop_service
+      end
     end
   end
 
@@ -83,18 +89,6 @@ Rails.application.routes.draw do
   get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'
 
   root 'welcome#index'
-
-  # # Dashboard Routes
-  # resources :dashboard
-  #
-  # # Manage Routes
-  # resources :manage
-  #
-  # # Marketplace Routes
-  # resources :marketplace
-  #
-  # # Service Routes
-  # resources :service
 
   # Mocks routes
   # TODO: Remove when implemented

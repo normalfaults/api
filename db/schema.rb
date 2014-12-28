@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224171115) do
+ActiveRecord::Schema.define(version: 20141227172536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,13 +96,27 @@ ActiveRecord::Schema.define(version: 20141224171115) do
 
   add_index "notifications", ["staff_id"], name: "index_notifications_on_staff_id", using: :btree
 
+  create_table "order_items", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "cloud_id"
+    t.integer  "product_id"
+    t.integer  "service_id"
+    t.string   "provision_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree
+  add_index "order_items", ["deleted_at"], name: "index_order_items_on_deleted_at", using: :btree
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
+  add_index "order_items", ["service_id"], name: "index_order_items_on_service_id", using: :btree
+
   create_table "orders", force: true do |t|
-    t.integer  "product_id",                                       null: false
-    t.integer  "project_id",                                       null: false
-    t.integer  "staff_id",                                         null: false
-    t.integer  "cloud_id",                                         null: false
+    t.integer  "project_id",                    null: false
+    t.integer  "staff_id",                      null: false
     t.text     "engine_response"
-    t.string   "provision_status", limit: nil, default: "Pending"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -110,12 +124,10 @@ ActiveRecord::Schema.define(version: 20141224171115) do
     t.datetime "deleted_at"
     t.string   "host"
     t.integer  "port"
-    t.float    "total",                        default: 0.0
+    t.float    "total",           default: 0.0
   end
 
-  add_index "orders", ["cloud_id"], name: "index_orders_on_cloud_id", using: :btree
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
-  add_index "orders", ["product_id"], name: "index_orders_on_product_id", using: :btree
   add_index "orders", ["project_id"], name: "index_orders_on_project_id", using: :btree
   add_index "orders", ["staff_id"], name: "index_orders_on_staff_id", using: :btree
 
