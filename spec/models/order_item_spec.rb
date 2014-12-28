@@ -1,0 +1,2 @@
+describe OrderItem do
+end

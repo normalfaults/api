@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   before_action :load_orders, only: [:index]
 
   api :GET, '/orders', 'Returns a collection of orders'
-  param :includes, Array, required: false, in: %w(product cloud)
+  param :includes, Array, required: false, in: %w(order_items)
 
   def index
     authorize Order
@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
   end
 
   api :GET, '/orders/:id', 'Shows order with :id'
-  param :includes, Array, required: false, in: %w(product cloud)
+  param :includes, Array, required: false, in: %w(order_items)
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -27,12 +27,12 @@ class OrdersController < ApplicationController
 
   api :POST, '/orders', 'Creates order'
   param :order, Hash, desc: 'Order' do
-    param :product_id, :number, required: true
     param :project_id, :number, required: true
     param :staff_id, :number, required: true
-    param :cloud_id, :number, required: false
     param :total, :real_number, required: false
-    param :provision_status, String, in: %w(Pending Active), desc: 'Defaults to pending.'
+    param :order_items, Array, desc: 'Order Items', required: false do
+      param :product_id, :number, desc: 'Id for Product', require: true
+    end
     param :options, Array, desc: 'Options'
   end
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -52,13 +52,10 @@ class OrdersController < ApplicationController
   api :PUT, '/orders/:id', 'Updates order with :id'
   param :id, :number, required: true
   param :order, Hash, desc: 'Order' do
-    param :product_id, :number, required: true
     param :project_id, :number, required: true
     param :staff_id, :number, required: true
-    param :cloud_id, :number, required: false
     param :options, Array, desc: 'Options'
     param :total, :real_number, required: false
-    param :provision_status, String, in: %w(Pending Active), desc: 'Defaults to pending.'
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -86,19 +83,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def start_service
-    authorize @order
-    # TODO: Direct ManageIQ to pass along a start request
-    render nothing: true, status: :ok
-  end
-
-  def stop_service
-    authorize @order
-    # TODO: Direct ManageIQ to pass along a stop request
-    render nothing: true, status: :ok
-  end
-
-  private
+  protected
 
   def load_order_params
     @orders_params = params.require(:order).permit(:product_id, :project_id, :staff_id, :cloud_id, options: [])

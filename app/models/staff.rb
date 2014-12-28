@@ -5,6 +5,7 @@ class Staff < ActiveRecord::Base
 
   acts_as_paranoid
 
+  has_many :orders
   has_many :user_settings
   has_many :staff_projects
   has_many :notifications

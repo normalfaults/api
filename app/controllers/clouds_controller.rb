@@ -8,7 +8,7 @@ class CloudsController < ApplicationController
   before_action :load_clouds, only: [:index]
 
   api :GET, '/clouds', 'Returns a collection of clouds'
-  param :includes, Array, required: false, in: %w(chargebacks orders products)
+  param :includes, Array, required: false, in: %w(chargebacks  products)
 
   def index
     authorize Cloud
@@ -17,7 +17,7 @@ class CloudsController < ApplicationController
 
   api :GET, '/clouds/:id', 'Shows cloud with :id'
   param :id, :number, required: true
-  param :includes, Array, required: false, in: %w(chargebacks orders products)
+  param :includes, Array, required: false, in: %w(chargebacks products)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
