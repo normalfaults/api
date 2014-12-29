@@ -45,7 +45,7 @@ class Project < ActiveRecord::Base
   end
 
   def order_history
-    []
+    Order.where(id: OrderItem.where(project_id: id).select(:order_id))
   end
 
   def domain
