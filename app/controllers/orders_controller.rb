@@ -39,11 +39,10 @@ class OrdersController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
-    @order = Order.new @orders_params
+    authorize Order
+    @order = Order.create_with_items @orders_params
 
-    authorize @order
-
-    if @order.save
+    if @order
       respond_with @order
     else
       respond_with @order.errors, status: :unprocessable_entity
@@ -68,7 +67,7 @@ class OrdersController < ApplicationController
   def update
     authorize @order
 
-    if @order.update_attributes @orders_params
+    if @order.update_with_items! @orders_params
       render json: @order
     else
       respond_with @order.errors, status: :unprocessable_entity
@@ -91,7 +90,7 @@ class OrdersController < ApplicationController
   protected
 
   def load_order_params
-    @orders_params = params.require(:order).permit(:staff_id, options: [], order_items: [:project_id, :product_id, :cloud_id])
+    @orders_params = params.permit(:total, :staff_id, options: [], order_items: [:project_id, :product_id, :cloud_id])
   end
 
   def load_order
