@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
   has_many :staff_projects
   has_many :staff, through: :staff_projects
   has_many :orders
+  has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
 
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
@@ -45,11 +46,7 @@ class Project < ActiveRecord::Base
   end
 
   def order_history
-    orders.as_json(include: [order_items: [:product]], methods: [:total, :status])
-  end
-
-  def services
-    []
+    orders.as_json(include: [:order_items], methods: [:total, :status])
   end
 
   def domain
