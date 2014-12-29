@@ -11,7 +11,7 @@ RSpec.describe 'Orders API' do
       @orders = Order.all
     end
 
-    it 'returns a collection of all of the orders w/ itams', :show_in_doc do
+    it 'returns a collection of all of the orders w/ items', :show_in_doc do
       get '/orders'
       expect(response.body).to eq(@orders.as_json(include: [:order_items]).to_json)
     end
@@ -44,7 +44,7 @@ RSpec.describe 'Orders API' do
     end
 
     it 'updates a order', :show_in_doc do
-      put "/orders/#{@order.id}", order: { project_id: 1, staff_id: 1, options: ['test'] }
+      put "/orders/#{@order.id}", order: { staff_id: Staff.all.first.id, options: ['test'] }
       expect(json['options']).to eq(['test'])
     end
 
@@ -67,7 +67,7 @@ RSpec.describe 'Orders API' do
     end
 
     it 'creates an order', :show_in_doc do
-      post '/orders/', order: { project_id: 1, staff_id: 1, options: ['test'] }
+      post '/orders/', order: { staff_id: Staff.all.first.id, options: ['test'] }
       expect(response.body).to eq(Order.first.to_json)
     end
 

@@ -13,8 +13,8 @@ class ProjectsController < ApplicationController
   before_action :load_approval, only: [:approve, :reject]
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :includes, Array, required: false, in: %w(project_answers project_detail)
-  param :methods, Array, required: false, in: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
+  param :includes, Array, required: false, in: %w(project_answers project_detail services)
+  param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
 
   def index
     authorize Project.new
@@ -24,8 +24,8 @@ class ProjectsController < ApplicationController
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :includes, Array, required: false, in: %w(project_answers project_detail)
-  param :methods, Array, required: false, in: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
+  param :includes, Array, required: false, in: %w(project_answers project_detail services)
+  param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show

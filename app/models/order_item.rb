@@ -3,7 +3,8 @@ class OrderItem < ActiveRecord::Base
 
   belongs_to :order
   belongs_to :product
-  belongs_to :service
+  belongs_to :cloud
+  belongs_to :project
 
   enum provision_status: [:pending, :active]
 

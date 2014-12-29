@@ -1,8 +1,6 @@
 class Order < ActiveRecord::Base
   acts_as_paranoid
 
-  belongs_to :project
-  belongs_to :cloud
   belongs_to :staff
   has_many :order_items
 

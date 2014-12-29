@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141227172536) do
+ActiveRecord::Schema.define(version: 20141229193427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20141227172536) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "project_id"
   end
 
   add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree
@@ -114,7 +115,6 @@ ActiveRecord::Schema.define(version: 20141227172536) do
   add_index "order_items", ["service_id"], name: "index_order_items_on_service_id", using: :btree
 
   create_table "orders", force: true do |t|
-    t.integer  "project_id",                    null: false
     t.integer  "staff_id",                      null: false
     t.text     "engine_response"
     t.boolean  "active"
@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(version: 20141227172536) do
   end
 
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
-  add_index "orders", ["project_id"], name: "index_orders_on_project_id", using: :btree
   add_index "orders", ["staff_id"], name: "index_orders_on_staff_id", using: :btree
 
   create_table "organizations", force: true do |t|
