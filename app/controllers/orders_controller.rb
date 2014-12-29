@@ -27,10 +27,10 @@ class OrdersController < ApplicationController
 
   api :POST, '/orders', 'Creates order'
   param :order, Hash, desc: 'Order' do
-    param :project_id, :number, required: true
     param :staff_id, :number, required: true
     param :total, :real_number, required: false
     param :order_items, Array, desc: 'Order Items', required: false do
+      param :project_id, :number, desc: 'Id for Project', require: true
       param :product_id, :number, desc: 'Id for Product', require: true
     end
     param :options, Array, desc: 'Options'
