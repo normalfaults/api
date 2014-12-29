@@ -44,18 +44,12 @@ RSpec.describe 'Orders API' do
     end
 
     it 'updates a order', :show_in_doc do
-      put "/orders/#{@order.id}", order: { staff_id: Staff.all.first.id, options: ['test'] }
+      put "/orders/#{@order.id}", staff_id: Staff.all.first.id, options: ['test']
       expect(json['options']).to eq(['test'])
     end
 
-    it 'returns an error if the order parameter is missing' do
-      put "/orders/#{@order.id}"
-      expect(response.status).to eq(422)
-      expect(json).to eq('error' => 'param is missing or the value is empty: order')
-    end
-
     it 'returns an error when the order does not exist' do
-      put "/orders/#{@order.id + 999}", order: { options: ['test']  }
+      put "/orders/#{@order.id + 999}", options: ['test']
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
@@ -67,14 +61,8 @@ RSpec.describe 'Orders API' do
     end
 
     it 'creates an order', :show_in_doc do
-      post '/orders/', order: { staff_id: Staff.all.first.id, options: ['test'] }
+      post '/orders/', staff_id: Staff.all.first.id, options: ['test']
       expect(response.body).to eq(Order.first.to_json)
-    end
-
-    it 'returns an error if the order is missing' do
-      post '/orders/'
-      expect(response.status).to eq(422)
-      expect(json).to eq('error' => 'param is missing or the value is empty: order')
     end
   end
 
