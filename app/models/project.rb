@@ -4,7 +4,6 @@ class Project < ActiveRecord::Base
   has_many :project_answers
   has_many :staff_projects
   has_many :staff, through: :staff_projects
-  has_many :orders
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
 
   has_many :approvals
@@ -12,7 +11,7 @@ class Project < ActiveRecord::Base
 
   has_one :project_detail
 
-  scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:orders) }
+  scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
 
   def self.create_with_answers(attributes)
     answers = attributes[:project_answers]
@@ -46,7 +45,7 @@ class Project < ActiveRecord::Base
   end
 
   def order_history
-    orders.as_json(include: [:order_items], methods: [:total, :status])
+    []
   end
 
   def domain

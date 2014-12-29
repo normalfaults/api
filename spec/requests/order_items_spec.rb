@@ -6,7 +6,7 @@ RSpec.describe 'Order Items API' do
   let(:product) { create :product }
 
   before(:each) do
-    @order = Order.create_with_items(staff_id: 1, project_id: project.id, order_items: [{ product_id: product.id }, { product_id: product.id }])
+    @order = Order.create_with_items(staff_id: 1, order_items: [{ product_id: product.id, project_id: project.id }, { product_id: product.id, project_id: project.id }])
     sign_in_as create :staff, :admin
     @order_item = @order.order_items.first
   end

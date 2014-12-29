@@ -27,13 +27,13 @@ class OrdersController < ApplicationController
 
   api :POST, '/orders', 'Creates order'
   param :order, Hash, desc: 'Order' do
-    param :staff_id, :number, required: true
-    param :total, :real_number, required: false
     param :order_items, Array, desc: 'Order Items', required: false do
       param :project_id, :number, desc: 'Id for Project', require: true
       param :product_id, :number, desc: 'Id for Product', require: true
       param :cloud_id, :number, desc: 'Id for cloud', require: false
     end
+    param :staff_id, :number, required: true
+    param :total, :real_number, required: false
     param :options, Array, desc: 'Options'
   end
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -53,7 +53,11 @@ class OrdersController < ApplicationController
   api :PUT, '/orders/:id', 'Updates order with :id'
   param :id, :number, required: true
   param :order, Hash, desc: 'Order' do
-    param :project_id, :number, required: true
+    param :order_items, Array, desc: 'Order Items', required: false do
+      param :project_id, :number, desc: 'Id for Project', require: true
+      param :product_id, :number, desc: 'Id for Product', require: true
+      param :cloud_id, :number, desc: 'Id for cloud', require: false
+    end
     param :staff_id, :number, required: true
     param :options, Array, desc: 'Options'
     param :total, :real_number, required: false
@@ -87,7 +91,7 @@ class OrdersController < ApplicationController
   protected
 
   def load_order_params
-    @orders_params = params.require(:order).permit(:product_id, :project_id, :staff_id, :cloud_id, options: [])
+    @orders_params = params.require(:order).permit(:staff_id, options: [], order_items: [:project_id, :product_id, :cloud_id])
   end
 
   def load_order
