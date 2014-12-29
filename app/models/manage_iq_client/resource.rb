@@ -11,6 +11,7 @@ module ManageIQClient
     module ClassMethods
       def list(params = {})
         client.find collection_path, params
+        #client
       end
 
       def find(id, params = {})

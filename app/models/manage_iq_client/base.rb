@@ -39,7 +39,9 @@ module ManageIQClient
     end
 
     def find(path, params = {})
-      ActiveSupport::JSON.decode(client[path_and_params path, params].get headers)
+      #ActiveSupport::JSON.decode(client[path_and_params path, params].get headers)
+      #ActiveSupport::JSON.encode({test: 'Testing'})
+      client
     end
 
     def path_and_params(path, params)

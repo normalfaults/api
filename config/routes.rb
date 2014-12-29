@@ -84,6 +84,11 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
+  # Provision Routes
+  namespace :provision do
+    resources :services, :vms, :hosts
+  end
+
   # # Dashboard Routes
   # resources :dashboard
   #
