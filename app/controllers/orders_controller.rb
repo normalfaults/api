@@ -32,6 +32,7 @@ class OrdersController < ApplicationController
     param :order_items, Array, desc: 'Order Items', required: false do
       param :project_id, :number, desc: 'Id for Project', require: true
       param :product_id, :number, desc: 'Id for Product', require: true
+      param :cloud_id, :number, desc: 'Id for cloud', require: false
     end
     param :options, Array, desc: 'Options'
   end
