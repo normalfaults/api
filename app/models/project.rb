@@ -45,7 +45,7 @@ class Project < ActiveRecord::Base
   end
 
   def order_history
-    orders.as_json(include: [:product], methods: [:total, :status])
+    orders.as_json(include: [order_items: [:product]], methods: [:total, :status])
   end
 
   def services
