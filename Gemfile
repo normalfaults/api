@@ -9,9 +9,6 @@ gem 'rails', '4.1.7'
 gem 'pg', '~> 0.17.1'
 gem 'pg_search', '~> 0.7.8'
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 

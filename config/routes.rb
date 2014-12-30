@@ -67,7 +67,8 @@ Rails.application.routes.draw do
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
 
   # Project Routes
-  resources :projects, defaults: { format: :json, includes: %w(project_answers services), methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history) }, only: [:index, :show]
+  resources :projects, defaults: { format: :json, includes: %w(project_answers services), methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history) }, only: [:show]
+  resources :projects, defaults: { format: :json, methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status) }, only: [:index]
   resources :projects, defaults: { format: :json }, except: [:index, :show, :edit, :new] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
