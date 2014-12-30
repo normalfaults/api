@@ -6,6 +6,10 @@ class Order < ActiveRecord::Base
 
   store_accessor :options
 
+  def item_count_for_project_id(pid)
+    order_items.where(project_id: pid).count
+  end
+
   def self.create_with_items(attributes)
     items = items_from_attrs! attributes
     order = nil
