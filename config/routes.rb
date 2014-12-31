@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
     # Order Items
-    resources :items, controller: 'order_items', except: [:index, :update, :destroy, :edit, :new, :create], defaults: { format: :json, includes: [] } do
+    resources :items, controller: 'order_items', except: [:index, :update, :edit, :new, :create], defaults: { format: :json, includes: [] } do
       member do
         put :start_service
         put :stop_service
