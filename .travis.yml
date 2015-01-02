@@ -26,4 +26,5 @@ deploy:
   run:
     - "rake db:schema:load"
     - "rake"
+    - "rake db:seed"
     - "rake sample:jenkins"
