@@ -51,7 +51,7 @@ class SettingsController < ApplicationController
 
   api :PUT, '/settings/:id', 'Updates value for setting with :id'
   param :id, :number, required: true
-  param :setting, Hash, required: true, desc: 'Setting' do
+  param :admin_settings_fields, Arraf, required: false, desc: 'Setting' do
     param :value, String, required: true
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
