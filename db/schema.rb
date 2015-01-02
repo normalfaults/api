@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229193427) do
+ActiveRecord::Schema.define(version: 20150102005749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admin_setting_fields", force: true do |t|
+    t.string   "label"
+    t.integer  "field_type",                 default: 0
+    t.string   "help_text"
+    t.json     "options"
+    t.string   "value"
+    t.string   "required",         limit: 1
+    t.integer  "load_order"
+    t.integer  "admin_setting_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admin_setting_fields", ["admin_setting_id"], name: "index_admin_setting_fields_on_admin_setting_id", using: :btree
+
+  create_table "admin_settings", force: true do |t|
+    t.string "name"
+  end
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
