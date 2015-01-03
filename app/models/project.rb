@@ -4,13 +4,14 @@ class Project < ActiveRecord::Base
   has_many :project_answers
   has_many :staff_projects
   has_many :staff, through: :staff_projects
+  has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
 
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
 
   has_one :project_detail
 
-  scope :main_inclusions, -> { includes(:staff).includes(:project_answers) }
+  scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
 
   def self.create_with_answers(attributes)
     answers = attributes[:project_answers]
@@ -43,39 +44,13 @@ class Project < ActiveRecord::Base
     end
   end
 
-  # NOTE: Theses are just stubs and should be replace with real stuff
-  # START OF STUBS
   def order_history
-    [
-      {
-        orderId: 2001,
-        project: {
-          id: 1,
-          name: 'Emoticon App'
-        },
-        items: 5,
-        total: 5000,
-        status: 'On Progress',
-        color: 'orange',
-        request_date: '05/07/2014'
-      },
-      {
-        orderId: 2002,
-        project: {
-          id: 2,
-          name: 'Company App'
-        },
-        items: 1,
-        total: 4012,
-        status: 'Pending',
-        color: 'gray',
-        request_date: '06/07/2014'
-      }
-    ]
-  end
-
-  def services
-    []
+    history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
+      order_json = order.as_json
+      order_json[:item_count] = order.item_count_for_project_id(id)
+      order_json
+    end
+    history
   end
 
   def domain

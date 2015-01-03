@@ -9,9 +9,6 @@ gem 'rails', '4.1.7'
 gem 'pg', '~> 0.17.1'
 gem 'pg_search', '~> 0.7.8'
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
@@ -44,6 +41,12 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 gem 'unicorn'
+
+# Use web-console
+gem 'web-console', '~> 2.0.0', group: :development
+
+# Use responders
+gem 'responders'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

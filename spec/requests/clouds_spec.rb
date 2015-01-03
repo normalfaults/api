@@ -11,7 +11,7 @@ RSpec.describe 'Clouds API' do
       @clouds = Cloud.all
     end
 
-    it 'returns a collection of all of the clouds', :show_in_doc do
+    it 'returns a collection of all of the clouds' do
       get '/clouds'
       expect(response.body).to eq(@clouds.to_json)
     end
@@ -21,12 +21,7 @@ RSpec.describe 'Clouds API' do
       expect(json[0]['chargebacks']).to_not eq(nil)
     end
 
-    it 'returns a collection of clouds w/ orders', :show_in_doc do
-      get '/clouds', includes: [:orders]
-      expect(json[0]['orders']).to_not eq(nil)
-    end
-
-    it 'returns a collection of clouds w/ products', :show_in_doc do
+    it 'returns a collection of clouds w/ products' do
       get '/clouds', includes: [:products]
 
       expect(json[0]['products']).to_not eq(nil)
@@ -51,17 +46,12 @@ RSpec.describe 'Clouds API' do
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
 
-    it 'returns a cloud w/ chargebacks', :show_in_doc do
+    it 'returns a cloud w/ chargebacks'do
       get "/clouds/#{@cloud.id}", includes: [:chargebacks]
       expect(json['chargebacks']).to_not eq(nil)
     end
 
-    it 'returns a cloud w/ orders', :show_in_doc do
-      get "/clouds/#{@cloud.id}", includes: [:orders]
-      expect(json['orders']).to_not eq(nil)
-    end
-
-    it 'returns a cloud w/ products', :show_in_doc do
+    it 'returns a cloud w/ products' do
       get "/clouds/#{@cloud.id}", includes: [:products]
       expect(json['products']).to_not eq(nil)
     end

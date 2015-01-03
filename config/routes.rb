@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # Approvals
   resources :staff, defaults: { format: :json, methods: %w(gravatar) }, only: [:index]
   resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
+    # Staff Orders
+    resources :orders, controller: 'staff_orders', defaults: { format: :json }, only: [:show, :index]
+
     collection do
       match 'current_member' => 'staff#current_member', via: :get, defaults: { format: :json }
     end
@@ -41,10 +44,13 @@ Rails.application.routes.draw do
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Orders
-  resources :orders, except: [:edit, :new], defaults: { format: :json } do
-    member do
-      post :start_service, to: 'orders#start_service', as: :start_service
-      post :stop_service, to: 'orders#stop_service', as: :stop_service
+  resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
+    # Order Items
+    resources :items, controller: 'order_items', except: [:index, :update, :edit, :new, :create], defaults: { format: :json, includes: [] } do
+      member do
+        put :start_service
+        put :stop_service
+      end
     end
   end
 
@@ -61,7 +67,8 @@ Rails.application.routes.draw do
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
 
   # Project Routes
-  resources :projects, defaults: { format: :json, includes: %w(project_answers), methods: %w(services domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history) }, only: [:index, :show]
+  resources :projects, defaults: { format: :json, includes: %w(project_answers services), methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history) }, only: [:show]
+  resources :projects, defaults: { format: :json, methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status) }, only: [:index]
   resources :projects, defaults: { format: :json }, except: [:index, :show, :edit, :new] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
@@ -74,6 +81,9 @@ Rails.application.routes.draw do
 
   # ProjectQuestion Routes
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
+
+  # Admin Settings
+  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:index, :update]
 
   # Setting Routes
   resources :settings, defaults: { format: :json }, only: [:index, :show, :new, :create, :edit, :update, :destroy]
