@@ -31,6 +31,148 @@ namespace :upkeep do
     end
   end
 
+  desc 'Gets On Demand AWS pricing'
+  task get_aws_od_pricing: :environment do
+    # SPECIFY PATHS
+    paths = []
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/linux-od.min.js')       # On-demand Linux
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/rhel-od.min.js')        # On-demand RedHat
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/sles-od.min.js')        # On-demand SUSE
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/mswin-od.min.js')       # On-demand Windows
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/mswinSQL-od.min.js')    # On-demand SQL Standrad
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/mswinSQLWeb-od.min.js') # On-demand SQL Web
+    # BUILD PRICING INFO FROM PATH RESPONSE
+    aws_pricing_info = []
+    paths.each do |path|
+      url = URI.parse(path)
+      req = Net::HTTP::Get.new(url.to_s)
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      # CONVERT JSONP TO JSON
+      jsonp = res.body
+      jsonp.gsub!(/^.*callback\(/, '')  # removes the comment and callback function from the start of the string
+      jsonp.gsub!(/\);$/, '')           # removes the end of the callback function
+      jsonp.gsub!(/(\w+):/, '"\1":')    # puts all key values in quotes
+      aws_data = JSON.parse(jsonp)
+      aws_regions = aws_data['config']['regions']
+      aws_regions.each do |aws_region|
+        aws_instance_types = aws_region['instanceTypes']
+        aws_instance_types.each do |aws_instance_type|
+          aws_sizes = aws_instance_type['sizes']
+          aws_sizes.each do |aws_size|
+            aws_value_columns = aws_size['valueColumns']
+            aws_value_columns.each do |aws_value|
+              aws_prices = aws_value['prices']
+              aws_prices.each do |currency, price|
+                pricing_info = {}
+                pricing_info['region'] = aws_region['region']
+                pricing_info['type'] = aws_instance_type['type']
+                pricing_info['size'] = aws_size['size']
+                pricing_info['name'] = aws_value['name']
+                pricing_info['hourly'] = price
+                pricing_info['currency'] = currency
+                aws_pricing_info.append(pricing_info)
+              end
+            end
+          end
+        end
+      end
+    end
+    puts aws_pricing_info
+  end
+
+  desc 'Gets Reserved AWS pricing'
+  task get_aws_reserved_pricing: :environment do
+    # SPECIFY PATHS
+    paths = []
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/linux-unix-shared.min.js')                        # Reserved Linux
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/red-hat-enterprise-linux-shared.min.js')          # Reserved RedHat
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/suse-linux-shared.min.js')                        # Reserved SUSE
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-shared.min.js')                           # Reserved Windows
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-with-sql-server-standard-shared.min.js')  # Reserved SQL Standard
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-with-sql-server-web-shared.min.js')       # Reserved SQL Web
+    # BUILD PRICING INFO FROM PATH RESPONSE
+    aws_pricing_info = []
+    paths.each do |path|
+      url = URI.parse(path)
+      req = Net::HTTP::Get.new(url.to_s)
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      # SPECIFY PATH TYPE (OS)
+      path_type = 'tbd'
+      case path
+      when 'http://a0.awsstatic.com/pricing/1/ec2/ri-v2/linux-unix-shared.min.js'
+        path_type = 'linux'
+      when 'http://a0.awsstatic.com/pricing/1/ec2/ri-v2/red-hat-enterprise-linux-shared.min.js'
+        path_type = 'rhel'
+      when 'http://a0.awsstatic.com/pricing/1/ec2/ri-v2/suse-linux-shared.min.js'
+        path_type = 'sles'
+      when 'http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-shared.min.js'
+        path_type = 'mswin'
+      when 'http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-with-sql-server-standard-shared.min.js'
+        path_type = 'mswinSQL'
+      when 'http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-with-sql-server-web-shared.min.js'
+        path_type = 'mswinSQLWeb'
+      end
+      # CONVERT JSONP TO JSON
+      jsonp = res.body
+      jsonp.gsub!(/^.*callback\(/, '')  # removes the comment and callback function from the start of the string
+      jsonp.gsub!(/\);$/, '')           # removes the end of the callback function
+      jsonp.gsub!(/(\w+):/, '"\1":')    # puts all key values in quotes
+      aws_data = JSON.parse(jsonp)
+      # PROCESS EACH REGION
+      aws_regions = aws_data['config']['regions']
+      aws_regions.each do |aws_region|
+        aws_instance_types = aws_region['instanceTypes']
+        aws_instance_types.each do |aws_instance_type|
+          aws_terms = aws_instance_type['terms']
+          aws_terms.each do |aws_term|
+            # SPECIFY ON DEMAND PRICE
+            on_demand_hourly = aws_term['onDemandHourly']
+            on_demand_hourly[0]['prices'].each do |currency, price|
+              pricing_info = {}
+              pricing_info['region'] = aws_region['region']
+              pricing_info['type'] = 'tbd' # DEFINE FROM SOURCE FILE PATH
+              pricing_info['name'] = aws_instance_type['type']
+              pricing_info['term'] = 'onDemandHourly'
+              pricing_info['option'] = 'onDemandHourly'
+              pricing_info['hourly'] = price
+              pricing_info['upfront'] = '0.00'
+              pricing_info['monthly'] = 'N/A'
+              pricing_info['currency'] = currency
+              # aws_pricing_info.append(pricing_info) # SHOULD COME FROM ON DEMAND PRICING TASK
+            end
+            # SPECIFY TERM PRICES
+            purchase_options = aws_term['purchaseOptions']
+            purchase_options.each do |purchase_option|
+              pricing_info = {}
+              pricing_info['region'] = aws_region['region']
+              pricing_info['type'] = path_type # DEFINED FROM SOURCE FILE PATH ABOVE
+              pricing_info['name'] = aws_instance_type['type']
+              pricing_info['term'] = aws_term['term']
+              pricing_info['option'] = purchase_option['purchaseOption']
+              value_columns = purchase_option['valueColumns']
+              value_columns.each do |value|
+                value['prices'].each do |currency, price|
+                  # ONLY REMEMVER CURRENCY IF IT'S NOT N/A OR USD
+                  pricing_info['currency'] = currency if currency != 'N/A'
+                  case value['name']
+                  when 'upfront'
+                    pricing_info['upfront'] = price
+                  when 'monthlyStar'
+                    pricing_info['monthly'] = price
+                  when 'effectiveHourly'
+                    pricing_info['hourly'] = price
+                  end
+                end
+              end
+              aws_pricing_info.append(pricing_info)
+            end
+          end
+        end
+      end
+    end
+    puts aws_pricing_info
+  end
+
   desc 'Poll MIQ VMS'
   task poll_miq_vms: :environment do
     # setup metadata
