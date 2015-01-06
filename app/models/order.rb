@@ -27,8 +27,17 @@ class Order < ActiveRecord::Base
 
     self.class.transaction do
       update_attributes(attributes)
-      order_items.destroy_all
-      insert_items!(items)
+
+      update_items!(items)
+    end
+  end
+
+  def update_items!(items)
+    items ||= []
+    items.each do |item|
+      updated_item = order_items.find_or_initialize_by(id: item[:id])
+      item.delete(:id)
+      updated_item.update(item)
     end
   end
 
