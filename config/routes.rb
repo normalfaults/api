@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :staff, defaults: { format: :json, methods: %w(gravatar) }, only: [:index]
   resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
     # Staff Orders
-    resources :orders, controller: 'staff_orders', defaults: { format: :json }, only: [:show, :index]
+    resources :orders, controller: 'staff_orders', defaults: { format: :json, includes: %w(order_items) }, only: [:show, :index]
 
     collection do
       match 'current_member' => 'staff#current_member', via: :get, defaults: { format: :json }
