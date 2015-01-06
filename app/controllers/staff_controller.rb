@@ -51,10 +51,10 @@ class StaffController < ApplicationController
   def create
     @staff = Staff.new @staff_params
     authorize @staff
-    if @staff.save
+    if @staff.valid? && @staff.save
       respond_with @staff
     else
-      respond_with @staff.errors, status: :unprocessable_entity
+      respond_with @staff, status: :unprocessable_entity
     end
   end
 
@@ -81,7 +81,7 @@ class StaffController < ApplicationController
     if @staff.destroy
       respond_with @staff
     else
-      respond_with @staff.errors, status: :unprocessable_entity
+      respond_with @staff, status: :unprocessable_entity
     end
   end
 
@@ -102,7 +102,7 @@ class StaffController < ApplicationController
     if @staff.projects << @project
       respond_with @project
     else
-      respond_with @staff.errors, status: :unprocessable_entity
+      respond_with @staff, status: :unprocessable_entity
     end
   end
 
@@ -117,7 +117,7 @@ class StaffController < ApplicationController
     if @staff.projects.delete @project
       respond_with @project
     else
-      respond_with @staff.errors, status: :unprocessable_entity
+      respond_with @staff, status: :unprocessable_entity
     end
   end
 
@@ -153,7 +153,7 @@ class StaffController < ApplicationController
       if @user_setting.save
         render json: @user_setting
       else
-        respond_with @user_setting.errors, status: :unprocessable_entity
+        respond_with @user_setting, status: :unprocessable_entity
       end
     else # ON DUPLICATE KEY UPDATE
       params[:user_setting_id] = @id_for_user_setting_name
@@ -175,7 +175,7 @@ class StaffController < ApplicationController
     if @user_setting.update_attributes @update_user_setting_params
       render json: @user_setting
     else
-      respond_with @user_setting.errors, status: :unprocessable_entity
+      respond_with @user_setting, status: :unprocessable_entity
     end
   end
 
@@ -188,7 +188,7 @@ class StaffController < ApplicationController
     if @user_setting.destroy
       render json: @user_setting
     else
-      respond_with @user_setting.errors, status: :unprocessable_entity
+      respond_with @user_setting, status: :unprocessable_entity
     end
   end
 
