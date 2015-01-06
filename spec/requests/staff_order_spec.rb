@@ -13,7 +13,7 @@ RSpec.describe 'Staff Orders API' do
 
     it 'returns an order for the staff member', :show_in_doc do
       get "/staff/#{Staff.all.first.id}/orders/#{@order.id}"
-      expect(response.body).to eq(@order.to_json)
+      expect(response.body).to eq(@order.to_json(include: %w(order_items)))
     end
 
     it 'returns an error when the order does not exist' do
@@ -38,7 +38,7 @@ RSpec.describe 'Staff Orders API' do
 
     it 'returns orders', :show_in_doc do
       get "/staff/#{Staff.all.first.id}/orders"
-      expect(response.body).to eq(@orders.to_json)
+      expect(response.body).to eq(@orders.to_json(include: %w(order_items)))
     end
 
     it 'returns an error when the staff member does not exist' do
