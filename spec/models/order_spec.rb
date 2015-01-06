@@ -18,11 +18,12 @@ describe Order do
     end
 
     it 'updates an order with items' do
-      items = [order_item_model, order_item_model]
-      order = create :order
+      order = Order.create_with_items(order_items: [order_item_model], staff_id: staff.id)
+      items = [{ id: order.order_items.first.id, port: 1234 }]
+
       order.update_with_items!(order_items: items)
 
-      expect(order.order_items.count).to eq(2)
+      expect(order.order_items.count).to eq(1)
     end
 
     it 'can store unstructured options' do
