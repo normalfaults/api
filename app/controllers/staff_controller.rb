@@ -51,7 +51,7 @@ class StaffController < ApplicationController
   def create
     @staff = Staff.new @staff_params
     authorize @staff
-    if @staff.valid? && @staff.save
+    if @staff.save
       respond_with @staff
     else
       respond_with @staff, status: :unprocessable_entity
