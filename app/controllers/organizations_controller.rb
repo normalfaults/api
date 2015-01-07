@@ -30,12 +30,8 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new @org_params
     authorize @organization
-
-    if @organization.save
-      respond_with @organization
-    else
-      respond_with @organization.errors, status: :unprocessable_entity
-    end
+    @organization.save
+    respond_with @organization
   end
 
   api :PUT, '/organizations/:id', 'Updates organization with :id'
@@ -48,12 +44,8 @@ class OrganizationsController < ApplicationController
 
   def update
     authorize @organization
-
-    if @organization.update_attributes(@org_params)
-      render json: @organization
-    else
-      respond_with @organization.errors, status: :unprocessable_entity
-    end
+    @organization.update_attributes(@org_params)
+    render json: @organization
   end
 
   api :DELETE, '/organizations/:id', 'Deletes organization with :id'
@@ -62,11 +54,8 @@ class OrganizationsController < ApplicationController
 
   def destroy
     authorize @organization
-    if @organization.destroy
-      render json: @organization
-    else
-      respond_with @organization.errors, status: :unprocessable_entity
-    end
+    @organization.destroy
+    render json: @organization
   end
 
   private

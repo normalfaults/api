@@ -34,11 +34,8 @@ class CloudsController < ApplicationController
   def create
     @cloud = Cloud.new @cloud_params
     authorize @cloud
-    if @cloud.save
-      render json: @cloud
-    else
-      respond_with @cloud, status: :unprocessable_entity
-    end
+    @cloud.save
+    render json: @cloud
   end
 
   api :PUT, '/cloud/:id', 'Updates cloud with :id'
@@ -52,11 +49,8 @@ class CloudsController < ApplicationController
   def update
     @cloud.update_attributes @cloud_params
     authorize @cloud
-    if @cloud.save
-      render json: @cloud
-    else
-      respond_with @cloud, status: :unprocessable_entity
-    end
+    @cloud.save
+    render json: @cloud
   end
 
   api :DELETE, '/cloud/:id', 'Deletes cloud with :id'
@@ -65,11 +59,8 @@ class CloudsController < ApplicationController
 
   def destroy
     authorize @cloud
-    if @cloud.destroy
-      respond_with @cloud
-    else
-      respond_with @cloud, status: :unprocessable_entity
-    end
+    @cloud.destroy
+    respond_with @cloud
   end
 
   private

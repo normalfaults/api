@@ -51,11 +51,8 @@ class StaffController < ApplicationController
   def create
     @staff = Staff.new @staff_params
     authorize @staff
-    if @staff.save
-      respond_with @staff
-    else
-      respond_with @staff, status: :unprocessable_entity
-    end
+    @staff.save
+    respond_with @staff
   end
 
   api :PUT, '/staff/:id', 'Updates a staff member with :id'
@@ -66,11 +63,8 @@ class StaffController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
   def update
     authorize @staff
-    if @staff.update_attributes @staff_params
-      respond_with @staff
-    else
-      respond_with @staff.errors, status: :unprocessable_entity
-    end
+    @staff.update_attributes @staff_params
+    respond_with @staff
   end
 
   api :DELETE, '/staff/:id', 'Deletes staff member with :id'
@@ -78,11 +72,8 @@ class StaffController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   def destroy
     authorize @staff
-    if @staff.destroy
-      respond_with @staff
-    else
-      respond_with @staff, status: :unprocessable_entity
-    end
+    @staff.destroy
+    respond_with @staff
   end
 
   api :GET, '/staff/:id/project', 'Shows collection of projects for a staff :id'

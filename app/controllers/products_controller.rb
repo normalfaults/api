@@ -33,12 +33,8 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new @products_params
-
-    if @product.save
-      respond_with @product
-    else
-      respond_with @product.errors, status: :unprocessable_entity
-    end
+    @product.save
+    respond_with @product
   end
 
   api :PUT, '/products/:id', 'Updates product with :id'
@@ -55,12 +51,8 @@ class ProductsController < ApplicationController
 
   def update
     @product.update_attributes(@products_params)
-
-    if @product.save
-      render json: @product
-    else
-      respond_with @product.errors, status: :unprocessable_entity
-    end
+    @product.save
+    render json: @product
   end
 
   api :DELETE, '/products/:id', 'Deletes product with :id'
@@ -68,11 +60,8 @@ class ProductsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
-    if @product.destroy
-      render json: @product
-    else
-      respond_with @product.errors, status: :unprocessable_entity
-    end
+    @product.destroy
+    render json: @product
   end
 
   private

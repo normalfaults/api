@@ -44,11 +44,8 @@ class OrderItemsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    if @order_item.update_attributes order_item_params
-      render json: @order_item
-    else
-      respond_with @order, status: :unprocessable_entity
-    end
+    @order_item.update_attributes order_item_params
+    render json: @order_item
   end
 
   api :PUT, '/orders/:order_id/items/:id/start_service', 'Starts service for order item'

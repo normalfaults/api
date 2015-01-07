@@ -37,11 +37,8 @@ class ProjectQuestionsController < ApplicationController
   def create
     @project_question = ProjectQuestion.new @project_question_params
     authorize @project_question
-    if @project_question.save
-      respond_with @project_question
-    else
-      respond_with @project_question, status: :unprocessable_entity
-    end
+    @project_question.save
+    respond_with @project_question
   end
 
   api :PUT, '/project_questions/:id', 'Updates project_question with :id'
@@ -57,11 +54,8 @@ class ProjectQuestionsController < ApplicationController
 
   def update
     authorize @project_question
-    if @project_question.update_attributes @project_question_params
-      respond_with @project_question
-    else
-      respond_with @project_question, status: :unprocessable_entity
-    end
+    @project_question.update_attributes @project_question_params
+    respond_with @project_question
   end
 
   api :DELETE, '/project_questions/:id', 'Deletes project_question with :id'
@@ -70,11 +64,8 @@ class ProjectQuestionsController < ApplicationController
 
   def destroy
     authorize @project_question
-    if @project_question.destroy
-      respond_with @project_question
-    else
-      respond_with @project_question, status: :unprocessable_entity
-    end
+    @project_question.destroy
+    respond_with @project_question
   end
 
   private
