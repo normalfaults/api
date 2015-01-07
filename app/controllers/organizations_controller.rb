@@ -22,11 +22,9 @@ class OrganizationsController < ApplicationController
   end
 
   api :POST, '/organizations', 'Creates organization'
-  param :organization, Hash, desc: 'Organization' do
-    param :name, String, desc: 'Name'
-    param :image, String, desc: 'Image URL'
-    param :description, String, desc: 'Description of organization'
-  end
+  param :name, String, desc: 'Name'
+  param :image, String, desc: 'Image URL'
+  param :description, String, desc: 'Description of organization'
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
@@ -42,11 +40,9 @@ class OrganizationsController < ApplicationController
 
   api :PUT, '/organizations/:id', 'Updates organization with :id'
   param :id, :number, required: true
-  param :organization, Hash, desc: 'Organization' do
-    param :name, String, desc: 'Name'
-    param :image, String, desc: 'Image URL'
-    param :description, String, desc: 'Description of organization'
-  end
+  param :name, String, desc: 'Name'
+  param :image, String, desc: 'Image URL'
+  param :description, String, desc: 'Description of organization'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -76,7 +72,7 @@ class OrganizationsController < ApplicationController
   private
 
   def load_org_params
-    @org_params = params.require(:organization).permit(:name, :description, :image)
+    @org_params = params.permit(:name, :description, :image)
   end
 
   def load_organization

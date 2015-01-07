@@ -26,11 +26,9 @@ class CloudsController < ApplicationController
   end
 
   api :POST, '/clouds', 'Creates a cloud'
-  param :cloud, Hash, desc: 'Cloud' do
-    param :name, String, required: false
-    param :desciption, String, required: false
-    param :extra, String, required: false
-  end
+  param :name, String, required: false
+  param :desciption, String, required: false
+  param :extra, String, required: false
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -39,17 +37,15 @@ class CloudsController < ApplicationController
     if @cloud.save
       render json: @cloud
     else
-      respond_with @cloud.errors, status: :unprocessable_entity
+      respond_with @cloud, status: :unprocessable_entity
     end
   end
 
   api :PUT, '/cloud/:id', 'Updates cloud with :id'
   param :id, :number, required: true
-  param :cloud, Hash, desc: 'Cloud' do
-    param :name, String, required: false
-    param :desciption, String, required: false
-    param :extra, String, required: false
-  end
+  param :name, String, required: false
+  param :desciption, String, required: false
+  param :extra, String, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -59,7 +55,7 @@ class CloudsController < ApplicationController
     if @cloud.save
       render json: @cloud
     else
-      respond_with @cloud.errors, status: :unprocessable_entity
+      respond_with @cloud, status: :unprocessable_entity
     end
   end
 
@@ -72,7 +68,7 @@ class CloudsController < ApplicationController
     if @cloud.destroy
       respond_with @cloud
     else
-      respond_with @cloud.errors, status: :unprocessable_entity
+      respond_with @cloud, status: :unprocessable_entity
     end
   end
 
