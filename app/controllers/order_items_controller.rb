@@ -47,7 +47,7 @@ class OrderItemsController < ApplicationController
     if @order_item.update_attributes order_item_params
       render json: @order_item
     else
-      respond_with @order.errors, status: :unprocessable_entity
+      respond_with @order, status: :unprocessable_entity
     end
   end
 

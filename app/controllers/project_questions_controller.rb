@@ -26,14 +26,12 @@ class ProjectQuestionsController < ApplicationController
   end
 
   api :POST, '/project_questions', 'Creates project_question'
-  param :project_question, Hash, desc: 'ProjectQuestion' do
-    param :question, String, desc: 'Question'
-    param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
-    param :help_text, String, desc: 'Help Text'
-    param :load_order, :number, desc: 'Load order'
-    param :options, Array, desc: 'Options'
-    param :required, :bool, desc: 'Required?'
-  end
+  param :question, String, desc: 'Question'
+  param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
+  param :help_text, String, desc: 'Help Text'
+  param :load_order, :number, desc: 'Load order'
+  param :options, Array, desc: 'Options'
+  param :required, :bool, desc: 'Required?'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -42,20 +40,18 @@ class ProjectQuestionsController < ApplicationController
     if @project_question.save
       respond_with @project_question
     else
-      respond_with @project_question.errors, status: :unprocessable_entity
+      respond_with @project_question, status: :unprocessable_entity
     end
   end
 
   api :PUT, '/project_questions/:id', 'Updates project_question with :id'
   param :id, :number, required: true
-  param :project_question, Hash, desc: 'ProjectQuestion' do
-    param :question, String, desc: 'Question'
-    param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
-    param :help_text, String, desc: 'Help Text'
-    param :load_order, :number, desc: 'Load order'
-    param :options, Array, desc: 'Options'
-    param :required, :bool, desc: 'Required', allow_nil: true
-  end
+  param :question, String, desc: 'Question'
+  param :field_type, String, desc: 'Field Type', in: %w(check_box select_option text date)
+  param :help_text, String, desc: 'Help Text'
+  param :load_order, :number, desc: 'Load order'
+  param :options, Array, desc: 'Options'
+  param :required, :bool, desc: 'Required', allow_nil: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -64,7 +60,7 @@ class ProjectQuestionsController < ApplicationController
     if @project_question.update_attributes @project_question_params
       respond_with @project_question
     else
-      respond_with @project_question.errors, status: :unprocessable_entity
+      respond_with @project_question, status: :unprocessable_entity
     end
   end
 
@@ -77,14 +73,14 @@ class ProjectQuestionsController < ApplicationController
     if @project_question.destroy
       respond_with @project_question
     else
-      respond_with @project_question.errors, status: :unprocessable_entity
+      respond_with @project_question, status: :unprocessable_entity
     end
   end
 
   private
 
   def load_project_question_params
-    @project_question_params = params.require(:project_question).permit(:question, :field_type, :help_text, :required, :load_order, options: [])
+    @project_question_params = params.permit(:question, :field_type, :help_text, :required, :load_order, options: [])
   end
 
   def load_project_question

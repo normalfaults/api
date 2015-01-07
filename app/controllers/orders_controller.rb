@@ -26,19 +26,17 @@ class OrdersController < ApplicationController
   end
 
   api :POST, '/orders', 'Creates order'
-  param :order, Hash, desc: 'Order' do
-    param :order_items, Array, desc: 'Order Items', required: false do
-      param :project_id, :number, desc: 'Id for Project', require: true
-      param :product_id, :number, desc: 'Id for Product', require: true
-      param :cloud_id, :number, desc: 'Id for cloud', require: false
-      param :port, :number, required: false
-      param :host, String, required: false
-      param :provision_status, %w(pending active), required: false
-    end
-    param :staff_id, :number, required: true
-    param :total, :real_number, required: false
-    param :options, Array, desc: 'Options'
+  param :order_items, Array, desc: 'Order Items', required: false do
+    param :project_id, :number, desc: 'Id for Project', require: true
+    param :product_id, :number, desc: 'Id for Product', require: true
+    param :cloud_id, :number, desc: 'Id for cloud', require: false
+    param :port, :number, required: false
+    param :host, String, required: false
+    param :provision_status, %w(pending active), required: false
   end
+  param :staff_id, :number, required: true
+  param :total, :real_number, required: false
+  param :options, Array, desc: 'Options'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -54,20 +52,18 @@ class OrdersController < ApplicationController
 
   api :PUT, '/orders/:id', 'Updates order with :id'
   param :id, :number, required: true
-  param :order, Hash, desc: 'Order' do
-    param :order_items, Array, desc: 'Order Items', required: false do
-      param :id, :number, desc: 'Id for Project', require: true
-      param :project_id, :number, desc: 'Id for Project', require: true
-      param :product_id, :number, desc: 'Id for Product', require: true
-      param :cloud_id, :number, desc: 'Id for cloud', require: false
-      param :port, :number, required: false
-      param :host, String, required: false
-      param :provision_status, %w(pending active), required: false
-    end
-    param :staff_id, :number, required: true
-    param :options, Array, desc: 'Options'
-    param :total, :real_number, required: false
+  param :order_items, Array, desc: 'Order Items', required: false do
+    param :id, :number, desc: 'Id for Project', require: true
+    param :project_id, :number, desc: 'Id for Project', require: true
+    param :product_id, :number, desc: 'Id for Product', require: true
+    param :cloud_id, :number, desc: 'Id for cloud', require: false
+    param :port, :number, required: false
+    param :host, String, required: false
+    param :provision_status, %w(pending active), required: false
   end
+  param :staff_id, :number, required: true
+  param :options, Array, desc: 'Options'
+  param :total, :real_number, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 

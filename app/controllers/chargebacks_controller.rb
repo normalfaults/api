@@ -26,11 +26,9 @@ class ChargebacksController < ApplicationController
   end
 
   api :POST, '/chargebacks', 'Creates a chargeback'
-  param :chargeback, Hash, desc: 'Chargeback' do
-    param :product_id, :number, required: false
-    param :cloud_id, :number, required: false
-    param :hourly_price, :number, required: false
-  end
+  param :product_id, :number, required: false
+  param :cloud_id, :number, required: false
+  param :hourly_price, :number, required: false
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -39,17 +37,15 @@ class ChargebacksController < ApplicationController
     if @chargeback.save
       render json: @chargeback
     else
-      respond_with @chargeback.errors, status: :unprocessable_entity
+      respond_with @chargeback, status: :unprocessable_entity
     end
   end
 
   api :PUT, '/chargeback/:id', 'Updates chargeback with :id'
   param :id, :number, required: true
-  param :chargeback, Hash, desc: 'Chargeback' do
-    param :product_id, :number, required: false
-    param :cloud_id, :number, required: false
-    param :hourly_price, :number, required: false
-  end
+  param :product_id, :number, required: false
+  param :cloud_id, :number, required: false
+  param :hourly_price, :number, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -59,7 +55,7 @@ class ChargebacksController < ApplicationController
     if @chargeback.save
       render json: @chargeback
     else
-      respond_with @chargeback.errors, status: :unprocessable_entity
+      respond_with @chargeback, status: :unprocessable_entity
     end
   end
 
@@ -72,7 +68,7 @@ class ChargebacksController < ApplicationController
     if @chargeback.destroy
       respond_with @chargeback
     else
-      respond_with @chargeback.errors, status: :unprocessable_entity
+      respond_with @chargeback, status: :unprocessable_entity
     end
   end
 

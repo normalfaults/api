@@ -26,10 +26,8 @@ class SettingsController < ApplicationController
   end
 
   api :POST, '/settings', 'Create new setting'
-  param :setting, Hash, required: true, desc: 'Setting' do
-    param :name, String, required: true
-    param :value, String, required: true
-  end
+  param :name, String, required: true
+  param :value, String, required: true
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
@@ -39,7 +37,7 @@ class SettingsController < ApplicationController
       if @setting.save
         respond_with @setting
       else
-        respond_with @setting.errors, status: :unprocessable_entity
+        respond_with @setting, status: :unprocessable_entity
       end
     else # ON DUPLICATE KEY UPDATE
       params[:id] = @id_for_setting_name
@@ -51,9 +49,7 @@ class SettingsController < ApplicationController
 
   api :PUT, '/settings/:id', 'Updates value for setting with :id'
   param :id, :number, required: true
-  param :setting, Hash, required: true, desc: 'Setting' do
-    param :value, String, required: true
-  end
+  param :value, String, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -62,7 +58,7 @@ class SettingsController < ApplicationController
     if @setting.update_attributes @update_params
       respond_with @setting
     else
-      respond_with @setting.errors, status: :unprocessable_entity
+      respond_with @setting, status: :unprocessable_entity
     end
   end
 
@@ -92,18 +88,18 @@ class SettingsController < ApplicationController
     if @setting.destroy
       respond_with @setting
     else
-      respond_with @setting.errors, status: :unprocessable_entity
+      respond_with @setting, status: :unprocessable_entity
     end
   end
 
   private
 
   def load_create_params
-    @create_params = params.require(:setting).permit(:name, :value)
+    @create_params = params.permit(:name, :value)
   end
 
   def load_update_params
-    @update_params = params.require(:setting).permit(:value)
+    @update_params = params.permit(:value)
   end
 
   def load_settings

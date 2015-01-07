@@ -66,7 +66,7 @@ class AlertsController < ApplicationController
       if @alert.save
         respond_with @alert
       else
-        respond_with @alert.errors, status: :unprocessable_entity
+        respond_with @alert, status: :unprocessable_entity
       end
     else # ON DUPLICATE ALERT UPDATE
       params[:id] = @alert_id
@@ -118,7 +118,7 @@ class AlertsController < ApplicationController
       @alert.touch
       respond_with @alert
     else
-      respond_with @alert.errors, status: :unprocessable_entity
+      respond_with @alert, status: :unprocessable_entity
     end
   end
 
@@ -131,7 +131,7 @@ class AlertsController < ApplicationController
     if @alert.destroy
       respond_with @alert
     else
-      respond_with @alert.errors, status: :unprocessable_entity
+      respond_with @alert, status: :unprocessable_entity
     end
   end
 
@@ -209,7 +209,7 @@ class AlertsController < ApplicationController
     if @alert.save
       respond_with @alert
     else
-      respond_with @alert.errors, status: :unprocessable_entity
+      respond_with @alert, status: :unprocessable_entity
     end
   end
 end
