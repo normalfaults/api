@@ -6,6 +6,10 @@ class Order < ActiveRecord::Base
 
   store_accessor :options
 
+  def item_count
+    order_items.count
+  end
+
   def item_count_for_project_id(pid)
     order_items.where(project_id: pid).count
   end
