@@ -42,12 +42,7 @@ class OrdersController < ApplicationController
   def create
     authorize Order
     @order = Order.create_with_items @orders_params
-
-    if @order
-      respond_with @order
-    else
-      respond_with @order.errors, status: :unprocessable_entity
-    end
+    respond_with @order
   end
 
   api :PUT, '/orders/:id', 'Updates order with :id'
@@ -69,12 +64,8 @@ class OrdersController < ApplicationController
 
   def update
     authorize @order
-
-    if @order.update_with_items! @orders_params
-      render json: @order
-    else
-      respond_with @order.errors, status: :unprocessable_entity
-    end
+    @order.update_with_items! @orders_params
+    render json: @order
   end
 
   api :DELETE, '/orders/:id', 'Deletes order with :id'
@@ -83,11 +74,8 @@ class OrdersController < ApplicationController
 
   def destroy
     authorize @order
-    if @order.destroy
-      render json: @order
-    else
-      respond_with @order.errors, status: :unprocessable_entity
-    end
+    @order.destroy
+    render json: @order
   end
 
   protected

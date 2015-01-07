@@ -34,11 +34,8 @@ class SettingsController < ApplicationController
     @setting = Setting.new @create_params
     authorize @setting
     if @id_for_setting_name.nil?
-      if @setting.save
-        respond_with @setting
-      else
-        respond_with @setting, status: :unprocessable_entity
-      end
+      @setting.save
+      respond_with @setting
     else # ON DUPLICATE KEY UPDATE
       params[:id] = @id_for_setting_name
       load_setting
@@ -55,11 +52,8 @@ class SettingsController < ApplicationController
 
   def update
     authorize @setting
-    if @setting.update_attributes @update_params
-      respond_with @setting
-    else
-      respond_with @setting, status: :unprocessable_entity
-    end
+    @setting.update_attributes @update_params
+    respond_with @setting
   end
 
   api :GET, '/settings/new', 'Get new setting JSON'
@@ -85,11 +79,8 @@ class SettingsController < ApplicationController
 
   def destroy
     authorize @setting
-    if @setting.destroy
-      respond_with @setting
-    else
-      respond_with @setting, status: :unprocessable_entity
-    end
+    @setting.destroy
+    respond_with @setting
   end
 
   private

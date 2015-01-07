@@ -63,11 +63,8 @@ class AlertsController < ApplicationController
     @alert = Alert.new @alert_params
     authorize @alert
     if @alert_id.nil?
-      if @alert.save
-        respond_with @alert
-      else
-        respond_with @alert, status: :unprocessable_entity
-      end
+      @alert.save
+      respond_with @alert
     else # ON DUPLICATE ALERT UPDATE
       params[:id] = @alert_id
       load_alert

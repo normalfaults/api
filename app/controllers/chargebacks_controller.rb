@@ -34,11 +34,8 @@ class ChargebacksController < ApplicationController
   def create
     @chargeback = Chargeback.new @chargeback_params
     authorize @chargeback
-    if @chargeback.save
-      render json: @chargeback
-    else
-      respond_with @chargeback, status: :unprocessable_entity
-    end
+    @chargeback.save
+    render json: @chargeback
   end
 
   api :PUT, '/chargeback/:id', 'Updates chargeback with :id'
@@ -52,11 +49,8 @@ class ChargebacksController < ApplicationController
   def update
     @chargeback.update_attributes @chargeback_params
     authorize @chargeback
-    if @chargeback.save
-      render json: @chargeback
-    else
-      respond_with @chargeback, status: :unprocessable_entity
-    end
+    @chargeback.save
+    render json: @chargeback
   end
 
   api :DELETE, '/chargeback/:id', 'Deletes chargeback with :id'
@@ -65,11 +59,8 @@ class ChargebacksController < ApplicationController
 
   def destroy
     authorize @chargeback
-    if @chargeback.destroy
-      respond_with @chargeback
-    else
-      respond_with @chargeback, status: :unprocessable_entity
-    end
+    @chargeback.destroy
+    respond_with @chargeback
   end
 
   private

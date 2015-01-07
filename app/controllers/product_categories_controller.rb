@@ -33,12 +33,8 @@ class ProductCategoriesController < ApplicationController
     @product_category = ProductCategory.new @product_categories_params
 
     authorize @product_category
-
-    if @product_category.save
-      respond_with @product_category
-    else
-      respond_with @product_category.errors, status: :unprocessable_entity
-    end
+    @product_category.save
+    respond_with @product_category
   end
 
   api :PUT, '/product_categories/:id', 'Updates product_category with :id'
@@ -49,12 +45,8 @@ class ProductCategoriesController < ApplicationController
 
   def update
     authorize @product_category
-
-    if @product_category.update_attributes @product_categories_params
-      render json: @product_category
-    else
-      respond_with @product_category.errors, status: :unprocessable_entity
-    end
+    @product_category.update_attributes @product_categories_params
+    render json: @product_category
   end
 
   api :DELETE, '/product_categories/:id', 'Deletes product_category with :id'
@@ -63,11 +55,8 @@ class ProductCategoriesController < ApplicationController
 
   def destroy
     authorize @product_category
-    if @product_category.destroy
-      render json: @product_category
-    else
-      respond_with @product_category.errors, status: :unprocessable_entity
-    end
+    @product_category.destroy
+    render json: @product_category
   end
 
   private
