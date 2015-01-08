@@ -46,7 +46,7 @@ class ProductCategoriesController < ApplicationController
   def update
     authorize @product_category
     @product_category.update_attributes @product_categories_params
-    render json: @product_category
+    respond_with @product_category
   end
 
   api :DELETE, '/product_categories/:id', 'Deletes product_category with :id'
@@ -56,7 +56,7 @@ class ProductCategoriesController < ApplicationController
   def destroy
     authorize @product_category
     @product_category.destroy
-    render json: @product_category
+    respond_with @product_category
   end
 
   private

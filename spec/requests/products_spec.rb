@@ -52,7 +52,7 @@ RSpec.describe 'Products API' do
 
     it 'updates a product', :show_in_doc do
       put "/products/#{@product.id}", options: ['test']
-      expect(json['options']).to eq(['test'])
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the product does not exist' do
@@ -76,7 +76,7 @@ RSpec.describe 'Products API' do
 
     it 'removes the product', :show_in_doc do
       delete "/products/#{@product.id}"
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the product does not exist' do

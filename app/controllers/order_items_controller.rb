@@ -27,7 +27,7 @@ class OrderItemsController < ApplicationController
     # authorize @order
     if @order_item
       @order_item.destroy
-      render json: @order_item
+      respond_with @order_item
     else
       record_not_found
     end
@@ -45,7 +45,7 @@ class OrderItemsController < ApplicationController
 
   def update
     @order_item.update_attributes order_item_params
-    render json: @order_item
+    respond_with @order_item
   end
 
   api :PUT, '/orders/:order_id/items/:id/start_service', 'Starts service for order item'

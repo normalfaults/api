@@ -45,7 +45,7 @@ RSpec.describe 'Orders API' do
 
     it 'updates a order', :show_in_doc do
       put "/orders/#{@order.id}", staff_id: Staff.all.first.id, options: ['test']
-      expect(json['options']).to eq(['test'])
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order does not exist' do
@@ -74,7 +74,7 @@ RSpec.describe 'Orders API' do
 
     it 'removes the order', :show_in_doc do
       delete "/orders/#{@order.id}"
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order does not exist' do

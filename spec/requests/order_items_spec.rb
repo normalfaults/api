@@ -35,7 +35,7 @@ RSpec.describe 'Order Items API' do
       put "/orders/#{@order.id}/items/#{@order_item.id}", port: 123, host: 'www.example.com'
 
       @order_item.provision_status
-      expect(response.body).to eq(OrderItem.all.first.to_json(methods: [:provision_status]))
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order item does not exist' do
@@ -59,7 +59,7 @@ RSpec.describe 'Order Items API' do
 
     it 'removes the order item', :show_in_doc do
       delete "/orders/#{@order.id}/items/#{@order_item.id}"
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order item does not exist' do

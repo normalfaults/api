@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
   def update
     authorize @order
     @order.update_with_items! @orders_params
-    render json: @order
+    respond_with @order
   end
 
   api :DELETE, '/orders/:id', 'Deletes order with :id'
@@ -75,7 +75,7 @@ class OrdersController < ApplicationController
   def destroy
     authorize @order
     @order.destroy
-    render json: @order
+    respond_with @order
   end
 
   protected
