@@ -95,17 +95,23 @@ bundle install
 
 ####Step 14:  Add this data to ./config/application.yml
 
+You will need to create this file yourself (it is already in the .gitignore),
+the Figaro gem uses this to to "create" ENVIROMENT variables.  Alternatively,
+you can simply create ENVIROMENT yourself.
+
+
 ````
 AWS_HOST:     "localhost"
 AWS_USERNAME: "user_name"
 AWS_PASSWORD: "password"
 AWS_DATABASE: "jellyfish"
 AWS_PORT:     "5432"
-CORS_ALLOW_ORIGIN: [fqdn for ux]
+CORS_ALLOW_ORIGIN: [fqdn of ux server]
 ````
 
-####Step 15:  Populate the database 
-Run the following rake commands
+####Step 15:  Populate the database
+Run the following rake commands.  You only need to run "rake sample:jenkins" if
+you are wanting, sample data (useful for development)
 
 ````
 rake db:schema:load
@@ -113,7 +119,7 @@ rake
 rake sample:jenkins
 ````
 
-####Step 16.  Start the server
+####Step 16.  Start the server (development)
 
 ````
 rails s
