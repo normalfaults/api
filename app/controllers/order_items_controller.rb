@@ -27,7 +27,7 @@ class OrderItemsController < ApplicationController
     # authorize @order
     if @order_item
       @order_item.destroy
-      render json: @order_item
+      respond_with @order_item
     else
       record_not_found
     end
@@ -44,11 +44,8 @@ class OrderItemsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    if @order_item.update_attributes order_item_params
-      render json: @order_item
-    else
-      respond_with @order.errors, status: :unprocessable_entity
-    end
+    @order_item.update_attributes order_item_params
+    respond_with @order_item
   end
 
   api :PUT, '/orders/:order_id/items/:id/start_service', 'Starts service for order item'

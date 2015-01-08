@@ -26,41 +26,31 @@ class CloudsController < ApplicationController
   end
 
   api :POST, '/clouds', 'Creates a cloud'
-  param :cloud, Hash, desc: 'Cloud' do
-    param :name, String, required: false
-    param :desciption, String, required: false
-    param :extra, String, required: false
-  end
+  param :name, String, required: false
+  param :desciption, String, required: false
+  param :extra, String, required: false
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
     @cloud = Cloud.new @cloud_params
     authorize @cloud
-    if @cloud.save
-      render json: @cloud
-    else
-      respond_with @cloud.errors, status: :unprocessable_entity
-    end
+    @cloud.save
+    respond_with @cloud
   end
 
   api :PUT, '/cloud/:id', 'Updates cloud with :id'
   param :id, :number, required: true
-  param :cloud, Hash, desc: 'Cloud' do
-    param :name, String, required: false
-    param :desciption, String, required: false
-    param :extra, String, required: false
-  end
+  param :name, String, required: false
+  param :desciption, String, required: false
+  param :extra, String, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     @cloud.update_attributes @cloud_params
     authorize @cloud
-    if @cloud.save
-      render json: @cloud
-    else
-      respond_with @cloud.errors, status: :unprocessable_entity
-    end
+    @cloud.save
+    respond_with @cloud
   end
 
   api :DELETE, '/cloud/:id', 'Deletes cloud with :id'
@@ -69,17 +59,14 @@ class CloudsController < ApplicationController
 
   def destroy
     authorize @cloud
-    if @cloud.destroy
-      respond_with @cloud
-    else
-      respond_with @cloud.errors, status: :unprocessable_entity
-    end
+    @cloud.destroy
+    respond_with @cloud
   end
 
   private
 
   def load_cloud_params
-    @cloud_params = params.require(:cloud).permit(:name, :description, :extra)
+    @cloud_params = params.permit(:name, :description, :extra)
   end
 
   def load_cloud

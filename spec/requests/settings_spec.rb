@@ -42,14 +42,8 @@ RSpec.describe 'Settings API' do
 
     it 'creates a new setting', :show_in_doc do
       setting_data = { name: 'foo', value: 'bar' }
-      post '/settings', setting: setting_data
+      post '/settings', setting_data
       expect(json['name']).to eq(setting_data[:name])
-    end
-
-    it 'returns an error if the setting data is missing' do
-      post '/settings'
-      expect(response.status).to eq(422)
-      expect(json).to eq('error' => 'param is missing or the value is empty: setting')
     end
   end
 
@@ -60,18 +54,12 @@ RSpec.describe 'Settings API' do
     end
 
     it 'changes existing setting value', :show_in_doc do
-      put "/settings/#{@setting.id}", setting: { value: 'Updated' }
+      put "/settings/#{@setting.id}", value: 'Updated'
       expect(response.status).to eq(204)
     end
 
-    it 'returns an error if the setting data is missing' do
-      put "/settings/#{@setting.id}"
-      expect(response.status).to eq(422)
-      expect(json).to eq('error' => 'param is missing or the value is empty: setting')
-    end
-
     it 'returns an error when the setting does not exist' do
-      put "/projects/#{@setting.id + 999}", setting: { value: 'Updated' }
+      put "/projects/#{@setting.id + 999}", value: 'Updated'
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end

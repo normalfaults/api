@@ -34,11 +34,7 @@ class AdminSettingsController < ApplicationController
 
   def update
     @admin_setting.update_field_values_with_params!(@admin_setting_params[:admin_setting_fields])
-    if @admin_setting
-      respond_with @admin_setting
-    else
-      respond_with @admin_setting.errors, status: :unprocessable_entity
-    end
+    respond_with @admin_setting
   end
 
   protected
