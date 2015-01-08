@@ -10,4 +10,8 @@ class AdminSetting < ActiveRecord::Base
       end
     end
   end
+
+  def to_param
+    name
+  end
 end
