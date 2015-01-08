@@ -52,7 +52,7 @@ class ProductsController < ApplicationController
   def update
     @product.update_attributes(@products_params)
     @product.save
-    render json: @product
+    respond_with @product
   end
 
   api :DELETE, '/products/:id', 'Deletes product with :id'
@@ -61,7 +61,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    render json: @product
+    respond_with @product
   end
 
   private

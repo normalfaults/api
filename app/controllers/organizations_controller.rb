@@ -45,7 +45,7 @@ class OrganizationsController < ApplicationController
   def update
     authorize @organization
     @organization.update_attributes(@org_params)
-    render json: @organization
+    respond_with @organization
   end
 
   api :DELETE, '/organizations/:id', 'Deletes organization with :id'
@@ -55,7 +55,7 @@ class OrganizationsController < ApplicationController
   def destroy
     authorize @organization
     @organization.destroy
-    render json: @organization
+    respond_with @organization
   end
 
   private

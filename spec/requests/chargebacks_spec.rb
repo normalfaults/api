@@ -78,18 +78,12 @@ RSpec.describe 'Chargebacks API' do
     end
 
     it 'updates a chargeback', :show_in_doc do
-      put "/chargebacks/#{@chargeback.id}", chargeback: { cloud_id: 1 }
-      expect(JSON(response.body)['cloud_id']).to eq(1)
-    end
-
-    it 'returns an error if the chargeback parameter is missing' do
-      put "/chargebacks/#{@chargeback.id}"
-      expect(response.status).to eq(422)
-      expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: chargeback')
+      put "/chargebacks/#{@chargeback.id}", cloud_id: 1
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the chargeback does not exist' do
-      put "/chargebacks/#{@chargeback.id + 999}", chargeback: { hourly_price: '9' }
+      put "/chargebacks/#{@chargeback.id + 999}", hourly_price: '9'
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
@@ -101,15 +95,10 @@ RSpec.describe 'Chargebacks API' do
     end
 
     it 'creates an chargeback', :show_in_doc do
-      post '/chargebacks/', chargeback: { hourly_price: '9' }
+      post '/chargebacks/', hourly_price: '9'
       expect(response.body).to eq(Chargeback.first.to_json)
     end
 
-    it 'returns an error if the chargeback is missing' do
-      post '/chargebacks/'
-      expect(response.status).to eq(422)
-      expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: chargeback')
-    end
   end
 
   describe 'DELETE destroy' do

@@ -45,7 +45,7 @@ RSpec.describe 'Organizations' do
 
     it 'updates an organization', :show_in_doc do
       put "/organizations/#{@organization.id}", name: 'some different name'
-      expect(JSON(response.body)['name']).to eq('some different name')
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the organization does not exist' do
@@ -74,7 +74,7 @@ RSpec.describe 'Organizations' do
 
     it 'removes the organization', :show_in_doc do
       delete "/organizations/#{@organization.id}"
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the organization does not exist' do

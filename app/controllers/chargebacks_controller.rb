@@ -35,7 +35,7 @@ class ChargebacksController < ApplicationController
     @chargeback = Chargeback.new @chargeback_params
     authorize @chargeback
     @chargeback.save
-    render json: @chargeback
+    respond_with @chargeback
   end
 
   api :PUT, '/chargeback/:id', 'Updates chargeback with :id'
@@ -50,7 +50,7 @@ class ChargebacksController < ApplicationController
     @chargeback.update_attributes @chargeback_params
     authorize @chargeback
     @chargeback.save
-    render json: @chargeback
+    respond_with @chargeback
   end
 
   api :DELETE, '/chargeback/:id', 'Deletes chargeback with :id'
@@ -66,7 +66,7 @@ class ChargebacksController < ApplicationController
   private
 
   def load_chargeback_params
-    @chargeback_params = params.require(:chargeback).permit(:hourly_price, :cloud_id, :product_id)
+    @chargeback_params = params.permit(:hourly_price, :cloud_id, :product_id)
   end
 
   def load_chargeback

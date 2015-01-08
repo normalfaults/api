@@ -35,7 +35,7 @@ class CloudsController < ApplicationController
     @cloud = Cloud.new @cloud_params
     authorize @cloud
     @cloud.save
-    render json: @cloud
+    respond_with @cloud
   end
 
   api :PUT, '/cloud/:id', 'Updates cloud with :id'
@@ -50,7 +50,7 @@ class CloudsController < ApplicationController
     @cloud.update_attributes @cloud_params
     authorize @cloud
     @cloud.save
-    render json: @cloud
+    respond_with @cloud
   end
 
   api :DELETE, '/cloud/:id', 'Deletes cloud with :id'
@@ -66,7 +66,7 @@ class CloudsController < ApplicationController
   private
 
   def load_cloud_params
-    @cloud_params = params.require(:cloud).permit(:name, :description, :extra)
+    @cloud_params = params.permit(:name, :description, :extra)
   end
 
   def load_cloud
