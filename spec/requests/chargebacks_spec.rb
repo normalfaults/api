@@ -98,7 +98,6 @@ RSpec.describe 'Chargebacks API' do
       post '/chargebacks/', hourly_price: '9'
       expect(response.body).to eq(Chargeback.first.to_json)
     end
-
   end
 
   describe 'DELETE destroy' do
