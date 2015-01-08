@@ -76,7 +76,7 @@ brew install postgresql
 gem install pg
 ````
 
-####Step 11: Get postgres.app
+####Step 11: Get postgres.app (Mac only)
 You can use the PostreSQL from step 10, but this app is easier to use
 Download at: http://postgresapp.com
 
@@ -101,17 +101,20 @@ you can simply create ENVIROMENT yourself.
 
 
 ````
-AWS_HOST:     "localhost"
-AWS_USERNAME: "user_name"
-AWS_PASSWORD: "password"
-AWS_DATABASE: "jellyfish"
+AWS_HOST:     "database-host-name.server.com"
+AWS_USERNAME: "database_username"
+AWS_PASSWORD: "database_password"
+AWS_DATABASE: "database_name"
 AWS_PORT:     "5432"
 CORS_ALLOW_ORIGIN: [fqdn of ux server]
 ````
 
 ####Step 15:  Populate the database
+
 Run the following rake commands.  You only need to run "rake sample:jenkins" if
-you are wanting, sample data (useful for development)
+you are wanting, sample data (useful for development).  Please note that this
+rake task does not create the database or the database user (those will need
+to be created based on the DB you are using)
 
 ````
 rake db:schema:load
