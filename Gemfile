@@ -65,7 +65,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'database_cleaner', '~> 1.3.0'
-  gem 'brakeman', :require => false
+  gem 'brakeman', require: false
 end
 
 # Documentation
@@ -80,6 +80,9 @@ gem 'virtus'
 
 # CORS
 gem 'rack-cors'
+
+# CSRF
+gem 'angular_rails_csrf', '~> 1.0.3' # XSRF-TOKEN is added to the cookie by default.
 
 # CRONTAB SCHEDULER
 gem 'whenever'

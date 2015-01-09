@@ -27,6 +27,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    angular_rails_csrf (1.0.3)
+      rails (>= 3, < 5)
     apipie-rails (0.2.6)
       json
     arel (5.0.1.20140414130214)
@@ -227,6 +229,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular_rails_csrf (~> 1.0.3)
   apipie-rails (~> 0.2.6)
   bcrypt (~> 3.1.7)
   brakeman
