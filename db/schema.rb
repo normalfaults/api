@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150102005749) do
+ActiveRecord::Schema.define(version: 20150108045901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,22 @@ ActiveRecord::Schema.define(version: 20150102005749) do
 
   add_index "clouds", ["deleted_at"], name: "index_clouds_on_deleted_at", using: :btree
 
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "logs", force: true do |t|
     t.integer  "staff_id",   null: false
     t.integer  "level"
@@ -125,10 +141,15 @@ ActiveRecord::Schema.define(version: 20150102005749) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "project_id"
+    t.integer  "miq_id"
+    t.inet     "ip_address"
+    t.string   "hostname"
   end
 
   add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree
   add_index "order_items", ["deleted_at"], name: "index_order_items_on_deleted_at", using: :btree
+  add_index "order_items", ["hostname"], name: "index_order_items_on_hostname", using: :btree
+  add_index "order_items", ["miq_id"], name: "index_order_items_on_miq_id", using: :btree
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
   add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
   add_index "order_items", ["service_id"], name: "index_order_items_on_service_id", using: :btree

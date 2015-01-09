@@ -82,3 +82,12 @@ gem 'rack-cors'
 
 # CRONTAB SCHEDULER
 gem 'whenever'
+
+# ActiveRecord DelayedJob
+gem 'delayed_job_active_record'
+
+# Daemons for DelayedJob
+gem 'daemons'
+
+# RESTClient
+gem 'rest_client'

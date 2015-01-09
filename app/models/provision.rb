@@ -1,25 +1,33 @@
-class Provision < ActiveRecord::Base
-  extend ManageIQClient
+class Provision < ActiveModel::Model
+  #attr_accessor :order_id
 
-  acts_as_paranoid
+  #define_model_callbacks :commit
 
-  @@client = nil
+  #belongs_to :order_item
+  has_one :order_item
+
+  #validates_presence_of :order_id
+
+  #after_commit :send_provision_request
+  #after_touch :send_provision_request
 
   def initialize
-    if ENV['MANAGEIQ_HOST']
-      ManageIQClient.host = ENV['MANAGEIQ_HOST']
-      ManageIQClient.verify_ssl = ENV['MANAGEIQ_SSL'].nil? ? true : !ENV['MANAGEIQ_SSL'].to_i.zero?
-      if ENV['MANAGEIQ_USER'] && ENV['MANAGEIQ_PASS']
-        @@client = ManageIQClient.credentials = { user: ENV['MANAGEIQ_USER'], password: ENV['MANAGEIQ_PASS'] }
-      end
-    end
+    logger.debug "Initialize"
   end
 
-  def self.client
-    miq = { host: ENV['MANAGEIQ_HOST'], verify_ssl: ENV['MANAGEIQ_SSL'], user: ENV['MANAGEIQ_USER'], password: ENV['MANAGEIQ_PASS'] }
-  end
-
-  #def vm
-  #  ManageIQClient::VirtualMachine.list
+  #def commit
+  #  run_callbacks :commit do
+  #    logger.debug "- New Order Item"
+  #  end
   #end
+
+  def self.provision
+    self.name
+  end
+
+  protected
+
+    def send_provision_request
+      logger.debug "New Order Item"
+    end
 end

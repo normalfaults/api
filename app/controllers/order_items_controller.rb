@@ -1,7 +1,7 @@
 class OrderItemsController < ApplicationController
   respond_to :json
 
-  before_action :load_order_item, only: [:show, :destroy, :start_service, :stop_service]
+  before_action :load_order_item, only: [:show, :destroy, :update, :start_service, :stop_service]
 
   api :GET, '/orders/:order_id/items/:id', 'Shows order item with :id'
   param :includes, Array, required: false, in: %w(product)
@@ -33,6 +33,24 @@ class OrderItemsController < ApplicationController
     end
   end
 
+  api :PUT, '/orders/:order_id/items/:id', 'Updates order item with :id'
+  param :id, :number, required: true
+  param :order_id, :number, required: true
+  param :port, :number, required: false
+  param :host, String, required: false
+  param :provision_status, %w(pending active)
+
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+  error code: 422, desc: ParameterValidation::Messages.missing
+
+  def update
+    if @order_item.update_attributes order_item_params
+      render json: @order_item
+    else
+      respond_with @order.errors, status: :unprocessable_entity
+    end
+  end
+
   api :PUT, '/orders/:order_id/items/:id/start_service', 'Starts service for order item'
   param :id, :number, required: true
 
@@ -54,6 +72,10 @@ class OrderItemsController < ApplicationController
   end
 
   private
+
+  def order_item_params
+    params.permit(:id, :order_id, :port, :host, :provision_status)
+  end
 
   def orders_from_params
     OrderItem.where(id: params.require(:id), order_id: params.require(:order_id))
