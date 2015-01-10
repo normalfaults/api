@@ -21,7 +21,7 @@ class OrderItem < ActiveRecord::Base
 
   def provision
     # update_attribute causes an endless loop here, so we're going to update the record and save it manually.
-    order_item = OrderItem.find(self.id)
+    order_item = OrderItem
     order_item.provision_status = 'UNKNOWN'
     order_item.save
 
