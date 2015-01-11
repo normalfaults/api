@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
   def create
     authorize Project
 
-    @project = Project.create_with_answers @project_params
+    @project = Project.create @project_params
 
     # Relate user if not an admin
     @project.staff << current_user unless current_user.admin?
@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
 
   def update
     authorize @project
-    @project.update_with_answers! @project_params
+    @project.update @project_params
     respond_with_params @project
   end
 
@@ -178,7 +178,9 @@ class ProjectsController < ApplicationController
   end
 
   def load_project_params
-    @project_params = params.permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer])
+    @project_params = params.permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer, :id])
+    @project_params[:project_answers_attributes] = @project_params[:project_answers] unless @project_params[:project_answers].nil?
+    @project_params.delete(:project_answers) unless @project_params[:project_answers].nil?
   end
 
   def load_project

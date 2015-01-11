@@ -3,7 +3,7 @@ class ProjectQuestion < ActiveRecord::Base
 
   scope :ordered, -> { order('load_order') }
 
-  has_many :project_answers
+  has_many :project_answers, dependent: :destroy
 
   store_accessor :options
 
