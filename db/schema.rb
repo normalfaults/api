@@ -141,14 +141,11 @@ ActiveRecord::Schema.define(version: 20150108045901) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "project_id"
-<<<<<<< HEAD
     t.integer  "miq_id"
     t.inet     "ip_address"
     t.string   "hostname"
-=======
     t.string   "host"
     t.integer  "port"
->>>>>>> master
   end
 
   add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree

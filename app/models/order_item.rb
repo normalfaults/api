@@ -8,7 +8,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :cloud
   belongs_to :project
 
-  # enum provision_status: [:pending, :active, :unknown, :ok]
+  enum provision_status: [:ok, :warning, :critical, :unknown, :pending]
 
   validates :product, presence: true
   validate :validate_product_id
@@ -20,18 +20,19 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision
-    # update_attribute causes an endless loop here, so we're going to update the record and save it manually.
-    order_item = OrderItem.find(id)
-    order_item.provision_status = 'UNKNOWN'
-    order_item.save
+    # Calling save inside an after_commit on: :create triggers a :create callback again.
+    # Passed the object to the provision_order_item and called the save there.
+    # https://github.com/rails/rails/issues/14493#issuecomment-39859373
+    order_item = self
 
     order_item.delay(queue: 'provision_request').provision_order_item(order_item)
   end
 
   def provision_order_item(order_item)
-    product = Product.find(order_item.product_id)
+    order_item.provision_status = :unknown
+    order_item.save
 
-    message = { action: 'order', order_item: "#{order_item.id}", resource: { href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{product.service_type_id}" } }
+    message = { action: 'order', order_item: "#{order_item.id}", resource: { href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}" } }
 
     # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
     resource = RestClient::Resource.new(
@@ -41,15 +42,15 @@ class OrderItem < ActiveRecord::Base
         verify_ssl: OpenSSL::SSL::VERIFY_NONE
     )
 
-    response = resource["api/service_catalogs/#{product.service_catalog_id}/service_templates"].post message.to_json, content_type: 'application/json'
+    response = resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post message.to_json, content_type: 'application/json'
 
     case response.code
     when 200
       data = ActiveSupport::JSON.decode(response)
-      order_item.provision_status = 'PENDING'
+      order_item.provision_status = :pending
       order_item.miq_id = data['results'][0]['id']
     else
-      order_item.provision_status = 'FAILED'
+      order_item.provision_status = :warning
     end
 
     order_item.save
