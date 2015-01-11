@@ -86,8 +86,8 @@ Rails.application.routes.draw do
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
 
   # Admin Settings
-  resources :settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:index, :update, :show, :edit, :new, :destroy]
-  resources :settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:show], param: :name
+  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:index, :update, :show, :edit, :new, :destroy]
+  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:show], param: :name
 
   # Automate Routes
   get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'

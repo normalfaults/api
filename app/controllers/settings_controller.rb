@@ -2,11 +2,11 @@ class SettingsController < ApplicationController
   respond_to :json
 
   before_action :load_settings, only: [:index]
-  before_action :load_setting, only: [:update, :destory, :edit]
+  before_action :load_setting, only: [:update, :destroy, :edit]
   before_action :load_setting_by_name, only: [:show]
 
   api :GET, '/settings', 'Returns a collection of admin settings'
-  param :includes, Array, required: false, in: %w(admin_setting_fields)
+  param :includes, Array, required: false, in: %w(setting_fields)
 
   def index
     respond_with_params @settings
@@ -30,7 +30,7 @@ class SettingsController < ApplicationController
   end
 
   api :GET, '/settings/:name', 'Returns the settings with the matching name'
-  param :includes, Array, required: false, in: %w(admin_setting_fields)
+  param :includes, Array, required: false, in: %w(setting_fields)
 
   def show
     if @setting
@@ -67,10 +67,10 @@ class SettingsController < ApplicationController
   protected
 
   def load_setting
-    @setting_params = params.permit(admin_setting_fields: [:id, :value])
-    @setting_params[:admin_setting_fields_attributes] = @admin_setting_params[:admin_setting_fields] unless @admin_setting_params[:admin_setting_fields].nil?
-    @setting_params.delete(:admin_setting_fields) unless @admin_setting_params[:admin_setting_fields].nil?
-    @setting = AdminSetting.find(params.require(:id))
+    @setting_params = params.permit(setting_fields: [:id, :value])
+    @setting_params[:setting_fields_attributes] = @setting_params[:setting_fields] unless @setting_params[:setting_fields].nil?
+    @setting_params.delete(:setting_fields) unless @setting_params[:setting_fields].nil?
+    @setting = Setting.find(params.require(:id))
   end
 
   def load_setting_by_name

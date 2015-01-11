@@ -44,7 +44,7 @@ RSpec.describe 'Setting API' do
 
     it 'updates a setting', :show_in_doc do
       put "/settings/#{@setting.id}", setting_fields: [{ id: @setting.setting_fields.first.id, value: 'new' }]
-      expect(AdminSettingField.first.value).to eq('new')
+      expect(SettingField.first.value).to eq('new')
     end
 
     it 'returns an error when the cloud does not exist' do
@@ -61,8 +61,6 @@ RSpec.describe 'Setting API' do
     end
 
     it 'verifies a setting no longer exists after delete', :show_in_doc do
-      get "/settings/#{@setting.id}"
-      expect(json['name']).to eq(@setting.name)
       delete "/settings/#{@setting.id}"
       expect(response.status).to eq(204)
     end
