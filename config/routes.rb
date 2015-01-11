@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
     # Order Items
-    resources :items, controller: 'order_items', except: [:index, :update, :edit, :new, :create], defaults: { format: :json, includes: [] } do
+    resources :items, controller: 'order_items', except: [:index, :edit, :new, :create], defaults: { format: :json, includes: [] } do
       member do
         put :start_service
         put :stop_service
@@ -86,7 +86,8 @@ Rails.application.routes.draw do
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
 
   # Admin Settings
-  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:index, :update]
+  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:index, :update, :show]
+  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:show], param: :name
 
   # Setting Routes
   resources :settings, defaults: { format: :json }, only: [:index, :show, :new, :create, :edit, :update, :destroy]

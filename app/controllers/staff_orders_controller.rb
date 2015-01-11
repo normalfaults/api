@@ -8,6 +8,7 @@ class StaffOrdersController < ApplicationController
   api :GET, '/staff/:staff_id/orders', 'Returns a collection of orders for a member'
   param :staff_id, :number, required: true
   param :includes, Array, required: false, in: %w(order_items)
+  param :methods, Array, required: false, in: %w(item_count)
 
   def index
     if @orders
@@ -19,6 +20,7 @@ class StaffOrdersController < ApplicationController
 
   api :GET, '/staff/:staff_id/orders/:id', 'Returns a collection of orders for a member'
   param :includes, Array, required: false, in: %w(order_items)
+  param :methods, Array, required: false, in: %w(item_count)
   param :id, :number, required: true
   param :staff_id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found

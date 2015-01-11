@@ -30,6 +30,27 @@ RSpec.describe 'Order Items API' do
     end
   end
 
+  describe 'PUT update' do
+    it 'update an order item', :show_in_doc do
+      put "/orders/#{@order.id}/items/#{@order_item.id}", port: 123, host: 'www.example.com'
+
+      @order_item.provision_status
+      expect(response.status).to eq(204)
+    end
+
+    it 'returns an error when the order item does not exist' do
+      get "/orders/#{@order.id}/items/#{@order_item.id + 999}"
+      expect(response.status).to eq(404)
+      expect(json).to eq('error' => 'Not found.')
+    end
+
+    it 'returns an error when the order does not exist' do
+      get "/orders/#{@order.id + 999}/items/#{@order_item.id}"
+      expect(response.status).to eq(404)
+      expect(json).to eq('error' => 'Not found.')
+    end
+  end
+
   describe 'DELETE destroy' do
     before :each do
       @order = Order.create_with_items(staff_id: 1, order_items: [{ product_id: product.id, project_id: project.id }])
@@ -38,7 +59,7 @@ RSpec.describe 'Order Items API' do
 
     it 'removes the order item', :show_in_doc do
       delete "/orders/#{@order.id}/items/#{@order_item.id}"
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order item does not exist' do

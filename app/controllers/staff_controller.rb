@@ -51,11 +51,8 @@ class StaffController < ApplicationController
   def create
     @staff = Staff.new @staff_params
     authorize @staff
-    if @staff.save
-      respond_with @staff
-    else
-      respond_with @staff.errors, status: :unprocessable_entity
-    end
+    @staff.save
+    respond_with @staff
   end
 
   api :PUT, '/staff/:id', 'Updates a staff member with :id'
@@ -66,11 +63,8 @@ class StaffController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
   def update
     authorize @staff
-    if @staff.update_attributes @staff_params
-      respond_with @staff
-    else
-      respond_with @staff.errors, status: :unprocessable_entity
-    end
+    @staff.update_attributes @staff_params
+    respond_with @staff
   end
 
   api :DELETE, '/staff/:id', 'Deletes staff member with :id'
@@ -78,11 +72,8 @@ class StaffController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   def destroy
     authorize @staff
-    if @staff.destroy
-      respond_with @staff
-    else
-      respond_with @staff.errors, status: :unprocessable_entity
-    end
+    @staff.destroy
+    respond_with @staff
   end
 
   api :GET, '/staff/:id/project', 'Shows collection of projects for a staff :id'
@@ -102,7 +93,7 @@ class StaffController < ApplicationController
     if @staff.projects << @project
       respond_with @project
     else
-      respond_with @staff.errors, status: :unprocessable_entity
+      respond_with @staff, status: :unprocessable_entity
     end
   end
 
@@ -117,7 +108,7 @@ class StaffController < ApplicationController
     if @staff.projects.delete @project
       respond_with @project
     else
-      respond_with @staff.errors, status: :unprocessable_entity
+      respond_with @staff, status: :unprocessable_entity
     end
   end
 
@@ -153,7 +144,7 @@ class StaffController < ApplicationController
       if @user_setting.save
         render json: @user_setting
       else
-        respond_with @user_setting.errors, status: :unprocessable_entity
+        respond_with @user_setting, status: :unprocessable_entity
       end
     else # ON DUPLICATE KEY UPDATE
       params[:user_setting_id] = @id_for_user_setting_name
@@ -175,7 +166,7 @@ class StaffController < ApplicationController
     if @user_setting.update_attributes @update_user_setting_params
       render json: @user_setting
     else
-      respond_with @user_setting.errors, status: :unprocessable_entity
+      respond_with @user_setting, status: :unprocessable_entity
     end
   end
 
@@ -188,7 +179,7 @@ class StaffController < ApplicationController
     if @user_setting.destroy
       render json: @user_setting
     else
-      respond_with @user_setting.errors, status: :unprocessable_entity
+      respond_with @user_setting, status: :unprocessable_entity
     end
   end
 

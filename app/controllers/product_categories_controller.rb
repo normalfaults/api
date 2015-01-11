@@ -26,39 +26,27 @@ class ProductCategoriesController < ApplicationController
   end
 
   api :POST, '/product_categories', 'Creates product_category'
-  param :product_category, Hash, desc: 'Product_category' do
-    param :options, Array, desc: 'Options'
-  end
+  param :options, Array, desc: 'Options'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
     @product_category = ProductCategory.new @product_categories_params
 
     authorize @product_category
-
-    if @product_category.save
-      respond_with @product_category
-    else
-      respond_with @product_category.errors, status: :unprocessable_entity
-    end
+    @product_category.save
+    respond_with @product_category
   end
 
   api :PUT, '/product_categories/:id', 'Updates product_category with :id'
   param :id, :number, required: true
-  param :product_category, Hash, desc: 'Product_category' do
-    param :options, Array, desc: 'Options'
-  end
+  param :options, Array, desc: 'Options'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     authorize @product_category
-
-    if @product_category.update_attributes @product_categories_params
-      render json: @product_category
-    else
-      respond_with @product_category.errors, status: :unprocessable_entity
-    end
+    @product_category.update_attributes @product_categories_params
+    respond_with @product_category
   end
 
   api :DELETE, '/product_categories/:id', 'Deletes product_category with :id'
@@ -67,17 +55,14 @@ class ProductCategoriesController < ApplicationController
 
   def destroy
     authorize @product_category
-    if @product_category.destroy
-      render json: @product_category
-    else
-      respond_with @product_category.errors, status: :unprocessable_entity
-    end
+    @product_category.destroy
+    respond_with @product_category
   end
 
   private
 
   def load_product_category_params
-    @product_categories_params = params.require(:product_category).permit(:product_id, :project_id, :staff_id, :cloud_id, options: [])
+    @product_categories_params = params.permit(:product_id, :project_id, :staff_id, :cloud_id, options: [])
   end
 
   def load_product_category
