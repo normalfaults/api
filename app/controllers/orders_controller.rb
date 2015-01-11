@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
 
   def create
     authorize Order
-    @order = Order.create_with_items @orders_params
+    @order = Order.create @orders_params
     respond_with @order
   end
 
@@ -64,7 +64,7 @@ class OrdersController < ApplicationController
 
   def update
     authorize @order
-    @order.update_with_items! @orders_params
+    @order.update @orders_params
     respond_with @order
   end
 
@@ -81,7 +81,9 @@ class OrdersController < ApplicationController
   protected
 
   def load_order_params
-    @orders_params = params.permit(:total, :staff_id, options: [], order_items: [:project_id, :product_id, :cloud_id])
+    @orders_params = params.permit(:total, :staff_id, options: [], order_items: [:project_id, :product_id, :cloud_id, :id])
+    @orders_params[:order_items_attributes] = @orders_params[:order_items] unless @orders_params[:order_items].nil?
+    @orders_params.delete(:order_items) unless @orders_params[:order_items].nil?
   end
 
   def load_order
