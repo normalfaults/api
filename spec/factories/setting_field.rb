@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :admin_setting_field do
+  factory :setting_field do
     value ''
     field_type :text
     load_order 1

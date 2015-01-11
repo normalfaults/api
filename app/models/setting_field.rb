@@ -1,5 +1,5 @@
-class AdminSettingField < ActiveRecord::Base
-  belongs_to :admin_setting
+class SettingField < ActiveRecord::Base
+  belongs_to :setting
 
   store_accessor :options
 
