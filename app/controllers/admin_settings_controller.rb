@@ -33,7 +33,7 @@ class AdminSettingsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    @admin_setting.update_field_values_with_params!(@admin_setting_params[:admin_setting_fields])
+    @admin_setting.update @admin_setting_params
     respond_with @admin_setting
   end
 
@@ -41,6 +41,8 @@ class AdminSettingsController < ApplicationController
 
   def load_admin_setting
     @admin_setting_params = params.permit(admin_setting_fields: [:id, :value])
+    @admin_setting_params[:admin_setting_fields_attributes] = @admin_setting_params[:admin_setting_fields] unless @admin_setting_params[:admin_setting_fields].nil?
+    @admin_setting_params.delete(:admin_setting_fields) unless @admin_setting_params[:admin_setting_fields].nil?
     @admin_setting = AdminSetting.find(params.require(:id))
   end
 
