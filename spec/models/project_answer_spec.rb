@@ -23,17 +23,5 @@ describe ProjectAnswer do
       expect(pa.save).to eq(false)
       expect(pa.errors.keys.include?(:project_question)).to eq(true)
     end
-
-    it 'must have a project' do
-      pa = build :project_answer, project_id: nil
-      expect(pa.save).to eq(false)
-      expect(pa.errors.keys.include?(:project)).to eq(true)
-    end
-
-    it 'must have valid project id' do
-      pa = build :project_answer, project_id: 9999
-      expect(pa.save).to eq(false)
-      expect(pa.errors.keys.include?(:project)).to eq(true)
-    end
   end
 end

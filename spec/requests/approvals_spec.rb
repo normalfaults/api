@@ -82,12 +82,6 @@ RSpec.describe 'Approvals API' do
       expect(response.status).to eq(204)
     end
 
-    it 'returns an error if the approval parameter is missing' do
-      put "/approvals/#{@approval.id}"
-      expect(response.status).to eq(422)
-      expect(json).to eq('error' => 'param is missing or the value is empty: approval')
-    end
-
     it 'returns an error when the approval does not exist' do
       put "/approvals/#{@approval.id + 999}", approval: { approved: true  }
       expect(response.status).to eq(404)
@@ -104,12 +98,6 @@ RSpec.describe 'Approvals API' do
     it 'creates an approval', :show_in_doc do
       post '/approvals/', approval: @approval.as_json
       expect(response.body).to eq(Approval.first.to_json)
-    end
-
-    it 'returns an error if the approval is missing' do
-      post '/approvals/'
-      expect(response.status).to eq(422)
-      expect(json).to eq('error' => 'param is missing or the value is empty: approval')
     end
   end
 

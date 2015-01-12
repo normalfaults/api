@@ -22,42 +22,30 @@ class OrganizationsController < ApplicationController
   end
 
   api :POST, '/organizations', 'Creates organization'
-  param :organization, Hash, desc: 'Organization' do
-    param :name, String, desc: 'Name'
-    param :image, String, desc: 'Image URL'
-    param :description, String, desc: 'Description of organization'
-  end
+  param :name, String, desc: 'Name'
+  param :image, String, desc: 'Image URL'
+  param :description, String, desc: 'Description of organization'
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
     @organization = Organization.new @org_params
     authorize @organization
-
-    if @organization.save
-      respond_with @organization
-    else
-      respond_with @organization.errors, status: :unprocessable_entity
-    end
+    @organization.save
+    respond_with @organization
   end
 
   api :PUT, '/organizations/:id', 'Updates organization with :id'
   param :id, :number, required: true
-  param :organization, Hash, desc: 'Organization' do
-    param :name, String, desc: 'Name'
-    param :image, String, desc: 'Image URL'
-    param :description, String, desc: 'Description of organization'
-  end
+  param :name, String, desc: 'Name'
+  param :image, String, desc: 'Image URL'
+  param :description, String, desc: 'Description of organization'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     authorize @organization
-
-    if @organization.update_attributes(@org_params)
-      render json: @organization
-    else
-      respond_with @organization.errors, status: :unprocessable_entity
-    end
+    @organization.update_attributes(@org_params)
+    respond_with @organization
   end
 
   api :DELETE, '/organizations/:id', 'Deletes organization with :id'
@@ -66,17 +54,14 @@ class OrganizationsController < ApplicationController
 
   def destroy
     authorize @organization
-    if @organization.destroy
-      render json: @organization
-    else
-      respond_with @organization.errors, status: :unprocessable_entity
-    end
+    @organization.destroy
+    respond_with @organization
   end
 
   private
 
   def load_org_params
-    @org_params = params.require(:organization).permit(:name, :description, :image)
+    @org_params = params.permit(:name, :description, :image)
   end
 
   def load_organization

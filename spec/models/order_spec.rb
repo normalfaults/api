@@ -8,21 +8,22 @@ describe Order do
 
     it 'creates items w/ a product' do
       items = [order_item_model]
-      order = Order.create_with_items(order_items: items, staff_id: staff.id)
+      order = Order.create(order_items_attributes: items, staff_id: staff.id)
       expect(order.order_items.count).to eq(1)
     end
 
-    it 'raises an exception when items are missing a product' do
-      items = [{ product_id: nil }]
-      expect { Order.create_with_items(order_items: items, staff_id: staff.id) }.to raise_error(ActiveRecord::RecordInvalid)
+    it 'creates an order with items' do
+      order = Order.create(order_items_attributes: [order_item_model], staff_id: staff.id)
+      expect(order.order_items.count).to eq(1)
     end
 
     it 'updates an order with items' do
-      items = [order_item_model, order_item_model]
-      order = create :order
-      order.update_with_items!(order_items: items)
+      order = Order.create(order_items_attributes: [order_item_model], staff_id: staff.id)
+      items = [{ id: order.order_items.first.id, port: 1234 }]
 
-      expect(order.order_items.count).to eq(2)
+      order.update!(order_items_attributes: items)
+
+      expect(order.order_items.count).to eq(1)
     end
 
     it 'can store unstructured options' do

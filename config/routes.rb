@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :staff, defaults: { format: :json, methods: %w(gravatar) }, only: [:index]
   resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
     # Staff Orders
-    resources :orders, controller: 'staff_orders', defaults: { format: :json }, only: [:show, :index]
+    resources :orders, controller: 'staff_orders', defaults: { format: :json, includes: %w(order_items) }, only: [:show, :index]
 
     collection do
       match 'current_member' => 'staff#current_member', via: :get, defaults: { format: :json }
@@ -44,12 +44,12 @@ Rails.application.routes.draw do
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Provision Request Response
-  match 'order_items', to: 'order_items#update', via: :put, defaults: { format: :json }
+  resources :order_items, defaults: { format: :json }, only: [:update]
 
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
     # Order Items
-    resources :items, controller: 'order_items', except: [:index, :update, :edit, :new, :create], defaults: { format: :json, includes: [] } do
+    resources :items, controller: 'order_items', except: [:index, :edit, :new, :create], defaults: { format: :json, includes: [] } do
       member do
         put :start_service
         put :stop_service
@@ -86,7 +86,8 @@ Rails.application.routes.draw do
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
 
   # Admin Settings
-  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:index, :update]
+  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:index, :update, :show]
+  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:show], param: :name
 
   # Setting Routes
   resources :settings, defaults: { format: :json }, only: [:index, :show, :new, :create, :edit, :update, :destroy]
@@ -96,6 +97,18 @@ Rails.application.routes.draw do
   get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'
 
   root 'welcome#index'
+
+  # # Dashboard Routes
+  # resources :dashboard
+  #
+  # # Manage Routes
+  # resources :manage
+  #
+  # # Marketplace Routes
+  # resources :marketplace
+  #
+  # # Service Routes
+  # resources :service
 
   # Mocks routes
   # TODO: Remove when implemented

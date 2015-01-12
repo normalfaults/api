@@ -26,11 +26,9 @@ class ApprovalsController < ApplicationController
   end
 
   api :POST, '/approvals', 'Creates approval'
-  param :approval, Hash, desc: 'Approval' do
-    param :staff_id, :number, desc: 'Staff'
-    param :project_id, :number, desc: 'Project'
-    param :approved, :bool, desc: 'Approved?'
-  end
+  param :staff_id, :number, desc: 'Staff'
+  param :project_id, :number, desc: 'Project'
+  param :approved, :bool, desc: 'Approved?'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -39,17 +37,15 @@ class ApprovalsController < ApplicationController
     if @approval.save
       respond_with @approval
     else
-      respond_with @approval.errors, status: :unprocessable_entity
+      respond_with @approval, status: :unprocessable_entity
     end
   end
 
   api :PUT, '/approvals/:id', 'Updates approval with :id'
   param :id, :number, required: true
-  param :approval, Hash, desc: 'Approval' do
-    param :staff_id, :number, desc: 'Staff'
-    param :project_id, :number, desc: 'Project'
-    param :approved, :bool, desc: 'Approved?'
-  end
+  param :staff_id, :number, desc: 'Staff'
+  param :project_id, :number, desc: 'Project'
+  param :approved, :bool, desc: 'Approved?'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -58,7 +54,7 @@ class ApprovalsController < ApplicationController
     if @approval.update_attributes @approval_params
       respond_with @approval
     else
-      respond_with @approval.errors, status: :unprocessable_entity
+      respond_with @approval, status: :unprocessable_entity
     end
   end
 
@@ -71,14 +67,14 @@ class ApprovalsController < ApplicationController
     if @approval.destroy
       respond_with @approval
     else
-      respond_with @approval.errors, status: :unprocessable_entity
+      respond_with @approval, status: :unprocessable_entity
     end
   end
 
   private
 
   def load_approval_params
-    @approval_params = params.require(:approval).permit(:staff_id, :project_id, :approved)
+    @approval_params = params.permit(:staff_id, :project_id, :approved)
   end
 
   def load_approval

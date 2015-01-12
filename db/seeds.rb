@@ -6,7 +6,6 @@ aws_setting.admin_setting_fields.find_or_create_by(label: 'Enabled') do |field|
   field.field_type = :check_box
   field.load_order = 0
   field.help_text = 'Enable AWS services.'
-  field.options = []
 end
 
 aws_setting.admin_setting_fields.find_or_create_by(label: 'Access Key') do |field|
@@ -14,7 +13,6 @@ aws_setting.admin_setting_fields.find_or_create_by(label: 'Access Key') do |fiel
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'AWS Access Key'
-  field.options = []
 end
 
 aws_setting.admin_setting_fields.find_or_create_by(label: 'Secret Key') do |field|
@@ -22,7 +20,6 @@ aws_setting.admin_setting_fields.find_or_create_by(label: 'Secret Key') do |fiel
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'AWS Secret Key'
-  field.options = []
 end
 
 # Manage IQ Settings
@@ -33,7 +30,6 @@ miq_setting.admin_setting_fields.find_or_create_by(label: 'URL') do |field|
   field.field_type = :text
   field.load_order = 0
   field.help_text = 'http://example.com'
-  field.options = []
 end
 
 miq_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field|
@@ -41,7 +37,6 @@ miq_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field|
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'Username'
-  field.options = []
 end
 
 miq_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field|
@@ -49,7 +44,6 @@ miq_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field|
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'Password'
-  field.options = []
 end
 
 # Chef Settings
@@ -61,7 +55,6 @@ chef_setting.admin_setting_fields.find_or_create_by(label: 'Enable') do |field|
   field.field_type = :check_box
   field.load_order = 0
   field.help_text = ''
-  field.options = []
 end
 
 chef_setting.admin_setting_fields.find_or_create_by(label: 'API URL') do |field|
@@ -69,7 +62,6 @@ chef_setting.admin_setting_fields.find_or_create_by(label: 'API URL') do |field|
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'http://example.com'
-  field.options = []
 end
 
 chef_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field|
@@ -77,7 +69,6 @@ chef_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'user1'
-  field.options = []
 end
 
 chef_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field|
@@ -85,7 +76,6 @@ chef_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field
   field.field_type = :text
   field.load_order = 3
   field.help_text = 'pass123'
-  field.options = []
 end
 
 # JIRA Settings
@@ -97,7 +87,6 @@ jira_setting.admin_setting_fields.find_or_create_by(label: 'Enable') do |field|
   field.field_type = :check_box
   field.load_order = 0
   field.help_text = ''
-  field.options = []
 end
 
 jira_setting.admin_setting_fields.find_or_create_by(label: 'API URL') do |field|
@@ -105,7 +94,6 @@ jira_setting.admin_setting_fields.find_or_create_by(label: 'API URL') do |field|
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'http://example.com'
-  field.options = []
 end
 
 jira_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field|
@@ -113,7 +101,6 @@ jira_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'user1'
-  field.options = []
 end
 
 jira_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field|
@@ -121,7 +108,6 @@ jira_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field
   field.field_type = :text
   field.load_order = 3
   field.help_text = 'pass123'
-  field.options = []
 end
 
 # Confluence Settings
@@ -133,7 +119,6 @@ confluence_setting.admin_setting_fields.find_or_create_by(label: 'Enable') do |f
   field.field_type = :check_box
   field.load_order = 0
   field.help_text = ''
-  field.options = []
 end
 
 confluence_setting.admin_setting_fields.find_or_create_by(label: 'API URL') do |field|
@@ -141,7 +126,6 @@ confluence_setting.admin_setting_fields.find_or_create_by(label: 'API URL') do |
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'http://example.com'
-  field.options = []
 end
 
 confluence_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field|
@@ -149,7 +133,6 @@ confluence_setting.admin_setting_fields.find_or_create_by(label: 'Username') do 
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'user1'
-  field.options = []
 end
 
 confluence_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field|
@@ -157,7 +140,6 @@ confluence_setting.admin_setting_fields.find_or_create_by(label: 'Password') do 
   field.field_type = :text
   field.load_order = 3
   field.help_text = 'pass123'
-  field.options = []
 end
 
 # Jenkins
@@ -169,7 +151,6 @@ jenkins_setting.admin_setting_fields.find_or_create_by(label: 'Enable') do |fiel
   field.field_type = :check_box
   field.load_order = 0
   field.help_text = ''
-  field.options = []
 end
 
 jenkins_setting.admin_setting_fields.find_or_create_by(label: 'API URL') do |field|
@@ -177,7 +158,6 @@ jenkins_setting.admin_setting_fields.find_or_create_by(label: 'API URL') do |fie
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'http://example.com'
-  field.options = []
 end
 
 jenkins_setting.admin_setting_fields.find_or_create_by(label: 'API Key') do |field|
@@ -185,7 +165,6 @@ jenkins_setting.admin_setting_fields.find_or_create_by(label: 'API Key') do |fie
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'TOKEN'
-  field.options = []
 end
 
 jenkins_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field|
@@ -193,7 +172,6 @@ jenkins_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |fi
   field.field_type = :text
   field.load_order = 3
   field.help_text = 'user1'
-  field.options = []
 end
 
 jenkins_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field|
@@ -201,7 +179,6 @@ jenkins_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |fi
   field.field_type = :text
   field.load_order = 4
   field.help_text = 'pass123'
-  field.options = []
 end
 
 # Email
@@ -213,7 +190,6 @@ email_setting.admin_setting_fields.find_or_create_by(label: 'Enable External Ser
   field.field_type = :check_box
   field.load_order = 0
   field.help_text = ''
-  field.options = []
 end
 
 email_setting.admin_setting_fields.find_or_create_by(label: 'Server') do |field|
@@ -221,7 +197,6 @@ email_setting.admin_setting_fields.find_or_create_by(label: 'Server') do |field|
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'smtp.example.com'
-  field.options = []
 end
 
 email_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field|
@@ -229,7 +204,6 @@ email_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |fiel
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'user1'
-  field.options = []
 end
 
 email_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field|
@@ -237,7 +211,6 @@ email_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |fiel
   field.field_type = :text
   field.load_order = 3
   field.help_text = 'pass123'
-  field.options = []
 end
 
 email_setting.admin_setting_fields.find_or_create_by(label: 'Send As') do |field|
@@ -245,7 +218,6 @@ email_setting.admin_setting_fields.find_or_create_by(label: 'Send As') do |field
   field.field_type = :text
   field.load_order = 4
   field.help_text = ''
-  field.options = []
 end
 
 email_setting.admin_setting_fields.find_or_create_by(label: 'Port') do |field|
@@ -253,7 +225,6 @@ email_setting.admin_setting_fields.find_or_create_by(label: 'Port') do |field|
   field.field_type = :text
   field.load_order = 5
   field.help_text = '25'
-  field.options = []
 end
 
 email_setting.admin_setting_fields.find_or_create_by(label: 'Use SSL') do |field|
@@ -261,7 +232,6 @@ email_setting.admin_setting_fields.find_or_create_by(label: 'Use SSL') do |field
   field.field_type = :check_box
   field.load_order = 6
   field.help_text = ''
-  field.options = []
 end
 
 # LDAP
@@ -273,7 +243,6 @@ ldap_setting.admin_setting_fields.find_or_create_by(label: 'Enable LDAP') do |fi
   field.field_type = :check_box
   field.load_order = 0
   field.help_text = ''
-  field.options = []
 end
 
 ldap_setting.admin_setting_fields.find_or_create_by(label: 'Server') do |field|
@@ -281,7 +250,6 @@ ldap_setting.admin_setting_fields.find_or_create_by(label: 'Server') do |field|
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'example.com'
-  field.options = []
 end
 
 ldap_setting.admin_setting_fields.find_or_create_by(label: 'Bind DN') do |field|
@@ -289,7 +257,6 @@ ldap_setting.admin_setting_fields.find_or_create_by(label: 'Bind DN') do |field|
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'user1'
-  field.options = []
 end
 
 ldap_setting.admin_setting_fields.find_or_create_by(label: 'Bind Password') do |field|
@@ -297,7 +264,6 @@ ldap_setting.admin_setting_fields.find_or_create_by(label: 'Bind Password') do |
   field.field_type = :text
   field.load_order = 3
   field.help_text = 'pass123'
-  field.options = []
 end
 
 ldap_setting.admin_setting_fields.find_or_create_by(label: 'Base DN') do |field|
@@ -305,7 +271,6 @@ ldap_setting.admin_setting_fields.find_or_create_by(label: 'Base DN') do |field|
   field.field_type = :text
   field.load_order = 4
   field.help_text = ''
-  field.options = []
 end
 
 # Confluence Settings
@@ -317,7 +282,6 @@ vmware_setting.admin_setting_fields.find_or_create_by(label: 'Enable') do |field
   field.field_type = :check_box
   field.load_order = 0
   field.help_text = ''
-  field.options = []
 end
 
 vmware_setting.admin_setting_fields.find_or_create_by(label: 'vCenter URL') do |field|
@@ -325,7 +289,6 @@ vmware_setting.admin_setting_fields.find_or_create_by(label: 'vCenter URL') do |
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'http://example.com'
-  field.options = []
 end
 
 vmware_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |field|
@@ -333,7 +296,6 @@ vmware_setting.admin_setting_fields.find_or_create_by(label: 'Username') do |fie
   field.field_type = :text
   field.load_order = 2
   field.help_text = 'user1'
-  field.options = []
 end
 
 vmware_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |field|
@@ -341,5 +303,124 @@ vmware_setting.admin_setting_fields.find_or_create_by(label: 'Password') do |fie
   field.field_type = :text
   field.load_order = 3
   field.help_text = 'pass123'
-  field.options = []
+end
+
+# Footer Links
+
+footer_setting = AdminSetting.find_or_create_by(name: 'Footer Links')
+
+footer_setting.admin_setting_fields.find_or_create_by(label: 'Link 1 Label') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 0
+  field.help_text = 'Example'
+end
+
+footer_setting.admin_setting_fields.find_or_create_by(label: 'Link 1 URL') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 0
+  field.help_text = 'http://example.com'
+end
+
+footer_setting.admin_setting_fields.find_or_create_by(label: 'Link 2 Label') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 1
+  field.help_text = 'Example'
+end
+
+footer_setting.admin_setting_fields.find_or_create_by(label: 'Link 2 URL') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 1
+  field.help_text = 'http://example.com'
+end
+
+footer_setting.admin_setting_fields.find_or_create_by(label: 'Link 3 Label') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 2
+  field.help_text = 'Example'
+end
+
+footer_setting.admin_setting_fields.find_or_create_by(label: 'Link 3 URL') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 2
+  field.help_text = 'http://example.com'
+end
+
+footer_setting.admin_setting_fields.find_or_create_by(label: 'Link 4 Label') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 3
+  field.help_text = 'Example'
+end
+
+footer_setting.admin_setting_fields.find_or_create_by(label: 'Link 4 URL') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 3
+  field.help_text = 'http://example.com'
+end
+
+# Footer Links
+
+header_setting = AdminSetting.find_or_create_by(name: 'Header Links')
+
+header_setting.admin_setting_fields.find_or_create_by(label: 'Link 1 Label') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 0
+  field.help_text = 'Example'
+end
+
+header_setting.admin_setting_fields.find_or_create_by(label: 'Link 1 URL') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 0
+  field.help_text = 'http://example.com'
+end
+
+header_setting.admin_setting_fields.find_or_create_by(label: 'Link 2 Label') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 1
+  field.help_text = 'Example'
+end
+
+header_setting.admin_setting_fields.find_or_create_by(label: 'Link 2 URL') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 1
+  field.help_text = 'http://example.com'
+end
+
+header_setting.admin_setting_fields.find_or_create_by(label: 'Link 3 Label') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 2
+  field.help_text = 'Example'
+end
+
+header_setting.admin_setting_fields.find_or_create_by(label: 'Link 3 URL') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 2
+  field.help_text = 'http://example.com'
+end
+
+header_setting.admin_setting_fields.find_or_create_by(label: 'Link 4 Label') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 3
+  field.help_text = 'Example'
+end
+
+header_setting.admin_setting_fields.find_or_create_by(label: 'Link 4 URL') do |field|
+  field.value = ''
+  field.field_type = :text
+  field.load_order = 3
+  field.help_text = 'http://example.com'
 end
