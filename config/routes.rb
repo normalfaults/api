@@ -44,11 +44,7 @@ Rails.application.routes.draw do
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Provision Request Response
-  #resources :order_items, only: [:update], defaults: { format: :json } do
-  #  member do
-  #    put :provision_update
-  #  end
-  #end
+  # Have to use a singular here as the PUT method is already mapped to order_items#update
   put 'order_items/:order_item_id', to: 'order_items#provision_update', defaults: { format: :json }
 
   # Orders
