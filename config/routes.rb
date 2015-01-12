@@ -43,6 +43,9 @@ Rails.application.routes.draw do
   # Organizations
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
+  # Provision Request Response
+  resources :order_items, defaults: { format: :json }, only: [:update]
+
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
     # Order Items
@@ -94,6 +97,18 @@ Rails.application.routes.draw do
   get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'
 
   root 'welcome#index'
+
+  # # Dashboard Routes
+  # resources :dashboard
+  #
+  # # Manage Routes
+  # resources :manage
+  #
+  # # Marketplace Routes
+  # resources :marketplace
+  #
+  # # Service Routes
+  # resources :service
 
   # Mocks routes
   # TODO: Remove when implemented

@@ -86,3 +86,9 @@ gem 'angular_rails_csrf', '~> 1.0.3' # XSRF-TOKEN is added to the cookie by defa
 
 # CRONTAB SCHEDULER
 gem 'whenever'
+
+# ActiveRecord DelayedJob
+gem 'delayed_job_active_record'
+
+# Daemons for DelayedJob
+gem 'daemons'
