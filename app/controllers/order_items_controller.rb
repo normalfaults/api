@@ -69,7 +69,7 @@ class OrderItemsController < ApplicationController
     render nothing: true, status: :ok
   end
 
-  api :PUT, '/order_items/:order_item_id', 'Updates an order item using the order item ID'
+  api :PUT, '/order_items/:id/provision_update', 'Updates an order item from ManageIQ'
   param :status, String, required: true
   param :message, String, required: true
   param :info, Hash, required: true do
@@ -109,6 +109,6 @@ class OrderItemsController < ApplicationController
   end
 
   def load_order_item_for_provision_update
-    @order_item = OrderItem.where(id: params.require(:order_item_id)).first
+    @order_item = OrderItem.where(id: params.require(:id)).first
   end
 end
