@@ -81,6 +81,9 @@ gem 'virtus'
 # CORS
 gem 'rack-cors'
 
+# CSRF
+gem 'angular_rails_csrf', '~> 1.0.3' # XSRF-TOKEN is added to the cookie by default.
+
 # CRONTAB SCHEDULER
 gem 'whenever'
 

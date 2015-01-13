@@ -6,7 +6,7 @@ RSpec.describe 'Order Items API' do
   let(:product) { create :product }
 
   before(:each) do
-    @order = Order.create_with_items(staff_id: 1, order_items: [{ product_id: product.id, project_id: project.id }, { product_id: product.id, project_id: project.id }])
+    @order = Order.create(staff_id: 1, order_items_attributes: [{ product_id: product.id, project_id: project.id }, { product_id: product.id, project_id: project.id }])
     sign_in_as create :staff, :admin
     @order_item = @order.order_items.first
   end
@@ -53,7 +53,7 @@ RSpec.describe 'Order Items API' do
 
   describe 'DELETE destroy' do
     before :each do
-      @order = Order.create_with_items(staff_id: 1, order_items: [{ product_id: product.id, project_id: project.id }])
+      @order = Order.create(staff_id: 1, order_items_attributes: [{ product_id: product.id, project_id: project.id }])
       @order_item = @order.order_items.first
     end
 
