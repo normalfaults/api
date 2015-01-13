@@ -38,7 +38,7 @@ class OrderItemsController < ApplicationController
   param :order_id, :number, required: true
   param :port, :number, required: false
   param :host, String, required: false
-  param :provision_status, %w(pending active)
+  param :provision_status, %w(ok warning critical unknown pending)
 
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -95,8 +95,12 @@ class OrderItemsController < ApplicationController
     params.permit(:id, :order_id, :port, :host, :provision_status, :ip_address, :hostname)
   end
 
+  def orders_from_params
+    OrderItem.where(id: params.require(:id))
+  end
+
   def load_order_item
-    @order_item = OrderItem.where(id: params.require(:id)).first
+    @order_item = orders_from_params.first
   end
 
   def order_item_params_for_provision_update
