@@ -1,7 +1,8 @@
 class OrderItemsController < ApplicationController
   respond_to :json
 
-  before_action :load_order_item, only: [:show, :destroy, :update, :start_service, :stop_service, :provision_update]
+  before_action :load_order_item, only: [:show, :destroy, :update, :start_service, :stop_service]
+  before_action :load_order_item_for_provision_update, only: [:provision_update]
 
   api :GET, '/orders/:order_id/items/:id', 'Shows order item with :id'
   param :includes, Array, required: false, in: %w(product)
@@ -96,7 +97,7 @@ class OrderItemsController < ApplicationController
   end
 
   def orders_from_params
-    OrderItem.where(id: params.require(:id))
+    OrderItem.where(id: params.require(:id), order_id: params.require(:order_id))
   end
 
   def load_order_item
@@ -105,5 +106,9 @@ class OrderItemsController < ApplicationController
 
   def order_item_params_for_provision_update
     params.require(:info).permit(:id, :miq_id, :provision_status, :ip_address, :hostname, :host, :port)
+  end
+
+  def load_order_item_for_provision_update
+    @order_item = OrderItem.where(id: params.require(:id)).first
   end
 end
