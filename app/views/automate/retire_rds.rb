@@ -14,7 +14,7 @@ rds = AWS::RDS.new(
     :secret_access_key => "#{$evm.root['dialog_secret_access_key']}",
 )
 
-# Get the needed information from the dialog
+# Retrieve information from the dialog
 db_instance_id ="#{$evm.root['dialog_instance_name']}"
 snapshot_identifier = "#{$evm.root['dialog_snapshot_identifier']}"
 final_snapshot = Integer($evm.root['dialog_final_snapshot'])
@@ -41,6 +41,7 @@ if instance.exists?
       exit
     rescue AWS::RDS::Errors => e
       $evm.log("error", "RDSRetire: Exception caught when deleting instance: #{e.message}")
+      exit
     end
   elsif final_snapshot == 1
     begin
@@ -69,13 +70,16 @@ if instance.exists?
     sleep 5
   end
   $evm.log("info", "RDSRetire: Instance deletion complete. Begin payload response.")
-  #TODO: send_order_status("OK", order_id, "")
+  info = {
+      "order_item" => "#{order_id}"
+  }
+#TODO: send_order_status("OK", order_id, info, "Instance retired."))
 else
   $evm.log("error", "RDSRetire: Instance #{db_instance_id} does not exist.")
   #TODO: send_order_status("CRITICAL", order_id, "","Instance does not exist")
 end
 
-#TODO: send_order_status("OK", order_id, "")
+
 
 
 

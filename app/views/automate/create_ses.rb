@@ -1,5 +1,3 @@
-# Created by Jillian Tullo 12/27/2014
-
 # This script configures an existing Simple Email Service
 # It will set the region, as well as set a verified sender
 # If a verified sender is chosen

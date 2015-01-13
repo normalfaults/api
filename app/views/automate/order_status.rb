@@ -22,20 +22,19 @@ def send_order_status(status, order_id, information, message="")
   port = 3000
   host = "localhost"
   path ="/order_item/#{order_id}/provision_update"
-
   if information != ""
     info_response = information.to_json
   end
   json = %{
     {
-    "status" : "#{status}","message" : "#{message}","information" : #{info_response}
+    "status" : "#{status}","message" : "#{message}","info" : #{info_response}
     }
   }
-  puts json.to_json
-  #TODO Send the actual HTTP Post request
+  $evm.root("info", "send_order_status: JSON to respond: #{json}")
   req = Net::HTTP::Put.new(path, initheader = {'Content-Type' => 'application/json'})
   req.body = json
   response = Net::HTTP.new(host, port).start {|http| http.request(req) }
+  $evm.root("info", "send_order_status: HTTP Response code: #{response.code}")
   puts response.code
 end # End of function
 

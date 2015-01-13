@@ -1,22 +1,22 @@
-# Created by Jillian Tullo 12/11/2014
-# Licensed for Booz Allen Hamilton
-
 # Waits for the instance to be out of the creating state
-# To retrieve instance properties to pass back to the
-# Marketplace
+# To retrieve instance properties to pass back to the marketplace
+# from the criteria selected in the marketplace
+# For use in Service/Provisioning/StateMachines/Methods/ProvisionRDS
 
 require 'aws-sdk'
 require 'rest-client'
 require 'rubygems'
 #load 'order_status'
 
-$evm.log("info", "ProvisionRDS: Entering /Provisioning/StateMachines/Methods/ProvisionRDS")
+$evm.log("info", "ProvisionRDS: Entering Method.")
+
 
 
 # If the instance did not complete creation from the previous state,
 # Exit method.
 if $evm.root['instance_failed'] == true
   $evm.log("error", "ProvisionRDS:  Could not create instance. Exiting method.")
+  # Does not need to pass back another response. Did that in the previous step.
   exit
 end
 
@@ -33,10 +33,10 @@ begin
   instance = instance_collection[db_instance_id]
 rescue AWS::RDS::Errors::InvalidClientTokenId => e
   $evm.log("error", "ProvisionRDS: Exception caught when creating instance: #{e.message}")
-  #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+  # send_order_status("CRITICAL", order_id, "","#{e.message}")
   exit
 rescue AWS::RDS::Errors => e
-  #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+  # send_order_status("CRITICAL", order_id, "","#{e.message}")
   exit
 end
 
@@ -63,10 +63,13 @@ if instance.exists?
       "instance_storage" => "#{$evm.root['dialog_allocated_storage']}"
   }
   $evm.log("info", "ProvisionRDS: Generated the RDS with the following information #{information}")
-  #TODO: send_order_status("OK", order_id, information)
+  # send_order_status("OK", order_id, information)
 else # If the instance did not exist
   $evm.log("info", "ProvisionRDS: Instance #{db_instance_id} was not created and does not exist")
-  #TODO: send_order_status("CRITICAL", order_id, "","Instance was not created and does not exist")
+  info = {
+      "order_id" => "#{order_id}"
+  }
+  # send_order_status("CRITICAL", order_id, info,"Instance was not created and does not exist")
 end
 
 $evm.log("info", "ProvisionRDS: Instance #{db_instance_id} created")

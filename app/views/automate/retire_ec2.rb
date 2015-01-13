@@ -1,5 +1,6 @@
-# Created by Jillian Tullo on 12/10/2014
-# This script will delete a particular EC2 instance
+# This script will delete a specified EC2 instance
+# For use in Service/Provisioning/StateMachines/Methods/RetireEC2
+
 require 'aws-sdk'
 require 'net/http'
 #load 'order_status'
@@ -53,4 +54,9 @@ else
   # TODO: Send back response stating that the instance does not exist
 end
 
-#TODO: send_order_status("OK", order_id, "")
+$evm.log("info", "RetireEC2: Instance retired.")
+
+info={
+    "order_item" => "#{order_id}"
+}
+#TODO: send_order_status("OK", order_id, info, "Instance retired.")

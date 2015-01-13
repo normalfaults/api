@@ -1,7 +1,6 @@
-# Created by Jillian Tullo on 12/10/2014
-
-# This script will create a new EC2 instance
-#  based off of the criteria selected in the marketplace
+# This script will create a new Amazon EC2 instance
+# from the criteria selected in the marketplace
+# For use in Service/Provisioning/StateMachines/Methods/CreateEC2
 
 require 'aws-sdk'
 require 'net/http'
@@ -79,7 +78,7 @@ end
 # Return all of the properties inside of a JSON Response
 # But first just print them all out
 
-information = {
+info = {
     "order_item" => "#{order_id}",
     "architecture" => "#{instance.architecture}",
     "dns_name" => "#{instance.dns_name}",
@@ -100,6 +99,6 @@ information = {
     "vpc_id" => "#{instance.vpc_id}"
 }
 
-#TODO: send_order_status("OK", order_id,  information)
+#TODO: send_order_status("OK", order_id, info)
 
 $evm.log("info", "CreateEC2: Response =  #{response}")

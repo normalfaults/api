@@ -54,4 +54,7 @@ if email != ""
   end
 end
 
-#TODO: send_order_status("OK", order_id, "")
+info = {
+  "order_item" => "#{order_id}"
+}
+#TODO: send_order_status("OK", order_id, info, "Instance retired.")

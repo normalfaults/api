@@ -1,5 +1,3 @@
-# Created by Jillian Tullo 12/4/2014
-
 # This script provisions a new S3 instance
 # Based off of the criteria selected in the marketplace
 

@@ -1,5 +1,8 @@
+# Script provisions a new Amazon RDS Instance from the
+# Criteria selected in the marketplace
+
 # For use in MIQ under the
-# /Provisioning/StateMachines/Methods/CreateRDSFromDialog
+# For use in Service/Provisioning/StateMachines/Methods/CreateRDS
 
 require 'aws-sdk'
 require 'net/http'
