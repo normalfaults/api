@@ -107,7 +107,7 @@ RSpec.describe 'Staff API' do
     it 'returns an error if the staff data is missing' do
       post '/staff'
       expect(response.status).to eq(422)
-      expect(json).to eq('errors' => {'email'=>['can\'t be blank'], 'password'=>['can\'t be blank']})
+      expect(json).to eq('errors' => { 'email' => ['can\'t be blank'], 'password' => ['can\'t be blank'] })
     end
   end
 
