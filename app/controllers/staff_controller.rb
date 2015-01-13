@@ -196,7 +196,7 @@ class StaffController < ApplicationController
   end
 
   def load_staff_params
-    @staff_params = params.require(:staff).permit(:first_name, :last_name, :email, :role, :password, :password_confirmation)
+    @staff_params = params.permit(:first_name, :last_name, :email, :role, :password, :password_confirmation)
   end
 
   def load_staff
