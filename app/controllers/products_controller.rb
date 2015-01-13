@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   before_action :load_products, only: [:index]
 
   api :GET, '/products', 'Returns a collection of products'
-  param :includes, Array, required: false, in: %w(chargebacks cloud product_category)
+  param :includes, Array, required: false, in: %w(chargebacks cloud product_type)
 
   def index
     respond_with_params @products
@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
 
   api :GET, '/products/:id', 'Shows product with :id'
   param :id, :number, required: true
-  param :includes, Array, required: false, in: %w(chargebacks cloud product_category)
+  param :includes, Array, required: false, in: %w(chargebacks cloud product_type)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
   param :description, String, desc: 'Short description'
   param :service_catalog_id, Integer, desc: 'ManageIQ Catalog Id'
   param :service_type_id, Integer, desc: 'ManageIQ Catalog Item Id'
-  param :product_category_id, Integer, desc: 'ProductCategory Id'
+  param :product_type_id, Integer, desc: 'ProductType Id'
   param :cloud_id, Integer, desc: 'Cloud Id'
   param :options, Array, desc: 'Options', allow_nil: true
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -43,7 +43,7 @@ class ProductsController < ApplicationController
   param :description, String, desc: 'Short description'
   param :service_catalog_id, Integer, desc: 'ManageIQ Catalog Id'
   param :service_type_id, Integer, desc: 'ManageIQ Catalog Item Id'
-  param :product_category_id, Integer, desc: 'ProductCategory Id'
+  param :product_type_id, Integer, desc: 'ProductType Id'
   param :cloud_id, Integer, desc: 'Cloud Id'
   param :options, Array, desc: 'options', allow_nil: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -67,7 +67,7 @@ class ProductsController < ApplicationController
   private
 
   def load_product_params
-    @products_params = params.permit(:name, :description, :service_type_id, :service_catalog_id, :product_category_id, :cloud_id, { options: [] }, :img, :active)
+    @products_params = params.permit(:name, :description, :service_type_id, :service_catalog_id, :product_type_id, :cloud_id, { options: [] }, :img, :active)
   end
 
   def load_product

@@ -58,10 +58,18 @@ Rails.application.routes.draw do
   end
 
   # Products
-  resources :products, except: [:edit, :new], defaults: { format: :json }
+  resources :products, except: [:edit, :new], defaults: { format: :json } do
+    member do
+      get :answers
+    end
+  end
 
   # ProductCategories
-  resources :product_categories, except: [:edit, :new], defaults: { format: :json }
+  resources :product_types, except: [:edit, :new], defaults: { format: :json } do
+    member do
+      get :questions
+    end
+  end
 
   # Chargebacks
   resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
