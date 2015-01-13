@@ -1,4 +1,4 @@
-describe AdminSetting do
+describe Setting do
   context 'persistence' do
     before :each do
     end
