@@ -100,14 +100,14 @@ RSpec.describe 'Staff API' do
 
     it 'creates a new staff record', :show_in_doc do
       staff_data = { first_name: 'Created', last_name: 'User', email: 'created@test.com', role: 'user', password: 'created_pass', password_confirmation: 'created_pass' }
-      post '/staff', staff: staff_data
+      post '/staff', staff_data
       expect(json['first_name']).to eq(staff_data[:first_name])
     end
 
     it 'returns an error if the staff data is missing' do
       post '/staff'
       expect(response.status).to eq(422)
-      expect(json).to eq('error' => 'param is missing or the value is empty: staff')
+      expect(json).to eq('errors' => { 'email' => ['can\'t be blank'], 'password' => ['can\'t be blank'] })
     end
   end
 
@@ -120,12 +120,6 @@ RSpec.describe 'Staff API' do
     it 'changes existing staff', :show_in_doc do
       put "/staff/#{@staff.id}", staff: { first_name: 'Updated' }
       expect(response.status).to eq(204)
-    end
-
-    it 'returns an error if the staff parameter is missing' do
-      put "/staff/#{@staff.id}"
-      expect(response.status).to eq(422)
-      expect(json).to eq('error' => 'param is missing or the value is empty: staff')
     end
 
     it 'returns an error when the staff does not exist' do
