@@ -1,6 +1,4 @@
-# Created by Jillian Tullo 12/4/2014
-
-# This script destroys an S3 instance
+# Description: This MIQ Method destroys an S3 instance
 # Based off of the criteria selected in the marketplace
 
 # For use in MIQ under the

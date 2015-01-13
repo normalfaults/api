@@ -1,6 +1,4 @@
-# Created by Jillian Tullo 12/4/2014
-
-# This script deletes an RDS instance
+# Description: This MIQ Method deletes an RDS instance
 # From an instance collection
 
 require 'aws-sdk'

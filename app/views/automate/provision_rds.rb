@@ -1,4 +1,5 @@
-# Waits for the instance to be out of the creating state
+# Description: This MIQ Method Waits for the instance
+# to be out of the creating state
 # To retrieve instance properties to pass back to the marketplace
 # from the criteria selected in the marketplace
 # For use in Service/Provisioning/StateMachines/Methods/ProvisionRDS

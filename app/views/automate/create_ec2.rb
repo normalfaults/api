@@ -1,4 +1,4 @@
-# This script will create a new Amazon EC2 instance
+# Description: This MIQ Method will create a new Amazon EC2 instance
 # from the criteria selected in the marketplace
 # For use in Service/Provisioning/StateMachines/Methods/CreateEC2
 

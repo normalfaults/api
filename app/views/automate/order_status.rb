@@ -1,7 +1,3 @@
-
-# Created by Jillian Tullo
-# 01/05/2015
-
 # Function sends back an order status back to the marketplace
 # Statuses:
 # "OK" : Action was completed without issues

@@ -1,4 +1,4 @@
-# This script will delete a specified EC2 instance
+# Description: This MIQ Method will delete a specified EC2 instance
 # For use in Service/Provisioning/StateMachines/Methods/RetireEC2
 
 require 'aws-sdk'

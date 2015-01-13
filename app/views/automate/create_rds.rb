@@ -1,4 +1,5 @@
-# Script provisions a new Amazon RDS Instance from the
+# Description: This MIQ Method
+# provisions a new Amazon RDS Instance from the
 # Criteria selected in the marketplace
 
 # For use in MIQ under the

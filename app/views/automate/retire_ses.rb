@@ -1,6 +1,4 @@
-# Created by Jillian Tullo 12/27/2014
-
-# This script un-verifies e-mail addresses
+# Description: This MIQ Method un-verifies e-mail addresses
 # From an existing SES service
 
 # For use in MIQ under the
