@@ -53,6 +53,7 @@ if instance.exists?
 
   #Create the payload to send back to the marketplace
   information ={
+      "order_id" => "#{order_id}",
       "db_endpoint_address" => "#{instance.endpoint_address}",
       "db_endpoint_port" => "#{instance.endpoint_port}",
       "username" => "#{instance.master_username}",

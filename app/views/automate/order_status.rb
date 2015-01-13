@@ -21,7 +21,7 @@ def send_order_status(status, order_id, information, message="")
 
   port = 3000
   host = "localhost"
-  path ="/order_item/#{order_id}"
+  path ="/order_item/#{order_id}/provision_update"
 
   if information != ""
     info_response = information.to_json
@@ -36,17 +36,6 @@ def send_order_status(status, order_id, information, message="")
   req = Net::HTTP::Put.new(path, initheader = {'Content-Type' => 'application/json'})
   req.body = json
   response = Net::HTTP.new(host, port).start {|http| http.request(req) }
-  puts response
+  puts response.code
 end # End of function
 
-
-# TESTING PURPOSES ONLY BELOW:
-# DELETE FROM SCRIPT
-information = {
-    "test1" => "testa",
-    "test2" => "testb",
-    "test3" => "testc",
-    "test4" => "testd"
-}
-
-send_order_status("OK",2, information)

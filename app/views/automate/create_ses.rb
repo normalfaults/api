@@ -33,7 +33,7 @@ else
   )
 end
 
-$evm.log("info", "Create SES: create service")
+$evm.log("info", "CreateSES: create service")
 ses = AWS::SimpleEmailService.new
 
 # Setup a verified sender if a sender was chosen
@@ -41,24 +41,33 @@ if email != ""
   begin
     email_identities = email.split(',')
     email_identities.each do |e|
-      $evm.log("info", "Create SES: E-mail Identity: #{e}")
+      $evm.log("info", "CreateSES: E-mail Identity: #{e}")
       ses.identities.verify(e)
     end
   rescue AWS::SimpleEmailService::Errors::InvalidClientTokenId => e
-    $evm.log("error", "CreateRDSFromDialog: Exception caught when creating instance: #{e.message}")
+    $evm.log("error", "CreateSES: Exception caught when creating instance: #{e.message}")
     #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue AWS::RDS::Errors::InvalidParameterValue => e
-    $evm.log("error", "Create SES: Invalid parameter exception caught: #{e.message}")
+    $evm.log("error", "CreateSES: Invalid parameter exception caught: #{e.message}")
     #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue AWS::RDS::Errors => e
-    $evm.log("error", "Create SES: Exception caught: #{e.message}")
+    $evm.log("error", "CreateSES: Exception caught: #{e.message}")
     #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue Exception => e
-    $evm.log("error", "Create SES: Exception caught #{e.message}")
+    $evm.log("error", "CreateSES: Exception caught #{e.message}")
     #TODO: send_order_status("CRITICAL", order_id "","#{e.message}")
     exit
   end
 end
+
+# Return the response that it was created successfully
+info = {
+    "order_item" => "#{order_id}",
+    "region" => "#{region}"
+}
+
+$evm.log("info", "CreateSES: Provision executed successfully.")
+# send_order_status("OK", order_id, info)

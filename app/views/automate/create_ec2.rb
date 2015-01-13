@@ -80,6 +80,7 @@ end
 # But first just print them all out
 
 information = {
+    "order_item" => "#{order_id}",
     "architecture" => "#{instance.architecture}",
     "dns_name" => "#{instance.dns_name}",
     "id" => "#{instance.id}",
