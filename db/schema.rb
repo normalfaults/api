@@ -11,29 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108045901) do
+ActiveRecord::Schema.define(version: 20150111172453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "admin_setting_fields", force: true do |t|
-    t.string   "label"
-    t.integer  "field_type",                 default: 0
-    t.string   "help_text"
-    t.json     "options"
-    t.string   "value"
-    t.string   "required",         limit: 1
-    t.integer  "load_order"
-    t.integer  "admin_setting_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "admin_setting_fields", ["admin_setting_id"], name: "index_admin_setting_fields_on_admin_setting_id", using: :btree
-
-  create_table "admin_settings", force: true do |t|
-    t.string "name"
-  end
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
@@ -141,11 +122,11 @@ ActiveRecord::Schema.define(version: 20150108045901) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "project_id"
+    t.string   "host"
+    t.integer  "port"
     t.integer  "miq_id"
     t.inet     "ip_address"
     t.string   "hostname"
-    t.string   "host"
-    t.integer  "port"
   end
 
   add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree
@@ -266,16 +247,24 @@ ActiveRecord::Schema.define(version: 20150108045901) do
 
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
 
-  create_table "settings", force: true do |t|
-    t.string   "name"
-    t.text     "value"
+  create_table "setting_fields", force: true do |t|
+    t.string   "label"
+    t.integer  "field_type",           default: 0
+    t.string   "help_text"
+    t.json     "options"
+    t.string   "value"
+    t.string   "required",   limit: 1
+    t.integer  "load_order"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
+    t.integer  "setting_id"
   end
 
-  add_index "settings", ["deleted_at"], name: "index_settings_on_deleted_at", using: :btree
-  add_index "settings", ["name"], name: "index_settings_on_name", unique: true, using: :btree
+  add_index "setting_fields", ["setting_id"], name: "index_setting_fields_on_setting_id", using: :btree
+
+  create_table "settings", force: true do |t|
+    t.string "name"
+  end
 
   create_table "staff", force: true do |t|
     t.string   "first_name"
