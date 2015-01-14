@@ -56,6 +56,7 @@ gem 'responders'
 
 # Authentication
 gem 'devise'
+gem 'simple_token_authentication', '~> 1.0'
 
 # Authorization
 gem 'pundit'
