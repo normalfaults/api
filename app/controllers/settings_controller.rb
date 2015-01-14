@@ -7,6 +7,8 @@ class SettingsController < ApplicationController
 
   api :GET, '/settings', 'Returns a collection of admin settings'
   param :includes, Array, required: false, in: %w(setting_fields)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     respond_with_params @settings
@@ -78,6 +80,6 @@ class SettingsController < ApplicationController
   end
 
   def load_settings
-    @settings = query_with_includes Setting.all
+    @settings = query_with Setting.all, :includes, :pagination
   end
 end

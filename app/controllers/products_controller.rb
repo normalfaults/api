@@ -6,6 +6,8 @@ class ProductsController < ApplicationController
   before_action :load_products, only: [:index]
 
   api :GET, '/products', 'Returns a collection of products'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
   param :includes, Array, required: false, in: %w(chargebacks cloud product_category)
 
   def index
@@ -75,6 +77,6 @@ class ProductsController < ApplicationController
   end
 
   def load_products
-    @products = query_with_includes Product.all
+    @products = query_with Product.all, :includes, :pagination
   end
 end

@@ -19,6 +19,11 @@ RSpec.describe 'Products API' do
       get '/products', includes: %w(chargebacks)
       expect(json[0]['chargebacks']).to_not eq(nil)
     end
+
+    it 'paginates the products' do
+      get '/products', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do
@@ -41,6 +46,11 @@ RSpec.describe 'Products API' do
       get "/products/#{@product.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
+    end
+
+    it 'paginates the chargebacks' do
+      get '/chargebacks', page: 1, per_page: 1
+      expect(json.length).to eq(1)
     end
   end
 

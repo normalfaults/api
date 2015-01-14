@@ -1,16 +1,23 @@
 # Default controller
 class ApplicationController < ActionController::Base
   extend Apipie::DSL::Concern
+  include Pundit
 
+  # Error Handling
   include InvalidRecordDetection
   include DuplicateRecordDetection
   include UnauthorizedAccessDetection
   include MissingRecordDetection
   include ParameterValidation
+
+  # Response Rending
   include RenderWithParams
-  include AssociationResolution
   include MethodResolution
-  include Pundit
+
+  # Querying
+  include Pagination
+  include AssociationResolution
+  include QueryBuilder
 
   # protect_from_forgery
 

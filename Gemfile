@@ -9,6 +9,9 @@ gem 'rails', '4.1.7'
 gem 'pg', '~> 0.17.1'
 gem 'pg_search', '~> 0.7.8'
 
+# Pagination
+gem 'will_paginate', '~> 3.0.7'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 

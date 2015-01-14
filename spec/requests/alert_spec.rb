@@ -6,18 +6,22 @@ RSpec.describe 'Alerts API' do
   describe 'GET index' do
     before :each do
       sign_in_as create :staff, :admin
-    end
-
-    it 'returns a collection of all alerts', :show_in_doc do
       create :alert
       create :alert, :first
       create :alert, :second
       create :alert, :third
       create :alert, :active
       create :alert, :inactive
+    end
+
+    it 'returns a collection of all alerts', :show_in_doc do
       get '/alerts/all'
       expect(json.length).to eq(6)
-      true
+    end
+
+    it 'paginates the alerts' do
+      get '/alerts/all', page: 1, per_page: 5
+      expect(json.length).to eq(5)
     end
   end
 
