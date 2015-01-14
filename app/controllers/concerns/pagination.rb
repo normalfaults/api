@@ -14,7 +14,8 @@ module Pagination
   def gather_pagination_params!
     @pagination_params = {}
     @pagination_params[:page] = params[:page]
-    @pagination_params[:per_page] = params[:per_page] || PER_PAGE_DEFAULT
+    @pagination_params[:per_page] = params[:per_page]
+    @pagination_params[:per_page] ||= PER_PAGE_DEFAULT
   end
 
   def query_with_pagination(query)
