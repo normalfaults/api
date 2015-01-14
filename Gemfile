@@ -43,7 +43,10 @@ gem 'rubocop', group: [:development, :test]
 gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
+
+# Use puma as the app server
+gem 'puma'
 
 # Use web-console
 gem 'web-console', '~> 2.0.0', group: :development
@@ -69,6 +72,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'database_cleaner', '~> 1.3.0'
   gem 'brakeman', require: false
+  gem 'license_finder'
 end
 
 # Documentation
