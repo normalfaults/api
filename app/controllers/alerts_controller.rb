@@ -30,7 +30,7 @@ class AlertsController < ApplicationController
     respond_with @alert
   end
 
-  #note: seems like this could be removed. Does the same thing as index
+  # note: seems like this could be removed. Does the same thing as index
   api :GET, '/alerts/all', 'Shows all alerts, both active and inactive.'
   param :page, :number, required: false
   param :per_page, :number, required: false
