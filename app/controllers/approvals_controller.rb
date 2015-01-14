@@ -9,6 +9,8 @@ class ApprovalsController < ApplicationController
 
   api :GET, '/approvals', 'Returns a collection of approvals'
   param :includes, Array, required: false, in: %w(staff project)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     authorize Approval.new
@@ -83,6 +85,6 @@ class ApprovalsController < ApplicationController
 
   def load_approvals
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @approvals = Approval.all
+    @approvals = query_with Approval.all, :includes, :pagination
   end
 end

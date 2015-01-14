@@ -17,6 +17,8 @@ class StaffController < ApplicationController
   param :query, String, required: false, desc: 'queries against first name, last name, and email'
   param :methods, Array, required: false, in: %w(gravatar allowed)
   param :includes, Array, required: false, in: %w(user_settings projects)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
   def index
     authorize Staff.new
     respond_with_params @staffs
@@ -191,7 +193,7 @@ class StaffController < ApplicationController
     if @staffs_params[:query]
       @staffs = Staff.search @staffs_params[:query]
     else
-      @staffs = query_with_includes Staff.all
+      @staffs = query_with Staff.all, :includes, :pagination
     end
   end
 

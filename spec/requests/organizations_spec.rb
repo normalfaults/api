@@ -15,6 +15,11 @@ RSpec.describe 'Organizations' do
       get '/organizations'
       expect(response.body).to eq(@organizations.to_json)
     end
+
+    it 'paginates the organizations' do
+      get '/organizations', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do

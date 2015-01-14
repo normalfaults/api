@@ -15,6 +15,11 @@ RSpec.describe 'Orders API' do
       get '/orders'
       expect(response.body).to eq(@orders.as_json(include: [:order_items]).to_json)
     end
+
+    it 'paginates the orders' do
+      get '/orders', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do

@@ -29,6 +29,11 @@ RSpec.describe 'Staff API' do
       get '/staff', query: 'joh'
       expect(json[0]['first_name']).to eq('john')
     end
+
+    it 'paginates the staff' do
+      get '/staff', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do

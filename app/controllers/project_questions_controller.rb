@@ -8,6 +8,8 @@ class ProjectQuestionsController < ApplicationController
   after_action :verify_authorized
 
   api :GET, '/project_questions', 'Returns a collection of project_questions'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
   param :includes, Array, required: false, in: %w(project)
 
   def index
@@ -80,6 +82,6 @@ class ProjectQuestionsController < ApplicationController
 
   def load_project_questions
     # TODO: Use a FormObject to encapsulate search filters, ordering, pagination
-    @project_questions = query_with_includes ProjectQuestion.all
+    @project_questions = query_with ProjectQuestion.all, :includes, :pagination
   end
 end

@@ -13,9 +13,11 @@ class AlertsController < ApplicationController
   before_action :load_alert_id, only: [:create, :sensu]
 
   api :GET, '/alerts', 'Returns all active alerts. (Default behavior)'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
-    authorize Alert.new
+    authorize @alerts
     respond_with @alerts
   end
 
@@ -28,24 +30,31 @@ class AlertsController < ApplicationController
     respond_with @alert
   end
 
+  #note: seems like this could be removed. Does the same thing as index
   api :GET, '/alerts/all', 'Shows all alerts, both active and inactive.'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def show_all
-    authorize Alert.new
+    authorize @alerts
     respond_with @alerts
   end
 
   api :GET, '/alerts/active', 'Shows all active alerts. Where end_date is null or has yet to occur and start is null or has already occurred.'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def show_active
-    authorize Alert.new
+    authorize @alerts
     respond_with @alerts
   end
 
   api :GET, '/alerts/inactive', 'Shows all inactive alerts. Where end_date has already occurred or start_date has yet to occur.'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def show_inactive
-    authorize Alert.new
+    authorize @alerts
     respond_with @alerts
   end
 
@@ -164,15 +173,15 @@ class AlertsController < ApplicationController
 
   # Note: We should move these to named scopes in the model.
   def load_all_alerts
-    @alerts = Alert.all.order('created_at ASC')
+    @alerts = query_with Alert.all.order('created_at ASC'), :includes, :pagination
   end
 
   def load_active_alerts
-    @alerts = Alert.where('(start_date IS NULL OR start_date <= ?) AND (end_date IS NULL OR end_date > ?)', DateTime.now, DateTime.now).order('created_at ASC')
+    @alerts = query_with Alert.where('(start_date IS NULL OR start_date <= ?) AND (end_date IS NULL OR end_date > ?)', DateTime.now, DateTime.now).order('created_at ASC'), :includes, :pagination
   end
 
   def load_inactive_alerts
-    @alerts = Alert.where('end_date < ? OR start_date > ?', DateTime.now, DateTime.now).order('created_at ASC')
+    @alerts = query_with Alert.where('end_date < ? OR start_date > ?', DateTime.now, DateTime.now).order('created_at ASC'), :includes, :pagination
   end
 
   def load_alert

@@ -2,15 +2,19 @@
 class ApplicationController < ActionController::Base
   extend Apipie::DSL::Concern
 
+  include Pagination
   include InvalidRecordDetection
   include DuplicateRecordDetection
   include UnauthorizedAccessDetection
   include MissingRecordDetection
   include ParameterValidation
   include RenderWithParams
-  include AssociationResolution
   include MethodResolution
   include Pundit
+
+  include Pagination
+  include AssociationResolution
+  include QueryBuilder
 
   # protect_from_forgery
 
