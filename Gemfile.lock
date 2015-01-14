@@ -239,8 +239,8 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
     whenever (0.9.4)
       chronic (>= 0.6.3)
-    xml-simple (1.1.4)
     will_paginate (3.0.7)
+    xml-simple (1.1.4)
 
 PLATFORMS
   ruby
