@@ -9,6 +9,8 @@ class CloudsController < ApplicationController
 
   api :GET, '/clouds', 'Returns a collection of clouds'
   param :includes, Array, required: false, in: %w(chargebacks  products)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     authorize Cloud
@@ -74,6 +76,6 @@ class CloudsController < ApplicationController
   end
 
   def load_clouds
-    @clouds = query_with_includes Cloud.all
+    @clouds = query_with Cloud.all, :includes, :pagination
   end
 end

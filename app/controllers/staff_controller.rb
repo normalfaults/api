@@ -17,6 +17,8 @@ class StaffController < ApplicationController
   param :query, String, required: false, desc: 'queries against first name, last name, and email'
   param :methods, Array, required: false, in: %w(gravatar allowed)
   param :includes, Array, required: false, in: %w(user_settings projects)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
   def index
     authorize Staff.new
     respond_with_params @staffs
@@ -45,8 +47,12 @@ class StaffController < ApplicationController
   end
 
   api :POST, '/staff', 'Creates a staff member'
-  param :staff, Hash, desc: 'Staff' do
-  end
+  param :first_name, String, required: false
+  param :last_name, String, required: false
+  param :email, String, required: false
+  param :role, String, required: false
+  param :password, String, required: false
+  param :password_confirmation, String, required: false
   error code: 422, desc: MissingRecordDetection::Messages.not_found
   def create
     @staff = Staff.new @staff_params
@@ -57,8 +63,12 @@ class StaffController < ApplicationController
 
   api :PUT, '/staff/:id', 'Updates a staff member with :id'
   param :id, :number, required: true
-  param :staff, Hash, desc: 'Staff' do
-  end
+  param :first_name, String, required: false
+  param :last_name, String, required: false
+  param :email, String, required: false
+  param :role, String, required: false
+  param :password, String, required: false
+  param :password_confirmation, String, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
   def update
@@ -191,7 +201,7 @@ class StaffController < ApplicationController
     if @staffs_params[:query]
       @staffs = Staff.search @staffs_params[:query]
     else
-      @staffs = query_with_includes Staff.all
+      @staffs = query_with Staff.all, :includes, :pagination
     end
   end
 

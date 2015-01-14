@@ -44,7 +44,11 @@ Rails.application.routes.draw do
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Provision Request Response
-  resources :order_items, defaults: { format: :json }, only: [:update]
+  resources :order_items, defaults: { format: :json }, only: [:update] do
+    member do
+      put :provision_update
+    end
+  end
 
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do

@@ -33,6 +33,11 @@ RSpec.describe 'Chargebacks API' do
       get '/chargebacks', includes: ['product']
       expect(json[0]['product']).to_not eq(nil)
     end
+
+    it 'paginates the chargebacks' do
+      get '/chargebacks', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do

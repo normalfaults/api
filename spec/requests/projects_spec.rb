@@ -10,18 +10,23 @@ RSpec.describe 'Projects API' do
 
   describe 'GET index' do
     before :each do
+      @project = create :project
+      @project2 = create :project
       sign_in_as create :staff, :admin
     end
 
     it 'returns a collection of all projects', :show_in_doc  do
-      project = create :project
-      project2 = create :project
-      create :project_detail, project_id: project.id
-      create :project_detail, project_id: project2.id
+      create :project_detail, project_id: @project.id
+      create :project_detail, project_id: @project2.id
       staff = create :staff
-      create :staff_project, staff_id: staff.id, project_id: project.id
+      create :staff_project, staff_id: staff.id, project_id: @project.id
       get '/projects'
       expect(json.length).to eq(2)
+    end
+
+    it 'paginates the projects' do
+      get '/projects', page: 1, per_page: 1
+      expect(json.length).to eq(1)
     end
   end
 
