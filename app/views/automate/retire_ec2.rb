@@ -9,7 +9,6 @@ require 'json'
 
 $evm.log("error", "RetireEC2: Enter Method.")
 
-
 # Retrieve the information passed to MIQ from the Dialog call
 access_key_id = "#{$evm.root['dialog_access_key_id']}"
 secret_access_key = "#{$evm.root['dialog_secret_access_key']}"

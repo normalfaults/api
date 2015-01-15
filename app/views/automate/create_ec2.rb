@@ -8,36 +8,6 @@ require 'uri/http'
 require 'json'
 #load 'order_status'
 
-def send_order_status(status, order_id, information, message="")
-  host = "jellyfish-core-dev.dpi.bah.com"
-  path ="/order_items/#{order_id}/provision_update"
-  url = "http://#{host}#{path}"
-  uri = URI.parse(url)
-
-  information = information.merge("provision_status" => status.downcase)
-  information = information.merge("id" => "#{order_id}")
-  $evm.log("info", "send_order_status: Information: #{information}")
-  json = {
-      "status" => "#{status}",
-      "message" => "#{message}",
-      "info" => information
-  }
-  $evm.log("info", "send_order_status: Information #{json.to_json}")
-  begin
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Put.new(uri.path)
-    request.content_type ="application/json"
-    request.body = json.to_json
-    response = http.request(request)
-    $evm.log("info", "send_order_status: HTTP Response code: #{response.code}")
-    $evm.log("info", "send_order_status: HTTP Response message: #{response.message}")
-  rescue HTTPExceptions => e
-    $evm.log("error", "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
-  rescue Exception => e
-    $evm.log("error", "send_order_status: Exception caught while sending response back to core: #{e.message}")
-  end
-end # End of function
-
 # Retrieve the information passed to MIQ from the Dialog call
 access_key_id = "#{$evm.root['dialog_access_key_id']}"
 secret_access_key = "#{$evm.root['dialog_secret_access_key']}"
