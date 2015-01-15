@@ -1,7 +1,5 @@
 SimpleTokenAuthentication.configure do |config|
-
   config.header_names = { staff: { authentication_token: 'X-Staff-Token', email: 'X-Staff-Email' } }
-  config.sign_in_token = false
 
   # Configure the session persistence policy after a successful sign in,
   # in other words, if the authentication token acts as a signin token.
