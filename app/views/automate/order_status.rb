@@ -15,22 +15,31 @@ require 'json'
 
 def send_order_status(status, order_id, information, message="")
 
-  port = 3000
-  host = "localhost"
-  path ="/order_item/#{order_id}/provision_update"
-  if information != ""
-    info_response = information.to_json
-  end
-  json = %{
-    {
-    "status" : "#{status}","message" : "#{message}","info" : #{info_response}
-    }
-  }
-  $evm.root("info", "send_order_status: JSON to respond: #{json}")
-  req = Net::HTTP::Put.new(path, initheader = {'Content-Type' => 'application/json'})
-  req.body = json
-  response = Net::HTTP.new(host, port).start {|http| http.request(req) }
-  $evm.root("info", "send_order_status: HTTP Response code: #{response.code}")
-  puts response.code
-end # End of function
+  host = "jellyfish-core-dev.dpi.bah.com"
+  path ="/order_items/#{order_id}/provision_update"
+  url = "http://#{host}#{path}"
+  uri = URI.parse(url)
 
+  information = information.merge("provision_status" => status.downcase)
+  information = information.merge("id" => "#{order_id}")
+  $evm.log("info", "send_order_status: Information: #{information}")
+  json = {
+      "status" => "#{status}",
+      "message" => "#{message}",
+      "info" => information
+  }
+  $evm.log("info", "send_order_status: Information #{json.to_json}")
+  begin
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Put.new(uri.path)
+    request.content_type ="application/json"
+    request.body = json.to_json
+    response = http.request(request)
+    $evm.log("info", "send_order_status: HTTP Response code: #{response.code}")
+    $evm.log("info", "send_order_status: HTTP Response message: #{response.message}")
+  rescue HTTPExceptions => e
+    $evm.log("error", "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
+  rescue Exception => e
+    $evm.log("error", "send_order_status: Exception caught while sending response back to core: #{e.message}")
+  end
+end # End of function

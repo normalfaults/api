@@ -4,6 +4,8 @@
 require 'aws-sdk'
 require 'net/http'
 require 'securerandom'
+require 'uri/http'
+require 'json'
 #load 'order_status'
 
 $evm.log("info", "RDSRetire: Enter retirement method.")
@@ -35,10 +37,11 @@ if instance.exists?
       )
     rescue AWS::RDS::Errors::InvalidDBInstanceState => e
       $evm.log("error", "RDSRetire: Invalid Instance state: #{e.message}")
-      #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+      send_order_status("CRITICAL", order_id, "","#{e.message}")
       exit
     rescue AWS::RDS::Errors => e
       $evm.log("error", "RDSRetire: Exception caught when deleting instance: #{e.message}")
+      send_order_status("CRITICAL", order_id, "","#{e.message}")
       exit
     end
   elsif final_snapshot == 1
@@ -47,37 +50,29 @@ if instance.exists?
           :skip_final_snapshot => false,
           :final_db_snapshot_identifier => snapshot_identifier
       )
-    rescue AWS::RDS::Errors::DBSnapshotAlreadyExists => e
-      $evm.log("error", "RDSRetire: DB Snapshot Already exists exception caught: #{e.message}")
-      #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
-      exit
     rescue AWS::RDS::Errors::InvalidDBInstanceState => e
       $evm.log("error", "RDSRetire: Invalid Instance state: #{e.message}")
-      #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+      send_order_status("CRITICAL", order_id, "","#{e.message}")
       exit
     rescue AWS::RDS::Errors => e
       $evm.log("error", "RDSRetire: Exception caught when deleting instance: #{e.message}")
-      #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+      send_order_status("CRITICAL", order_id, "","#{e.message}")
       exit
     end
   else
     $evm.log("error", "RDSRetire: Must specify final snapshot value.")
-    #TODO: send_order_status("CRITICAL", order_id, "","Must specify final snapshot value")
+    send_order_status("CRITICAL", order_id, "","Must specify final snapshot value")
   end
-  while instance.status == 'deleting' do
+  while instance.exists? && instance.status == 'deleting' do
+    $evm.log("info", "RDSRetire: Instance is deleting.")
     sleep 5
   end
   $evm.log("info", "RDSRetire: Instance deletion complete. Begin payload response.")
   info = {
-      "order_item" => "#{order_id}"
+      "id" => "#{order_id}"
   }
-#TODO: send_order_status("OK", order_id, info, "Instance retired."))
+  send_order_status("OK", order_id, info, "Instance retired.")
 else
   $evm.log("error", "RDSRetire: Instance #{db_instance_id} does not exist.")
-  #TODO: send_order_status("CRITICAL", order_id, "","Instance does not exist")
+  send_order_status("CRITICAL", order_id, "","Instance does not exist")
 end
-
-
-
-
-

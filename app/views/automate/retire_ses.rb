@@ -5,6 +5,9 @@
 # /Provisioning/StateMachines/Methods/CreateSES
 
 require 'aws-sdk'
+require 'net/http'
+require 'uri/http'
+require 'json'
 #load 'order_status'
 
 $evm.log("info", "RetireSES: Entering method")
@@ -35,24 +38,24 @@ if email != ""
     end
   rescue AWS::SimpleEmailService::Errors::InvalidClientTokenId => e
     $evm.log("error", "RetireSES: Exception caught when creating instance: #{e.message}")
-    #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+    send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue AWS::SimpleEmailService::Errors::InvalidParameterValue => e
     $evm.log("error", "RetireSES: Invalid parameter exception caught: #{e.message}")
-    #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+    send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue AWS::SimpleEmailService::Errors => e
     $evm.log("error", "RetireSES: Exception caught: #{e.message}")
-    #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+    send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue Exception => e
     $evm.log("error", "RetireSES: Exception caught #{e.message}")
-    #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+    send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   end
 end
 
 info = {
-  "order_item" => "#{order_id}"
+    "order_item" => "#{order_id}"
 }
-#TODO: send_order_status("OK", order_id, info, "Instance retired.")
+send_order_status("OK", order_id, info, "Instance retired.")

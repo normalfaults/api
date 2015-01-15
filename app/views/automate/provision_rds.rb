@@ -7,11 +7,13 @@
 require 'aws-sdk'
 require 'rest-client'
 require 'rubygems'
+require 'net/http'
+require 'uri/http'
+require 'json'
 #load 'order_status'
 
+
 $evm.log("info", "ProvisionRDS: Entering Method.")
-
-
 
 # If the instance did not complete creation from the previous state,
 # Exit method.
@@ -34,10 +36,11 @@ begin
   instance = instance_collection[db_instance_id]
 rescue AWS::RDS::Errors::InvalidClientTokenId => e
   $evm.log("error", "ProvisionRDS: Exception caught when creating instance: #{e.message}")
-  # send_order_status("CRITICAL", order_id, "","#{e.message}")
+  send_order_status("CRITICAL", order_id, "","#{e.message}")
   exit
 rescue AWS::RDS::Errors => e
-  # send_order_status("CRITICAL", order_id, "","#{e.message}")
+  $evm.log("error", "ProvisionRDS: Exception caught when creating instance: #{e.message}")
+  send_order_status("CRITICAL", order_id, "","#{e.message}")
   exit
 end
 
@@ -54,7 +57,6 @@ if instance.exists?
 
   #Create the payload to send back to the marketplace
   information ={
-      "order_id" => "#{order_id}",
       "db_endpoint_address" => "#{instance.endpoint_address}",
       "db_endpoint_port" => "#{instance.endpoint_port}",
       "username" => "#{instance.master_username}",
@@ -64,13 +66,13 @@ if instance.exists?
       "instance_storage" => "#{$evm.root['dialog_allocated_storage']}"
   }
   $evm.log("info", "ProvisionRDS: Generated the RDS with the following information #{information}")
-  # send_order_status("OK", order_id, information)
+  send_order_status("OK", order_id, information)
 else # If the instance did not exist
   $evm.log("info", "ProvisionRDS: Instance #{db_instance_id} was not created and does not exist")
   info = {
       "order_id" => "#{order_id}"
   }
-  # send_order_status("CRITICAL", order_id, info,"Instance was not created and does not exist")
+  send_order_status("CRITICAL", order_id, info,"Instance was not created and does not exist")
 end
 
 $evm.log("info", "ProvisionRDS: Instance #{db_instance_id} created")

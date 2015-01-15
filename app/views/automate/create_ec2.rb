@@ -4,7 +4,39 @@
 
 require 'aws-sdk'
 require 'net/http'
+require 'uri/http'
+require 'json'
 #load 'order_status'
+
+def send_order_status(status, order_id, information, message="")
+  host = "jellyfish-core-dev.dpi.bah.com"
+  path ="/order_items/#{order_id}/provision_update"
+  url = "http://#{host}#{path}"
+  uri = URI.parse(url)
+
+  information = information.merge("provision_status" => status.downcase)
+  information = information.merge("id" => "#{order_id}")
+  $evm.log("info", "send_order_status: Information: #{information}")
+  json = {
+      "status" => "#{status}",
+      "message" => "#{message}",
+      "info" => information
+  }
+  $evm.log("info", "send_order_status: Information #{json.to_json}")
+  begin
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Put.new(uri.path)
+    request.content_type ="application/json"
+    request.body = json.to_json
+    response = http.request(request)
+    $evm.log("info", "send_order_status: HTTP Response code: #{response.code}")
+    $evm.log("info", "send_order_status: HTTP Response message: #{response.message}")
+  rescue HTTPExceptions => e
+    $evm.log("error", "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
+  rescue Exception => e
+    $evm.log("error", "send_order_status: Exception caught while sending response back to core: #{e.message}")
+  end
+end # End of function
 
 # Retrieve the information passed to MIQ from the Dialog call
 access_key_id = "#{$evm.root['dialog_access_key_id']}"
@@ -51,17 +83,15 @@ begin
   instance = ec2.instances.create(options)
 rescue AWS::EC2::Errors::InvalidClientTokenId => e
   $evm.log("error", "CreateEC2: Invalid client token exception. Message: #{e.message}")
-  #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+  send_order_status("CRITICAL", order_id, "","#{e.message}")
   exit
 rescue AWS::EC2::Errors::InvalidParameterValue => e
   $evm.log("error", "CreateEC2: Invalid parameter exception. Message: #{e.message}")
-  #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+  send_order_status("CRITICAL", order_id, "","#{e.message}")
   exit
 rescue Exception => e
   $evm.log("error", "CreateEC2: Could not create instance. Error: #{e}")
-  #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
-  # Should return error message with a response saying it failed
-  # Then exit the script
+  send_order_status("CRITICAL", order_id, "","#{e.message}")
   exit
 end
 
@@ -71,7 +101,7 @@ sleep 5
 if instance.exists?
   while instance.status == :pending
     sleep 5
-    #TODO: send_order_status("PENDING", order_id, "")
+    send_order_status("PENDING", order_id, "")
   end
 end
 
@@ -99,6 +129,6 @@ info = {
     "vpc_id" => "#{instance.vpc_id}"
 }
 
-#TODO: send_order_status("OK", order_id, info)
+end_order_status("OK", order_id, info)
 
 $evm.log("info", "CreateEC2: Response =  #{response}")

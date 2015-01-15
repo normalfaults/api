@@ -7,9 +7,11 @@
 # /Provisioning/StateMachines/Methods/CreateSES
 
 require 'aws-sdk'
+require 'net/http'
+require 'uri/http'
 #load 'order_status'
 
-$evm.log("info", "Create SES: Entering method")
+$evm.log("info", "CreateSES: Entering method")
 
 # Retrieve dialog properties
 access_key = "#{$evm.root['dialog_access_key_id']}"
@@ -45,19 +47,19 @@ if email != ""
     end
   rescue AWS::SimpleEmailService::Errors::InvalidClientTokenId => e
     $evm.log("error", "CreateSES: Exception caught when creating instance: #{e.message}")
-    #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+    send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue AWS::RDS::Errors::InvalidParameterValue => e
     $evm.log("error", "CreateSES: Invalid parameter exception caught: #{e.message}")
-    #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+    send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue AWS::RDS::Errors => e
     $evm.log("error", "CreateSES: Exception caught: #{e.message}")
-    #TODO: send_order_status("CRITICAL", order_id, "","#{e.message}")
+    send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   rescue Exception => e
     $evm.log("error", "CreateSES: Exception caught #{e.message}")
-    #TODO: send_order_status("CRITICAL", order_id "","#{e.message}")
+    send_order_status("CRITICAL", order_id, "","#{e.message}")
     exit
   end
 end
@@ -69,4 +71,4 @@ info = {
 }
 
 $evm.log("info", "CreateSES: Provision executed successfully.")
-# send_order_status("OK", order_id, info)
+send_order_status("OK", order_id, info)
