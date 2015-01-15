@@ -8,6 +8,7 @@ RSpec.describe 'Products API' do
       create :product
       create :product
       @products = Product.all
+      sign_in_as create :staff, :admin
     end
 
     it 'returns a collection of all of the products', :show_in_doc do
@@ -25,6 +26,7 @@ RSpec.describe 'Products API' do
     before(:each) do
       create :product
       @product = Product.first
+      sign_in_as create :staff, :admin
     end
 
     it 'returns an product', :show_in_doc do
@@ -48,6 +50,7 @@ RSpec.describe 'Products API' do
     before(:each) do
       create :product
       @product = Product.first
+      sign_in_as create :staff, :admin
     end
 
     it 'updates a product', :show_in_doc do
@@ -64,6 +67,7 @@ RSpec.describe 'Products API' do
 
   describe 'POST create' do
     it 'creates an product', :show_in_doc do
+      sign_in_as create :staff, :admin
       post '/products/', options: ['test']
       expect(response.body).to eq(Product.first.to_json)
     end
@@ -72,6 +76,7 @@ RSpec.describe 'Products API' do
   describe 'DELETE destroy' do
     before :each do
       @product = create :product
+      sign_in_as create :staff, :admin
     end
 
     it 'removes the product', :show_in_doc do
