@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   include AssociationResolution
   include QueryBuilder
 
-  # protect_from_forgery
+  acts_as_token_authentication_handler_for Staff
 
   def current_user
     current_staff

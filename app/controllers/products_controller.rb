@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  skip_before_action :authenticate_user_from_token!
+
   respond_to :json
 
   before_action :load_product, only: [:show, :update, :destroy]

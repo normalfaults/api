@@ -1,7 +1,7 @@
 class StaffController < ApplicationController
-  respond_to :json, :xml
+  respond_to :json
 
-  after_action :verify_authorized, except: [:current_member]
+  skip_before_action :authenticate_user!, except: [:current_member]
 
   before_action :load_staffs, only: [:index]
   before_action :load_staff, only: [:show, :update, :destroy, :projects, :add_project, :remove_project, :user_settings, :show_user_setting, :add_user_setting, :update_user_setting, :remove_user_setting]
