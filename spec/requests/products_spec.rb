@@ -49,11 +49,6 @@ RSpec.describe 'Products API' do
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
-
-    it 'paginates the chargebacks' do
-      get '/chargebacks', page: 1, per_page: 1
-      expect(json.length).to eq(1)
-    end
   end
 
   describe 'PUT update' do
