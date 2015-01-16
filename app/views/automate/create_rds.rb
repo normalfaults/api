@@ -9,7 +9,7 @@ require 'aws-sdk'
 require 'net/http'
 require 'uri/http'
 require 'securerandom'
-#load 'order_status'
+load 'order_status.rb'
 
 rds = AWS::RDS.new(
     :access_key_id => "#{$evm.root['dialog_access_key_id']}",

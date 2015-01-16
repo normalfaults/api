@@ -9,7 +9,7 @@
 require 'aws-sdk'
 require 'net/http'
 require 'uri/http'
-#load 'order_status'
+load 'order_status.rb'
 
 $evm.log("info", "CreateSES: Entering method")
 

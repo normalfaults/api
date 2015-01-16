@@ -5,9 +5,8 @@
 # For use in Service/Provisioning/StateMachines/Methods/RetireS3
 
 require 'aws-sdk'
-require 'net/http'
-require 'uri/http'
 require 'json'
+load 'order_status.rb'
 
 $evm.log("info", "RetireS3: Enter Method.")
 

@@ -3,10 +3,7 @@
 
 require 'aws-sdk'
 require 'net/http'
-require 'securerandom'
-require 'uri/http'
-require 'json'
-#load 'order_status'
+load 'order_status.rb'
 
 $evm.log("info", "RDSRetire: Enter retirement method.")
 rds = AWS::RDS.new(

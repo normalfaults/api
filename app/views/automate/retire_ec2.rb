@@ -2,10 +2,7 @@
 # For use in Service/Provisioning/StateMachines/Methods/RetireEC2
 
 require 'aws-sdk'
-require 'net/http'
-require 'uri/http'
-require 'json'
-#load 'order_status'
+load 'order_status.rb'
 
 $evm.log("error", "RetireEC2: Enter Method.")
 

@@ -3,10 +3,7 @@
 # For use in Service/Provisioning/StateMachines/Methods/CreateEC2
 
 require 'aws-sdk'
-require 'net/http'
-require 'uri/http'
-require 'json'
-#load 'order_status'
+load 'order_status.rb'
 
 # Retrieve the information passed to MIQ from the Dialog call
 access_key_id = "#{$evm.root['dialog_access_key_id']}"

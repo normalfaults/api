@@ -12,6 +12,7 @@
 require 'net/http'
 require 'uri/http'
 require 'json'
+load 'order_status.rb'
 
 def send_order_status(status, order_id, information, message="")
 

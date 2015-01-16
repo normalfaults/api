@@ -5,10 +5,7 @@
 # /Provisioning/StateMachines/Methods/CreateSES
 
 require 'aws-sdk'
-require 'net/http'
-require 'uri/http'
-require 'json'
-#load 'order_status'
+load 'order_status.rb'
 
 $evm.log("info", "RetireSES: Entering method")
 

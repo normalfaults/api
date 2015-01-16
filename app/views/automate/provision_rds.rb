@@ -5,12 +5,8 @@
 # For use in Service/Provisioning/StateMachines/Methods/ProvisionRDS
 
 require 'aws-sdk'
-require 'rest-client'
 require 'rubygems'
-require 'net/http'
-require 'uri/http'
-require 'json'
-#load 'order_status'
+load 'order_status.rb'
 
 
 $evm.log("info", "ProvisionRDS: Entering Method.")
@@ -46,11 +42,6 @@ end
 
 if instance.exists?
   $evm.log("info", "ProvisionRDS: Instance #{db_instance_id} exists")
-  # TODO:
-  # Wait for the instance to create
-  # Instance properties will not be available until the instance has
-  # Completed the 'creating' stage
-  # Typically takes 2-4 minutes
   while instance.status == 'creating' do
     sleep 5
   end
