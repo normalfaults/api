@@ -10,6 +10,8 @@ class UserSettingOptionsController < ApplicationController
   before_action :load_id_for_user_setting_option_label, only: [:create]
 
   api :GET, '/user_setting_options', 'Returns a set of default staff options.'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     authorize UserSettingOption.new
@@ -113,7 +115,7 @@ class UserSettingOptionsController < ApplicationController
   end
 
   def load_user_setting_options
-    @user_setting_options = query_with_includes UserSettingOption.all.order('id ASC')
+    @user_setting_options = query_with UserSettingOption.all.order('id ASC'), :includes, :pagination
   end
 
   def load_user_setting_option

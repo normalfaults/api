@@ -16,6 +16,11 @@ RSpec.describe 'ProjectQuestions API' do
       get '/project_questions'
       expect(json.length).to eq(2)
     end
+
+    it 'paginates the project_questions' do
+      get '/project_questions', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do

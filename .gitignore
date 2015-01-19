@@ -23,3 +23,6 @@
 
 #environment
 /.env
+
+#Ingore the license finder reports
+/doc/dependencies*

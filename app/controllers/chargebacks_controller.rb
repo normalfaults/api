@@ -9,6 +9,8 @@ class ChargebacksController < ApplicationController
 
   api :GET, '/chargebacks', 'Returns a collection of chargebacks'
   param :includes, Array, required: false, in: %w(cloud product)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     authorize Chargeback
@@ -74,6 +76,6 @@ class ChargebacksController < ApplicationController
   end
 
   def load_chargebacks
-    @chargebacks = query_with_includes Chargeback.all
+    @chargebacks = query_with Chargeback.all, :includes, :pagination
   end
 end
