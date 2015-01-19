@@ -18,7 +18,7 @@ FactoryGirl.define do
 
     product_type
 
-    after :create do |product, eva|
+    after :create do |product|
       product.product_type.questions.each do |question|
         create :product_answer, product: product, product_type_question_id: question.id
       end
