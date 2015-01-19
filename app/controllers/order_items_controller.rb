@@ -40,6 +40,9 @@ class OrderItemsController < ApplicationController
   param :port, :number, required: false
   param :host, String, required: false
   param :provision_status, %w(ok warning critical unknown pending)
+  param :hourly_price, :number, required: false
+  param :monthly_price, :number, required: false
+  param :setup_price, :number, required: false
 
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -80,6 +83,9 @@ class OrderItemsController < ApplicationController
     param :hostname, String, required: false
     param :host, String, required: false
     param :port, :number, required: false
+    param :hourly_price, :number, required: false
+    param :monthly_price, :number, required: false
+    param :setup_price, :number, required: false
   end
 
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -93,7 +99,7 @@ class OrderItemsController < ApplicationController
   private
 
   def order_item_params
-    params.permit(:id, :order_id, :port, :host, :provision_status, :ip_address, :hostname)
+    params.permit(:id, :order_id, :port, :host, :provision_status, :ip_address, :hostname, :hourly_price, :monthly_price, :setup_price)
   end
 
   def orders_from_params
