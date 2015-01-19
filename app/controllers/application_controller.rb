@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   include MethodResolution
   include Pundit
 
-  protect_from_forgery
+  # protect_from_forgery
 
   def current_user
     current_staff

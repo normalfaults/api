@@ -66,6 +66,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'database_cleaner', '~> 1.3.0'
   gem 'brakeman', require: false
+  # gem 'foreman'
 end
 
 # Documentation

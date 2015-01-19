@@ -9,7 +9,7 @@ class ProductTypesController < ApplicationController
   before_action :load_questions, only: [:questions]
 
   api :GET, '/product_types', 'Returns a collection of product_types'
-  param :includes, Array, required: false, in: %w(product cloud)
+  param :includes, Array, required: false, in: %w(product cloud questions)
 
   def index
     authorize ProductType
@@ -17,7 +17,7 @@ class ProductTypesController < ApplicationController
   end
 
   api :GET, '/product_types/:id', 'Shows product_type with :id'
-  param :includes, Array, required: false, in: %w(product cloud)
+  param :includes, Array, required: false, in: %w(product cloud questions)
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -32,7 +32,6 @@ class ProductTypesController < ApplicationController
 
   def create
     @product_type = ProductType.new @product_types_params
-
     authorize @product_type
     @product_type.save
     respond_with @product_type

@@ -118,17 +118,17 @@ rds.questions.create(
   manageiq_key: 'db_engine'
 )
 
-rds.questions.create(
-  label: 'Username',
-  field_type: 'text',
-  placeholder: '',
-  help: '',
-  options: nil,
-  default: '',
-  required: true,
-  load_order: rds.questions.length,
-  manageiq_key: 'username'
-)
+# rds.questions.create(
+#   label: 'Username',
+#   field_type: 'text',
+#   placeholder: '',
+#   help: '',
+#   options: nil,
+#   default: '',
+#   required: true,
+#   load_order: rds.questions.length,
+#   manageiq_key: 'username'
+# )
 
 rds.questions.create(
   label: 'Disk Size',
@@ -164,13 +164,36 @@ s3 = ProductType.create(
 )
 
 s3.questions.create(
-  label: 'Name',
-  field_type: 'text',
-  placeholder: 'Bucket name',
-  help: 'Bucket names must be unique across all of AWS S3',
-  options: nil,
+  label: 'Storage Redundancy',
+  field_type: 'select',
+  placeholder: '',
+  help: '',
+  options: [
+    %w(normal Normal),
+    %w(reduced Reduced)
+  ],
+  default: 'normal',
+  required: true,
+  load_order: s3.questions.length,
+  manageiq_key: 'availability'
+)
+
+s3.questions.create(
+  label: 'Region',
+  field_type: 'select',
+  placeholder: '',
+  help: '',
+  options: [
+    ['', 'US Standard'],
+    ['us-west-1', 'US-West (Northern California)'],
+    ['us-west-2', 'US-West (Oregon)'],
+    ['EU', 'EU (Ireland)'],
+    ['ap-northeast-1', 'Asia Pacific (Tokyo)'],
+    ['ap-southeast-1', 'Asia Pacific (Singapore)'],
+    ['ap-southeast-2', 'Asia Pacific (Sydney)']
+  ],
   default: '',
   required: true,
   load_order: s3.questions.length,
-  manageiq_key: 'name'
+  manageiq_key: 'region'
 )
