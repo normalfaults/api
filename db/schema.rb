@@ -163,8 +163,37 @@ ActiveRecord::Schema.define(version: 20150114130913) do
 
   add_index "organizations", ["deleted_at"], name: "index_organizations_on_deleted_at", using: :btree
 
-  create_table "product_categories", force: true do |t|
+  create_table "product_answers", force: true do |t|
+    t.integer  "product_id",               null: false
+    t.integer  "product_type_question_id", null: false
+    t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_answers", ["product_id"], name: "index_product_answers_on_product_id", using: :btree
+  add_index "product_answers", ["product_type_question_id"], name: "index_product_answers_on_product_type_question_id", using: :btree
+
+  create_table "product_type_questions", force: true do |t|
+    t.integer  "product_type_id",                 null: false
+    t.text     "label"
+    t.string   "field_type"
+    t.string   "placeholder"
+    t.text     "help"
+    t.json     "options"
+    t.text     "default"
+    t.boolean  "required",        default: false
+    t.integer  "load_order"
+    t.string   "manageiq_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_type_questions", ["product_type_id", "load_order"], name: "question_order_idx", using: :btree
+
+  create_table "product_types", force: true do |t|
     t.string   "name"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -175,18 +204,19 @@ ActiveRecord::Schema.define(version: 20150114130913) do
     t.integer  "service_type_id"
     t.integer  "service_catalog_id"
     t.integer  "cloud_id"
-    t.string   "chef_role",           limit: 100
+    t.string   "chef_role",          limit: 100
     t.boolean  "active"
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "options"
     t.datetime "deleted_at"
-    t.integer  "product_category_id"
+    t.integer  "product_type_id"
   end
 
   add_index "products", ["cloud_id"], name: "index_products_on_cloud_id", using: :btree
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
+  add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
 
   create_table "project_answers", force: true do |t|
     t.integer  "project_id"

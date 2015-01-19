@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # ProductCategories
+  # ProductTypes
   resources :product_types, except: [:edit, :new], defaults: { format: :json } do
     member do
       get :questions
