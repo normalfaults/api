@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
   end
 
   def load_products
-    query = Product.all.tap { |q| q.where!(:active => params[:active]) unless params[:active].nil? }
+    query = Product.all.tap { |q| q.where!(active: params[:active]) unless params[:active].nil? }
     @products = query_with query, :includes, :pagination
   end
 
