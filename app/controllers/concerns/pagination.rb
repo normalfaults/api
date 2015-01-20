@@ -12,9 +12,9 @@ module Pagination
   end
 
   def gather_pagination_params!
+    @pagination_params = {}
     return if params[:page].nil?
 
-    @pagination_params = {}
     @pagination_params[:page] = params[:page]
     @pagination_params[:per_page] = params[:per_page]
     @pagination_params[:per_page] ||= PER_PAGE_DEFAULT
