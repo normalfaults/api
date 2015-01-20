@@ -8,6 +8,8 @@ class OrdersController < ApplicationController
   before_action :load_orders, only: [:index]
 
   api :GET, '/orders', 'Returns a collection of orders'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
   param :includes, Array, required: false, in: %w(order_items)
 
   def index
@@ -91,6 +93,6 @@ class OrdersController < ApplicationController
   end
 
   def load_orders
-    @orders = query_with_includes Order.all
+    @orders = query_with Order.all, :includes, :pagination
   end
 end

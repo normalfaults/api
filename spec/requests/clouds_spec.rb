@@ -26,6 +26,11 @@ RSpec.describe 'Clouds API' do
 
       expect(json[0]['products']).to_not eq(nil)
     end
+
+    it 'paginates the clouds' do
+      get '/clouds', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do

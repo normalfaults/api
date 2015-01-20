@@ -4,14 +4,19 @@ RSpec.describe 'User Setting Options API' do
   describe 'GET index' do
     before :each do
       sign_in_as create :staff, :admin
-    end
-
-    it 'returns a collection of all user setting options', :show_in_doc do
       create :user_setting_option, :first
       create :user_setting_option, :second
       create :user_setting_option, :third
+    end
+
+    it 'returns a collection of all user setting options', :show_in_doc do
       get user_setting_options_path
       expect(json.length).to eq(3)
+    end
+
+    it 'paginates the user_settings' do
+      get user_setting_options_path, page: 1, per_page: 1
+      expect(json.length).to eq(1)
     end
   end
 

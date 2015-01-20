@@ -1,6 +1,8 @@
 class OrderItem < ActiveRecord::Base
   acts_as_paranoid
 
+  before_create :load_order_item_params
+
   after_commit :provision, on: :create
 
   belongs_to :order
@@ -8,7 +10,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :cloud
   belongs_to :project
 
-  enum provision_status: [:ok, :warning, :critical, :unknown, :pending]
+  enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
 
   validates :product, presence: true
   validate :validate_product_id
@@ -17,6 +19,12 @@ class OrderItem < ActiveRecord::Base
 
   def validate_product_id
     errors.add(:product, 'Product does not exist.') unless Product.exists?(product_id)
+  end
+
+  def load_order_item_params
+    self.hourly_price = product.hourly_price
+    self.monthly_price = product.monthly_price
+    self.setup_price = product.setup_price
   end
 
   def provision

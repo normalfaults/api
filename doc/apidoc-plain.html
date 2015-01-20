@@ -1,0 +1,7608 @@
+  <h4><a href='#alerts'>Alerts</a></h4>
+  <ul>
+      <li><a href='#alerts-index'>index</a></li>
+      <li><a href='#alerts-show'>show</a></li>
+      <li><a href='#alerts-show_all'>show_all</a></li>
+      <li><a href='#alerts-show_active'>show_active</a></li>
+      <li><a href='#alerts-show_inactive'>show_inactive</a></li>
+      <li><a href='#alerts-sensu'>sensu</a></li>
+      <li><a href='#alerts-create'>create</a></li>
+      <li><a href='#alerts-update'>update</a></li>
+      <li><a href='#alerts-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#approvals'>Approvals</a></h4>
+  <ul>
+      <li><a href='#approvals-index'>index</a></li>
+      <li><a href='#approvals-show'>show</a></li>
+      <li><a href='#approvals-create'>create</a></li>
+      <li><a href='#approvals-update'>update</a></li>
+      <li><a href='#approvals-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#chargebacks'>Chargebacks</a></h4>
+  <ul>
+      <li><a href='#chargebacks-index'>index</a></li>
+      <li><a href='#chargebacks-show'>show</a></li>
+      <li><a href='#chargebacks-create'>create</a></li>
+      <li><a href='#chargebacks-update'>update</a></li>
+      <li><a href='#chargebacks-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#clouds'>Clouds</a></h4>
+  <ul>
+      <li><a href='#clouds-index'>index</a></li>
+      <li><a href='#clouds-show'>show</a></li>
+      <li><a href='#clouds-create'>create</a></li>
+      <li><a href='#clouds-update'>update</a></li>
+      <li><a href='#clouds-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#order_items'>Order items</a></h4>
+  <ul>
+      <li><a href='#order_items-show'>show</a></li>
+      <li><a href='#order_items-destroy'>destroy</a></li>
+      <li><a href='#order_items-update'>update</a></li>
+      <li><a href='#order_items-start_service'>start_service</a></li>
+      <li><a href='#order_items-stop_service'>stop_service</a></li>
+      <li><a href='#order_items-provision_update'>provision_update</a></li>
+  </ul>
+  <h4><a href='#orders'>Orders</a></h4>
+  <ul>
+      <li><a href='#orders-index'>index</a></li>
+      <li><a href='#orders-show'>show</a></li>
+      <li><a href='#orders-create'>create</a></li>
+      <li><a href='#orders-update'>update</a></li>
+      <li><a href='#orders-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#organizations'>Organizations</a></h4>
+  <ul>
+      <li><a href='#organizations-index'>index</a></li>
+      <li><a href='#organizations-show'>show</a></li>
+      <li><a href='#organizations-create'>create</a></li>
+      <li><a href='#organizations-update'>update</a></li>
+      <li><a href='#organizations-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#product_categories'>Product categories</a></h4>
+  <ul>
+      <li><a href='#product_categories-index'>index</a></li>
+      <li><a href='#product_categories-show'>show</a></li>
+      <li><a href='#product_categories-create'>create</a></li>
+      <li><a href='#product_categories-update'>update</a></li>
+      <li><a href='#product_categories-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#products'>Products</a></h4>
+  <ul>
+      <li><a href='#products-index'>index</a></li>
+      <li><a href='#products-show'>show</a></li>
+      <li><a href='#products-create'>create</a></li>
+      <li><a href='#products-update'>update</a></li>
+      <li><a href='#products-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#project_questions'>Project questions</a></h4>
+  <ul>
+      <li><a href='#project_questions-index'>index</a></li>
+      <li><a href='#project_questions-show'>show</a></li>
+      <li><a href='#project_questions-create'>create</a></li>
+      <li><a href='#project_questions-update'>update</a></li>
+      <li><a href='#project_questions-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#projects'>Projects</a></h4>
+  <ul>
+      <li><a href='#projects-index'>index</a></li>
+      <li><a href='#projects-show'>show</a></li>
+      <li><a href='#projects-create'>create</a></li>
+      <li><a href='#projects-update'>update</a></li>
+      <li><a href='#projects-destroy'>destroy</a></li>
+      <li><a href='#projects-staff'>staff</a></li>
+      <li><a href='#projects-add_staff'>add_staff</a></li>
+      <li><a href='#projects-remove_staff'>remove_staff</a></li>
+  </ul>
+  <h4><a href='#sessions'>Sessions</a></h4>
+  <ul>
+      <li><a href='#sessions-create'>create</a></li>
+      <li><a href='#sessions-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#settings'>Settings</a></h4>
+  <ul>
+      <li><a href='#settings-index'>index</a></li>
+      <li><a href='#settings-new'>new</a></li>
+      <li><a href='#settings-edit'>edit</a></li>
+      <li><a href='#settings-show'>show</a></li>
+      <li><a href='#settings-destroy'>destroy</a></li>
+      <li><a href='#settings-update'>update</a></li>
+  </ul>
+  <h4><a href='#staff'>Staff</a></h4>
+  <ul>
+      <li><a href='#staff-index'>index</a></li>
+      <li><a href='#staff-show'>show</a></li>
+      <li><a href='#staff-current_member'>current_member</a></li>
+      <li><a href='#staff-create'>create</a></li>
+      <li><a href='#staff-update'>update</a></li>
+      <li><a href='#staff-destroy'>destroy</a></li>
+      <li><a href='#staff-projects'>projects</a></li>
+      <li><a href='#staff-add_project'>add_project</a></li>
+      <li><a href='#staff-remove_project'>remove_project</a></li>
+      <li><a href='#staff-user_settings'>user_settings</a></li>
+      <li><a href='#staff-show_user_setting'>show_user_setting</a></li>
+      <li><a href='#staff-add_user_setting'>add_user_setting</a></li>
+      <li><a href='#staff-update_user_setting'>update_user_setting</a></li>
+      <li><a href='#staff-remove_user_setting'>remove_user_setting</a></li>
+  </ul>
+  <h4><a href='#staff_orders'>Staff orders</a></h4>
+  <ul>
+      <li><a href='#staff_orders-index'>index</a></li>
+      <li><a href='#staff_orders-show'>show</a></li>
+  </ul>
+  <h4><a href='#user_setting_options'>User setting options</a></h4>
+  <ul>
+      <li><a href='#user_setting_options-index'>index</a></li>
+      <li><a href='#user_setting_options-show'>show</a></li>
+      <li><a href='#user_setting_options-create'>create</a></li>
+      <li><a href='#user_setting_options-update'>update</a></li>
+      <li><a href='#user_setting_options-new'>new</a></li>
+      <li><a href='#user_setting_options-edit'>edit</a></li>
+      <li><a href='#user_setting_options-destroy'>destroy</a></li>
+  </ul>
+
+
+
+  <hr/>
+
+  <div>
+    <h2 id="alerts">
+      <a href='#alerts'>Alerts</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="alerts-index">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /alerts
+            <br>
+            <small>Returns all active alerts. (Default behavior)</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /alerts
+200
+[
+  {
+    &quot;id&quot;: 16,
+    &quot;project_id&quot;: 2,
+    &quot;staff_id&quot;: 0,
+    &quot;order_id&quot;: 2,
+    &quot;status&quot;: &quot;OK&quot;,
+    &quot;message&quot;: &quot;This is an active alert&quot;,
+    &quot;start_date&quot;: &quot;2015-01-08T13:35:55.000Z&quot;,
+    &quot;end_date&quot;: &quot;2015-01-09T13:35:55.000Z&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.167Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.167Z&quot;
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="alerts-show">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /alerts/:id
+            <br>
+            <small>Shows alert with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /alerts/1
+404
+{
+  &quot;error&quot;: &quot;Not found.&quot;
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="alerts-show_all">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-show_all'>show_all</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /alerts/all
+            <br>
+            <small>Shows all alerts, both active and inactive.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /alerts/all
+200
+[
+  {
+    &quot;id&quot;: 2,
+    &quot;project_id&quot;: 1,
+    &quot;staff_id&quot;: 2,
+    &quot;order_id&quot;: 3,
+    &quot;status&quot;: &quot;OK&quot;,
+    &quot;message&quot;: &quot;NO ISSUES.&quot;,
+    &quot;start_date&quot;: null,
+    &quot;end_date&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.820Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.835Z&quot;
+  },
+  {
+    &quot;id&quot;: 3,
+    &quot;project_id&quot;: 1,
+    &quot;staff_id&quot;: 2,
+    &quot;order_id&quot;: 3,
+    &quot;status&quot;: &quot;CRITICAL&quot;,
+    &quot;message&quot;: &quot;STILL BROKEN!&quot;,
+    &quot;start_date&quot;: null,
+    &quot;end_date&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.847Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.867Z&quot;
+  },
+  {
+    &quot;id&quot;: 4,
+    &quot;project_id&quot;: 1,
+    &quot;staff_id&quot;: 2,
+    &quot;order_id&quot;: 3,
+    &quot;status&quot;: &quot;OK&quot;,
+    &quot;message&quot;: &quot;NO ISSUES.&quot;,
+    &quot;start_date&quot;: null,
+    &quot;end_date&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.877Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.877Z&quot;
+  },
+  {
+    &quot;id&quot;: 5,
+    &quot;project_id&quot;: 1,
+    &quot;staff_id&quot;: 2,
+    &quot;order_id&quot;: 3,
+    &quot;status&quot;: &quot;WARNING&quot;,
+    &quot;message&quot;: &quot;REVIEW LOGS.&quot;,
+    &quot;start_date&quot;: null,
+    &quot;end_date&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.886Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.886Z&quot;
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="alerts-show_active">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-show_active'>show_active</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /alerts/active
+            <br>
+            <small>Shows all active alerts. Where end_date is null or has yet to occur and start is null or has already occurred.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /alerts/active
+200
+[
+  {
+    &quot;id&quot;: 14,
+    &quot;project_id&quot;: 2,
+    &quot;staff_id&quot;: 0,
+    &quot;order_id&quot;: 2,
+    &quot;status&quot;: &quot;OK&quot;,
+    &quot;message&quot;: &quot;This is an active alert&quot;,
+    &quot;start_date&quot;: &quot;2015-01-08T13:35:55.000Z&quot;,
+    &quot;end_date&quot;: &quot;2015-01-09T13:35:55.000Z&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.124Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.124Z&quot;
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="alerts-show_inactive">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-show_inactive'>show_inactive</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /alerts/inactive
+            <br>
+            <small>Shows all inactive alerts. Where end_date has already occurred or start_date has yet to occur.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /alerts/inactive
+200
+[
+  {
+    &quot;id&quot;: 11,
+    &quot;project_id&quot;: 2,
+    &quot;staff_id&quot;: 0,
+    &quot;order_id&quot;: 2,
+    &quot;status&quot;: &quot;OK&quot;,
+    &quot;message&quot;: &quot;This is an inactive alert&quot;,
+    &quot;start_date&quot;: &quot;2015-01-06T13:35:55.000Z&quot;,
+    &quot;end_date&quot;: &quot;2015-01-07T13:35:55.000Z&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.042Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.042Z&quot;
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="alerts-sensu">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-sensu'>sensu</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /alerts/sensu
+            <br>
+            <small>Create new Sensu alert.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Endpoint to push an alert from Sensu to Core. <br>If an alert already
+exists for this order, then update that order.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">POST /alerts/sensu
+hostname=foo.bar.com&amp;port=5000&amp;service=postgresql&amp;status=OK&amp;message=This+is+a+test&amp;event=tbd
+201
+{
+  &quot;id&quot;: 7,
+  &quot;project_id&quot;: 1,
+  &quot;staff_id&quot;: 0,
+  &quot;order_id&quot;: 1,
+  &quot;status&quot;: &quot;OK&quot;,
+  &quot;message&quot;: &quot;This is a test&quot;,
+  &quot;start_date&quot;: null,
+  &quot;end_date&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:58.965Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.965Z&quot;
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>hostname </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>The host of the product associated with this alert.</p>
+
+    </li>
+    
+    <li>
+      <strong>port </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>The port of the product associated with this alert.</p>
+
+    </li>
+    
+    <li>
+      <strong>service </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>Name of service deployed on host</p>
+
+    </li>
+    
+    <li>
+      <strong>status </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>Status message associated issued with this service from Sense. <br>Current
+Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING</p>
+
+    </li>
+    
+    <li>
+      <strong>message </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>Actual message content of alert.</p>
+
+    </li>
+    
+    <li>
+      <strong>event </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>TBD. Stubbed out for now.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="alerts-create">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /alerts
+            <br>
+            <small>Creates a new alert</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Endpoint to create a new status alert for an order. <br>If a status alert
+is the same as the last one recorded for the service, then the existing
+status alert is updated. <br> Otherwise, a new status alert is created for
+the service.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">POST /alerts
+project_id=1&amp;staff_id=2&amp;order_id=3&amp;status=OK&amp;message=NO+ISSUES.
+201
+{
+  &quot;id&quot;: 2,
+  &quot;project_id&quot;: 1,
+  &quot;staff_id&quot;: 2,
+  &quot;order_id&quot;: 3,
+  &quot;status&quot;: &quot;OK&quot;,
+  &quot;message&quot;: &quot;NO ISSUES.&quot;,
+  &quot;start_date&quot;: null,
+  &quot;end_date&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:58.820Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.820Z&quot;
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>project_id </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>The project id issued with this new alert. <br>A 0 indicates system wide
+alert.</p>
+
+    </li>
+    
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>The staff id of the user who is posting this new alert. <br>0 indicates a
+system generated alert.</p>
+
+    </li>
+    
+    <li>
+      <strong>order_id </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>The order id associated with this new alert. <br>A 0 indicates a project
+wide alert.</p>
+
+    </li>
+    
+    <li>
+      <strong>status </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>HTTP status code issued with this alert. <br>Valid Options: OK, WARNING,
+CRITICAL, UNKNOWN, PENDING</p>
+
+    </li>
+    
+    <li>
+      <strong>message </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>The message content of the new alert.</p>
+
+    </li>
+    
+    <li>
+      <strong>start_date </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Date this alert will begin appearing. Null indicates the alert will start
+appearing immediately.</p>
+
+    </li>
+    
+    <li>
+      <strong>end_date </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Date this alert should no longer be displayed after. Null indicates the
+alert does not expire.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="alerts-update">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /alerts/:id
+            <br>
+            <small>Updates alert with given :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Endpoint to update an existing alert. <br>To preserve referential
+integrity, only the following attributes can be changed: message,
+start_date, end_date.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /alerts/9
+project_id=1&amp;staff_id=0&amp;order_id=2&amp;status=OK&amp;message=Updated
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>The staff id of the user who is posting this new alert. <br>0 indicates a
+system generated alert.</p>
+
+    </li>
+    
+    <li>
+      <strong>message </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>The message content to update alert with.</p>
+
+    </li>
+    
+    <li>
+      <strong>start_date </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Date this alert will begin appearing. Null indicates the alert will start
+appearing immediately.</p>
+
+    </li>
+    
+    <li>
+      <strong>end_date </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Date this alert should no longer be displayed after. Null indicates the
+alert does not expire.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="alerts-destroy">
+      <a href='#alerts'>Alerts</a> / <a href='#alerts-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /alerts/:id
+            <br>
+            <small>Deletes alert with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /alerts/1
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="approvals">
+      <a href='#approvals'>Approvals</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="approvals-index">
+      <a href='#approvals'>Approvals</a> / <a href='#approvals-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /approvals
+            <br>
+            <small>Returns a collection of approvals</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /approvals?includes[]=project
+200
+[
+  {
+    &quot;id&quot;: 7,
+    &quot;staff_id&quot;: 1,
+    &quot;project_id&quot;: 2,
+    &quot;approved&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:56.757Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.788Z&quot;,
+    &quot;project&quot;: {
+      &quot;id&quot;: 2,
+      &quot;name&quot;: &quot;Test Project&quot;,
+      &quot;description&quot;: &quot;A description&quot;,
+      &quot;cc&quot;: &quot;--cc--&quot;,
+      &quot;budget&quot;: 100.0,
+      &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+      &quot;start_date&quot;: &quot;2015-01-15&quot;,
+      &quot;end_date&quot;: &quot;2015-01-22&quot;,
+      &quot;approved&quot;: true,
+      &quot;img&quot;: &quot;--img--&quot;,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:56.786Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.786Z&quot;,
+      &quot;deleted_at&quot;: null
+    }
+  },
+  {
+    &quot;id&quot;: 8,
+    &quot;staff_id&quot;: 1,
+    &quot;project_id&quot;: 2,
+    &quot;approved&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:56.759Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.789Z&quot;,
+    &quot;project&quot;: {
+      &quot;id&quot;: 2,
+      &quot;name&quot;: &quot;Test Project&quot;,
+      &quot;description&quot;: &quot;A description&quot;,
+      &quot;cc&quot;: &quot;--cc--&quot;,
+      &quot;budget&quot;: 100.0,
+      &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+      &quot;start_date&quot;: &quot;2015-01-15&quot;,
+      &quot;end_date&quot;: &quot;2015-01-22&quot;,
+      &quot;approved&quot;: true,
+      &quot;img&quot;: &quot;--img--&quot;,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:56.786Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.786Z&quot;,
+      &quot;deleted_at&quot;: null
+    }
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;staff&quot;, &quot;project&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="approvals-show">
+      <a href='#approvals'>Approvals</a> / <a href='#approvals-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /approvals/:id
+            <br>
+            <small>Shows approval with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /approvals/4?includes[]=project
+200
+{
+  &quot;id&quot;: 4,
+  &quot;staff_id&quot;: 1,
+  &quot;project_id&quot;: 1,
+  &quot;approved&quot;: true,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:56.633Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.633Z&quot;,
+  &quot;project&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Test Project&quot;,
+    &quot;description&quot;: &quot;A description&quot;,
+    &quot;cc&quot;: &quot;--cc--&quot;,
+    &quot;budget&quot;: 100.0,
+    &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+    &quot;start_date&quot;: &quot;2015-01-15&quot;,
+    &quot;end_date&quot;: &quot;2015-01-22&quot;,
+    &quot;approved&quot;: true,
+    &quot;img&quot;: &quot;--img--&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:56.664Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.664Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;staff&quot;, &quot;project&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="approvals-create">
+      <a href='#approvals'>Approvals</a> / <a href='#approvals-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /approvals
+            <br>
+            <small>Creates approval</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /approvals/
+approval[id]&amp;approval[staff_id]=1&amp;approval[project_id]=1&amp;approval[approved]=true&amp;approval[created_at]&amp;approval[updated_at]
+201
+{
+  &quot;id&quot;: 3,
+  &quot;staff_id&quot;: null,
+  &quot;project_id&quot;: null,
+  &quot;approved&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:56.622Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.622Z&quot;
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Staff</p>
+
+    </li>
+    
+    <li>
+      <strong>project_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Project</p>
+
+    </li>
+    
+    <li>
+      <strong>approved </strong>:
+      <small>
+        optional
+        
+          [ Must be &#39;true&#39; or &#39;false&#39; ]
+      </small>
+      
+<p>Approved?</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="approvals-update">
+      <a href='#approvals'>Approvals</a> / <a href='#approvals-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /approvals/:id
+            <br>
+            <small>Updates approval with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /approvals/2
+approval[approved]=true
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Staff</p>
+
+    </li>
+    
+    <li>
+      <strong>project_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Project</p>
+
+    </li>
+    
+    <li>
+      <strong>approved </strong>:
+      <small>
+        optional
+        
+          [ Must be &#39;true&#39; or &#39;false&#39; ]
+      </small>
+      
+<p>Approved?</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="approvals-destroy">
+      <a href='#approvals'>Approvals</a> / <a href='#approvals-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /approvals/:id
+            <br>
+            <small>Deletes approval with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /approvals/1
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="chargebacks">
+      <a href='#chargebacks'>Chargebacks</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="chargebacks-index">
+      <a href='#chargebacks'>Chargebacks</a> / <a href='#chargebacks-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /chargebacks
+            <br>
+            <small>Returns a collection of chargebacks</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /chargebacks?includes[]=product
+200
+[
+  {
+    &quot;id&quot;: 7,
+    &quot;product_id&quot;: 2,
+    &quot;cloud_id&quot;: null,
+    &quot;hourly_price&quot;: &quot;99.99&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.153Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.176Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;product&quot;: {
+      &quot;id&quot;: 2,
+      &quot;name&quot;: null,
+      &quot;description&quot;: null,
+      &quot;service_type_id&quot;: null,
+      &quot;service_catalog_id&quot;: null,
+      &quot;cloud_id&quot;: null,
+      &quot;chef_role&quot;: null,
+      &quot;active&quot;: null,
+      &quot;img&quot;: null,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:57.173Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.173Z&quot;,
+      &quot;options&quot;: null,
+      &quot;deleted_at&quot;: null,
+      &quot;product_category_id&quot;: null
+    }
+  },
+  {
+    &quot;id&quot;: 8,
+    &quot;product_id&quot;: 2,
+    &quot;cloud_id&quot;: null,
+    &quot;hourly_price&quot;: &quot;99.99&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.155Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.178Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;product&quot;: {
+      &quot;id&quot;: 2,
+      &quot;name&quot;: null,
+      &quot;description&quot;: null,
+      &quot;service_type_id&quot;: null,
+      &quot;service_catalog_id&quot;: null,
+      &quot;cloud_id&quot;: null,
+      &quot;chef_role&quot;: null,
+      &quot;active&quot;: null,
+      &quot;img&quot;: null,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:57.173Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.173Z&quot;,
+      &quot;options&quot;: null,
+      &quot;deleted_at&quot;: null,
+      &quot;product_category_id&quot;: null
+    }
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;cloud&quot;, &quot;product&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="chargebacks-show">
+      <a href='#chargebacks'>Chargebacks</a> / <a href='#chargebacks-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /chargebacks/:id
+            <br>
+            <small>Shows chargeback with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /chargebacks/4?includes[]=product
+200
+{
+  &quot;id&quot;: 4,
+  &quot;product_id&quot;: 1,
+  &quot;cloud_id&quot;: null,
+  &quot;hourly_price&quot;: &quot;99.99&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.001Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.036Z&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;product&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: null,
+    &quot;description&quot;: null,
+    &quot;service_type_id&quot;: null,
+    &quot;service_catalog_id&quot;: null,
+    &quot;cloud_id&quot;: null,
+    &quot;chef_role&quot;: null,
+    &quot;active&quot;: null,
+    &quot;img&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.033Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.033Z&quot;,
+    &quot;options&quot;: null,
+    &quot;deleted_at&quot;: null,
+    &quot;product_category_id&quot;: null
+  }
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;cloud&quot;, &quot;product&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="chargebacks-create">
+      <a href='#chargebacks'>Chargebacks</a> / <a href='#chargebacks-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /chargebacks
+            <br>
+            <small>Creates a chargeback</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /chargebacks/
+hourly_price=9
+201
+{
+  &quot;id&quot;: 3,
+  &quot;product_id&quot;: null,
+  &quot;cloud_id&quot;: null,
+  &quot;hourly_price&quot;: &quot;9.0&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:56.990Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.990Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>product_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>cloud_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>hourly_price </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="chargebacks-update">
+      <a href='#chargebacks'>Chargebacks</a> / <a href='#chargebacks-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /chargeback/:id
+            <br>
+            <small>Updates chargeback with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /chargebacks/2
+cloud_id=1
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>product_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>cloud_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>hourly_price </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="chargebacks-destroy">
+      <a href='#chargebacks'>Chargebacks</a> / <a href='#chargebacks-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /chargeback/:id
+            <br>
+            <small>Deletes chargeback with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /chargebacks/1
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="clouds">
+      <a href='#clouds'>Clouds</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="clouds-index">
+      <a href='#clouds'>Clouds</a> / <a href='#clouds-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /clouds
+            <br>
+            <small>Returns a collection of clouds</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /clouds?includes[]=chargebacks
+200
+[
+  {
+    &quot;id&quot;: 8,
+    &quot;name&quot;: null,
+    &quot;description&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.127Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.127Z&quot;,
+    &quot;extra&quot;: null,
+    &quot;deleted_at&quot;: null,
+    &quot;chargebacks&quot;: []
+  },
+  {
+    &quot;id&quot;: 7,
+    &quot;name&quot;: null,
+    &quot;description&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.125Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.125Z&quot;,
+    &quot;extra&quot;: null,
+    &quot;deleted_at&quot;: null,
+    &quot;chargebacks&quot;: []
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;chargebacks&quot;, &quot;products&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="clouds-show">
+      <a href='#clouds'>Clouds</a> / <a href='#clouds-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /clouds/:id
+            <br>
+            <small>Shows cloud with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /clouds/6
+200
+{
+  &quot;id&quot;: 6,
+  &quot;name&quot;: null,
+  &quot;description&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:58.089Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.089Z&quot;,
+  &quot;extra&quot;: null,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;chargebacks&quot;, &quot;products&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="clouds-create">
+      <a href='#clouds'>Clouds</a> / <a href='#clouds-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /clouds
+            <br>
+            <small>Creates a cloud</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /clouds/
+name=test
+201
+{
+  &quot;id&quot;: 5,
+  &quot;name&quot;: &quot;test&quot;,
+  &quot;description&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:58.081Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.081Z&quot;,
+  &quot;extra&quot;: null,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>desciption </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>extra </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="clouds-update">
+      <a href='#clouds'>Clouds</a> / <a href='#clouds-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /cloud/:id
+            <br>
+            <small>Updates cloud with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /clouds/4
+name=test
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>desciption </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>extra </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="clouds-destroy">
+      <a href='#clouds'>Clouds</a> / <a href='#clouds-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /cloud/:id
+            <br>
+            <small>Deletes cloud with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /clouds/3
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="order_items">
+      <a href='#order_items'>Order items</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="order_items-show">
+      <a href='#order_items'>Order items</a> / <a href='#order_items-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /orders/:order_id/items/:id
+            <br>
+            <small>Shows order item with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /orders/14/items/14
+200
+{
+  &quot;id&quot;: 14,
+  &quot;order_id&quot;: 14,
+  &quot;cloud_id&quot;: null,
+  &quot;product_id&quot;: 15,
+  &quot;service_id&quot;: null,
+  &quot;provision_status&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:36:00.576Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:36:00.576Z&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;project_id&quot;: 19,
+  &quot;host&quot;: null,
+  &quot;port&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;product&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="order_items-destroy">
+      <a href='#order_items'>Order items</a> / <a href='#order_items-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /orders/:order_id/items/:id
+            <br>
+            <small>Deletes order item with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /orders/12/items/11
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="order_items-update">
+      <a href='#order_items'>Order items</a> / <a href='#order_items-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /orders/:order_id/items/:id
+            <br>
+            <small>Updates order item with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /orders/13/items/12
+port=123&amp;host=www.example.com
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>order_id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>port </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>host </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>provision_status </strong>:
+      <small>
+        optional
+        
+          [ Must be one of: ok, warning, critical, unknown, pending. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="order_items-start_service">
+      <a href='#order_items'>Order items</a> / <a href='#order_items-start_service'>start_service</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /orders/:order_id/items/:id/start_service
+            <br>
+            <small>Starts service for order item</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /orders/10/items/7/start_service
+200</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="order_items-stop_service">
+      <a href='#order_items'>Order items</a> / <a href='#order_items-stop_service'>stop_service</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /orders/:order_id/items/:id/stop_service
+            <br>
+            <small>Stops service for order item</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /orders/9/items/5/stop_service
+200</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="order_items-provision_update">
+      <a href='#order_items'>Order items</a> / <a href='#order_items-provision_update'>provision_update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /order_items/:id/provision_update
+            <br>
+            <small>Updates an order item from ManageIQ</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>status </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>message </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>info </strong>:
+      <small>
+        required
+        
+          [ Must be a Hash ]
+      </small>
+      
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>provision_status </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>miq_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>ip_address </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>hostname </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>host </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>port </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="orders">
+      <a href='#orders'>Orders</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="orders-index">
+      <a href='#orders'>Orders</a> / <a href='#orders-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /orders
+            <br>
+            <small>Returns a collection of orders</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /orders
+200
+[
+  {
+    &quot;id&quot;: 7,
+    &quot;staff_id&quot;: 1,
+    &quot;engine_response&quot;: null,
+    &quot;active&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.675Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.675Z&quot;,
+    &quot;options&quot;: null,
+    &quot;deleted_at&quot;: null,
+    &quot;total&quot;: 0.0,
+    &quot;order_items&quot;: []
+  },
+  {
+    &quot;id&quot;: 8,
+    &quot;staff_id&quot;: 1,
+    &quot;engine_response&quot;: null,
+    &quot;active&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.677Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.677Z&quot;,
+    &quot;options&quot;: null,
+    &quot;deleted_at&quot;: null,
+    &quot;total&quot;: 0.0,
+    &quot;order_items&quot;: []
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;order_items&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="orders-show">
+      <a href='#orders'>Orders</a> / <a href='#orders-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /orders/:id
+            <br>
+            <small>Shows order with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /orders/6
+200
+{
+  &quot;id&quot;: 6,
+  &quot;staff_id&quot;: 1,
+  &quot;engine_response&quot;: null,
+  &quot;active&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:58.637Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.637Z&quot;,
+  &quot;options&quot;: null,
+  &quot;deleted_at&quot;: null,
+  &quot;total&quot;: 0.0,
+  &quot;order_items&quot;: []
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;order_items&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="orders-create">
+      <a href='#orders'>Orders</a> / <a href='#orders-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /orders
+            <br>
+            <small>Creates order</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /orders/
+staff_id=60&amp;options[]=test
+201
+{
+  &quot;id&quot;: 5,
+  &quot;staff_id&quot;: 60,
+  &quot;engine_response&quot;: null,
+  &quot;active&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:58.628Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.628Z&quot;,
+  &quot;options&quot;: [
+    &quot;test&quot;
+  ],
+  &quot;deleted_at&quot;: null,
+  &quot;total&quot;: 0.0
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>order_items </strong>:
+      <small>
+        optional
+        
+          [ Must be an Array of nested elements ]
+      </small>
+      
+<p>Order Items</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>project_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for Project</p>
+
+    </li>
+    
+    <li>
+      <strong>product_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for Product</p>
+
+    </li>
+    
+    <li>
+      <strong>cloud_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for cloud</p>
+
+    </li>
+    
+    <li>
+      <strong>port </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>host </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>provision_status </strong>:
+      <small>
+        optional
+        
+          [ Must be one of: pending, active. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>total </strong>:
+      <small>
+        optional
+        
+          [ Must be a floating point number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of any type ]
+      </small>
+      
+<p>Options</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="orders-update">
+      <a href='#orders'>Orders</a> / <a href='#orders-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /orders/:id
+            <br>
+            <small>Updates order with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /orders/4
+staff_id=59&amp;options[]=test
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>order_items </strong>:
+      <small>
+        optional
+        
+          [ Must be an Array of nested elements ]
+      </small>
+      
+<p>Order Items</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for Project</p>
+
+    </li>
+    
+    <li>
+      <strong>project_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for Project</p>
+
+    </li>
+    
+    <li>
+      <strong>product_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for Product</p>
+
+    </li>
+    
+    <li>
+      <strong>cloud_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for cloud</p>
+
+    </li>
+    
+    <li>
+      <strong>port </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>host </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>provision_status </strong>:
+      <small>
+        optional
+        
+          [ Must be one of: pending, active. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of any type ]
+      </small>
+      
+<p>Options</p>
+
+    </li>
+    
+    <li>
+      <strong>total </strong>:
+      <small>
+        optional
+        
+          [ Must be a floating point number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="orders-destroy">
+      <a href='#orders'>Orders</a> / <a href='#orders-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /orders/:id
+            <br>
+            <small>Deletes order with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /orders/3
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="organizations">
+      <a href='#organizations'>Organizations</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="organizations-index">
+      <a href='#organizations'>Organizations</a> / <a href='#organizations-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /organizations
+            <br>
+            <small>Returns a collection of organizations</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /organizations
+200
+[
+  {
+    &quot;id&quot;: 6,
+    &quot;name&quot;: &quot;test&quot;,
+    &quot;description&quot;: &quot;test desc&quot;,
+    &quot;img&quot;: &quot;test.png&quot;,
+    &quot;created_at&quot;: &quot;2014-11-17T20:00:57.711Z&quot;,
+    &quot;updated_at&quot;: &quot;2014-11-17T20:00:57.711Z&quot;,
+    &quot;deleted_at&quot;: null
+  },
+  {
+    &quot;id&quot;: 5,
+    &quot;name&quot;: &quot;test&quot;,
+    &quot;description&quot;: &quot;test desc&quot;,
+    &quot;img&quot;: &quot;test.png&quot;,
+    &quot;created_at&quot;: &quot;2014-11-17T20:00:57.711Z&quot;,
+    &quot;updated_at&quot;: &quot;2014-11-17T20:00:57.711Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="organizations-show">
+      <a href='#organizations'>Organizations</a> / <a href='#organizations-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /organizations/:id
+            <br>
+            <small>Shows organization with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /organizations/4
+200
+{
+  &quot;id&quot;: 4,
+  &quot;name&quot;: &quot;test&quot;,
+  &quot;description&quot;: &quot;test desc&quot;,
+  &quot;img&quot;: &quot;test.png&quot;,
+  &quot;created_at&quot;: &quot;2014-11-17T20:00:57.711Z&quot;,
+  &quot;updated_at&quot;: &quot;2014-11-17T20:00:57.711Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="organizations-create">
+      <a href='#organizations'>Organizations</a> / <a href='#organizations-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /organizations
+            <br>
+            <small>Creates organization</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /organizations/
+name=some+name&amp;img=img.png&amp;description=best+org+ever
+201
+{
+  &quot;id&quot;: 3,
+  &quot;name&quot;: &quot;some name&quot;,
+  &quot;description&quot;: &quot;best org ever&quot;,
+  &quot;img&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:58.306Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.306Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Name</p>
+
+    </li>
+    
+    <li>
+      <strong>image </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Image URL</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Description of organization</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="organizations-update">
+      <a href='#organizations'>Organizations</a> / <a href='#organizations-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /organizations/:id
+            <br>
+            <small>Updates organization with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /organizations/2
+name=some+different+name
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Name</p>
+
+    </li>
+    
+    <li>
+      <strong>image </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Image URL</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Description of organization</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="organizations-destroy">
+      <a href='#organizations'>Organizations</a> / <a href='#organizations-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /organizations/:id
+            <br>
+            <small>Deletes organization with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /organizations/1
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="product_categories">
+      <a href='#product_categories'>Product categories</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="product_categories-index">
+      <a href='#product_categories'>Product categories</a> / <a href='#product_categories-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /product_categories
+            <br>
+            <small>Returns a collection of product_categories</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;product&quot;, &quot;cloud&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="product_categories-show">
+      <a href='#product_categories'>Product categories</a> / <a href='#product_categories-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /product_categories/:id
+            <br>
+            <small>Shows product_category with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;product&quot;, &quot;cloud&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="product_categories-create">
+      <a href='#product_categories'>Product categories</a> / <a href='#product_categories-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /product_categories
+            <br>
+            <small>Creates product_category</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of any type ]
+      </small>
+      
+<p>Options</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="product_categories-update">
+      <a href='#product_categories'>Product categories</a> / <a href='#product_categories-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /product_categories/:id
+            <br>
+            <small>Updates product_category with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of any type ]
+      </small>
+      
+<p>Options</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="product_categories-destroy">
+      <a href='#product_categories'>Product categories</a> / <a href='#product_categories-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /product_categories/:id
+            <br>
+            <small>Deletes product_category with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="products">
+      <a href='#products'>Products</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="products-index">
+      <a href='#products'>Products</a> / <a href='#products-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /products
+            <br>
+            <small>Returns a collection of products</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /products
+200
+[
+  {
+    &quot;id&quot;: 10,
+    &quot;name&quot;: null,
+    &quot;description&quot;: null,
+    &quot;service_type_id&quot;: null,
+    &quot;service_catalog_id&quot;: null,
+    &quot;cloud_id&quot;: null,
+    &quot;chef_role&quot;: null,
+    &quot;active&quot;: null,
+    &quot;img&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.335Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.335Z&quot;,
+    &quot;options&quot;: null,
+    &quot;deleted_at&quot;: null,
+    &quot;product_category_id&quot;: null
+  },
+  {
+    &quot;id&quot;: 9,
+    &quot;name&quot;: null,
+    &quot;description&quot;: null,
+    &quot;service_type_id&quot;: null,
+    &quot;service_catalog_id&quot;: null,
+    &quot;cloud_id&quot;: null,
+    &quot;chef_role&quot;: null,
+    &quot;active&quot;: null,
+    &quot;img&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.333Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.333Z&quot;,
+    &quot;options&quot;: null,
+    &quot;deleted_at&quot;: null,
+    &quot;product_category_id&quot;: null
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;chargebacks&quot;, &quot;cloud&quot;, &quot;product_category&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="products-show">
+      <a href='#products'>Products</a> / <a href='#products-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /products/:id
+            <br>
+            <small>Shows product with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /products/8
+200
+{
+  &quot;id&quot;: 8,
+  &quot;name&quot;: null,
+  &quot;description&quot;: null,
+  &quot;service_type_id&quot;: null,
+  &quot;service_catalog_id&quot;: null,
+  &quot;cloud_id&quot;: null,
+  &quot;chef_role&quot;: null,
+  &quot;active&quot;: null,
+  &quot;img&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:59.325Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.325Z&quot;,
+  &quot;options&quot;: null,
+  &quot;deleted_at&quot;: null,
+  &quot;product_category_id&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;chargebacks&quot;, &quot;cloud&quot;, &quot;product_category&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="products-create">
+      <a href='#products'>Products</a> / <a href='#products-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /products
+            <br>
+            <small>Creates product</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /products/
+options[]=test
+201
+{
+  &quot;id&quot;: 7,
+  &quot;name&quot;: null,
+  &quot;description&quot;: null,
+  &quot;service_type_id&quot;: null,
+  &quot;service_catalog_id&quot;: null,
+  &quot;cloud_id&quot;: null,
+  &quot;chef_role&quot;: null,
+  &quot;active&quot;: null,
+  &quot;img&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:59.317Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.317Z&quot;,
+  &quot;options&quot;: [
+    &quot;test&quot;
+  ],
+  &quot;deleted_at&quot;: null,
+  &quot;product_category_id&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Product Name</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Short description</p>
+
+    </li>
+    
+    <li>
+      <strong>service_catalog_id </strong>:
+      <small>
+        optional
+        
+          [ Must be Integer ]
+      </small>
+      
+<p>ManageIQ Catalog Id</p>
+
+    </li>
+    
+    <li>
+      <strong>service_type_id </strong>:
+      <small>
+        optional
+        
+          [ Must be Integer ]
+      </small>
+      
+<p>ManageIQ Catalog Item Id</p>
+
+    </li>
+    
+    <li>
+      <strong>product_category_id </strong>:
+      <small>
+        optional
+        
+          [ Must be Integer ]
+      </small>
+      
+<p>ProductCategory Id</p>
+
+    </li>
+    
+    <li>
+      <strong>cloud_id </strong>:
+      <small>
+        optional
+        
+          [ Must be Integer ]
+      </small>
+      
+<p>Cloud Id</p>
+
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ Must be an array of any type ]
+      </small>
+      
+<p>Options</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="products-update">
+      <a href='#products'>Products</a> / <a href='#products-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /products/:id
+            <br>
+            <small>Updates product with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /products/6
+options[]=test
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Product Name</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Short description</p>
+
+    </li>
+    
+    <li>
+      <strong>service_catalog_id </strong>:
+      <small>
+        optional
+        
+          [ Must be Integer ]
+      </small>
+      
+<p>ManageIQ Catalog Id</p>
+
+    </li>
+    
+    <li>
+      <strong>service_type_id </strong>:
+      <small>
+        optional
+        
+          [ Must be Integer ]
+      </small>
+      
+<p>ManageIQ Catalog Item Id</p>
+
+    </li>
+    
+    <li>
+      <strong>product_category_id </strong>:
+      <small>
+        optional
+        
+          [ Must be Integer ]
+      </small>
+      
+<p>ProductCategory Id</p>
+
+    </li>
+    
+    <li>
+      <strong>cloud_id </strong>:
+      <small>
+        optional
+        
+          [ Must be Integer ]
+      </small>
+      
+<p>Cloud Id</p>
+
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ Must be an array of any type ]
+      </small>
+      
+<p>options</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="products-destroy">
+      <a href='#products'>Products</a> / <a href='#products-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /products/:id
+            <br>
+            <small>Deletes product with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /products/5
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="project_questions">
+      <a href='#project_questions'>Project questions</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="project_questions-index">
+      <a href='#project_questions'>Project questions</a> / <a href='#project_questions-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /project_questions
+            <br>
+            <small>Returns a collection of project_questions</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /project_questions
+200
+[
+  {
+    &quot;id&quot;: 6,
+    &quot;question&quot;: &quot;Question?&quot;,
+    &quot;help_text&quot;: &quot;helping&quot;,
+    &quot;required&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.515Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.515Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;load_order&quot;: 1,
+    &quot;options&quot;: [],
+    &quot;field_type&quot;: &quot;text&quot;
+  },
+  {
+    &quot;id&quot;: 5,
+    &quot;question&quot;: &quot;Question?&quot;,
+    &quot;help_text&quot;: &quot;helping&quot;,
+    &quot;required&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.513Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.513Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;load_order&quot;: 0,
+    &quot;options&quot;: [
+      &quot;one&quot;,
+      &quot;tow&quot;,
+      &quot;three&quot;
+    ],
+    &quot;field_type&quot;: &quot;select_option&quot;
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;project&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="project_questions-show">
+      <a href='#project_questions'>Project questions</a> / <a href='#project_questions-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /project_questions/:id
+            <br>
+            <small>Shows project_question with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /project_questions/4
+200
+{
+  &quot;id&quot;: 4,
+  &quot;question&quot;: &quot;Question?&quot;,
+  &quot;help_text&quot;: &quot;helping&quot;,
+  &quot;required&quot;: true,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:59.475Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.475Z&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;load_order&quot;: 0,
+  &quot;options&quot;: [
+    &quot;one&quot;,
+    &quot;tow&quot;,
+    &quot;three&quot;
+  ],
+  &quot;field_type&quot;: &quot;select_option&quot;
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;project&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="project_questions-create">
+      <a href='#project_questions'>Project questions</a> / <a href='#project_questions-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /project_questions
+            <br>
+            <small>Creates project_question</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /project_questions/
+id&amp;question=Question%3F&amp;help_text=helping&amp;required=true&amp;created_at&amp;updated_at&amp;deleted_at&amp;load_order=0&amp;options[]=one&amp;options[]=tow&amp;options[]=three&amp;field_type=select_option
+201
+{
+  &quot;id&quot;: 3,
+  &quot;question&quot;: &quot;Question?&quot;,
+  &quot;help_text&quot;: &quot;helping&quot;,
+  &quot;required&quot;: true,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:59.467Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.467Z&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;load_order&quot;: 0,
+  &quot;options&quot;: [
+    &quot;one&quot;,
+    &quot;tow&quot;,
+    &quot;three&quot;
+  ],
+  &quot;field_type&quot;: &quot;select_option&quot;
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>question </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Question</p>
+
+    </li>
+    
+    <li>
+      <strong>field_type </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Field Type</p>
+
+    </li>
+    
+    <li>
+      <strong>help_text </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Help Text</p>
+
+    </li>
+    
+    <li>
+      <strong>load_order </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Load order</p>
+
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of any type ]
+      </small>
+      
+<p>Options</p>
+
+    </li>
+    
+    <li>
+      <strong>required </strong>:
+      <small>
+        optional
+        
+          [ Must be &#39;true&#39; or &#39;false&#39; ]
+      </small>
+      
+<p>Required?</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="project_questions-update">
+      <a href='#project_questions'>Project questions</a> / <a href='#project_questions-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /project_questions/:id
+            <br>
+            <small>Updates project_question with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /project_questions/2
+required=true
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>question </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Question</p>
+
+    </li>
+    
+    <li>
+      <strong>field_type </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Field Type</p>
+
+    </li>
+    
+    <li>
+      <strong>help_text </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Help Text</p>
+
+    </li>
+    
+    <li>
+      <strong>load_order </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Load order</p>
+
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of any type ]
+      </small>
+      
+<p>Options</p>
+
+    </li>
+    
+    <li>
+      <strong>required </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ Must be &#39;true&#39; or &#39;false&#39; ]
+      </small>
+      
+<p>Required</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="project_questions-destroy">
+      <a href='#project_questions'>Project questions</a> / <a href='#project_questions-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /project_questions/:id
+            <br>
+            <small>Deletes project_question with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /project_questions/1
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="projects">
+      <a href='#projects'>Projects</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="projects-index">
+      <a href='#projects'>Projects</a> / <a href='#projects-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /projects
+            <br>
+            <small>Returns a collection of projects</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /projects
+200
+[
+  {
+    &quot;id&quot;: 14,
+    &quot;name&quot;: &quot;Test Project&quot;,
+    &quot;description&quot;: &quot;A description&quot;,
+    &quot;cc&quot;: &quot;--cc--&quot;,
+    &quot;budget&quot;: 100.0,
+    &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+    &quot;start_date&quot;: &quot;2015-01-15&quot;,
+    &quot;end_date&quot;: &quot;2015-01-22&quot;,
+    &quot;approved&quot;: true,
+    &quot;img&quot;: &quot;--img--&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:36:00.059Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:36:00.059Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;domain&quot;: &quot;companyapp1.clouddealer.com/&quot;,
+    &quot;url&quot;: &quot;http://companyapp1.clouddealer.com&quot;,
+    &quot;state&quot;: &quot;2 Problems&quot;,
+    &quot;state_ok&quot;: false,
+    &quot;problem_count&quot;: 0,
+    &quot;account_number&quot;: 785,
+    &quot;resources&quot;: 256,
+    &quot;icon&quot;: &quot;/images/assets/projects/1.png&quot;,
+    &quot;cpu&quot;: 8,
+    &quot;hdd&quot;: &quot;42 GB&quot;,
+    &quot;ram&quot;: &quot;2 GB&quot;,
+    &quot;status&quot;: 2
+  },
+  {
+    &quot;id&quot;: 13,
+    &quot;name&quot;: &quot;Test Project&quot;,
+    &quot;description&quot;: &quot;A description&quot;,
+    &quot;cc&quot;: &quot;--cc--&quot;,
+    &quot;budget&quot;: 100.0,
+    &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+    &quot;start_date&quot;: &quot;2015-01-15&quot;,
+    &quot;end_date&quot;: &quot;2015-01-22&quot;,
+    &quot;approved&quot;: true,
+    &quot;img&quot;: &quot;--img--&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:36:00.057Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:36:00.057Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;domain&quot;: &quot;companyapp1.clouddealer.com/&quot;,
+    &quot;url&quot;: &quot;http://companyapp1.clouddealer.com&quot;,
+    &quot;state&quot;: &quot;2 Problems&quot;,
+    &quot;state_ok&quot;: false,
+    &quot;problem_count&quot;: 0,
+    &quot;account_number&quot;: 785,
+    &quot;resources&quot;: 256,
+    &quot;icon&quot;: &quot;/images/assets/projects/1.png&quot;,
+    &quot;cpu&quot;: 8,
+    &quot;hdd&quot;: &quot;42 GB&quot;,
+    &quot;ram&quot;: &quot;2 GB&quot;,
+    &quot;status&quot;: 2
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;project_answers&quot;, &quot;project_detail&quot;, &quot;services&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>methods </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;domain&quot;, &quot;url&quot;, &quot;state&quot;, &quot;state_ok&quot;, &quot;problem_count&quot;, &quot;account_number&quot;, &quot;resources&quot;, &quot;resources_unit&quot;, &quot;icon&quot;, &quot;cpu&quot;, &quot;hdd&quot;, &quot;ram&quot;, &quot;status&quot;, &quot;users&quot;, &quot;order_history&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-show">
+      <a href='#projects'>Projects</a> / <a href='#projects-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /projects/:id
+            <br>
+            <small>Shows project with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;project_answers&quot;, &quot;project_detail&quot;, &quot;services&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>methods </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;domain&quot;, &quot;url&quot;, &quot;state&quot;, &quot;state_ok&quot;, &quot;problem_count&quot;, &quot;account_number&quot;, &quot;resources&quot;, &quot;resources_unit&quot;, &quot;icon&quot;, &quot;cpu&quot;, &quot;hdd&quot;, &quot;ram&quot;, &quot;status&quot;, &quot;users&quot;, &quot;order_history&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-create">
+      <a href='#projects'>Projects</a> / <a href='#projects-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /projects
+            <br>
+            <small>Creates projects</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /projects
+name=Created&amp;description=description&amp;cc=cc&amp;staff_id=staff_id&amp;budget=1&amp;start_date=2015-01-08&amp;end_date=2015-01-15&amp;approved=Y&amp;img=img&amp;project_answers[][project_question_id]=7&amp;project_answers[][answer]=To+get+to+the+other+side.&amp;includes[]=project_answers
+200
+{
+  &quot;id&quot;: 8,
+  &quot;name&quot;: &quot;Created&quot;,
+  &quot;description&quot;: &quot;description&quot;,
+  &quot;cc&quot;: &quot;cc&quot;,
+  &quot;budget&quot;: 1.0,
+  &quot;staff_id&quot;: &quot;staff_id&quot;,
+  &quot;start_date&quot;: &quot;2015-01-08&quot;,
+  &quot;end_date&quot;: &quot;2015-01-15&quot;,
+  &quot;approved&quot;: false,
+  &quot;img&quot;: &quot;img&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:59.795Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.795Z&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;project_answers&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;project_id&quot;: 8,
+      &quot;project_question_id&quot;: 7,
+      &quot;answer&quot;: &quot;To get to the other side.&quot;,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:59.813Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.813Z&quot;
+    }
+  ]
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>project_answers </strong>:
+      <small>
+        optional
+        
+          [ Must be an Array of nested elements ]
+      </small>
+      
+<p>Project answers</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>project_question_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for valid project question</p>
+
+    </li>
+    
+</ul>
+
+    <li>
+      <strong>name </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>cc </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>budget </strong>:
+      <small>
+        required
+        
+          [ Must be a floating point number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>start_date </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>end_date </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>approved </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>img </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;staff&quot;, &quot;project_answers&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-update">
+      <a href='#projects'>Projects</a> / <a href='#projects-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /projects/:id
+            <br>
+            <small>Updates project with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /projects/9
+name=Created&amp;description=description&amp;cc=cc&amp;staff_id=staff_id&amp;budget=1&amp;start_date=2015-01-08&amp;end_date=2015-01-15&amp;approved=Y&amp;img=img&amp;project_answers[][project_question_id]=8&amp;project_answers[][answer]=To+get+to+the+other+side.&amp;includes[]=project_answers
+200
+{
+  &quot;id&quot;: 9,
+  &quot;name&quot;: &quot;Created&quot;,
+  &quot;description&quot;: &quot;description&quot;,
+  &quot;cc&quot;: &quot;cc&quot;,
+  &quot;budget&quot;: 1.0,
+  &quot;staff_id&quot;: &quot;staff_id&quot;,
+  &quot;start_date&quot;: &quot;2015-01-08&quot;,
+  &quot;end_date&quot;: &quot;2015-01-15&quot;,
+  &quot;approved&quot;: false,
+  &quot;img&quot;: &quot;img&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:59.835Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.859Z&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;project_answers&quot;: [
+    {
+      &quot;id&quot;: 2,
+      &quot;project_id&quot;: 9,
+      &quot;project_question_id&quot;: 8,
+      &quot;answer&quot;: &quot;To get to the other side.&quot;,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:59.866Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.866Z&quot;
+    }
+  ]
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>project_answers </strong>:
+      <small>
+        optional
+        
+          [ Must be an Array of nested elements ]
+      </small>
+      
+<p>Project answers</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>project_question_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Id for valid project question</p>
+
+    </li>
+    
+</ul>
+
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>cc </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>budget </strong>:
+      <small>
+        required
+        
+          [ Must be a floating point number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>end_data </strong>:
+      <small>
+        optional
+        
+          [ Must be Date ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>approved </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>img </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>include </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;staff&quot;, &quot;project_answers&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-destroy">
+      <a href='#projects'>Projects</a> / <a href='#projects-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /projects/:id
+            <br>
+            <small>Deletes project with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-staff">
+      <a href='#projects'>Projects</a> / <a href='#projects-staff'>staff</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /projects/:id/staff
+            <br>
+            <small>Shows collection of staff for a project :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /projects/12/staff
+200
+[
+  {
+    &quot;id&quot;: 91,
+    &quot;first_name&quot;: &quot;Test&quot;,
+    &quot;last_name&quot;: &quot;Staff&quot;,
+    &quot;email&quot;: &quot;user@test.com&quot;,
+    &quot;phone&quot;: null,
+    &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;updated_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;role&quot;: &quot;user&quot;,
+    &quot;deleted_at&quot;: null
+  }
+]</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-add_staff">
+      <a href='#projects'>Projects</a> / <a href='#projects-add_staff'>add_staff</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /projects/:id/staff/:staff_id
+            <br>
+            <small>Adds staff to a project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /projects/11/staff/89
+201
+{
+  &quot;id&quot;: 89,
+  &quot;first_name&quot;: &quot;Test&quot;,
+  &quot;last_name&quot;: &quot;Staff&quot;,
+  &quot;email&quot;: &quot;user@test.com&quot;,
+  &quot;phone&quot;: null,
+  &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+  &quot;updated_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Staff</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-remove_staff">
+      <a href='#projects'>Projects</a> / <a href='#projects-remove_staff'>remove_staff</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /projects/:id/staff/:staff_id
+            <br>
+            <small>Deletes staff from a project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /projects/10/staff/87
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>staff </strong>:
+      <small>
+        optional
+        
+          [ Must be a Hash ]
+      </small>
+      
+<p>Staff</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="sessions">
+      <a href='#sessions'>Sessions</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="sessions-create">
+      <a href='#sessions'>Sessions</a> / <a href='#sessions-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /staff/sign_in
+            <br>
+            <small>Signs user in</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /staff/sign_in
+staff%5Bemail%5D=admin%40test.com&amp;staff%5Bpassword%5D=test_pass
+302
+&lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;http://www.example.com/&quot;&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>staff </strong>:
+      <small>
+        optional
+        
+          [ Must be a Hash ]
+      </small>
+      
+<p>Staff</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>email </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Email</p>
+
+    </li>
+    
+    <li>
+      <strong>password </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Password</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="sessions-destroy">
+      <a href='#sessions'>Sessions</a> / <a href='#sessions-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /staff/sign_out
+            <br>
+            <small>Invalidates user session</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /staff/sign_out.json
+200
+{}</pre>
+
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="settings">
+      <a href='#settings'>Settings</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="settings-index">
+      <a href='#settings'>Settings</a> / <a href='#settings-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /settings
+            <br>
+            <small>Returns a collection of admin settings</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /settings
+200
+[
+  {
+    &quot;id&quot;: 5,
+    &quot;name&quot;: &quot;first setting&quot;,
+    &quot;value&quot;: &quot;first value&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:36:00.350Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:36:00.350Z&quot;,
+    &quot;deleted_at&quot;: null
+  },
+  {
+    &quot;id&quot;: 6,
+    &quot;name&quot;: &quot;second setting&quot;,
+    &quot;value&quot;: &quot;second value&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:36:00.352Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:36:00.352Z&quot;,
+    &quot;deleted_at&quot;: null
+  },
+  {
+    &quot;id&quot;: 7,
+    &quot;name&quot;: &quot;third setting&quot;,
+    &quot;value&quot;: &quot;third value&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:36:00.354Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:36:00.354Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;setting_fields&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="settings-new">
+      <a href='#settings'>Settings</a> / <a href='#settings-new'>new</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /settings/new
+            <br>
+            <small>Get new setting JSON</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+      </div>
+      <hr/>
+
+      <h3 id="settings-edit">
+      <a href='#settings'>Settings</a> / <a href='#settings-edit'>edit</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /settings/:id/edit
+            <br>
+            <small>Get edit JSON for setting with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="settings-show">
+      <a href='#settings'>Settings</a> / <a href='#settings-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /settings/:name
+            <br>
+            <small>Returns the settings with the matching name</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /settings/1
+200
+{
+  &quot;id&quot;: 1,
+  &quot;name&quot;: &quot;test setting&quot;,
+  &quot;value&quot;: &quot;test value&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:36:00.164Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:36:00.164Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;setting_fields&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="settings-destroy">
+      <a href='#settings'>Settings</a> / <a href='#settings-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /settings/:id
+            <br>
+            <small>Deletes setting with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /settings/1
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="settings-update">
+      <a href='#settings'>Settings</a> / <a href='#settings-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /settings/:id
+            <br>
+            <small>Updates value for setting with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /settings/3
+value=Updated
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>admin_settings_fields </strong>:
+      <small>
+        optional
+        
+          [ Must be an Array of nested elements ]
+      </small>
+      
+<p>Setting field</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>value </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="staff">
+      <a href='#staff'>Staff</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="staff-index">
+      <a href='#staff'>Staff</a> / <a href='#staff-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /staff
+            <br>
+            <small>Returns a collection of staff</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /staff?includes[]=projects
+200
+[
+  {
+    &quot;id&quot;: 45,
+    &quot;first_name&quot;: &quot;Test&quot;,
+    &quot;last_name&quot;: &quot;Staff&quot;,
+    &quot;email&quot;: &quot;admin@test.com&quot;,
+    &quot;phone&quot;: null,
+    &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.953Z&quot;,
+    &quot;role&quot;: &quot;admin&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;gravatar&quot;: &quot;3fc88b95c85e43f157cb1ffd0e37e832&quot;,
+    &quot;projects&quot;: []
+  },
+  {
+    &quot;id&quot;: 44,
+    &quot;first_name&quot;: &quot;Test&quot;,
+    &quot;last_name&quot;: &quot;Staff&quot;,
+    &quot;email&quot;: &quot;user@test.com&quot;,
+    &quot;phone&quot;: null,
+    &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;updated_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;role&quot;: &quot;user&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;gravatar&quot;: &quot;3fc88b95c85e43f157cb1ffd0e37e832&quot;,
+    &quot;projects&quot;: []
+  },
+  {
+    &quot;id&quot;: 43,
+    &quot;first_name&quot;: &quot;john&quot;,
+    &quot;last_name&quot;: &quot;smith&quot;,
+    &quot;email&quot;: &quot;foo@bar.com&quot;,
+    &quot;phone&quot;: null,
+    &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;updated_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;role&quot;: &quot;user&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;gravatar&quot;: &quot;3fc88b95c85e43f157cb1ffd0e37e832&quot;,
+    &quot;projects&quot;: []
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>query </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>queries against first name, last name, and email</p>
+
+    </li>
+    
+    <li>
+      <strong>methods </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;gravatar&quot;, &quot;allowed&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;user_settings&quot;, &quot;projects&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-show">
+      <a href='#staff'>Staff</a> / <a href='#staff-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /staff/:id
+            <br>
+            <small>Shows staff member with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /staff/33?includes[]=user_settings
+200
+{
+  &quot;id&quot;: 33,
+  &quot;first_name&quot;: &quot;Test&quot;,
+  &quot;last_name&quot;: &quot;Staff&quot;,
+  &quot;email&quot;: &quot;staff@test.com&quot;,
+  &quot;phone&quot;: null,
+  &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.659Z&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;user_settings&quot;: []
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;user_settings&quot;, &quot;projects&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-current_member">
+      <a href='#staff'>Staff</a> / <a href='#staff-current_member'>current_member</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /staff/current_member
+            <br>
+            <small>Shows logged in member</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /staff/current_member?includes[]=cart
+200
+{
+  &quot;id&quot;: 21,
+  &quot;first_name&quot;: &quot;Test&quot;,
+  &quot;last_name&quot;: &quot;Staff&quot;,
+  &quot;email&quot;: &quot;staff@test.com&quot;,
+  &quot;phone&quot;: null,
+  &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.333Z&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;cart&quot;: {
+    &quot;id&quot;: 1,
+    &quot;count&quot;: null,
+    &quot;staff_id&quot;: 21,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.307Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.307Z&quot;
+  }
+}</pre>
+
+          <h4>Errors</h4>
+            401
+            User is not signed in.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;user_settings&quot;, &quot;projects&quot;, &quot;notifications&quot;, &quot;cart&quot;] ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-create">
+      <a href='#staff'>Staff</a> / <a href='#staff-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /staff
+            <br>
+            <small>Creates a staff member</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /staff
+staff[first_name]=Created&amp;staff[last_name]=User&amp;staff[email]=created%40test.com&amp;staff[role]=user&amp;staff[password]=created_pass&amp;staff[password_confirmation]=created_pass
+201
+{
+  &quot;id&quot;: 24,
+  &quot;first_name&quot;: &quot;Created&quot;,
+  &quot;last_name&quot;: &quot;User&quot;,
+  &quot;email&quot;: &quot;created@test.com&quot;,
+  &quot;phone&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.426Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.426Z&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>first_name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>last_name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>email </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>role </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>password </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>password_confirmation </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-update">
+      <a href='#staff'>Staff</a> / <a href='#staff-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /staff/:id
+            <br>
+            <small>Updates a staff member with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /staff/31
+staff[first_name]=Updated
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>first_name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>last_name </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>email </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>role </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>password </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>password_confirmation </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-destroy">
+      <a href='#staff'>Staff</a> / <a href='#staff-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /staff/:id
+            <br>
+            <small>Deletes staff member with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-projects">
+      <a href='#staff'>Staff</a> / <a href='#staff-projects'>projects</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /staff/:id/project
+            <br>
+            <small>Shows collection of projects for a staff :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /staff/29/projects
+200
+[
+  {
+    &quot;id&quot;: 5,
+    &quot;name&quot;: &quot;Test Project&quot;,
+    &quot;description&quot;: &quot;A description&quot;,
+    &quot;cc&quot;: &quot;--cc--&quot;,
+    &quot;budget&quot;: 100.0,
+    &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+    &quot;start_date&quot;: &quot;2015-01-15&quot;,
+    &quot;end_date&quot;: &quot;2015-01-22&quot;,
+    &quot;approved&quot;: true,
+    &quot;img&quot;: &quot;--img--&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.563Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.563Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+]</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-add_project">
+      <a href='#staff'>Staff</a> / <a href='#staff-add_project'>add_project</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /staff/:id/projects/:project_id
+            <br>
+            <small>Adds project to a staff member</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /staff/27/projects/4
+201
+{
+  &quot;id&quot;: 4,
+  &quot;name&quot;: &quot;Test Project&quot;,
+  &quot;description&quot;: &quot;A description&quot;,
+  &quot;cc&quot;: &quot;--cc--&quot;,
+  &quot;budget&quot;: 100.0,
+  &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+  &quot;start_date&quot;: &quot;2015-01-15&quot;,
+  &quot;end_date&quot;: &quot;2015-01-22&quot;,
+  &quot;approved&quot;: true,
+  &quot;img&quot;: &quot;--img--&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.526Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.526Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>project_id </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>Project</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-remove_project">
+      <a href='#staff'>Staff</a> / <a href='#staff-remove_project'>remove_project</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /staff/:id/project/:project_id
+            <br>
+            <small>Deletes project from a staff</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /staff/25/projects/3
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>staff </strong>:
+      <small>
+        optional
+        
+          [ Must be a Hash ]
+      </small>
+      
+<p>Staff</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-user_settings">
+      <a href='#staff'>Staff</a> / <a href='#staff-user_settings'>user_settings</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /staff/:id/settings
+            <br>
+            <small>Shows collection of user settings for a staff :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /staff/41/settings
+200
+[
+  {
+    &quot;id&quot;: 5,
+    &quot;staff_id&quot;: 41,
+    &quot;name&quot;: &quot;test user setting&quot;,
+    &quot;value&quot;: &quot;test user value&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.896Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.899Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+]</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>staff_id</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-show_user_setting">
+      <a href='#staff'>Staff</a> / <a href='#staff-show_user_setting'>show_user_setting</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /staff/:id/settings/:user_setting_id
+            <br>
+            <small>Shows user settings detail</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /staff/39/settings/4
+200
+{
+  &quot;id&quot;: 4,
+  &quot;staff_id&quot;: 39,
+  &quot;name&quot;: &quot;test user setting&quot;,
+  &quot;value&quot;: &quot;test user value&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.862Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.864Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>staff_id</p>
+
+    </li>
+    
+    <li>
+      <strong>user_setting_id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>user_setting_id</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-add_user_setting">
+      <a href='#staff'>Staff</a> / <a href='#staff-add_user_setting'>add_user_setting</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /staff/:id/settings
+            <br>
+            <small>Adds user setting to a staff member. Duplicate user setting name triggers update.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /staff/38/settings
+user_setting[name]=foo&amp;user_setting[value]=bar
+200
+{
+  &quot;id&quot;: 3,
+  &quot;staff_id&quot;: 38,
+  &quot;name&quot;: &quot;foo&quot;,
+  &quot;value&quot;: &quot;bar&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.843Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.843Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>staff_id</p>
+
+    </li>
+    
+    <li>
+      <strong>user_setting </strong>:
+      <small>
+        required
+        
+          [ Must be a Hash ]
+      </small>
+      
+<p>User Setting</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>name </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>value </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-update_user_setting">
+      <a href='#staff'>Staff</a> / <a href='#staff-update_user_setting'>update_user_setting</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /staff/:id/settings/:user_setting_id
+            <br>
+            <small>Updates a staff member's user setting with a new value.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /staff/37/settings/2
+user_setting[value]=updated
+200
+{
+  &quot;id&quot;: 2,
+  &quot;staff_id&quot;: 37,
+  &quot;name&quot;: &quot;test user setting&quot;,
+  &quot;value&quot;: &quot;updated&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.792Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.814Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>staff_id</p>
+
+    </li>
+    
+    <li>
+      <strong>user_setting_id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>user_setting_id</p>
+
+    </li>
+    
+    <li>
+      <strong>user_setting </strong>:
+      <small>
+        required
+        
+          [ Must be a Hash ]
+      </small>
+      
+<p>User Setting</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>value </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff-remove_user_setting">
+      <a href='#staff'>Staff</a> / <a href='#staff-remove_user_setting'>remove_user_setting</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /staff/:id/settings/:user_setting_id
+            <br>
+            <small>Deletes a user setting from a staff member.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /staff/36/settings/1
+200
+{
+  &quot;id&quot;: 1,
+  &quot;staff_id&quot;: 36,
+  &quot;name&quot;: &quot;test user setting&quot;,
+  &quot;value&quot;: &quot;test user value&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.747Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.750Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            422
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>staff_id</p>
+
+    </li>
+    
+    <li>
+      <strong>user_setting_id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+<p>user_setting_id</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="staff_orders">
+      <a href='#staff_orders'>Staff orders</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="staff_orders-index">
+      <a href='#staff_orders'>Staff orders</a> / <a href='#staff_orders-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /staff/:staff_id/orders
+            <br>
+            <small>Returns a collection of orders for a member</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /staff/56/orders
+200
+[
+  {
+    &quot;id&quot;: 1,
+    &quot;staff_id&quot;: 56,
+    &quot;engine_response&quot;: null,
+    &quot;active&quot;: null,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:58.413Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.413Z&quot;,
+    &quot;options&quot;: null,
+    &quot;deleted_at&quot;: null,
+    &quot;total&quot;: 0.0,
+    &quot;order_items&quot;: [
+      {
+        &quot;id&quot;: 2,
+        &quot;order_id&quot;: 1,
+        &quot;cloud_id&quot;: null,
+        &quot;product_id&quot;: 3,
+        &quot;service_id&quot;: null,
+        &quot;provision_status&quot;: null,
+        &quot;created_at&quot;: &quot;2015-01-08T13:35:58.435Z&quot;,
+        &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.435Z&quot;,
+        &quot;deleted_at&quot;: null,
+        &quot;project_id&quot;: 6,
+        &quot;host&quot;: null,
+        &quot;port&quot;: null
+      },
+      {
+        &quot;id&quot;: 1,
+        &quot;order_id&quot;: 1,
+        &quot;cloud_id&quot;: null,
+        &quot;product_id&quot;: 3,
+        &quot;service_id&quot;: null,
+        &quot;provision_status&quot;: null,
+        &quot;created_at&quot;: &quot;2015-01-08T13:35:58.428Z&quot;,
+        &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.428Z&quot;,
+        &quot;deleted_at&quot;: null,
+        &quot;project_id&quot;: 6,
+        &quot;host&quot;: null,
+        &quot;port&quot;: null
+      }
+    ]
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;order_items&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>methods </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;item_count&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="staff_orders-show">
+      <a href='#staff_orders'>Staff orders</a> / <a href='#staff_orders-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /staff/:staff_id/orders/:id
+            <br>
+            <small>Returns a collection of orders for a member</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /staff/57/orders/2
+200
+{
+  &quot;id&quot;: 2,
+  &quot;staff_id&quot;: 57,
+  &quot;engine_response&quot;: null,
+  &quot;active&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:58.489Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.489Z&quot;,
+  &quot;options&quot;: null,
+  &quot;deleted_at&quot;: null,
+  &quot;total&quot;: 0.0,
+  &quot;order_items&quot;: [
+    {
+      &quot;id&quot;: 4,
+      &quot;order_id&quot;: 2,
+      &quot;cloud_id&quot;: null,
+      &quot;product_id&quot;: 4,
+      &quot;service_id&quot;: null,
+      &quot;provision_status&quot;: null,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:58.495Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.495Z&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;project_id&quot;: 7,
+      &quot;host&quot;: null,
+      &quot;port&quot;: null
+    },
+    {
+      &quot;id&quot;: 3,
+      &quot;order_id&quot;: 2,
+      &quot;cloud_id&quot;: null,
+      &quot;product_id&quot;: 4,
+      &quot;service_id&quot;: null,
+      &quot;provision_status&quot;: null,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:58.492Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:58.492Z&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;project_id&quot;: 7,
+      &quot;host&quot;: null,
+      &quot;port&quot;: null
+    }
+  ]
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>includes </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;order_items&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>methods </strong>:
+      <small>
+        optional
+        
+          [ Must be an array of [&quot;item_count&quot;] ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>staff_id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="user_setting_options">
+      <a href='#user_setting_options'>User setting options</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="user_setting_options-index">
+      <a href='#user_setting_options'>User setting options</a> / <a href='#user_setting_options-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /user_setting_options
+            <br>
+            <small>Returns a set of default staff options.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /user_setting_options
+200
+[
+  {
+    &quot;id&quot;: 5,
+    &quot;label&quot;: &quot;first label&quot;,
+    &quot;field_type&quot;: &quot;text_area&quot;,
+    &quot;help_text&quot;: &quot;click here&quot;,
+    &quot;options&quot;: &quot;{ \&quot;JSON PAYLOAD\&quot;: \&quot;DATA\&quot; }&quot;,
+    &quot;required&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.737Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.737Z&quot;,
+    &quot;deleted_at&quot;: null
+  },
+  {
+    &quot;id&quot;: 6,
+    &quot;label&quot;: &quot;second label&quot;,
+    &quot;field_type&quot;: &quot;text_area&quot;,
+    &quot;help_text&quot;: &quot;click here&quot;,
+    &quot;options&quot;: &quot;{ \&quot;JSON PAYLOAD\&quot;: \&quot;DATA\&quot; }&quot;,
+    &quot;required&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.741Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.741Z&quot;,
+    &quot;deleted_at&quot;: null
+  },
+  {
+    &quot;id&quot;: 7,
+    &quot;label&quot;: &quot;third label&quot;,
+    &quot;field_type&quot;: &quot;text_area&quot;,
+    &quot;help_text&quot;: &quot;click here&quot;,
+    &quot;options&quot;: &quot;{ \&quot;JSON PAYLOAD\&quot;: \&quot;DATA\&quot; }&quot;,
+    &quot;required&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.745Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.745Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+]</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="user_setting_options-show">
+      <a href='#user_setting_options'>User setting options</a> / <a href='#user_setting_options-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /user_setting_options/:id
+            <br>
+            <small>Shows user setting option with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">GET /user_setting_options/4
+200
+{
+  &quot;id&quot;: 4,
+  &quot;label&quot;: &quot;test label&quot;,
+  &quot;field_type&quot;: &quot;text_area&quot;,
+  &quot;help_text&quot;: &quot;click here&quot;,
+  &quot;options&quot;: &quot;{ \&quot;JSON PAYLOAD\&quot;: \&quot;DATA\&quot; }&quot;,
+  &quot;required&quot;: true,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:59.681Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.681Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="user_setting_options-create">
+      <a href='#user_setting_options'>User setting options</a> / <a href='#user_setting_options-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /user_setting_options
+            <br>
+            <small>Create new setting that all users will have.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">POST /user_setting_options?field_type=bar&amp;help_text=fizz&amp;label=foo&amp;options=buzz&amp;required=true
+201
+{
+  &quot;id&quot;: 2,
+  &quot;label&quot;: &quot;foo&quot;,
+  &quot;field_type&quot;: &quot;bar&quot;,
+  &quot;help_text&quot;: &quot;fizz&quot;,
+  &quot;options&quot;: &quot;buzz&quot;,
+  &quot;required&quot;: true,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:59.634Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.634Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>label </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>The label of the setting. Varchar(255)</p>
+
+    </li>
+    
+    <li>
+      <strong>field_type </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>The field type (text, textarea, radio, checkbox). Varchar(100)</p>
+
+    </li>
+    
+    <li>
+      <strong>help_text </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>Inline help text to display. Varchar(255)</p>
+
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>JSON for options for field_type that needs them (like radio, checkbox,
+etc). Text BLOB.</p>
+
+    </li>
+    
+    <li>
+      <strong>required </strong>:
+      <small>
+        required
+        
+          [ Must be String ]
+      </small>
+      
+<p>Whether option is mandatory. Boolean</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="user_setting_options-update">
+      <a href='#user_setting_options'>User setting options</a> / <a href='#user_setting_options-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT /user_setting_options/:id
+            <br>
+            <small>Updates user setting option with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">PUT /user_setting_options/3?field_type=Updated
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Missing parameter
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+    <li>
+      <strong>field_type </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>The field type (text, textarea, radio, checkbox). Varchar(100)</p>
+
+    </li>
+    
+    <li>
+      <strong>help_text </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Inline help text to display. Varchar(255)</p>
+
+    </li>
+    
+    <li>
+      <strong>options </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>JSON for options for field_type that needs them (like radio, checkbox,
+etc). Text BLOB.</p>
+
+    </li>
+    
+    <li>
+      <strong>required </strong>:
+      <small>
+        optional
+        
+          [ Must be String ]
+      </small>
+      
+<p>Whether option is mandatory. Boolean</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="user_setting_options-new">
+      <a href='#user_setting_options'>User setting options</a> / <a href='#user_setting_options-new'>new</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /user_setting_options/new
+            <br>
+            <small>Get new setting JSON</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+      </div>
+      <hr/>
+
+      <h3 id="user_setting_options-edit">
+      <a href='#user_setting_options'>User setting options</a> / <a href='#user_setting_options-edit'>edit</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /user_setting_options/:id/edit
+            <br>
+            <small>Get edit JSON for user setting option with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="user_setting_options-destroy">
+      <a href='#user_setting_options'>User setting options</a> / <a href='#user_setting_options-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /user_setting_options/:id
+            <br>
+            <small>Deletes user setting option with :id</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">DELETE /user_setting_options/1
+204</pre>
+
+          <h4>Errors</h4>
+            404
+            Not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ Must be a number. ]
+      </small>
+      
+    </li>
+    
+</ul>
+
+      </div>
+  </div>

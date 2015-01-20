@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../../apidoc.html'>Jellyfish API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../apidoc/alerts.html'>
+      Alerts
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>show_active</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      GET /alerts/active
+      <br>
+      <small>Shows all active alerts. Where end_date is null or has yet to occur and start is null or has already occurred.</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+
+
+
+
+  <h2>Examples</h2>
+    <pre class="prettyprint">GET /alerts/active
+200
+[
+  {
+    &quot;id&quot;: 14,
+    &quot;project_id&quot;: 2,
+    &quot;staff_id&quot;: 0,
+    &quot;order_id&quot;: 2,
+    &quot;status&quot;: &quot;OK&quot;,
+    &quot;message&quot;: &quot;This is an active alert&quot;,
+    &quot;start_date&quot;: &quot;2015-01-08T13:35:55.000Z&quot;,
+    &quot;end_date&quot;: &quot;2015-01-09T13:35:55.000Z&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:59.124Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:59.124Z&quot;
+  }
+]</pre>
+
+  <h2>Params</h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>page </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>per_page </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer></footer>
+  </div>
+  <script type='text/javascript' src='../../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

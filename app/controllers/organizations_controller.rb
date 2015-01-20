@@ -6,6 +6,8 @@ class OrganizationsController < ApplicationController
   before_action :load_organizations, only: [:index]
 
   api :GET, '/organizations', 'Returns a collection of organizations'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     authorize @organizations
@@ -69,6 +71,6 @@ class OrganizationsController < ApplicationController
   end
 
   def load_organizations
-    @organizations = query_with_includes Organization.all
+    @organizations = query_with Organization.all, :includes, :pagination
   end
 end

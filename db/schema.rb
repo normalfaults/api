@@ -118,11 +118,14 @@ ActiveRecord::Schema.define(version: 20150120170915) do
     t.integer  "cloud_id"
     t.integer  "product_id"
     t.integer  "service_id"
-    t.string   "provision_status"
+    t.integer  "provision_status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "project_id"
+    t.decimal  "setup_price",      precision: 10, scale: 4, default: 0.0
+    t.decimal  "hourly_price",     precision: 10, scale: 4, default: 0.0
+    t.decimal  "monthly_price",    precision: 10, scale: 4, default: 0.0
     t.integer  "miq_id"
     t.inet     "ip_address"
     t.string   "hostname"
@@ -187,6 +190,9 @@ ActiveRecord::Schema.define(version: 20150120170915) do
     t.json     "options"
     t.datetime "deleted_at"
     t.integer  "product_category_id"
+    t.decimal  "setup_price",                     precision: 10, scale: 4, default: 0.0
+    t.decimal  "hourly_price",                    precision: 10, scale: 4, default: 0.0
+    t.decimal  "monthly_price",                   precision: 10, scale: 4, default: 0.0
   end
 
   add_index "products", ["cloud_id"], name: "index_products_on_cloud_id", using: :btree
@@ -247,6 +253,7 @@ ActiveRecord::Schema.define(version: 20150120170915) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.decimal  "spent",                  precision: 12, scale: 2, default: 0.0
   end
 
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
@@ -288,8 +295,10 @@ ActiveRecord::Schema.define(version: 20150120170915) do
     t.inet     "last_sign_in_ip"
     t.integer  "role",                              default: 0
     t.datetime "deleted_at"
+    t.string   "authentication_token"
   end
 
+  add_index "staff", ["authentication_token"], name: "index_staff_on_authentication_token", using: :btree
   add_index "staff", ["deleted_at"], name: "index_staff_on_deleted_at", using: :btree
   add_index "staff", ["email"], name: "index_staff_on_email", unique: true, using: :btree
   add_index "staff", ["reset_password_token"], name: "index_staff_on_reset_password_token", unique: true, using: :btree

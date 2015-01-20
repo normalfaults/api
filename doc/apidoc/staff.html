@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../apidoc.html'>Jellyfish API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Staff
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Staff
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/index.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /staff
+          </a>
+          <br>
+          <small>Returns a collection of staff</small>
+        </h2>
+    </div>
+
+
+    <div id='description-index' class='collapse accordion-body'>
+      
+
+
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /staff?includes[]=projects
+200
+[
+  {
+    &quot;id&quot;: 45,
+    &quot;first_name&quot;: &quot;Test&quot;,
+    &quot;last_name&quot;: &quot;Staff&quot;,
+    &quot;email&quot;: &quot;admin@test.com&quot;,
+    &quot;phone&quot;: null,
+    &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.953Z&quot;,
+    &quot;role&quot;: &quot;admin&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;gravatar&quot;: &quot;3fc88b95c85e43f157cb1ffd0e37e832&quot;,
+    &quot;projects&quot;: []
+  },
+  {
+    &quot;id&quot;: 44,
+    &quot;first_name&quot;: &quot;Test&quot;,
+    &quot;last_name&quot;: &quot;Staff&quot;,
+    &quot;email&quot;: &quot;user@test.com&quot;,
+    &quot;phone&quot;: null,
+    &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;updated_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;role&quot;: &quot;user&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;gravatar&quot;: &quot;3fc88b95c85e43f157cb1ffd0e37e832&quot;,
+    &quot;projects&quot;: []
+  },
+  {
+    &quot;id&quot;: 43,
+    &quot;first_name&quot;: &quot;john&quot;,
+    &quot;last_name&quot;: &quot;smith&quot;,
+    &quot;email&quot;: &quot;foo@bar.com&quot;,
+    &quot;phone&quot;: null,
+    &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;updated_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+    &quot;role&quot;: &quot;user&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;gravatar&quot;: &quot;3fc88b95c85e43f157cb1ffd0e37e832&quot;,
+    &quot;projects&quot;: []
+  }
+]</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>query </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>queries against first name, last name, and email</p>
+
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>methods </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be an array of [&quot;gravatar&quot;, &quot;allowed&quot;]
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>includes </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be an array of [&quot;user_settings&quot;, &quot;projects&quot;]
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>page </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>per_page </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /staff/:id
+          </a>
+          <br>
+          <small>Shows staff member with :id</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /staff/33?includes[]=user_settings
+200
+{
+  &quot;id&quot;: 33,
+  &quot;first_name&quot;: &quot;Test&quot;,
+  &quot;last_name&quot;: &quot;Staff&quot;,
+  &quot;email&quot;: &quot;staff@test.com&quot;,
+  &quot;phone&quot;: null,
+  &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.659Z&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;user_settings&quot;: []
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>includes </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be an array of [&quot;user_settings&quot;, &quot;projects&quot;]
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/current_member.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-current_member'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /staff/current_member
+          </a>
+          <br>
+          <small>Shows logged in member</small>
+        </h2>
+    </div>
+
+
+    <div id='description-current_member' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    401
+    User is not signed in.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /staff/current_member?includes[]=cart
+200
+{
+  &quot;id&quot;: 21,
+  &quot;first_name&quot;: &quot;Test&quot;,
+  &quot;last_name&quot;: &quot;Staff&quot;,
+  &quot;email&quot;: &quot;staff@test.com&quot;,
+  &quot;phone&quot;: null,
+  &quot;created_at&quot;: &quot;2014-11-21T23:03:36.465Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.333Z&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;deleted_at&quot;: null,
+  &quot;cart&quot;: {
+    &quot;id&quot;: 1,
+    &quot;count&quot;: null,
+    &quot;staff_id&quot;: 21,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.307Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.307Z&quot;
+  }
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>includes </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be an array of [&quot;user_settings&quot;, &quot;projects&quot;, &quot;notifications&quot;, &quot;cart&quot;]
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /staff
+          </a>
+          <br>
+          <small>Creates a staff member</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    422
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">POST /staff
+staff[first_name]=Created&amp;staff[last_name]=User&amp;staff[email]=created%40test.com&amp;staff[role]=user&amp;staff[password]=created_pass&amp;staff[password_confirmation]=created_pass
+201
+{
+  &quot;id&quot;: 24,
+  &quot;first_name&quot;: &quot;Created&quot;,
+  &quot;last_name&quot;: &quot;User&quot;,
+  &quot;email&quot;: &quot;created@test.com&quot;,
+  &quot;phone&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.426Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.426Z&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>first_name </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>last_name </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>email </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>role </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>password </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>password_confirmation </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/update.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PUT /staff/:id
+          </a>
+          <br>
+          <small>Updates a staff member with :id</small>
+        </h2>
+    </div>
+
+
+    <div id='description-update' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+    422
+    Missing parameter
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">PUT /staff/31
+staff[first_name]=Updated
+204</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>first_name </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>last_name </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>email </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>role </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>password </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>password_confirmation </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/destroy.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-destroy'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /staff/:id
+          </a>
+          <br>
+          <small>Deletes staff member with :id</small>
+        </h2>
+    </div>
+
+
+    <div id='description-destroy' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+
+
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/projects.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-projects'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /staff/:id/project
+          </a>
+          <br>
+          <small>Shows collection of projects for a staff :id</small>
+        </h2>
+    </div>
+
+
+    <div id='description-projects' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /staff/29/projects
+200
+[
+  {
+    &quot;id&quot;: 5,
+    &quot;name&quot;: &quot;Test Project&quot;,
+    &quot;description&quot;: &quot;A description&quot;,
+    &quot;cc&quot;: &quot;--cc--&quot;,
+    &quot;budget&quot;: 100.0,
+    &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+    &quot;start_date&quot;: &quot;2015-01-15&quot;,
+    &quot;end_date&quot;: &quot;2015-01-22&quot;,
+    &quot;approved&quot;: true,
+    &quot;img&quot;: &quot;--img--&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.563Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.563Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+]</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/add_project.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-add_project'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /staff/:id/projects/:project_id
+          </a>
+          <br>
+          <small>Adds project to a staff member</small>
+        </h2>
+    </div>
+
+
+    <div id='description-add_project' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    422
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">POST /staff/27/projects/4
+201
+{
+  &quot;id&quot;: 4,
+  &quot;name&quot;: &quot;Test Project&quot;,
+  &quot;description&quot;: &quot;A description&quot;,
+  &quot;cc&quot;: &quot;--cc--&quot;,
+  &quot;budget&quot;: 100.0,
+  &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+  &quot;start_date&quot;: &quot;2015-01-15&quot;,
+  &quot;end_date&quot;: &quot;2015-01-22&quot;,
+  &quot;approved&quot;: true,
+  &quot;img&quot;: &quot;--img--&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.526Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.526Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project_id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Project</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/remove_project.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-remove_project'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /staff/:id/project/:project_id
+          </a>
+          <br>
+          <small>Deletes project from a staff</small>
+        </h2>
+    </div>
+
+
+    <div id='description-remove_project' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">DELETE /staff/25/projects/3
+204</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>staff </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Staff</p>
+
+        <br>
+        Value: Must be a Hash
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>staff[id] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/user_settings.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-user_settings'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /staff/:id/settings
+          </a>
+          <br>
+          <small>Shows collection of user settings for a staff :id</small>
+        </h2>
+    </div>
+
+
+    <div id='description-user_settings' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /staff/41/settings
+200
+[
+  {
+    &quot;id&quot;: 5,
+    &quot;staff_id&quot;: 41,
+    &quot;name&quot;: &quot;test user setting&quot;,
+    &quot;value&quot;: &quot;test user value&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:57.896Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.899Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+]</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>staff_id</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/show_user_setting.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show_user_setting'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /staff/:id/settings/:user_setting_id
+          </a>
+          <br>
+          <small>Shows user settings detail</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show_user_setting' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /staff/39/settings/4
+200
+{
+  &quot;id&quot;: 4,
+  &quot;staff_id&quot;: 39,
+  &quot;name&quot;: &quot;test user setting&quot;,
+  &quot;value&quot;: &quot;test user value&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.862Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.864Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>staff_id</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user_setting_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>user_setting_id</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/add_user_setting.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-add_user_setting'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /staff/:id/settings
+          </a>
+          <br>
+          <small>Adds user setting to a staff member. Duplicate user setting name triggers update.</small>
+        </h2>
+    </div>
+
+
+    <div id='description-add_user_setting' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    422
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">POST /staff/38/settings
+user_setting[name]=foo&amp;user_setting[value]=bar
+200
+{
+  &quot;id&quot;: 3,
+  &quot;staff_id&quot;: 38,
+  &quot;name&quot;: &quot;foo&quot;,
+  &quot;value&quot;: &quot;bar&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.843Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.843Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>staff_id</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user_setting </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>User Setting</p>
+
+        <br>
+        Value: Must be a Hash
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user_setting[name] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user_setting[value] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/update_user_setting.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update_user_setting'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PUT /staff/:id/settings/:user_setting_id
+          </a>
+          <br>
+          <small>Updates a staff member's user setting with a new value.</small>
+        </h2>
+    </div>
+
+
+    <div id='description-update_user_setting' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    422
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">PUT /staff/37/settings/2
+user_setting[value]=updated
+200
+{
+  &quot;id&quot;: 2,
+  &quot;staff_id&quot;: 37,
+  &quot;name&quot;: &quot;test user setting&quot;,
+  &quot;value&quot;: &quot;updated&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.792Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.814Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>staff_id</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user_setting_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>user_setting_id</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user_setting </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>User Setting</p>
+
+        <br>
+        Value: Must be a Hash
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user_setting[value] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be String
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/staff/remove_user_setting.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-remove_user_setting'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /staff/:id/settings/:user_setting_id
+          </a>
+          <br>
+          <small>Deletes a user setting from a staff member.</small>
+        </h2>
+    </div>
+
+
+    <div id='description-remove_user_setting' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    422
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">DELETE /staff/36/settings/1
+200
+{
+  &quot;id&quot;: 1,
+  &quot;staff_id&quot;: 36,
+  &quot;name&quot;: &quot;test user setting&quot;,
+  &quot;value&quot;: &quot;test user value&quot;,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:57.747Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:57.750Z&quot;,
+  &quot;deleted_at&quot;: null
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>staff_id</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user_setting_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>user_setting_id</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer></footer>
+  </div>
+  <script type='text/javascript' src='../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

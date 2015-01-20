@@ -9,6 +9,8 @@ class ProductCategoriesController < ApplicationController
 
   api :GET, '/product_categories', 'Returns a collection of product_categories'
   param :includes, Array, required: false, in: %w(product cloud)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     authorize ProductCategory
@@ -70,6 +72,6 @@ class ProductCategoriesController < ApplicationController
   end
 
   def load_product_categories
-    @product_categories = query_with_includes ProductCategory.all
+    @product_categories = query_with ProductCategory.all, :includes, :pagination
   end
 end

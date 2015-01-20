@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../apidoc.html'>Jellyfish API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Approvals
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Approvals
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/approvals/index.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /approvals
+          </a>
+          <br>
+          <small>Returns a collection of approvals</small>
+        </h2>
+    </div>
+
+
+    <div id='description-index' class='collapse accordion-body'>
+      
+
+
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /approvals?includes[]=project
+200
+[
+  {
+    &quot;id&quot;: 7,
+    &quot;staff_id&quot;: 1,
+    &quot;project_id&quot;: 2,
+    &quot;approved&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:56.757Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.788Z&quot;,
+    &quot;project&quot;: {
+      &quot;id&quot;: 2,
+      &quot;name&quot;: &quot;Test Project&quot;,
+      &quot;description&quot;: &quot;A description&quot;,
+      &quot;cc&quot;: &quot;--cc--&quot;,
+      &quot;budget&quot;: 100.0,
+      &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+      &quot;start_date&quot;: &quot;2015-01-15&quot;,
+      &quot;end_date&quot;: &quot;2015-01-22&quot;,
+      &quot;approved&quot;: true,
+      &quot;img&quot;: &quot;--img--&quot;,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:56.786Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.786Z&quot;,
+      &quot;deleted_at&quot;: null
+    }
+  },
+  {
+    &quot;id&quot;: 8,
+    &quot;staff_id&quot;: 1,
+    &quot;project_id&quot;: 2,
+    &quot;approved&quot;: true,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:56.759Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.789Z&quot;,
+    &quot;project&quot;: {
+      &quot;id&quot;: 2,
+      &quot;name&quot;: &quot;Test Project&quot;,
+      &quot;description&quot;: &quot;A description&quot;,
+      &quot;cc&quot;: &quot;--cc--&quot;,
+      &quot;budget&quot;: 100.0,
+      &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+      &quot;start_date&quot;: &quot;2015-01-15&quot;,
+      &quot;end_date&quot;: &quot;2015-01-22&quot;,
+      &quot;approved&quot;: true,
+      &quot;img&quot;: &quot;--img--&quot;,
+      &quot;created_at&quot;: &quot;2015-01-08T13:35:56.786Z&quot;,
+      &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.786Z&quot;,
+      &quot;deleted_at&quot;: null
+    }
+  }
+]</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>includes </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be an array of [&quot;staff&quot;, &quot;project&quot;]
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>page </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>per_page </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/approvals/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /approvals/:id
+          </a>
+          <br>
+          <small>Shows approval with :id</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /approvals/4?includes[]=project
+200
+{
+  &quot;id&quot;: 4,
+  &quot;staff_id&quot;: 1,
+  &quot;project_id&quot;: 1,
+  &quot;approved&quot;: true,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:56.633Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.633Z&quot;,
+  &quot;project&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Test Project&quot;,
+    &quot;description&quot;: &quot;A description&quot;,
+    &quot;cc&quot;: &quot;--cc--&quot;,
+    &quot;budget&quot;: 100.0,
+    &quot;staff_id&quot;: &quot;-staff_id--&quot;,
+    &quot;start_date&quot;: &quot;2015-01-15&quot;,
+    &quot;end_date&quot;: &quot;2015-01-22&quot;,
+    &quot;approved&quot;: true,
+    &quot;img&quot;: &quot;--img--&quot;,
+    &quot;created_at&quot;: &quot;2015-01-08T13:35:56.664Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.664Z&quot;,
+    &quot;deleted_at&quot;: null
+  }
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>includes </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be an array of [&quot;staff&quot;, &quot;project&quot;]
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/approvals/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /approvals
+          </a>
+          <br>
+          <small>Creates approval</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    422
+    Missing parameter
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">POST /approvals/
+approval[id]&amp;approval[staff_id]=1&amp;approval[project_id]=1&amp;approval[approved]=true&amp;approval[created_at]&amp;approval[updated_at]
+201
+{
+  &quot;id&quot;: 3,
+  &quot;staff_id&quot;: null,
+  &quot;project_id&quot;: null,
+  &quot;approved&quot;: null,
+  &quot;created_at&quot;: &quot;2015-01-08T13:35:56.622Z&quot;,
+  &quot;updated_at&quot;: &quot;2015-01-08T13:35:56.622Z&quot;
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>staff_id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Staff</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project_id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Project</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>approved </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Approved?</p>
+
+        <br>
+        Value: Must be &#39;true&#39; or &#39;false&#39;
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/approvals/update.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PUT /approvals/:id
+          </a>
+          <br>
+          <small>Updates approval with :id</small>
+        </h2>
+    </div>
+
+
+    <div id='description-update' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+    422
+    Missing parameter
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">PUT /approvals/2
+approval[approved]=true
+204</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>staff_id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Staff</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project_id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Project</p>
+
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>approved </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Approved?</p>
+
+        <br>
+        Value: Must be &#39;true&#39; or &#39;false&#39;
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/approvals/destroy.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-destroy'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /approvals/:id
+          </a>
+          <br>
+          <small>Deletes approval with :id</small>
+        </h2>
+    </div>
+
+
+    <div id='description-destroy' class='collapse accordion-body'>
+      
+
+
+  <h3>Errors</h3>
+    404
+    Not found.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">DELETE /approvals/1
+204</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: Must be a number.
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+    </div>
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer></footer>
+  </div>
+  <script type='text/javascript' src='../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

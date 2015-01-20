@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  skip_before_action :authenticate_user_from_token!
+
   respond_to :json
 
   before_action :load_product, only: [:show, :update, :destroy]
@@ -6,6 +8,8 @@ class ProductsController < ApplicationController
   before_action :load_products, only: [:index]
 
   api :GET, '/products', 'Returns a collection of products'
+  param :page, :number, required: false
+  param :per_page, :number, required: false
   param :includes, Array, required: false, in: %w(chargebacks cloud product_category)
 
   def index
@@ -29,6 +33,9 @@ class ProductsController < ApplicationController
   param :product_category_id, Integer, desc: 'ProductCategory Id'
   param :cloud_id, Integer, desc: 'Cloud Id'
   param :options, Array, desc: 'Options', allow_nil: true
+  param :hourly_price, :number, required: false, desc: 'Cost per Hour'
+  param :monthly_price, :number, required: false, desc: 'Cost per Month'
+  param :setup_price, :number, required: false, desc: 'Initial Setup Fee'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -46,6 +53,9 @@ class ProductsController < ApplicationController
   param :product_category_id, Integer, desc: 'ProductCategory Id'
   param :cloud_id, Integer, desc: 'Cloud Id'
   param :options, Array, desc: 'options', allow_nil: true
+  param :hourly_price, :number, required: false, desc: 'Cost per Hour'
+  param :monthly_price, :number, required: false, desc: 'Cost per Month'
+  param :setup_price, :number, required: false, desc: 'Initial Setup Fee'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -67,7 +77,7 @@ class ProductsController < ApplicationController
   private
 
   def load_product_params
-    @products_params = params.permit(:name, :description, :service_type_id, :service_catalog_id, :product_category_id, :cloud_id, { options: [] }, :img, :active)
+    @products_params = params.permit(:name, :description, :service_type_id, :service_catalog_id, :product_category_id, :cloud_id, { options: [] }, :img, :active, :hourly_price, :monthly_price, :setup_price)
   end
 
   def load_product
@@ -75,6 +85,6 @@ class ProductsController < ApplicationController
   end
 
   def load_products
-    @products = query_with_includes Product.all
+    @products = query_with Product.all, :includes, :pagination
   end
 end
