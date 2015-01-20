@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
   api :GET, '/products', 'Returns a collection of products'
   param :page, :number, required: false
   param :per_page, :number, required: false
+  param :active, :bool, required: false
   param :includes, Array, required: false, in: %w(chargebacks cloud product_type answers)
 
   def index
@@ -55,6 +56,7 @@ class ProductsController < ApplicationController
   param :chef_role, String, desc: 'Chef role'
   param :product_type_id, Integer, desc: 'ProductType Id'
   param :cloud_id, Integer, desc: 'Cloud Id'
+  param :active, :bool, desc: 'Product is active and available in the marketplace'
   param :options, Array, desc: 'options', allow_nil: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -95,7 +97,8 @@ class ProductsController < ApplicationController
   end
 
   def load_products
-    @products = query_with Product.all, :includes, :pagination
+    query = Product.all.tap { |q| q.where!(:active => params[:active]) unless params[:active].nil? }
+    @products = query_with query, :includes, :pagination
   end
 
   def load_answers
