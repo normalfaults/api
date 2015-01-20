@@ -1,23 +1,4 @@
 namespace :upkeep do
-  desc 'Create Test User'
-  task tau: :environment do
-    user = Staff.new
-    user.role = :admin
-    user.first_name = 'Test'
-    user.last_name = 'User'
-    user.email = 't@u.com'
-    user.phone = ''
-    user.password = '789&*(foobar'
-    user.save
-    # puts user.inspect
-    Alert.connection.execute('ALTER SEQUENCE alerts_id_seq RESTART 1')
-    Order.connection.execute('ALTER SEQUENCE orders_id_seq RESTART 1')
-    OrderItem.connection.execute('ALTER SEQUENCE order_items_id_seq RESTART 1')
-    Project.connection.execute('ALTER SEQUENCE projects_id_seq RESTART 1')
-    Product.connection.execute('ALTER SEQUENCE products_id_seq RESTART 1')
-    Staff.connection.execute('ALTER SEQUENCE staff_id_seq RESTART 1')
-  end
-
   desc 'Show Date Relationships'
   task corners: :environment do
     current_date = Time.gm(2015, 2, 14, 0, 0, 0)
