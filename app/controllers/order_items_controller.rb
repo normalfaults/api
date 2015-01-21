@@ -73,7 +73,7 @@ class OrderItemsController < ApplicationController
   end
 
   api :PUT, '/order_items/:id/provision_update', 'Updates an order item from ManageIQ'
-  param :id, String, required: true, desc: 'Order Item ID'
+  param :id, :number, required: true, desc: 'Order Item ID'
   param :status, String, required: true, desc: 'Status of the provision request'
   param :message, String, required: true, desc: 'Any messages from ManageIQ'
   param :info, Hash, required: true, desc: 'Informational payload from ManageIQ' do
