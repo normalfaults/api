@@ -66,7 +66,7 @@ class OrderItem < ActiveRecord::Base
       data = ActiveSupport::JSON.decode(response)
       order_item.provision_status = :pending
       order_item.miq_id = data['results'][0]['id']
-      order_item.payload_from_miq = data.to_json
+      order_item.payload_reply_from_miq = data.to_json
     else
       order_item.provision_status = :warning
     end
