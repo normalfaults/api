@@ -13,7 +13,7 @@ gem 'pg_search', '~> 0.7.8'
 gem 'will_paginate', '~> 3.0.7'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+# gem 'therubyracer', platforms: :ruby
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
