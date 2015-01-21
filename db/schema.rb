@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119183425) do
+ActiveRecord::Schema.define(version: 20150120170915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
@@ -122,11 +123,14 @@ ActiveRecord::Schema.define(version: 20150119183425) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "project_id"
-    t.string   "host"
-    t.integer  "port"
     t.integer  "miq_id"
     t.inet     "ip_address"
     t.string   "hostname"
+    t.string   "host"
+    t.integer  "port"
+    t.uuid     "uuid",                                      default: "uuid_generate_v4()"
+    t.json     "payload_to_miq"
+    t.json     "payload_from_miq"
     t.decimal  "setup_price",      precision: 10, scale: 4, default: 0.0
     t.decimal  "hourly_price",     precision: 10, scale: 4, default: 0.0
     t.decimal  "monthly_price",    precision: 10, scale: 4, default: 0.0

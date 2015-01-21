@@ -37,10 +37,19 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
-    order_item.provision_status = :unknown
-    order_item.save
+    message =
+    {
+      action: 'order',
+      id: order_item.id,
+      uuid: order_item.uuid.to_s,
+      resource: {
+        href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}"
+      }
+    }
 
-    message = { action: 'order', order_item: "#{order_item.id}", resource: { href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}" } }
+    order_item.provision_status = :unknown
+    order_item.payload_to_miq = message.to_json
+    order_item.save
 
     # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
     resource = RestClient::Resource.new(
@@ -57,10 +66,12 @@ class OrderItem < ActiveRecord::Base
       data = ActiveSupport::JSON.decode(response)
       order_item.provision_status = :pending
       order_item.miq_id = data['results'][0]['id']
+      order_item.payload_from_miq = data.to_json
     else
       order_item.provision_status = :warning
     end
 
     order_item.save
+    order_item.to_json
   end
 end
