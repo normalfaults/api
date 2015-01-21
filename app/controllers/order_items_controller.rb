@@ -116,6 +116,6 @@ class OrderItemsController < ApplicationController
   end
 
   def load_order_item_for_provision_update
-    @order_item = OrderItem.where(id: params.require(:id), uuid: params[:info].require(:uuid)).first!
+    @order_item = OrderItem.where(id: params.require(:id), uuid: params.require(:info)[:uuid]).first!
   end
 end
