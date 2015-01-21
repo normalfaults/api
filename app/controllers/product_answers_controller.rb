@@ -1,0 +1,2 @@
+class ProductAnswersController < ApplicationController
+end

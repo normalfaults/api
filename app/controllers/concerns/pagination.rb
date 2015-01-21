@@ -13,12 +13,16 @@ module Pagination
 
   def gather_pagination_params!
     @pagination_params = {}
+    return if params[:page].nil?
+
     @pagination_params[:page] = params[:page]
     @pagination_params[:per_page] = params[:per_page]
     @pagination_params[:per_page] ||= PER_PAGE_DEFAULT
   end
 
   def query_with_pagination(query)
+    return query if @pagination_params[:page].nil?
+
     query.paginate(@pagination_params)
   end
 end

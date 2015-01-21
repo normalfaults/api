@@ -18,6 +18,8 @@ module ParameterValidation
   end
 
   def param_error(e)
+    # Display the error in the development log
+    Rails.logger.warn(e.message) if 'development' == Rails.env
     render json: { error: e.message }, status: 422
   end
 end
