@@ -40,6 +40,9 @@ class OrderItemsController < ApplicationController
   param :port, :number, required: false
   param :host, String, required: false
   param :provision_status, %w(ok warning critical unknown pending)
+  param :hourly_price, :number, required: false
+  param :monthly_price, :number, required: false
+  param :setup_price, :number, required: false
 
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -70,16 +73,20 @@ class OrderItemsController < ApplicationController
   end
 
   api :PUT, '/order_items/:id/provision_update', 'Updates an order item from ManageIQ'
-  param :status, String, required: true
-  param :message, String, required: true
-  param :info, Hash, required: true do
-    param :id, :number, required: true
-    param :provision_status, String, required: true
-    param :miq_id, :number, required: false
-    param :ip_address, String, required: false
-    param :hostname, String, required: false
-    param :host, String, required: false
-    param :port, :number, required: false
+  param :id, :number, required: true, desc: 'Order Item ID'
+  param :status, String, required: true, desc: 'Status of the provision request'
+  param :message, String, required: true, desc: 'Any messages from ManageIQ'
+  param :info, Hash, required: true, desc: 'Informational payload from ManageIQ' do
+    param :uuid, String, required: true, desc: 'V4 UUID Generated for order item upon creation'
+    param :provision_status, String, required: true, desc: 'Status of the provision request'
+    param :miq_id, :number, required: false, desc: 'The unique ID from ManageIQ'
+    param :ip_address, String, required: false, desc: 'Any IP Address that may be associated with this record'
+    param :hostname, String, required: false, desc: 'Any hostname that may be associated with this record'
+    param :host, String, required: false, desc: 'Any host that may be associated with this record'
+    param :port, :number, required: false, desc: 'Any port that may be associated with this record'
+    param :hourly_price, :number, required: false, desc: 'The hourly price for this order item'
+    param :monthly_price, :number, required: false, desc: 'The monthly price for this order item'
+    param :setup_price, :number, required: false, desc: 'The setup price for this order item'
   end
 
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -93,7 +100,7 @@ class OrderItemsController < ApplicationController
   private
 
   def order_item_params
-    params.permit(:id, :order_id, :port, :host, :provision_status, :ip_address, :hostname)
+    params.permit(:uuid, :order_id, :port, :host, :provision_status, :ip_address, :hostname, :hourly_price, :monthly_price, :setup_price)
   end
 
   def orders_from_params
@@ -105,10 +112,10 @@ class OrderItemsController < ApplicationController
   end
 
   def order_item_params_for_provision_update
-    params.require(:info).permit(:id, :miq_id, :provision_status, :ip_address, :hostname, :host, :port)
+    params.require(:info).permit(:miq_id, :provision_status, :ip_address, :hostname, :host, :port, :hourly_price, :monthly_price, :setup_price)
   end
 
   def load_order_item_for_provision_update
-    @order_item = OrderItem.where(id: params.require(:id)).first
+    @order_item = OrderItem.where(id: params.require(:id), uuid: params.require(:info)[:uuid]).first!
   end
 end

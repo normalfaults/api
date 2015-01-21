@@ -1,59 +1,17 @@
 class SettingsController < ApplicationController
-  respond_to :json, :xml
-
-  after_action :verify_authorized
+  respond_to :json
 
   before_action :load_settings, only: [:index]
-  before_action :load_setting, only: [:show, :edit, :update, :destroy]
-  before_action :load_update_params, only: [:update]
-  before_action :load_create_params, only: [:create]
-  before_action :load_id_for_setting_name, only: [:create]
+  before_action :load_setting, only: [:update, :destroy, :edit]
+  before_action :load_setting_by_name, only: [:show]
 
-  api :GET, '/settings', 'Returns a collection of settings'
+  api :GET, '/settings', 'Returns a collection of admin settings'
+  param :includes, Array, required: false, in: %w(setting_fields)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
-    authorize Setting.new
-    respond_with @settings
-  end
-
-  api :GET, '/settings/:id', 'Shows setting with :id'
-  param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-
-  def show
-    authorize @setting
-    respond_with @setting
-  end
-
-  api :POST, '/settings', 'Create new setting'
-  param :name, String, required: true
-  param :value, String, required: true
-  error code: 422, desc: MissingRecordDetection::Messages.not_found
-
-  def create
-    @setting = Setting.new @create_params
-    authorize @setting
-    if @id_for_setting_name.nil?
-      @setting.save
-      respond_with @setting
-    else # ON DUPLICATE KEY UPDATE
-      params[:id] = @id_for_setting_name
-      load_setting
-      load_update_params
-      update
-    end
-  end
-
-  api :PUT, '/settings/:id', 'Updates value for setting with :id'
-  param :id, :number, required: true
-  param :value, String, required: true
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-  error code: 422, desc: ParameterValidation::Messages.missing
-
-  def update
-    authorize @setting
-    @setting.update_attributes @update_params
-    respond_with @setting
+    respond_with_params @settings
   end
 
   api :GET, '/settings/new', 'Get new setting JSON'
@@ -73,6 +31,17 @@ class SettingsController < ApplicationController
     respond_with @setting
   end
 
+  api :GET, '/settings/:name', 'Returns the settings with the matching name'
+  param :includes, Array, required: false, in: %w(setting_fields)
+
+  def show
+    if @setting
+      respond_with_params @setting
+    else
+      record_not_found
+    end
+  end
+
   api :DELETE, '/settings/:id', 'Deletes setting with :id'
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -83,26 +52,34 @@ class SettingsController < ApplicationController
     respond_with @setting
   end
 
-  private
+  api :PUT, '/settings/:id', 'Updates value for setting with :id'
+  param :id, :number, required: true
+  param :admin_settings_fields, Array, required: false, desc: 'Setting field' do
+    param :id, :number, required: true
+    param :value, String, required: true
+  end
+  error code: 404, desc: MissingRecordDetection::Messages.not_found
+  error code: 422, desc: ParameterValidation::Messages.missing
 
-  def load_create_params
-    @create_params = params.permit(:name, :value)
+  def update
+    @setting.update @setting_params
+    respond_with @setting
   end
 
-  def load_update_params
-    @update_params = params.permit(:value)
+  protected
+
+  def load_setting
+    @setting_params = params.permit(setting_fields: [:id, :value])
+    @setting_params[:setting_fields_attributes] = @setting_params[:setting_fields] unless @setting_params[:setting_fields].nil?
+    @setting_params.delete(:setting_fields) unless @setting_params[:setting_fields].nil?
+    @setting = Setting.find(params.require(:id))
+  end
+
+  def load_setting_by_name
+    @setting = Setting.find_by(name: params.require(:id))
   end
 
   def load_settings
-    @settings = query_with_includes Setting.all.order('id ASC')
-  end
-
-  def load_setting
-    @setting = Setting.find params.require(:id)
-  end
-
-  def load_id_for_setting_name
-    setting = Setting.where(name: @create_params['name']).first
-    @id_for_setting_name = (setting.nil? || setting.id.nil?) ? nil : setting.id
+    @settings = query_with Setting.all, :includes, :pagination
   end
 end

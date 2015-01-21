@@ -46,5 +46,10 @@ RSpec.describe 'Staff Orders API' do
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end
+
+    it 'paginates the staff_orders' do
+      get "/staff/#{Staff.all.first.id}/orders", page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 end

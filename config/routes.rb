@@ -62,10 +62,18 @@ Rails.application.routes.draw do
   end
 
   # Products
-  resources :products, except: [:edit, :new], defaults: { format: :json }
+  resources :products, except: [:edit, :new], defaults: { format: :json } do
+    member do
+      get :answers
+    end
+  end
 
-  # ProductCategories
-  resources :product_categories, except: [:edit, :new], defaults: { format: :json }
+  # ProductTypes
+  resources :product_types, except: [:edit, :new], defaults: { format: :json } do
+    member do
+      get :questions
+    end
+  end
 
   # Chargebacks
   resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
@@ -90,11 +98,8 @@ Rails.application.routes.draw do
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
 
   # Admin Settings
-  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:index, :update, :show]
-  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:show], param: :name
-
-  # Setting Routes
-  resources :settings, defaults: { format: :json }, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:index, :update, :show, :edit, :new, :destroy]
+  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:show], param: :name
 
   # Automate Routes
   get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'

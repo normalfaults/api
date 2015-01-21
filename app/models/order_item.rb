@@ -1,6 +1,8 @@
 class OrderItem < ActiveRecord::Base
   acts_as_paranoid
 
+  before_create :load_order_item_params
+
   after_commit :provision, on: :create
 
   belongs_to :order
@@ -8,7 +10,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :cloud
   belongs_to :project
 
-  enum provision_status: [:ok, :warning, :critical, :unknown, :pending]
+  enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
 
   validates :product, presence: true
   validate :validate_product_id
@@ -17,6 +19,12 @@ class OrderItem < ActiveRecord::Base
 
   def validate_product_id
     errors.add(:product, 'Product does not exist.') unless Product.exists?(product_id)
+  end
+
+  def load_order_item_params
+    self.hourly_price = product.hourly_price
+    self.monthly_price = product.monthly_price
+    self.setup_price = product.setup_price
   end
 
   def provision
@@ -29,10 +37,19 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
-    order_item.provision_status = :unknown
-    order_item.save
+    message =
+    {
+      action: 'order',
+      id: order_item.id,
+      uuid: order_item.uuid.to_s,
+      resource: {
+        href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}"
+      }
+    }
 
-    message = { action: 'order', order_item: "#{order_item.id}", resource: { href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}" } }
+    order_item.provision_status = :unknown
+    order_item.payload_to_miq = message.to_json
+    order_item.save
 
     # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
     resource = RestClient::Resource.new(
@@ -49,10 +66,12 @@ class OrderItem < ActiveRecord::Base
       data = ActiveSupport::JSON.decode(response)
       order_item.provision_status = :pending
       order_item.miq_id = data['results'][0]['id']
+      order_item.payload_from_miq = data.to_json
     else
       order_item.provision_status = :warning
     end
 
     order_item.save
+    order_item.to_json
   end
 end

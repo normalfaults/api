@@ -9,6 +9,8 @@ class StaffOrdersController < ApplicationController
   param :staff_id, :number, required: true
   param :includes, Array, required: false, in: %w(order_items)
   param :methods, Array, required: false, in: %w(item_count)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     if @orders
@@ -44,6 +46,6 @@ class StaffOrdersController < ApplicationController
   end
 
   def load_orders
-    @orders = @staff.orders unless @staff.nil?
+    @orders = query_with @staff.orders, :includes, :pagination unless @staff.nil?
   end
 end
