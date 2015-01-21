@@ -40,8 +40,8 @@ class OrderItem < ActiveRecord::Base
     message =
     {
       action: 'order',
-      id: "#{order_item.id}",
-      uuid: "#{order_item.uuid}",
+      id: order_item.id,
+      uuid: order_item.uuid.to_s,
       resource: {
         href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}"
       }
