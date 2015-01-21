@@ -80,4 +80,17 @@ RSpec.describe 'Order Items API' do
       expect(response.status).to eq(200)
     end
   end
+
+  describe 'Provision request response' do
+    it 'stores and updates', :show_in_doc do
+      put "/order_items/#{@order_item.id}/provision_update"
+      expect(response.status).to eq(204)
+    end
+
+    it 'returns an error when the order item does not exist' do
+      put "/order_items/#{@order_item.id}/provision_update"
+      expect(response.status).to eq(404)
+      expect(json).to eq('error' => 'Not found.')
+    end
+  end
 end

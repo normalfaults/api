@@ -40,6 +40,7 @@ class OrderItem < ActiveRecord::Base
     message =
     {
       action: 'order',
+      id: "#{order_item.id}",
       uuid: "#{order_item.uuid}",
       resource: {
         href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}"
@@ -71,5 +72,6 @@ class OrderItem < ActiveRecord::Base
     end
 
     order_item.save
+    order_item.to_json
   end
 end
