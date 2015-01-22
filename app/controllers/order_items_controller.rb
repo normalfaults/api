@@ -112,7 +112,7 @@ class OrderItemsController < ApplicationController
   end
 
   def order_item_params_for_provision_update
-    params.require(:info).permit(:miq_id, :provision_status, :ip_address, :hostname, :host, :port, :hourly_price, :monthly_price, :setup_price)
+    params.require(:info).permit(:miq_id, :provision_status, :ip_address, :hostname, :host, :port, :hourly_price, :monthly_price, :setup_price).merge(payload_response_from_miq: ActionController::Parameters.new(request.body.read))
   end
 
   def load_order_item_for_provision_update
