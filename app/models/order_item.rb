@@ -69,10 +69,10 @@ class OrderItem < ActiveRecord::Base
     order_item.payload_reply_from_miq = data.to_json
 
     case @response.code
-    when 200 .. 299
+    when 200..299
       order_item.provision_status = :pending
       order_item.miq_id = data['results'][0]['id']
-    when 400 .. 499
+    when 400..499
       order_item.provision_status = :critical
     else
       order_item.provision_status = :warning
