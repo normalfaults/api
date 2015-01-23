@@ -33,10 +33,7 @@ options = {
     :count => count,
     :availability_zone => availability_zone,
     :security_groups => security_groups,
-    :key_name => key_name,
-    :block_device_mappings => {
-        :virtual_name => instance_name
-    }
+    :key_name => key_name
 }
 
 # Remove all empty strings from the options list
