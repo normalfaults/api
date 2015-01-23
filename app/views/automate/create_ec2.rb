@@ -33,7 +33,10 @@ options = {
     :count => count,
     :availability_zone => availability_zone,
     :security_groups => security_groups,
-    :key_name => key_name
+    :key_name => key_name,
+    :block_device_mappings => {
+        :virtual_name => instance_name
+    }
 }
 
 # Remove all empty strings from the options list
@@ -96,6 +99,6 @@ info = {
     "vpc_id" => "#{instance.vpc_id}"
 }
 
-end_order_status("OK", order_id, info)
+send_order_status("OK", order_id, info)
 
 $evm.log("info", "CreateEC2: Response =  #{response}")
