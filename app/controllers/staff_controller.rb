@@ -1,7 +1,7 @@
 class StaffController < ApplicationController
-  respond_to :json, :xml
+  respond_to :json
 
-  after_action :verify_authorized, except: [:current_member]
+  skip_before_action :authenticate_user!, except: [:current_member]
 
   before_action :load_staffs, only: [:index]
   before_action :load_staff, only: [:show, :update, :destroy, :projects, :add_project, :remove_project, :user_settings, :show_user_setting, :add_user_setting, :update_user_setting, :remove_user_setting]
@@ -17,6 +17,8 @@ class StaffController < ApplicationController
   param :query, String, required: false, desc: 'queries against first name, last name, and email'
   param :methods, Array, required: false, in: %w(gravatar allowed)
   param :includes, Array, required: false, in: %w(user_settings projects)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
   def index
     authorize Staff.new
     respond_with_params @staffs
@@ -45,32 +47,34 @@ class StaffController < ApplicationController
   end
 
   api :POST, '/staff', 'Creates a staff member'
-  param :staff, Hash, desc: 'Staff' do
-  end
+  param :first_name, String, required: false
+  param :last_name, String, required: false
+  param :email, String, required: false
+  param :role, String, required: false
+  param :password, String, required: false
+  param :password_confirmation, String, required: false
   error code: 422, desc: MissingRecordDetection::Messages.not_found
   def create
     @staff = Staff.new @staff_params
     authorize @staff
-    if @staff.save
-      respond_with @staff
-    else
-      respond_with @staff, status: :unprocessable_entity
-    end
+    @staff.save
+    respond_with @staff
   end
 
   api :PUT, '/staff/:id', 'Updates a staff member with :id'
   param :id, :number, required: true
-  param :staff, Hash, desc: 'Staff' do
-  end
+  param :first_name, String, required: false
+  param :last_name, String, required: false
+  param :email, String, required: false
+  param :role, String, required: false
+  param :password, String, required: false
+  param :password_confirmation, String, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
   def update
     authorize @staff
-    if @staff.update_attributes @staff_params
-      respond_with @staff
-    else
-      respond_with @staff.errors, status: :unprocessable_entity
-    end
+    @staff.update_attributes @staff_params
+    respond_with @staff
   end
 
   api :DELETE, '/staff/:id', 'Deletes staff member with :id'
@@ -78,11 +82,8 @@ class StaffController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   def destroy
     authorize @staff
-    if @staff.destroy
-      respond_with @staff
-    else
-      respond_with @staff, status: :unprocessable_entity
-    end
+    @staff.destroy
+    respond_with @staff
   end
 
   api :GET, '/staff/:id/project', 'Shows collection of projects for a staff :id'
@@ -200,12 +201,12 @@ class StaffController < ApplicationController
     if @staffs_params[:query]
       @staffs = Staff.search @staffs_params[:query]
     else
-      @staffs = query_with_includes Staff.all
+      @staffs = query_with Staff.all, :includes, :pagination
     end
   end
 
   def load_staff_params
-    @staff_params = params.require(:staff).permit(:first_name, :last_name, :email, :role, :password, :password_confirmation)
+    @staff_params = params.permit(:first_name, :last_name, :email, :role, :password, :password_confirmation)
   end
 
   def load_staff

@@ -26,6 +26,11 @@ RSpec.describe 'Clouds API' do
 
       expect(json[0]['products']).to_not eq(nil)
     end
+
+    it 'paginates the clouds' do
+      get '/clouds', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do
@@ -65,18 +70,12 @@ RSpec.describe 'Clouds API' do
     end
 
     it 'updates a cloud', :show_in_doc do
-      put "/clouds/#{@cloud.id}", cloud: { name: 'test' }
-      expect(JSON(response.body)['name']).to eq('test')
-    end
-
-    it 'returns an error if the cloud parameter is missing' do
-      put "/clouds/#{@cloud.id}"
-      expect(response.status).to eq(422)
-      expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: cloud')
+      put "/clouds/#{@cloud.id}", name: 'test'
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the cloud does not exist' do
-      put "/clouds/#{@cloud.id + 999}", cloud: { hourly_price: '9' }
+      put "/clouds/#{@cloud.id + 999}", hourly_price: '9'
       expect(response.status).to eq(404)
       expect(JSON(response.body)).to eq('error' => 'Not found.')
     end
@@ -88,14 +87,8 @@ RSpec.describe 'Clouds API' do
     end
 
     it 'creates an cloud', :show_in_doc do
-      post '/clouds/', cloud: { name: 'test' }
+      post '/clouds/', name: 'test'
       expect(response.body).to eq(Cloud.first.to_json)
-    end
-
-    it 'returns an error if the cloud is missing' do
-      post '/clouds/'
-      expect(response.status).to eq(422)
-      expect(JSON(response.body)).to eq('error' => 'param is missing or the value is empty: cloud')
     end
   end
 

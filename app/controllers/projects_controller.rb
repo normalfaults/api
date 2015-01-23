@@ -1,6 +1,4 @@
 class ProjectsController < ApplicationController
-  CURRENCY_REGEX = /^\d+(.\d{2})?(.\d)?$/.freeze
-
   respond_to :json, :xml
 
   after_action :verify_authorized
@@ -15,6 +13,8 @@ class ProjectsController < ApplicationController
   api :GET, '/projects', 'Returns a collection of projects'
   param :includes, Array, required: false, in: %w(project_answers project_detail services)
   param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     authorize Project.new
@@ -35,27 +35,25 @@ class ProjectsController < ApplicationController
   end
 
   api :POST, '/projects', 'Creates projects'
-  param :project, Hash, desc: 'Project' do
-    param :project_answers, Array, desc: 'Project answers', required: false do
-      param :project_question_id, :number, desc: 'Id for valid project question', require: true
-    end
-    param :name, String, required: true
-    param :description, String, required: false
-    param :cc, String, required: false
-    param :budget, :real_number, required: true
-    param :staff_id, String, required: false
-    param :start_date, String, required: false
-    param :end_date, String, required: false
-    param :approved, String, required: false
-    param :img, String, required: false
+  param :project_answers, Array, desc: 'Project answers', required: false do
+    param :project_question_id, :number, desc: 'Id for valid project question', require: true
   end
+  param :name, String, required: true
+  param :description, String, required: false
+  param :cc, String, required: false
+  param :budget, :real_number, required: true
+  param :staff_id, String, required: false
+  param :start_date, String, required: false
+  param :end_date, String, required: false
+  param :approved, String, required: false
+  param :img, String, required: false
   param :includes, Array, required: false, in: %w(staff project_answers)
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
     authorize Project
 
-    @project = Project.create_with_answers @project_params
+    @project = Project.create @project_params
 
     # Relate user if not an admin
     @project.staff << current_user unless current_user.admin?
@@ -63,32 +61,30 @@ class ProjectsController < ApplicationController
     if @project
       respond_with_params @project
     else
-      respond_with @project.errors, status: :unprocessable_entity
+      respond_with @project, status: :unprocessable_entity
     end
   end
 
   api :PUT, '/projects/:id', 'Updates project with :id'
   param :id, :number, required: true
-  param :project, Hash, desc: 'Project' do
-    param :project_answers, Array, desc: 'Project answers', required: false do
-      param :project_question_id, :number, desc: 'Id for valid project question', require: true
-    end
-    param :name, String, required: false
-    param :description, String, required: false
-    param :cc, String, required: false
-    param :budget, :real_number, required: true
-    param :staff_id, String, required: false
-    param :end_data, Date, required: false
-    param :approved, String, required: false
-    param :img, String, required: false
+  param :project_answers, Array, desc: 'Project answers', required: false do
+    param :project_question_id, :number, desc: 'Id for valid project question', require: true
   end
+  param :name, String, required: false
+  param :description, String, required: false
+  param :cc, String, required: false
+  param :budget, :real_number, required: true
+  param :staff_id, String, required: false
+  param :end_data, Date, required: false
+  param :approved, String, required: false
+  param :img, String, required: false
   param :include, Array, required: false, in: %w(staff project_answers)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     authorize @project
-    @project.update_with_answers! @project_params
+    @project.update @project_params
     respond_with_params @project
   end
 
@@ -101,7 +97,7 @@ class ProjectsController < ApplicationController
     if @project.destroy
       respond_with @project
     else
-      respond_with @project.errors, status: :unprocessable_entity
+      respond_with @project, status: :unprocessable_entity
     end
   end
 
@@ -124,7 +120,7 @@ class ProjectsController < ApplicationController
     if @project.staff << @staff
       respond_with @staff
     else
-      respond_with @project.errors, status: :unprocessable_entity
+      respond_with @project, status: :unprocessable_entity
     end
   end
 
@@ -140,7 +136,7 @@ class ProjectsController < ApplicationController
     if @project.staff.delete @staff
       respond_with @staff
     else
-      respond_with @project.errors, status: :unprocessable_entity
+      respond_with @project, status: :unprocessable_entity
     end
   end
 
@@ -150,7 +146,7 @@ class ProjectsController < ApplicationController
     if @approval.save
       respond_with @approval
     else
-      respond_with @approval.errors, status: :unprocessable_entity
+      respond_with @approval, status: :unprocessable_entity
     end
   end
 
@@ -160,7 +156,7 @@ class ProjectsController < ApplicationController
     if @approval.save
       respond_with @approval
     else
-      respond_with @approval.errors, status: :unprocessable_entity
+      respond_with @approval, status: :unprocessable_entity
     end
   end
 
@@ -180,11 +176,13 @@ class ProjectsController < ApplicationController
 
   def load_projects
     # TODO: Use a QueryObject to encapsulate search filters, ordering, pagination
-    @projects = query_with_includes policy_scope(Project).main_inclusions
+    @projects = query_with policy_scope(Project).main_inclusions, :includes, :pagination
   end
 
   def load_project_params
-    @project_params = params.require(:project).permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer])
+    @project_params = params.permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer, :id])
+    @project_params[:project_answers_attributes] = @project_params[:project_answers] unless @project_params[:project_answers].nil?
+    @project_params.delete(:project_answers) unless @project_params[:project_answers].nil?
   end
 
   def load_project

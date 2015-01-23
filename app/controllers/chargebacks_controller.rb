@@ -9,6 +9,8 @@ class ChargebacksController < ApplicationController
 
   api :GET, '/chargebacks', 'Returns a collection of chargebacks'
   param :includes, Array, required: false, in: %w(cloud product)
+  param :page, :number, required: false
+  param :per_page, :number, required: false
 
   def index
     authorize Chargeback
@@ -26,41 +28,31 @@ class ChargebacksController < ApplicationController
   end
 
   api :POST, '/chargebacks', 'Creates a chargeback'
-  param :chargeback, Hash, desc: 'Chargeback' do
-    param :product_id, :number, required: false
-    param :cloud_id, :number, required: false
-    param :hourly_price, :number, required: false
-  end
+  param :product_id, :number, required: false
+  param :cloud_id, :number, required: false
+  param :hourly_price, :number, required: false
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
     @chargeback = Chargeback.new @chargeback_params
     authorize @chargeback
-    if @chargeback.save
-      render json: @chargeback
-    else
-      respond_with @chargeback.errors, status: :unprocessable_entity
-    end
+    @chargeback.save
+    respond_with @chargeback
   end
 
   api :PUT, '/chargeback/:id', 'Updates chargeback with :id'
   param :id, :number, required: true
-  param :chargeback, Hash, desc: 'Chargeback' do
-    param :product_id, :number, required: false
-    param :cloud_id, :number, required: false
-    param :hourly_price, :number, required: false
-  end
+  param :product_id, :number, required: false
+  param :cloud_id, :number, required: false
+  param :hourly_price, :number, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
     @chargeback.update_attributes @chargeback_params
     authorize @chargeback
-    if @chargeback.save
-      render json: @chargeback
-    else
-      respond_with @chargeback.errors, status: :unprocessable_entity
-    end
+    @chargeback.save
+    respond_with @chargeback
   end
 
   api :DELETE, '/chargeback/:id', 'Deletes chargeback with :id'
@@ -69,17 +61,14 @@ class ChargebacksController < ApplicationController
 
   def destroy
     authorize @chargeback
-    if @chargeback.destroy
-      respond_with @chargeback
-    else
-      respond_with @chargeback.errors, status: :unprocessable_entity
-    end
+    @chargeback.destroy
+    respond_with @chargeback
   end
 
   private
 
   def load_chargeback_params
-    @chargeback_params = params.require(:chargeback).permit(:hourly_price, :cloud_id, :product_id)
+    @chargeback_params = params.permit(:hourly_price, :cloud_id, :product_id)
   end
 
   def load_chargeback
@@ -87,6 +76,6 @@ class ChargebacksController < ApplicationController
   end
 
   def load_chargebacks
-    @chargebacks = query_with_includes Chargeback.all
+    @chargebacks = query_with Chargeback.all, :includes, :pagination
   end
 end

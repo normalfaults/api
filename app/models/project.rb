@@ -11,38 +11,9 @@ class Project < ActiveRecord::Base
 
   has_one :project_detail
 
+  accepts_nested_attributes_for :project_answers
+
   scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
-
-  def self.create_with_answers(attributes)
-    answers = attributes[:project_answers]
-    attributes.delete :project_answers
-    project = nil
-
-    transaction do
-      project = create!(attributes)
-      project.insert_answers!(answers)
-    end
-
-    project
-  end
-
-  def insert_answers!(answers)
-    answers ||= []
-    answers.each do |answer|
-      project_answers.create!(answer)
-    end
-  end
-
-  def update_with_answers!(attributes)
-    answers = attributes[:project_answers]
-    attributes.delete :project_answers
-
-    self.class.transaction do
-      update_attributes(attributes)
-      project_answers.destroy_all
-      insert_answers!(answers)
-    end
-  end
 
   def order_history
     history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|

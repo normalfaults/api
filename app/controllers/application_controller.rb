@@ -1,20 +1,25 @@
 # Default controller
 class ApplicationController < ActionController::Base
   extend Apipie::DSL::Concern
+  include Pundit
 
+  # Error Handling
   include InvalidRecordDetection
   include DuplicateRecordDetection
   include UnauthorizedAccessDetection
   include MissingRecordDetection
   include ParameterValidation
-  include RenderWithParams
-  include AssociationResolution
-  include MethodResolution
-  include Pundit
 
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  # protect_from_forgery with: :exception
+  # Response Rending
+  include RenderWithParams
+  include MethodResolution
+
+  # Querying
+  include Pagination
+  include AssociationResolution
+  include QueryBuilder
+
+  acts_as_token_authentication_handler_for Staff
 
   def current_user
     current_staff

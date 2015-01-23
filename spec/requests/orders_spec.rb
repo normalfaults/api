@@ -15,6 +15,11 @@ RSpec.describe 'Orders API' do
       get '/orders'
       expect(response.body).to eq(@orders.as_json(include: [:order_items]).to_json)
     end
+
+    it 'paginates the orders' do
+      get '/orders', page: 1, per_page: 1
+      expect(json.length).to eq(1)
+    end
   end
 
   describe 'GET show' do
@@ -45,7 +50,7 @@ RSpec.describe 'Orders API' do
 
     it 'updates a order', :show_in_doc do
       put "/orders/#{@order.id}", staff_id: Staff.all.first.id, options: ['test']
-      expect(json['options']).to eq(['test'])
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order does not exist' do
@@ -74,7 +79,7 @@ RSpec.describe 'Orders API' do
 
     it 'removes the order', :show_in_doc do
       delete "/orders/#{@order.id}"
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(204)
     end
 
     it 'returns an error when the order does not exist' do

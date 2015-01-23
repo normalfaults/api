@@ -43,6 +43,13 @@ Rails.application.routes.draw do
   # Organizations
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
+  # Provision Request Response
+  resources :order_items, defaults: { format: :json }, only: [:update] do
+    member do
+      put :provision_update
+    end
+  end
+
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
     # Order Items
@@ -55,10 +62,18 @@ Rails.application.routes.draw do
   end
 
   # Products
-  resources :products, except: [:edit, :new], defaults: { format: :json }
+  resources :products, except: [:edit, :new], defaults: { format: :json } do
+    member do
+      get :answers
+    end
+  end
 
-  # ProductCategories
-  resources :product_categories, except: [:edit, :new], defaults: { format: :json }
+  # ProductTypes
+  resources :product_types, except: [:edit, :new], defaults: { format: :json } do
+    member do
+      get :questions
+    end
+  end
 
   # Chargebacks
   resources :chargebacks, except: [:edit, :new], defaults: { format: :json }
@@ -83,16 +98,26 @@ Rails.application.routes.draw do
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
 
   # Admin Settings
-  resources :admin_settings, defaults: { format: :json, includes: %w(admin_setting_fields)  }, only: [:index, :update]
-
-  # Setting Routes
-  resources :settings, defaults: { format: :json }, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:index, :update, :show, :edit, :new, :destroy]
+  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:show], param: :name
 
   # Automate Routes
   get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'
   get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'
 
   root 'welcome#index'
+
+  # # Dashboard Routes
+  # resources :dashboard
+  #
+  # # Manage Routes
+  # resources :manage
+  #
+  # # Marketplace Routes
+  # resources :marketplace
+  #
+  # # Service Routes
+  # resources :service
 
   # Mocks routes
   # TODO: Remove when implemented

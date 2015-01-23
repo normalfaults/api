@@ -1,4 +1,106 @@
 namespace :upkeep do
+  desc 'Show Date Relationships'
+  task corners: :environment do
+    current_date = Time.gm(2015, 2, 14, 0, 0, 0)
+    puts
+    puts '  current_date: ' + current_date.to_s
+
+    class CalTest
+      def self.months_run(curr, past)
+        (curr.year * 12 + curr.month) - (past.year * 12 + past.month)
+      end
+    end
+
+    puts
+    puts '  [Y,M,D] If date components are the same then 1, Else 0'
+    puts
+
+    t = Time.gm(2015, 2, 14, 0, 0, 0)
+    puts '  [111] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2015, 1, 14, 0, 0, 0)
+    puts '  [101] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2014, 2, 14, 0, 0, 0)
+    puts '  [011] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2014, 3, 14, 0, 0, 0)
+    puts '  [001] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2015, 2, 13, 0, 0, 0)
+    puts '  [110] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2015, 2, 15, 0, 0, 0)
+    puts '  [110] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2015, 1, 13, 0, 0, 0)
+    puts '  [100] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2015, 1, 15, 0, 0, 0)
+    puts '  [100] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2014, 2, 13, 0, 0, 0)
+    puts '  [010] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2014, 2, 15, 0, 0, 0)
+    puts '  [010] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2014, 3, 13, 0, 0, 0)
+    puts '  [000] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2014, 3, 15, 0, 0, 0)
+    puts '  [000] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2014, 1, 13, 0, 0, 0)
+    puts '  [000] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+
+    t = Time.gm(2014, 1, 15, 0, 0, 0)
+    puts '  [000] months_run: ' + (CalTest.months_run(current_date, t)).to_s + ' ' + t.to_s
+    puts ''
+  end
+
+  desc 'Update Remaining Project Budgets'
+  task update_budgets: :environment do
+    Project.where(approved: true).each do |x|
+      puts '[ project: ' + x.id.to_s + ' | name: ' + x.name.to_s + ' | spent/budget: ' + x.spent.to_s + '/' + x.budget.to_s + ' ]'
+
+      current_date = Time.now
+
+      total_spent = 0
+
+      OrderItem.where(project_id: x.id).each do |y|
+        start_date = y.created_at
+
+        hours_run = ((current_date - start_date) / 60 / 60).ceil
+
+        # TODO: WORK OUT CORRECT LOGIC FOR MONTHS RUN
+        months_run = (start_date.year * 12 + current_date.month) - (start_date.year * 12 + start_date.month)
+
+        puts '  product_name: ' + Product.where(id: y.product_id).first.name
+        puts '  provision_status: ' + y.provision_status.to_s
+        puts '  created_at: ' + start_date.to_s
+        puts '  hourly_price: ' + y.hourly_price.to_s
+        puts '  hours_run: ' + hours_run.to_s
+        puts '  hourly_cost: ' + (hours_run * y.hourly_price).to_s
+        puts '  monthly_price: ' + y.monthly_price.to_s
+        puts '  months_run: ' + months_run.to_s
+        puts '  monthly_cost: ' + (months_run * y.monthly_price).to_s
+        puts '  setup_price: ' + y.setup_price.to_s
+        puts '  total_cost: ' + (y.setup_price + (months_run * y.monthly_price) + (hours_run * y.hourly_price)).to_s
+        puts '------------------------------'
+
+        total_spent += y.setup_price + (months_run * y.monthly_price) + (hours_run * y.hourly_price)
+      end
+
+      # puts ''
+      puts '  project_spent: ' + total_spent.to_s
+
+      x.spent = total_spent
+
+      x.save
+    end
+  end
+
   desc 'Removes alerts older than 1 year.'
   task prune_alerts: :environment do
     Alert.destroy_all(['created_at < ?', 365.days.ago])

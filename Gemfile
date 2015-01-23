@@ -9,8 +9,11 @@ gem 'rails', '4.1.7'
 gem 'pg', '~> 0.17.1'
 gem 'pg_search', '~> 0.7.8'
 
+# Pagination
+gem 'will_paginate', '~> 3.0.7'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+# gem 'therubyracer', platforms: :ruby
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -40,7 +43,10 @@ gem 'rubocop', group: [:development, :test]
 gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
+
+# Use puma as the app server
+gem 'puma'
 
 # Use web-console
 gem 'web-console', '~> 2.0.0', group: :development
@@ -56,6 +62,7 @@ gem 'responders'
 
 # Authentication
 gem 'devise'
+gem 'simple_token_authentication', '~> 1.0'
 
 # Authorization
 gem 'pundit'
@@ -65,6 +72,9 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'database_cleaner', '~> 1.3.0'
+  gem 'brakeman', require: false
+  gem 'license_finder'
+  # gem 'foreman'
 end
 
 # Documentation
@@ -80,5 +90,14 @@ gem 'virtus'
 # CORS
 gem 'rack-cors'
 
+# CSRF
+gem 'angular_rails_csrf', '~> 1.0.3' # XSRF-TOKEN is added to the cookie by default.
+
 # CRONTAB SCHEDULER
 gem 'whenever'
+
+# ActiveRecord DelayedJob
+gem 'delayed_job_active_record'
+
+# Daemons for DelayedJob
+gem 'daemons'

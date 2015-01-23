@@ -76,7 +76,7 @@ brew install postgresql
 gem install pg
 ````
 
-####Step 11: Get postgres.app
+####Step 11: Get postgres.app (Mac only)
 You can use the PostreSQL from step 10, but this app is easier to use
 Download at: http://postgresapp.com
 
@@ -95,29 +95,76 @@ bundle install
 
 ####Step 14:  Add this data to ./config/application.yml
 
+You will need to create this file yourself (it is already in the .gitignore),
+the Figaro gem uses this to to "create" ENVIROMENT variables.  Alternatively,
+you can simply create ENVIROMENT yourself.
+
+
 ````
-AWS_HOST:     "localhost"
-AWS_USERNAME: "user_name"
-AWS_PASSWORD: "password"
-AWS_DATABASE: "jellyfish"
+AWS_HOST:     "database-host-name.server.com"
+AWS_USERNAME: "database_username"
+AWS_PASSWORD: "database_password"
+AWS_DATABASE: "database_name"
 AWS_PORT:     "5432"
-CORS_ALLOW_ORIGIN: [fqdn for ux]
+CORS_ALLOW_ORIGIN: [fqdn of ux server]
 ````
 
-####Step 15:  Populate the database 
-Run the following rake commands
+In order to enable core to connect to a ManageIQ instance, add the
+following variables to ./config/application.yml as well.
+
+````
+MANAGEIQ_HOST: "https://miq-host:miq-port"
+MANAGEIQ_SSL:  "0"
+MANAGEIQ_USER: "miq-user"
+MANAGEIQ_PASS: "miq-pasword"
+````
+
+####Step 15:  Populate the database
+
+Run the following rake commands.  You only need to run "rake sample:jenkins" if
+you are wanting, sample data (useful for development).  Please note that this
+rake task does not create the database or the database user (those will need
+to be created based on the DB you are using)
 
 ````
 rake db:schema:load
 rake
+rake db:seed
 rake sample:jenkins
 ````
 
-####Step 16.  Start the server
+####Step 16.  Start the server (development)
 
 ````
 rails s
 ````
+
+####Upkeep Rake Tasks
+
+The following rake commands can be executed to maintain Jellyfish Core.
+
+````
+rake upkeep:update_budgets
+````
+
+This command updates the spent attribute of all Projects by iterating over each
+Project's OrderItems and then computing the aggregate spent by applying the
+hourly, monthly and setup price for each OrderItem since their creation.
+
+````
+rake upkeep:get_aws_od_pricing
+````
+
+This command displays the on demand pricing for different EC2 instances available on AWS.
+Does not pull pricing data for S3 buckets or RDS.
+
+````
+rake upkeep:poll_miq_vms
+````
+
+This command displays the status of all VMs available in ManageIQ using the ManageIQ API and
+creates an alert for each change in VM status.
+
 
 
 Copyright 2014 Booz Allen Hamilton
