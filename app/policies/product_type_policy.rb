@@ -1,4 +1,4 @@
-class ProductCategoryPolicy < ApplicationPolicy
+class ProductTypePolicy < ApplicationPolicy
   def index?
     true
   end
@@ -20,6 +20,10 @@ class ProductCategoryPolicy < ApplicationPolicy
   end
 
   def destroy?
+    user.admin?
+  end
+
+  def questions?
     user.admin?
   end
 end

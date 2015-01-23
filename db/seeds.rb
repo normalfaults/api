@@ -1,3 +1,6 @@
+require_relative 'seeds/products'
+require_relative 'seeds/project_questions'
+
 # AWS Settings
 aws_setting = Setting.find_or_create_by(name: 'AWS')
 

@@ -59,14 +59,21 @@ class OrderItem < ActiveRecord::Base
         verify_ssl: OpenSSL::SSL::VERIFY_NONE
     )
 
-    response = resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post message.to_json, content_type: 'application/json'
+    begin
+      @response = resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post message.to_json, content_type: 'application/json'
+    rescue => e
+      @response = e.response
+    end
 
-    case response.code
-    when 200
-      data = ActiveSupport::JSON.decode(response)
+    data = ActiveSupport::JSON.decode(@response)
+    order_item.payload_reply_from_miq = data.to_json
+
+    case @response.code
+    when 200..299
       order_item.provision_status = :pending
       order_item.miq_id = data['results'][0]['id']
-      order_item.payload_from_miq = data.to_json
+    when 400..499
+      order_item.provision_status = :critical
     else
       order_item.provision_status = :warning
     end
