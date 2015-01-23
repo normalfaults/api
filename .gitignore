@@ -20,7 +20,6 @@
 
 #Ignore RubyMine files
 /.idea
-/app/.idea
 
 #environment
 /.env
