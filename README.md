@@ -1,6 +1,9 @@
 jellyfish-core
 =======
 
+[![Code Climate](https://codeclimate.com/repos/54c2c15e69568066da0003ed/badges/c6cc02c252d341b6eeb3/gpa.svg)](https://codeclimate.com/repos/54c2c15e69568066da0003ed/feed)
+[![Build Status](https://magnum.travis-ci.com/booz-allen-hamilton/jellyfish-core.svg?token=hzrJLxrVn5bNaxiZp1bx&branch=master)](https://magnum.travis-ci.com/booz-allen-hamilton/jellyfish-core)
+
 Jellyfish-Core is the API layer of Jellyfish.  It provides access for the UX
 and for mobile applications.  It's really cool.
 
