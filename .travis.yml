@@ -5,6 +5,9 @@ rvm:
 
 addons:
   postgresql: "9.3"
+  code_climate:
+      repo_token:
+        secure: "MykpZOfpi/kN2Ye4k2hIV/FgZAS9JmDLObq27jBUN+O2hrfGT9wQsQXxMpiah/hyqr/wH+VzxB6wqqeK9+vHSqtpf5O9Y9urcCHnuStkYS7fmfrkblvY6hodK5ly2QXlZguPb0ccuRG1jdWSJxz/Bp8eZhuCzSjr3mwJhgrHaUY="
 
 before_script:
   - cp config/database.yml.travis config/database.yml

@@ -15,6 +15,10 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
+# Code Climate Integration
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 require 'factory_girl'
 require 'database_cleaner'
 
