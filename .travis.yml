@@ -31,3 +31,4 @@ deploy:
     - "rake"
     - "rake db:seed"
     - "rake sample:jenkins"
+    - "heroku config:set TRAVIS_COMMIT=$TRAVIS_COMMIT"
