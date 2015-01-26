@@ -37,13 +37,21 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
+    product_details = Hash.new
+
+    order_item.product.product_type.questions.each do |column|
+      answer = ProductAnswer.find_by product_id: order_item.product.id, product_type_question_id: column.id
+      product_details[column.label.downcase.tr(' ', '_')] = answer.answer
+    end
+
     message =
     {
       action: 'order',
-      id: order_item.id,
-      uuid: order_item.uuid.to_s,
       resource: {
-        href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}"
+        href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}",
+        id: order_item.id,
+        uuid: order_item.uuid.to_s,
+        product_details: product_details
       }
     }
 
