@@ -77,5 +77,4 @@ class AutomateController < ApplicationController
     file.close
     render plain: contents
   end
-
 end
