@@ -104,6 +104,15 @@ Rails.application.routes.draw do
   # Automate Routes
   get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'
   get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'
+  get 'automate/create_rds', to: 'automate#create_rds'
+  get 'automate/provision_rds', to: 'automate#provision_rds'
+  get 'automate/create_ec2', to: 'automate#create_ec2'
+  get 'automate/create_s3', to: 'automate#create_s3'
+  get 'automate/create_ses', to: 'automate#create_ses'
+  get 'automate/retire_ec2', to: 'automate#retire_ec2'
+  get 'automate/retire_rds', to: 'automate#retire_rds'
+  get 'automate/retire_s3', to: 'automate#retire_s3'
+  get 'automate/retire_ses', to: 'automate#retire_ses'
 
   root 'welcome#index'
 
