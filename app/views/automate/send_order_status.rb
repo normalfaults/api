@@ -13,32 +13,32 @@ require 'net/http'
 require 'uri/http'
 require 'json'
 
-def send_order_status(status, order_id, information, message="")
-  host = "jellyfish-core-dev.dpi.bah.com"
-  path ="/order_items/#{order_id}/provision_update"
+def send_order_status(status, order_id, information, message = '')
+  host = 'jellyfish-core-dev.dpi.bah.com'
+  path = '/order_items/#{order_id}/provision_update'
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
-  information = information.merge("provision_status" => status.downcase)
-  information = information.merge("id" => "#{order_id}")
-  $evm.log("info", "send_order_status: Information: #{information}")
+  information = information.merge('provision_status' => status.downcase)
+  information = information.merge('id' => "#{order_id}")
+  $evm.log('info', "send_order_status: Information: #{information}")
   json = {
-      "status" => "#{status}",
-      "message" => "#{message}",
-      "info" => information
+    status: "#{status}",
+    message: "#{message}",
+    info: information
   }
-  $evm.log("info", "send_order_status: Information #{json.to_json}")
+  $evm.log('info', "send_order_status: Information #{json.to_json}")
   begin
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new(uri.path)
-    request.content_type ="application/json"
+    request.content_type = 'application/json'
     request.body = json.to_json
     response = http.request(request)
-    $evm.log("info", "send_order_status: HTTP Response code: #{response.code}")
-    $evm.log("info", "send_order_status: HTTP Response message: #{response.message}")
+    $evm.log('info', "send_order_status: HTTP Response code: #{response.code}")
+    $evm.log('info', "send_order_status: HTTP Response message: #{response.message}")
   rescue HTTPExceptions => e
-    $evm.log("error", "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
-  rescue Exception => e
-    $evm.log("error", "send_order_status: Exception caught while sending response back to core: #{e.message}")
+    $evm.log('error', "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
+  rescue StandardError => e
+    $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
   end
 end # End of function
