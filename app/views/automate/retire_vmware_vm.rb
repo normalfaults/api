@@ -11,7 +11,7 @@ class DebugClass
 end
 
 testHash = {
-  'dialog_instance_name' => 'VM_To_Clone',
+  'dialog_instance_name' => 'Cloned_VM', #VM_To_Clone, Cloned_VM
   'dialog_datacenter' => 'DC1'
 }
 
