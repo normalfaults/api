@@ -40,10 +40,11 @@ class OrderItem < ActiveRecord::Base
     message =
     {
       action: 'order',
-      id: order_item.id,
-      uuid: order_item.uuid.to_s,
       resource: {
-        href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}"
+        href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}",
+        id: order_item.id,
+        uuid: order_item.uuid.to_s,
+        product_details: product_details(order_item)
       }
     }
 
@@ -80,5 +81,15 @@ class OrderItem < ActiveRecord::Base
 
     order_item.save
     order_item.to_json
+  end
+
+  def product_details(order_item)
+    product_details = {}
+
+    answers = order_item.product.answers
+    order_item.product.product_type.questions.each do |question|
+      answer = answers.select { |row| row.product_type_id = question.product_type_id }.first
+      product_details[question.manageiq_key] = answer.nil ? question.default : answer.answer
+    end
   end
 end
