@@ -9,19 +9,18 @@ require 'json'
 
 def send_order_status(status, order_id, information, message = '')
   host = 'jellyfish-core-dev.dpi.bah.com'
-  path = '/order_items/#{order_id}/provision_update'
+  path = "/order_items/#{order_id}/provision_update"
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
   information = information.merge('provision_status' => status.downcase)
-  information = information.merge('id' => "#{order_id}")
   $evm.log('info', "send_order_status: Information: #{information}")
   json = {
     status: "#{status}",
     message: "#{message}",
     info: information
   }
-  $evm.log('info', "send_order_status: Information #{json.to_json}")
+  $evm.log('info', "send_order_status: Information #{json}")
   begin
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new(uri.path)
@@ -37,17 +36,23 @@ def send_order_status(status, order_id, information, message = '')
   end
 end # End of function
 
-# Retrieve the information passed to MIQ from the Dialog call
-access_key_id = "#{$evm.root['dialog_access_key_id']}"
-secret_access_key = "#{$evm.root['dialog_secret_access_key']}"
-image_id = "#{$evm.root['dialog_image_id']}"
-instance_type = "#{$evm.root['dialog_instance_type']}"
-count = "#{$evm.root['dialog_count']}"
-availability_zone = "#{$evm.root['dialog_availability_zone']}"
-security_groups = "#{$evm.root['dialog_security_groups']}"
-key_name = "#{$evm.root['dialog_key_name']}"
-order_id = "#{$evm.root['dialog_order_item']}"
-instance_name = "#{$evm.root['dialog_instance_name']}"
+# Retrieve properties from request
+# MIQ makes product_details into a string.
+# Must make into a hash
+product_details = $evm.root['dialog_product_details']
+$evm.log('info', "CreateS3: Product Details: #{product_details}")
+product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+access_key_id = product_hash['access_key_id']
+secret_access_key = product_hash['secret_access_key']
+image_id = product_hash['image_id']
+instance_type = product_hash['instance_type']
+count = product_hash['count']
+availability_zone = product_hash['availability_zone']
+security_groups = product_hash['security_groups']
+key_name = product_hash['key_name']
+order_id = product_hash['id']
+uuid = product_hash['uuid']
+instance_name = product_hash['instance_name']
 
 # Configure AWS
 AWS.config(
@@ -77,18 +82,22 @@ end
 $evm.log('info', "CreateEC2: Options: #{options}")
 
 begin
+  info = {
+    'id' => order_id,
+    'uuid' => uuid
+  }
   instance = ec2.instances.create(options)
 rescue AWS::EC2::Errors::InvalidClientTokenId => e
   $evm.log('error', "CreateEC2: Invalid client token exception. Message: #{e.message}")
-  send_order_status('CRITICAL', order_id, '', "#{e.message}")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::EC2::Errors::InvalidParameterValue => e
   $evm.log('error', "CreateEC2: Invalid parameter exception. Message: #{e.message}")
-  send_order_status('CRITICAL', order_id, '', "#{e.message}")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue StandardError => e
   $evm.log('error', "CreateEC2: Could not create instance. Error: #{e}")
-  send_order_status('CRITICAL', order_id, '', "#{e.message}")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
   exit
 end
 
@@ -98,7 +107,7 @@ sleep 5
 if instance.exists?
   while instance.status == :pending
     sleep 5
-    send_order_status('PENDING', order_id, '')
+    send_order_status('PENDING', order_id, info)
   end
 end
 
@@ -106,25 +115,27 @@ end
 # But first just print them all out
 
 info = {
-  'instance_name' => "#{instance_name}",
-  'order_item' => "#{order_id}",
-  'architecture' => "#{instance.architecture}",
-  'dns_name' => "#{instance.dns_name}",
-  'id' => "#{instance.id}",
-  'image_id' => "#{instance.image_id}",
-  'instance_type' => "#{instance.instance_type}",
-  'ip_address' =>  "#{instance.ip_address}",
-  'key_name' => "#{instance.key_name}",
-  'launch_time' => "#{instance.launch_time}",
-  'owner_id' => "#{instance.owner_id}",
-  'platform' => "#{instance.platform}",
-  'private_ip_address' => "#{instance.private_ip_address}",
-  'root_device_name' => "#{instance.root_device_name}",
-  'root_device_type' => "#{instance.root_device_type}",
-  'instance' => "#{instance.status}",
-  'subnet_id' => "#{instance.subnet_id}",
-  'virtualization_type' => "#{instance.virtualization_type}",
-  'vpc_id' => "#{instance.vpc_id}"
+  'id' => order_id,
+  'uuid' => uuid,
+  'instance_name' => instance_name,
+  'order_item' => order_id,
+  'architecture' => instance.architecture,
+  'dns_name' => instance.dns_name,
+  'id' => instance.id,
+  'image_id' => instance.image_id,
+  'instance_type' => instance.instance_type,
+  'ip_address' =>  instance.ip_address,
+  'key_name' => instance.key_name,
+  'launch_time' => instance.launch_time,
+  'owner_id' => instance.owner_id,
+  'platform' => instance.platform,
+  'private_ip_address' => instance.private_ip_address,
+  'root_device_name' => instance.root_device_name,
+  'root_device_type' => instance.root_device_type,
+  'instance' => instance.status,
+  'subnet_id' => instance.subnet_id,
+  'virtualization_type' => instance.virtualization_type,
+  'vpc_id' => instance.vpc_id
 }
 
 send_order_status('OK', order_id, info)
