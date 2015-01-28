@@ -19,14 +19,13 @@ def send_order_status(status, order_id, information, message = '')
   uri = URI.parse(url)
 
   information = information.merge('provision_status' => status.downcase)
-  information = information.merge('id' => "#{order_id}")
   $evm.log('info', "send_order_status: Information: #{information}")
   json = {
     status: "#{status}",
     message: "#{message}",
     info: information
   }
-  $evm.log('info', "send_order_status: Information #{json.to_json}")
+  $evm.log('info', "send_order_status: Information #{json}")
   begin
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new(uri.path)
@@ -55,15 +54,16 @@ username = product_hash['master_username']
 storage_type = product_hash['dialog_storage_type']
 security_groups_init = product_hash['security_groups']
 order_id = product_hash['id']
-uuid = product_hash['uuids']
+uuid = product_hash['uuid']
+db_instance_id = product_hash['instance_name']
 $evm.log('info', "CreateRDS: Processing order Id #{order_id}")
+$evm.log('info', "CreateRDS: Processing db_instance_id #{db_instance_id}")
 
 rds = AWS::RDS.new(
   access_key_id: "#{$evm.root['dialog_access_key_id']}",
   secret_access_key: "#{$evm.root['dialog_secret_access_key']}"
 )
 
-order_id = "#{$evm.root['dialog_order_item']}"
 # Create password to pass back to the Marketplace
 # AWS RDS instance passwords require a minimum of 8 characters
 sec_pw = SecureRandom.hex
@@ -99,17 +99,13 @@ end
 
 $evm.log('info', "CreateRDS: Set options for new RDS instance: #{options}")
 
-# db_instance_id must be unique to the region.
-db_instance_id = "#{$evm.root['dialog_instance_name']}"
-$evm.log('info', "CreateRDs: Instance Id = #{db_instance_id}")
-
 # Create instance
 begin
   info = {
-    id: order_id,
-    uuid: uuid
+    'id' => order_id,
+    'uuid' => uuid
   }
-  $evm.root('info', "CreateRDS: info hash = #{info}")
+  $evm.log('info', "CreateRDS: info hash = #{info}")
   rds.db_instances.create(db_instance_id, options)
 rescue AWS::RDS::Errors::InvalidClientTokenId => e
   $evm.log('error', "CreateRDS: Exception caught when creating instance: #{e.message}")
