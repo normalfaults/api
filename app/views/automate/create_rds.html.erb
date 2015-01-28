@@ -56,12 +56,15 @@ security_groups_init = product_hash['security_groups']
 order_id = product_hash['id']
 uuid = product_hash['uuid']
 db_instance_id = product_hash['instance_name']
+access_key_id = product_hash['access_key_id']
+secret_key = product_hash['secret_access_key']
+
 $evm.log('info', "CreateRDS: Processing order Id #{order_id}")
 $evm.log('info', "CreateRDS: Processing db_instance_id #{db_instance_id}")
 
 rds = AWS::RDS.new(
-  access_key_id: "#{$evm.root['dialog_access_key_id']}",
-  secret_access_key: "#{$evm.root['dialog_secret_access_key']}"
+  access_key_id: access_key_id,
+  secret_access_key: secret_key
 )
 
 # Create password to pass back to the Marketplace

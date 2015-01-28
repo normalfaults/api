@@ -15,19 +15,18 @@ $evm.log('info', 'ProvisionRDS: Entering Method.')
 
 def send_order_status(status, order_id, information, message = '')
   host = 'jellyfish-core-dev.dpi.bah.com'
-  path = '/order_items/#{order_id}/provision_update'
+  path = "/order_items/#{order_id}/provision_update"
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
   information = information.merge('provision_status' => status.downcase)
-  information = information.merge('id' => "#{order_id}")
   $evm.log('info', "send_order_status: Information: #{information}")
   json = {
     status: "#{status}",
     message: "#{message}",
     info: information
   }
-  $evm.log('info', "send_order_status: Information #{json.to_json}")
+  $evm.log('info', "send_order_status: Information #{json}")
   begin
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new(uri.path)
@@ -51,24 +50,38 @@ if $evm.root['instance_failed'] == true
   exit
 end
 
+# MIQ makes dialog_product_details into a string.
+# Must convert to a hash.
+product_details = $evm.root['dialog_product_details']
+$evm.log('info', "CreateS3: Product Details: #{product_details}")
+product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+order_id = product_hash['id']
+uuid = product_hash['uuid']
+access_key_id = product_hash['access_key_id']
+secret_key = product_hash['secret_access_key']
+db_instance_id = product_hash['instance_name']
+
+# Retrieve request properties from the product hash
 rds = AWS::RDS.new(
-    access_key_id: "#{$evm.root['dialog_access_key_id']}",
-    secret_access_key: "#{$evm.root['dialog_secret_access_key']}"
+    access_key_id: access_key_id,
+    secret_access_key: secret_key
 )
 
 # Get the instance name of the variable created
-db_instance_id = "#{$evm.root['dialog_instance_name']}"
-order_id = "#{$evm.root['dialog_order_item']}"
 begin
   instance_collection = rds.db_instances
   instance = instance_collection[db_instance_id]
+  info = {
+    'id' => order_id,
+    'uuid' => uuid
+  }
 rescue AWS::RDS::Errors::InvalidClientTokenId => e
   $evm.log('error', 'ProvisionRDS: Exception caught when creating instance: #{e.message}')
-  send_order_status('CRITICAL', order_id, '', "#{e.message}")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::RDS::Errors => e
   $evm.log('error', "ProvisionRDS: Exception caught when creating instance: #{e.message}")
-  send_order_status('CRITICAL', order_id, '', "#{e.message}")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
   exit
 end
 
@@ -82,6 +95,8 @@ if instance.exists?
 
   # Create the payload to send back to the marketplace
   information = {
+    'id' => order_id,
+    'uuid' => uuid,
     'db_endpoint_address' => "#{instance.endpoint_address}",
     'db_endpoint_port' => "#{instance.endpoint_port}",
     'username' => "#{instance.master_username}",
