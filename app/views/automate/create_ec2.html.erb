@@ -40,7 +40,7 @@ end # End of function
 # MIQ makes product_details into a string.
 # Must make into a hash
 product_details = $evm.root['dialog_product_details']
-$evm.log('info', "CreateS3: Product Details: #{product_details}")
+$evm.log('info', "CreateEC2: Product Details: #{product_details}")
 product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
 access_key_id = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']

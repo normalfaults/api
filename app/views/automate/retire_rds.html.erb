@@ -40,7 +40,7 @@ end # End of function
 # MIQ makes product_details into a string.
 # Must make into a hash
 product_details = $evm.root['dialog_product_details']
-$evm.log('info', "CreateS3: Product Details: #{product_details}")
+$evm.log('info', "RetireRDS: Product Details: #{product_details}")
 product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
 db_instance_id = product_hash['instance_name']
 snapshot_identifier = product_hash['snapshot_identifier']

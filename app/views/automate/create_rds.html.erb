@@ -45,7 +45,7 @@ end # End of function
 # MIQ makes product_details into a string.
 # Must make into a hash
 product_details = $evm.root['dialog_product_details']
-$evm.log('info', "CreateS3: Product Details: #{product_details}")
+$evm.log('info', "CreateRDS: Product Details: #{product_details}")
 product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
 allocated_storage = Integer(product_hash['allocated_storage'])
 db_instance_class = product_hash['db_instance_class']
