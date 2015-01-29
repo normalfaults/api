@@ -74,7 +74,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.3.0'
   gem 'brakeman', require: false
   gem 'license_finder'
-  # gem 'foreman'
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 # Documentation

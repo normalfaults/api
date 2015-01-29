@@ -21,3 +21,6 @@ Metrics/LineLength:
 
 Metrics/AbcSize:
   Max: 38
+
+Style/GlobalVars:
+  AllowedVariables: [$evm]
