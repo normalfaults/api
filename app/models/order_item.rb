@@ -37,6 +37,8 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
+    #details = product_details(order_item)
+
     message =
     {
       action: 'order',
@@ -44,7 +46,7 @@ class OrderItem < ActiveRecord::Base
         href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}",
         id: order_item.id,
         uuid: order_item.uuid.to_s,
-        product_details: product_details(order_item)
+        product_details: {}
       }
     }
 
@@ -52,11 +54,14 @@ class OrderItem < ActiveRecord::Base
     order_item.payload_to_miq = message.to_json
     order_item.save
 
+    # TODO: Retrieving these values from the database could be done way better
+    @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
+
     # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
     resource = RestClient::Resource.new(
-        "#{ENV['MANAGEIQ_HOST']}",
-        user: ENV['MANAGEIQ_USER'],
-        password: ENV['MANAGEIQ_PASS'],
+        @miq_settings[0]['value'],
+        user: @miq_settings[1]['value'],
+        password: @miq_settings[2]['value'],
         verify_ssl: OpenSSL::SSL::VERIFY_NONE
     )
 
@@ -84,12 +89,14 @@ class OrderItem < ActiveRecord::Base
   end
 
   def product_details(order_item)
-    product_details = {}
+    product_details_hash = {}
 
     answers = order_item.product.answers
     order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_id = question.product_type_id }.first
-      product_details[question.manageiq_key] = answer.nil ? question.default : answer.answer
+      answer = answers.select { |row| row.product_type_id == question.product_type_id }.first
+      product_details_hash[question.manageiq_key] = answer.nil ? question.default : answer.answer
     end
+
+    product_details_hash
   end
 end
