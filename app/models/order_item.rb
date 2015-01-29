@@ -49,7 +49,7 @@ class OrderItem < ActiveRecord::Base
     {
       action: 'order',
       resource: {
-        href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}",
+        href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
         id: order_item.id,
         uuid: order_item.uuid.to_s,
         product_details: details
