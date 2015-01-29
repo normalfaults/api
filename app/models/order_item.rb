@@ -37,30 +37,22 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
-    details = {}
-
-    answers = order_item.product.answers
-    order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_question_id == question.id }.first
-      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
-    end
+    @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
 
     @message =
     {
       action: 'order',
       resource: {
-        href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}",
+        href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
         id: order_item.id,
         uuid: order_item.uuid.to_s,
-        product_details: details
+        product_details: order_item_details(order_item)
       }
     }
 
     order_item.provision_status = :unknown
     order_item.payload_to_miq = @message.to_json
     order_item.save
-
-    @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
 
     # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
     @resource = RestClient::Resource.new(
@@ -95,5 +87,17 @@ class OrderItem < ActiveRecord::Base
 
     order_item.save
     order_item.to_json
+  end
+
+  def order_item_details(order_item)
+    details = {}
+
+    answers = order_item.product.answers
+    order_item.product.product_type.questions.each do |question|
+      answer = answers.select { |row| row.product_type_question_id == question.id }.first
+      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
+    end
+
+    details
   end
 end
