@@ -37,31 +37,45 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
-    message =
+    details = {}
+
+    answers = order_item.product.answers
+    order_item.product.product_type.questions.each do |question|
+      answer = answers.select { |row| row.product_type_question_id == question.id }.first
+      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
+    end
+
+    @message =
     {
       action: 'order',
       resource: {
         href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}",
         id: order_item.id,
         uuid: order_item.uuid.to_s,
-        product_details: product_details(order_item)
+        product_details: details
       }
     }
 
     order_item.provision_status = :unknown
-    order_item.payload_to_miq = message.to_json
+    order_item.payload_to_miq = @message.to_json
     order_item.save
 
+    @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
+
     # TODO: verify_ssl needs to be changed, this is the only way I could get it to work in development.
-    resource = RestClient::Resource.new(
-        "#{ENV['MANAGEIQ_HOST']}",
-        user: ENV['MANAGEIQ_USER'],
-        password: ENV['MANAGEIQ_PASS'],
+    @resource = RestClient::Resource.new(
+        @miq_settings[0]['value'],
+        user: @miq_settings[1]['value'],
+        password: @miq_settings[2]['value'],
         verify_ssl: OpenSSL::SSL::VERIFY_NONE
     )
 
+    handle_response(order_item)
+  end
+
+  def handle_response(order_item)
     begin
-      @response = resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post message.to_json, content_type: 'application/json'
+      @response = @resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post @message.to_json, content_type: 'application/json'
     rescue => e
       @response = e.response
     end
@@ -81,15 +95,5 @@ class OrderItem < ActiveRecord::Base
 
     order_item.save
     order_item.to_json
-  end
-
-  def product_details(order_item)
-    product_details = {}
-
-    answers = order_item.product.answers
-    order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_id = question.product_type_id }.first
-      product_details[question.manageiq_key] = answer.nil ? question.default : answer.answer
-    end
   end
 end
