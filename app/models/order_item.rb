@@ -37,13 +37,7 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
-    details = {}
-
-    answers = order_item.product.answers
-    order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_question_id == question.id }.first
-      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
-    end
+    details = order_item_details(order_item)
 
     @message =
     {
@@ -95,5 +89,17 @@ class OrderItem < ActiveRecord::Base
 
     order_item.save
     order_item.to_json
+  end
+
+  def order_item_details(order_item)
+    details = {}
+
+    answers = order_item.product.answers
+    order_item.product.product_type.questions.each do |question|
+      answer = answers.select { |row| row.product_type_question_id == question.id }.first
+      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
+    end
+
+    details
   end
 end
