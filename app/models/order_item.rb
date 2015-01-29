@@ -37,7 +37,7 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
-    #details = product_details(order_item)
+    details = product_details(order_item)
 
     message =
     {
@@ -46,7 +46,7 @@ class OrderItem < ActiveRecord::Base
         href: "#{ENV['MANAGEIQ_HOST']}/api/service_templates/#{order_item.product.service_type_id}",
         id: order_item.id,
         uuid: order_item.uuid.to_s,
-        product_details: {}
+        product_details: details
       }
     }
 
@@ -89,14 +89,14 @@ class OrderItem < ActiveRecord::Base
   end
 
   def product_details(order_item)
-    product_details_hash = {}
+    details = {}
 
     answers = order_item.product.answers
     order_item.product.product_type.questions.each do |question|
-      answer = answers.select { |row| row.product_type_id == question.product_type_id }.first
-      product_details_hash[question.manageiq_key] = answer.nil ? question.default : answer.answer
+      answer = answers.select { |row| row.product_type_question_id == question.id }.first
+      details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
     end
 
-    product_details_hash
+    return details
   end
 end
