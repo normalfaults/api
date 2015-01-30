@@ -78,25 +78,26 @@ class OrderItem < ActiveRecord::Base
     Delayed::Worker.logger.debug order_item
     begin
       @response = @resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post @message.to_json, content_type: 'application/json'
+
+      data = ActiveSupport::JSON.decode(@response)
+      Delayed::Worker.logger.debug 'Data'
+      Delayed::Worker.logger.debug data
+      order_item.payload_reply_from_miq = data.to_json
+      case @response.code
+      when 200..299
+        order_item.provision_status = :pending
+        order_item.miq_id = data['results'][0]['id']
+      when 400..499
+        order_item.provision_status = :critical
+      else
+        order_item.provision_status = :warning
+      end
     rescue => e
+      Delayed::Worker.logger.debug 'Rescue Response!'
+      Delayed::Worker.logger.debug @response
       @response = e.response
-    end
-    Delayed::Worker.logger.debug 'Response'
-    Delayed::Worker.logger.debug @response
-
-    data = ActiveSupport::JSON.decode(@response)
-    Delayed::Worker.logger.debug 'Data'
-    Delayed::Worker.logger.debug data
-    order_item.payload_reply_from_miq = data.to_json
-
-    case @response.code
-    when 200..299
-      order_item.provision_status = :pending
-      order_item.miq_id = data['results'][0]['id']
-    when 400..499
-      order_item.provision_status = :critical
-    else
-      order_item.provision_status = :warning
+      order_item.provision_status = :unknown
+      order_item.payload_reply_from_miq = { 'error' => 'Action response was out of bounds, or something happened that wasn\'t expected' }.to_json
     end
 
     order_item.save
