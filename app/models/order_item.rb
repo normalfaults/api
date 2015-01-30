@@ -38,8 +38,6 @@ class OrderItem < ActiveRecord::Base
 
   def provision_order_item(order_item)
     Delayed::Worker.logger.debug 'provision_order_item'
-    Delayed::Worker.logger.debug 'OrderItem'
-    Delayed::Worker.logger.debug order_item
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
     Delayed::Worker.logger.debug 'MIQ Settings'
     Delayed::Worker.logger.debug @miq_settings
@@ -107,8 +105,6 @@ class OrderItem < ActiveRecord::Base
 
   def order_item_details(order_item)
     Delayed::Worker.logger.debug 'order_item_details'
-    Delayed::Worker.logger.debug 'OrderItem'
-    Delayed::Worker.logger.debug order_item
     details = {}
 
     answers = order_item.product.answers
