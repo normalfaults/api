@@ -37,10 +37,7 @@ class OrderItem < ActiveRecord::Base
   end
 
   def provision_order_item(order_item)
-    Delayed::Worker.logger.debug 'provision_order_item'
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
-    Delayed::Worker.logger.debug 'MIQ Settings'
-    Delayed::Worker.logger.debug @miq_settings
 
     @message =
     {
@@ -52,8 +49,6 @@ class OrderItem < ActiveRecord::Base
         product_details: order_item_details(order_item)
       }
     }
-    Delayed::Worker.logger.debug 'Message Payload'
-    Delayed::Worker.logger.debug @message
 
     order_item.provision_status = :unknown
     order_item.payload_to_miq = @message.to_json
@@ -64,64 +59,61 @@ class OrderItem < ActiveRecord::Base
         @miq_settings[0]['value'],
         user: @miq_settings[1]['value'],
         password: @miq_settings[2]['value'],
-        verify_ssl: OpenSSL::SSL::VERIFY_NONE
+        verify_ssl: OpenSSL::SSL::VERIFY_NONE,
+        timeout: 120,
+        open_timeout: 60
     )
-    Delayed::Worker.logger.debug 'RESTClient Resource'
-    Delayed::Worker.logger.debug @resource
 
     handle_response(order_item)
   end
 
   def handle_response(order_item)
-    Delayed::Worker.logger.debug 'handle_response'
-    Delayed::Worker.logger.debug 'OrderItem'
-    Delayed::Worker.logger.debug order_item
     begin
-      @response = @resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post @message.to_json, content_type: 'application/json'
-
-      data = ActiveSupport::JSON.decode(@response)
-      Delayed::Worker.logger.debug 'Data'
-      Delayed::Worker.logger.debug data
+      response = @resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post @message.to_json, content_type: 'application/json'
+      data = ActiveSupport::JSON.decode(response)
       order_item.payload_reply_from_miq = data.to_json
-      case @response.code
+
+      case response.code
       when 200..299
         order_item.provision_status = :pending
         order_item.miq_id = data['results'][0]['id']
-      when 400..499
+      when 400..407
         order_item.provision_status = :critical
       else
         order_item.provision_status = :warning
       end
-    rescue => e
-      Delayed::Worker.logger.debug 'Rescue Response!'
-      Delayed::Worker.logger.debug @response
-      @response = e.response
-      order_item.provision_status = :unknown
-      order_item.payload_reply_from_miq = { 'error' => 'Action response was out of bounds, or something happened that wasn\'t expected' }.to_json
-    end
 
-    order_item.save
-    order_item.to_json
+      order_item.save
+      order_item.to_json
+    rescue => e
+      message = e.try(:response) ? e.response : 'Request Timeout'
+      error = e.try(:message) ? e.message : 'Action response was out of bounds, or something happened that wasn\'t expected'
+      order_item.provision_status = :unknown
+      order_item.payload_reply_from_miq = { error: error, message: message }.to_json
+      order_item.save
+
+      # Since the exception was caught delayed_jobs wouldn't requeue the job, let's raise an exception
+      raise 'error'
+    end
   end
 
   def order_item_details(order_item)
-    Delayed::Worker.logger.debug 'order_item_details'
     details = {}
 
     answers = order_item.product.answers
-    Delayed::Worker.logger.debug 'Answers'
-    Delayed::Worker.logger.debug answers
     order_item.product.product_type.questions.each do |question|
       answer = answers.select { |row| row.product_type_question_id == question.id }.first
-      Delayed::Worker.logger.debug 'Answer'
-      Delayed::Worker.logger.debug answer
-      Delayed::Worker.logger.debug 'Question'
-      Delayed::Worker.logger.debug question
       details[question.manageiq_key] = answer.nil? ? question.default : answer.answer
     end
 
-    Delayed::Worker.logger.debug 'Details'
-    Delayed::Worker.logger.debug details
+    # TODO: Are we sure that AWS will always be product type 1?
+    aws_settings = SettingField.where(setting_id: 1).order(load_order: :asc).as_json
+
+    if order_item.product.product_type == 1 && aws_settings[0]['value'] != 'false'
+      details['access_key_id'] = aws_settings[1]['value']
+      details['secret_access_key'] = aws_settings[2]['value']
+    end
+
     details
   end
 end
