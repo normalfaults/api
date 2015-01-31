@@ -68,8 +68,9 @@ class OrderItem < ActiveRecord::Base
   end
 
   def handle_response(order_item)
+    response = @resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post @message.to_json, content_type: 'application/json'
+
     begin
-      response = @resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post @message.to_json, content_type: 'application/json'
       data = ActiveSupport::JSON.decode(response)
       order_item.payload_reply_from_miq = data.to_json
 
@@ -84,7 +85,6 @@ class OrderItem < ActiveRecord::Base
       end
 
       order_item.save
-      order_item.to_json
     rescue => e
       message = e.try(:response) ? e.response : 'Request Timeout'
       error = e.try(:message) ? e.message : 'Action response was out of bounds, or something happened that wasn\'t expected'
@@ -95,6 +95,8 @@ class OrderItem < ActiveRecord::Base
       # Since the exception was caught delayed_jobs wouldn't requeue the job, let's raise an exception
       raise 'error'
     end
+
+    order_item.to_json
   end
 
   def order_item_details(order_item)
