@@ -85,7 +85,7 @@ class AlertsController < ApplicationController
   api :POST, '/alerts', 'Creates a new alert'
   param :project_id, String, required: true, desc: 'The project id issued with this new alert. <br>A 0 indicates system wide alert.'
   param :staff_id, String, required: true, desc: 'The staff id of the user who is posting this new alert. <br>0 indicates a system generated alert.'
-  param :order_id, String, required: true, desc: 'The order id associated with this new alert. <br>A 0 indicates a project wide alert.'
+  param :order_item_id, String, required: true, desc: 'The order item id associated with this new alert. <br>A 0 indicates a project wide alert.'
   param :status, String, required: true, desc: 'HTTP status code issued with this alert. <br>Valid Options: OK, WARNING, CRITICAL, UNKNOWN, PENDING'
   param :message, String, required: true, desc: 'The message content of the new alert.'
   param :start_date, String, required: false, desc: 'Date this alert will begin appearing. Null indicates the alert will start appearing immediately.'
@@ -146,10 +146,10 @@ class AlertsController < ApplicationController
   def load_create_params
     params.require :project_id
     params.require :staff_id
-    params.require :order_id
+    params.require :order_item_id
     params.require :status
     params.require :message
-    @alert_params = params.permit(:project_id, :staff_id, :order_id, :status, :message, :start_date, :end_date)
+    @alert_params = params.permit(:project_id, :staff_id, :order_item_id, :status, :message, :start_date, :end_date)
   end
 
   def load_update_params
@@ -163,12 +163,12 @@ class AlertsController < ApplicationController
     load_staff_and_project_id
     params[:project_id] = @id_mapping[:project_id]
     params[:staff_id] = @id_mapping[:staff_id]
-    params[:order_id] = @id_mapping[:order_id]
-    @alert_params = params.permit(:project_id, :staff_id, :order_id, :status, :message, :start_date, :end_date)
+    params[:order_item_id] = @id_mapping[:order_item_id]
+    @alert_params = params.permit(:project_id, :staff_id, :order_item_id, :status, :message, :start_date, :end_date)
   end
 
   def load_staff_and_project_id
-    @id_mapping = { project_id: '1', staff_id: '0', order_id: '1' }
+    @id_mapping = { project_id: '1', staff_id: '0', order_item_id: '1' }
   end
 
   # Note: We should move these to named scopes in the model.
@@ -191,7 +191,7 @@ class AlertsController < ApplicationController
   def load_alert_id
     conditions = {}
     conditions[:project_id] = @alert_params['project_id']
-    conditions[:order_id] = @alert_params['order_id']
+    conditions[:order_item_id] = @alert_params['order_item_id']
     conditions[:status] = @alert_params['status']
     result = Alert.where(conditions).order('updated_at DESC').first
     @alert_id = (result.nil? || result.id.nil?) ? nil : result.id
@@ -200,14 +200,14 @@ class AlertsController < ApplicationController
   def service_alerts_exist
     conditions = {}
     conditions[:project_id] = @alert_params['project_id']
-    conditions[:order_id] = @alert_params['order_id']
+    conditions[:order_item_id] = @alert_params['order_item_id']
     !Alert.where(conditions).first.nil?
   end
 
   def last_alert_for_service
     conditions = {}
     conditions[:project_id] = @alert_params['project_id']
-    conditions[:order_id] = @alert_params['order_id']
+    conditions[:order_item_id] = @alert_params['order_item_id']
     Alert.where(conditions).order('updated_at DESC').first
   end
 
