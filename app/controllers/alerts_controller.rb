@@ -17,8 +17,9 @@ class AlertsController < ApplicationController
   param :per_page, :number, required: false
 
   def index
-    authorize @alerts
-    respond_with @alerts
+    authorize Alert.new
+    render_params[:include] = :project
+    respond_with_params @alerts
   end
 
   api :GET, '/alerts/:id', 'Shows alert with :id'
@@ -177,7 +178,7 @@ class AlertsController < ApplicationController
   end
 
   def load_active_alerts
-    @alerts = query_with Alert.where('(start_date IS NULL OR start_date <= ?) AND (end_date IS NULL OR end_date > ?)', DateTime.now, DateTime.now).order('created_at ASC'), :includes, :pagination
+    @alerts = query_with policy_scope(Alert).active.recent, :includes, :pagination
   end
 
   def load_inactive_alerts
