@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121230102) do
+ActiveRecord::Schema.define(version: 20150201205414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,17 +20,17 @@ ActiveRecord::Schema.define(version: 20150121230102) do
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
     t.integer  "staff_id"
-    t.integer  "order_id"
-    t.string   "status",     limit: 20
+    t.string   "status",        limit: 20
     t.text     "message"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order_item_id"
   end
 
   add_index "alerts", ["end_date"], name: "index_alerts_on_end_date", using: :btree
-  add_index "alerts", ["project_id", "order_id", "status"], name: "service_status_index", using: :btree
+  add_index "alerts", ["order_item_id"], name: "index_order_item_id", using: :btree
   add_index "alerts", ["start_date"], name: "index_alerts_on_start_date", using: :btree
 
   create_table "approvals", force: true do |t|
