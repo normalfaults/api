@@ -54,8 +54,9 @@ username = product_hash['master_username']
 storage_type = product_hash['dialog_storage_type']
 security_groups_init = product_hash['security_groups']
 order_id = product_hash['id']
-uuid = product_hash['uuid']
-db_instance_id = product_hash['instance_name']
+uuid = $evm.root['dialog_uuid']
+db_instance_id = "id-#{uuid[0..9]}"
+$evm.root['db_instance_id'] = db_instance_id
 access_key_id = product_hash['access_key_id']
 secret_key = product_hash['secret_access_key']
 
