@@ -18,6 +18,7 @@ def send_order_status(status, order_id, information, message = '')
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
+  status = '' if status.nil?
   information = information.merge('provision_status' => status.downcase)
   $evm.log('info', "send_order_status: Information: #{information}")
   json = {
