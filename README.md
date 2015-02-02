@@ -111,6 +111,7 @@ AWS_PASSWORD: "database_password"
 AWS_DATABASE: "database_name"
 AWS_PORT:     "5432"
 CORS_ALLOW_ORIGIN: [fqdn of ux server]
+DEFAULT_URL: "http://localhost:3000"
 ````
 
 In order to enable core to connect to a ManageIQ instance, add the
