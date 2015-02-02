@@ -178,7 +178,7 @@ class AlertsController < ApplicationController
   end
 
   def load_active_alerts
-    @alerts = query_with policy_scope(Alert).active.recent, :includes, :pagination
+    @alerts = query_with policy_scope(Alert).active.recent.not_status(:OK), :includes, :pagination
   end
 
   def load_inactive_alerts
