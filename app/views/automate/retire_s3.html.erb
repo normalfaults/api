@@ -1,0 +1,93 @@
+# Description: This MIQ Method destroys an S3 instance
+# Based off of the criteria selected in the marketplace
+
+# For use in MIQ under the
+# For use in Service/Provisioning/StateMachines/Methods/RetireS3
+
+require 'aws-sdk'
+require 'uri/http'
+require 'json'
+
+def send_order_status(status, order_id, information, message = '')
+  host = 'jellyfish-core-dev.dpi.bah.com'
+  path = "/order_items/#{order_id}/provision_update"
+  url = "http://#{host}#{path}"
+  uri = URI.parse(url)
+
+  information = information.merge('provision_status' => status.downcase)
+  $evm.log('info', "send_order_status: Information: #{information}")
+  json = {
+    status: "#{status}",
+    message: "#{message}",
+    info: information
+  }
+  $evm.log('info', "send_order_status: Information #{json}")
+  begin
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Put.new(uri.path)
+    request.content_type = 'application/json'
+    request.body = json.to_json
+    response = http.request(request)
+    $evm.log('info', "send_order_status: HTTP Response code: #{response.code}")
+    $evm.log('info', "send_order_status: HTTP Response message: #{response.message}")
+  rescue HTTPExceptions => e
+    $evm.log('error', "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
+  rescue StandardError => e
+    $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
+  end
+end # End of function
+
+$evm.log('info', 'RetireS3: Enter Method.')
+
+# Retrieve properties from request
+# MIQ makes product_details into a string.
+# Must make into a hash
+product_details = $evm.root['dialog_product_details']
+$evm.log('info', "RetireS3: Product Details: #{product_details}")
+product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+access_key = product_hash['access_key_id']
+secret_access_key = product_hash['secret_access_key']
+bucket_name = product_hash['instance_name']
+order_id = product_hash['id']
+uuid = product_hash['uuid']
+
+S3 = AWS::S3.new(
+    access_key_id: access_key,
+    secret_access_key: secret_access_key
+)
+
+$evm.log('info', 'RetireS3: Bucket name: #{bucket_name}')
+begin
+  info = {
+    'id' => order_id,
+    'uuid' => uuid
+  }
+  bucket = S3.buckets[bucket_name]
+  if bucket.exists?
+    bucket.delete
+  else
+    $evm.log('error', 'Retire S3: Bucket does not exist. ')
+    send_order_status('CRITICAL', order_id, info, 'Bucket does not exist and cannot be deleted')
+    exit
+  end
+rescue AWS::S3::Errors::InvalidClientTokenId => e
+  $evm.log('error', "RetireS3: Invalid client token exception caught: #{e.message}.")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  exit
+rescue AWS::S3::Errors::InvalidParameterValue => e
+  $evm.log('error', "RetireS3: Invalid parameter exception caught: #{e.message}")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  exit
+rescue AWS::S3::Errors => e
+  $evm.log('error', "RetireS3: AWS S3 exception caught: #{e.message}")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  exit
+rescue StandardError => e
+  $evm.log('error', "RetireS3: General exception caught: #{e.message}")
+  $evm.log('error', "RetireS3: General exception backtrace: #{e.message}")
+  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  exit
+end
+
+$evm.log('info', 'RetireS3: Bucket deleted successfully.')
+send_order_status('OK', order_id, info, 'Instance retired.')
