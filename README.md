@@ -6,7 +6,7 @@ jellyfish-core
 [![Build Status](https://magnum.travis-ci.com/booz-allen-hamilton/jellyfish-core.svg?token=hzrJLxrVn5bNaxiZp1bx&branch=master)](https://magnum.travis-ci.com/booz-allen-hamilton/jellyfish-core)
 
 Jellyfish-Core is the API layer of Jellyfish.  It provides access for the UX
-and for mobile applications.  It's really cool.
+and for mobile applications.
 
 ## Local Setup Procedures (for Mac OS X Mavericks)
 
