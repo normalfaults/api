@@ -12,7 +12,7 @@ FactoryGirl.define do
       project_id '2'
       staff_id '0'
       order_item_id '2'
-      status 'OK'
+      status 'WARNING'
       message 'This is an active alert'
       start_date "#{DateTime.now}" # START DATE NOW
       end_date "#{DateTime.now + 1.day}" # END DATE NOT SET
