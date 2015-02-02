@@ -84,9 +84,6 @@ class OrderItemsController < ApplicationController
     param :hostname, String, required: false, desc: 'Any hostname that may be associated with this record'
     param :host, String, required: false, desc: 'Any host that may be associated with this record'
     param :port, :number, required: false, desc: 'Any port that may be associated with this record'
-    param :hourly_price, :number, required: false, desc: 'The hourly price for this order item'
-    param :monthly_price, :number, required: false, desc: 'The monthly price for this order item'
-    param :setup_price, :number, required: false, desc: 'The setup price for this order item'
   end
 
   error code: 404, desc: MissingRecordDetection::Messages.not_found
@@ -112,7 +109,7 @@ class OrderItemsController < ApplicationController
   end
 
   def order_item_params_for_provision_update
-    params.require(:info).permit(:miq_id, :provision_status, :ip_address, :hostname, :host, :port, :hourly_price, :monthly_price, :setup_price).merge(payload_response_from_miq: ActionController::Parameters.new(request.body.read))
+    params.require(:info).permit(:miq_id, :provision_status, :ip_address, :hostname, :host, :port).merge(payload_response_from_miq: ActionController::Parameters.new(request.body.read))
   end
 
   def load_order_item_for_provision_update
