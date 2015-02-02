@@ -13,12 +13,12 @@ class AlertsController < ApplicationController
   before_action :load_alert_id, only: [:create, :sensu]
 
   api :GET, '/alerts', 'Returns all active alerts. (Default behavior)'
+  param :includes, Array, required: false, in: %w(project)
   param :page, :number, required: false
   param :per_page, :number, required: false
 
   def index
     authorize Alert.new
-    render_params[:include] = :project
     respond_with_params @alerts
   end
 
