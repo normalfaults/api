@@ -10,8 +10,8 @@ RSpec.describe 'Alerts API' do
       create :alert, :first
       create :alert, :second
       create :alert, :third
-      create :alert, :active
       create :alert, :inactive
+      create :alert, :active
     end
 
     it 'returns a collection of all alerts', :show_in_doc do
@@ -27,8 +27,8 @@ RSpec.describe 'Alerts API' do
 
   describe 'GET show' do
     before :each  do
-      @active_alert = create :alert, :active
       @inactive_alert = create :alert, :inactive
+      @active_alert = create :alert, :active
       sign_in_as create :staff, :admin
     end
 
@@ -70,7 +70,7 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'creates a new alert', :show_in_doc do
-      alert_data = { project_id: '0', staff_id: '0', order_id: '0', status: 'OK', message: 'This is a test' }
+      alert_data = { project_id: '0', staff_id: '0', order_item_id: '0', status: 'OK', message: 'This is a test' }
       post '/alerts', alert_data
       expect(json['message']).to eq(alert_data[:message])
     end
@@ -82,11 +82,11 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'verifies update alert on duplicate insert', :show_in_doc do
-      alert_data = { project_id: '0', staff_id: '0', order_id: '0', status: 'OK', message: 'This is a test' }
+      alert_data = { project_id: '0', staff_id: '0', order_item_id: '0', status: 'OK', message: 'This is a test' }
       post '/alerts', alert_data
       original_id = json['id']
       expect(json['message']).to eq(alert_data[:message])
-      alert_data = { project_id: '0', staff_id: '0', order_id: '0', status: 'OK', message: 'This is a test' }
+      alert_data = { project_id: '0', staff_id: '0', order_item_id: '0', status: 'OK', message: 'This is a test' }
       post '/alerts', alert_data
       expect(json['id']).to eq(original_id)
     end
@@ -99,22 +99,22 @@ RSpec.describe 'Alerts API' do
 
     it 'verifies alerts are only created for a new service status and updated otherwise.', :show_in_doc do
       # TIMESTAMP: N
-      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'OK', message: 'NO ISSUES.' }
+      alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'OK', message: 'NO ISSUES.' }
       post '/alerts', alert_data
       # TIMESTAMP: N + 1
-      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'OK', message: 'NO ISSUES.' }
+      alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'OK', message: 'NO ISSUES.' }
       post '/alerts', alert_data
       # TIMESTAMP: N + 2
-      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'CRITICAL', message: 'FIX ME!' }
+      alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'CRITICAL', message: 'FIX ME!' }
       post '/alerts', alert_data
       # TIMESTAMP: N + 3
-      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'CRITICAL', message: 'STILL BROKEN!' }
+      alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'CRITICAL', message: 'STILL BROKEN!' }
       post '/alerts', alert_data
       # TIMESTAMP: N + 4
-      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'OK', message: 'NO ISSUES.' }
+      alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'OK', message: 'NO ISSUES.' }
       post '/alerts', alert_data
       # TIMESTAMP: N + 5
-      alert_data = { project_id: '1', staff_id: '2', order_id: '3', status: 'WARNING', message: 'REVIEW LOGS.' }
+      alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'WARNING', message: 'REVIEW LOGS.' }
       post '/alerts', alert_data
       # VERIFY CREATE/UPDATE LOGIC IS WORKING
       get '/alerts/all'
@@ -133,7 +133,7 @@ RSpec.describe 'Alerts API' do
       params = {}
       params[:project_id] = @alert.project_id
       params[:staff_id] = @alert.staff_id
-      params[:order_id] = @alert.order_id
+      params[:order_item_id] = @alert.order_item_id
       params[:status] = @alert.status
       params[:message] = 'Updated'
       put "/alerts/#{@alert.id}", params
