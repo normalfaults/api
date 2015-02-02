@@ -41,7 +41,12 @@ class AlertPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope
+      if user.admin?
+        scope
+      else
+        # Users are only allowed to see alerts for projects that are assigned to them
+        scope.joins("RIGHT JOIN (SELECT DISTINCT project_id FROM staff_projects WHERE staff_id = #{user.id} ) a4 ON alerts.project_id = a4.project_id")
+      end
     end
   end
 

@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   before_action :load_approval, only: [:approve, :reject]
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :includes, Array, required: false, in: %w(project_answers project_detail services)
+  param :includes, Array, required: false, in: %w(project_answers project_detail services alerts)
   param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
   param :page, :number, required: false
   param :per_page, :number, required: false

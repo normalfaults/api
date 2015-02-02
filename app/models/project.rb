@@ -6,6 +6,8 @@ class Project < ActiveRecord::Base
   has_many :staff, through: :staff_projects
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
 
+  has_many :alerts, primary_key: 'id', foreign_key: 'project_id', class_name: 'Alert'
+
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
 
