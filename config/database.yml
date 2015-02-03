@@ -17,11 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  database: <%= ENV['AWS_DATABASE'] %>
-  username: <%= ENV['AWS_USERNAME'] %>
-  password: <%= ENV['AWS_PASSWORD'] %>
-  host:     <%= ENV['AWS_HOST'] %>
-  port:     <%= ENV['AWS_PORT'] %>
+  url: <%= ENV['DATABASE_URL'] %>
 
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
@@ -31,13 +27,6 @@ development:
   <<: *default
   adapter:  postgresql
   url: <%= ENV['DATABASE_URL'] %>
-
-  # QUICK SETUP
-  # Get and install Postgres.app http://postgresapp.com/
-  # > createuser jellyfish_user -dlPs
-  # password jellyfish_pass
-  # > figaro install
-  # > echo "DATABASE_URL: postgres://jellyfish_user:jellyfish_pass@localhost:5432/jellyfish" >> config/application.yml
 
   #database: jellyfish
 
@@ -96,4 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['AWS_DATABASE'] %>
+  database: <%= ENV['DATABASE_PROD_URL'] %>

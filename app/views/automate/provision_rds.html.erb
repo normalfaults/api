@@ -59,7 +59,7 @@ order_id = product_hash['id']
 uuid = product_hash['uuid']
 access_key_id = product_hash['access_key_id']
 secret_key = product_hash['secret_access_key']
-db_instance_id = product_hash['instance_name']
+db_instance_id = $evm.root['db_instance_id']
 
 # Retrieve request properties from the product hash
 rds = AWS::RDS.new(
