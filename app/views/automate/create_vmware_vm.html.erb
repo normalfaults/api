@@ -34,7 +34,7 @@ def send_order_status(host, status, order_id, information, message = '')
   end
 end # End of function
 
-# Retrieve all information set from the marketplace
+# Retrieve all information set from the marketplace 
 product_details = $evm.root['dialog_product_details']
 $evm.log('info', "CreateVMWareVM: Product Details: #{product_details}")
 product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
