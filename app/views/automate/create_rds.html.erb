@@ -18,7 +18,14 @@ def send_order_status(status, order_id, information, message = '')
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
-  information = information.merge('provision_status' => status.downcase)
+  status = '' if status.nil?
+  downcase_status = ''
+  begin
+    downcase_status = status
+  rescue StandardError => e
+    $evm.log('info', "send_order_status: Caught downcase error: #{e.message}")
+  end
+  information = information.merge('provision_status' => downcase_status)
   $evm.log('info', "send_order_status: Information: #{information}")
   json = {
     status: "#{status}",
@@ -54,8 +61,9 @@ username = product_hash['master_username']
 storage_type = product_hash['dialog_storage_type']
 security_groups_init = product_hash['security_groups']
 order_id = product_hash['id']
-uuid = product_hash['uuid']
-db_instance_id = product_hash['instance_name']
+uuid = $evm.root['dialog_uuid']
+db_instance_id = "id-#{uuid[0..9]}"
+$evm.root['db_instance_id'] = db_instance_id
 access_key_id = product_hash['access_key_id']
 secret_key = product_hash['secret_access_key']
 

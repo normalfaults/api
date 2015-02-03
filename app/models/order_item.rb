@@ -111,7 +111,7 @@ class OrderItem < ActiveRecord::Base
     # TODO: Are we sure that AWS will always be product type 1?
     aws_settings = SettingField.where(setting_id: 1).order(load_order: :asc).as_json
 
-    if order_item.product.product_type == 1 && aws_settings[0]['value'] != 'false'
+    if aws_settings[0]['value'] != 'false'
       details['access_key_id'] = aws_settings[1]['value']
       details['secret_access_key'] = aws_settings[2]['value']
     end
