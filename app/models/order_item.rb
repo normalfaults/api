@@ -46,6 +46,7 @@ class OrderItem < ActiveRecord::Base
         href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
         id: order_item.id,
         uuid: order_item.uuid.to_s,
+        referer: ENV['DEFAULT_URL'],
         product_details: order_item_details(order_item)
       }
     }
