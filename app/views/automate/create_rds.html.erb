@@ -21,7 +21,7 @@ def send_order_status(status, order_id, information, message = '')
   status = '' if status.nil?
   downcase_status = ''
   begin
-    downcase_status = status.downcase
+    downcase_status = status
   rescue StandardError => e
     $evm.log('info', "send_order_status: Caught downcase error: #{e.message}")
   end
