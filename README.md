@@ -19,8 +19,8 @@ Jellyfish-Core has the following requirements
 Jellyfish-Core is a Ruby on Rails app, and you can install it as such.  Please see the appropriate installation
 guide for specifics for how to install.
 
-INSTALL.OSX - Mac OS Installation (generally used for development)
-INSTALL.REHL - RedHat Linux installation
+INSTALL-OSX.md - Mac OS Installation (generally used for development)
+INSTALL-REHL.md - RedHat Linux installation
 
 ####License
 
