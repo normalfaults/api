@@ -56,13 +56,12 @@ product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
 allocated_storage = Integer(product_hash['disk_size'])
 db_instance_class = product_hash['db_instance_class']
 engine = product_hash['db_engine']
-username = product_hash['master_username']
+username = 'admin'
 storage_type = product_hash['storage_type']
 security_groups_init = product_hash['security_groups']
 order_id = product_hash['id']
 uuid = $evm.root['dialog_uuid']
 db_instance_id = "id-#{uuid[0..9]}"
-$evm.root['db_instance_id'] = db_instance_id
 access_key_id = product_hash['access_key_id']
 secret_key = product_hash['secret_access_key']
 host = product_hash['host']
