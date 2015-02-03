@@ -2,93 +2,54 @@
 class AutomateController < ApplicationController
   layout false
   def catalog_item_initialization
-    file      = File.open('app/views/automate/catalog_item_initialization.html.erb', 'r')
-    contents  = file.read
-    file.close
-    render plain: contents
+    render 'automate/catalog_item_initialization.html.erb', content_type: :plain
   end
 
   def update_servicemix_and_chef
-    file      = File.open('app/views/automate/update_servicemix_and_chef.html.erb', 'r')
-    contents  = file.read
-    file.close
-    render plain: contents
+    render 'automate/update_servicemix_and_chef.html.erb', content_type: :plain
   end
 
   def create_rds
-    file = File.open('app/views/automate/create_rds.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/create_rds.html.erb', content_type: :plain
   end
 
   def provision_rds
-    file = File.open('app/views/automate/provision_rds.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/provision_rds.html.erb', content_type: :plain
   end
 
   def create_ec2
-    file = File.open('app/views/automate/create_ec2.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/create_ec2.html.erb', content_type: :plain
   end
 
   def create_s3
-    file = File.open('app/views/automate/create_s3.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/create_s3.html.erb', content_type: :plain
   end
 
   def create_ses
-    file = File.open('app/views/automate/create_ses.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/create_ses.html.erb', content_type: :plain
   end
 
   def retire_ec2
-    file = File.open('app/views/automate/retire_ec2.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/retire_ec2.html.erb', content_type: :plain
   end
 
   def retire_rds
-    file = File.open('app/views/automate/retire_rds.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/retire_rds.html.erb', content_type: :plain
   end
 
   def retire_s3
-    file = File.open('app/views/automate/retire_s3.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/retire_s3.html.erb', content_type: :plain
   end
 
   def retire_ses
-    file = File.open('app/views/automate/retire_ses.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/retire_ses.html.erb', content_type: :plain
   end
 
   def create_vmware_vm
-    file = File.open('app/views/automate/create_vmware_vm.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/create_vmware_vm.html.erb', content_type: :plain
   end
 
   def retire_vmware_vm
-    file = File.open('app/views/automate/retire_vmware_vm.html.erb', 'r')
-    contents = file.read
-    file.close
-    render plain: contents
+    render 'automate/retire_vmware_vm.html.erb', content_type: :plain
   end
 end
