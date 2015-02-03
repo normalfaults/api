@@ -19,7 +19,13 @@ def send_order_status(status, order_id, information, message = '')
   uri = URI.parse(url)
 
   status = '' if status.nil?
-  information = information.merge('provision_status' => status.downcase)
+  downcase_status = ''
+  begin
+    downcase_status = status
+  rescue StandardError => e
+    $evm.log('info', "send_order_status: Caught downcase error: #{e.message}")
+  end
+  information = information.merge('provision_status' => downcase_status)
   $evm.log('info', "send_order_status: Information: #{information}")
   json = {
     status: "#{status}",
