@@ -77,4 +77,18 @@ class AutomateController < ApplicationController
     file.close
     render plain: contents
   end
+
+  def create_vmware_vm
+    file = File.open('app/views/automate/create_vmware_vm.html.erb', 'r')
+    contents = file.read
+    file.close
+    render plain: contents
+  end
+
+  def retire_vmware_vm
+    file = File.open('app/views/automate/retire_vmware_vm.html.erb', 'r')
+    contents = file.read
+    file.close
+    render plain: contents
+  end
 end
