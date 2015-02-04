@@ -42,6 +42,14 @@ class Project < ActiveRecord::Base
     false
   end
 
+  def monthly_spend
+    total = 0
+    services.each do |service|
+      total += service.setup_price + (service.hourly_price * 750) + service.monthly_price
+    end
+    total
+  end
+
   def problem_count
     0
   end
