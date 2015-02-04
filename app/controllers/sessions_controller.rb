@@ -1,4 +1,5 @@
 class SessionsController < Devise::SessionsController
+  respond_to :json
   skip_before_action :verify_signed_out_user, only: :destroy
 
   api :POST, '/staff/sign_in', 'Signs user in'

@@ -1,5 +1,6 @@
 # Default controller
 class ApplicationController < ActionController::Base
+  respond_to :json
   extend Apipie::DSL::Concern
   include Pundit
 
