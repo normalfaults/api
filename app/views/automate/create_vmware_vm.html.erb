@@ -6,8 +6,7 @@ require 'net/http'
 require 'uri/http'
 require 'json'
 
-def send_order_status(status, order_id, information, message = '')
-  host = 'jellyfish-core-dev.dpi.bah.com'
+def send_order_status(host, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
@@ -35,7 +34,7 @@ def send_order_status(status, order_id, information, message = '')
   end
 end # End of function
 
-# Retrieve all information set from the marketplace
+# Retrieve all information set from the marketplace 
 product_details = $evm.root['dialog_product_details']
 $evm.log('info', "CreateVMWareVM: Product Details: #{product_details}")
 product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
@@ -61,7 +60,7 @@ begin
   $evm.log('info', 'CreateVMWareVM: Found datacenter #{datacenter}')
   clone_vm = dc.find_vm(template)
   if clone_vm.nil?
-    send_order_status('CRITICAL', order_id,  info, 'Could not find VM')
+    send_order_status(host, 'CRITICAL', order_id,  info, 'Could not find VM')
     exit
   end
   configuration = RbVmomi::VIM.VirtualMachineConfigSpec(annotation: 'Creation time:  ' + Time.now.strftime('%Y-%m-%d %H:%M') + "\n\n")
@@ -70,7 +69,7 @@ begin
   relocation_spec = RbVmomi::VIM.VirtualMachineRelocateSpec(pool: pool)
   custom_spec = vim.serviceContent.customizationSpecManager.GetCustomizationSpec(name: spec_name).spec
   if custom_spec.nil?
-    send_order_status('CRITICAL', order_id,  info, 'Could not find specified spec file')
+    send_order_status(host, 'CRITICAL', order_id,  info, 'Could not find specified spec file')
     exit
   end
   clone_spec =  RbVmomi::VIM.VirtualMachineCloneSpec(
@@ -92,9 +91,9 @@ begin
     'ip_address' => ip_address,
     'guest_family' => guest_family
   }
-  send_order_status('OK', order_id,  info, '')
+  send_order_status(host, 'OK', order_id,  info, '')
 rescue StandardError => e
   $evm.log('error', "CloneVM: General exception caught: #{e.message}")
-  send_order_status('CRITICAL', order_id,  info, "Exception caught while creating VM: #{e.message}")
+  send_order_status(host, 'CRITICAL', order_id,  info, "Exception caught while creating VM: #{e.message}")
   exit
 end

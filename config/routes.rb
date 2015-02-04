@@ -113,6 +113,8 @@ Rails.application.routes.draw do
   get 'automate/retire_rds', to: 'automate#retire_rds'
   get 'automate/retire_s3', to: 'automate#retire_s3'
   get 'automate/retire_ses', to: 'automate#retire_ses'
+  get 'automate/create_vmware_vm', to: 'automate#create_vmware_vm'
+  get 'automate/retire_vmware_vm', to: 'automate#retire_vmware_vm'
 
   root 'welcome#index'
 
