@@ -3,119 +3,152 @@
 This guide will walk you through how to install and run Jellyfish-Core on RedHat Enterprise Linux (or similar,
 like CentOS).
 
-####Create jellyfish user
+###Setup user
+This will create the user that will be *for what exactly?*
 
+######Create jellyfish user
 ````
-sudo useradd jellyfish
-````
-
-####Change to teh jellyfish user
-
-````
-su - jellyfish
+$ sudo useradd jellyfish
 ````
 
-####Install Pre-reqs
+###Prerequisites
+This will install all of the software that is needed to compile, install and/or clone all of the software packages needed to run jellyfish-core.
 
+######Installation prerequisites
 ````
-yum install git
-yum install gcc-c++ patch readline readline-devel zlib zlib-devel
-yum install libyaml-devel libffi-devel openssl-devel make
-yum install bzip2 autoconf automake libtool bison iconv-devel
-yum install sqlite-devel
-````
-
-####Install PostgreSQL
-
-Please install PostgreSQL 9.3+ via their docs
-
-
-####Install rbenv / rbenv-build / rbenv-sudo
-
-Install rbenv as per the rbenv / rbenv-build / rbenv-sudo installation guide.
-
-
-####Install to Ruby 2.1.5, and set that as the global version
-
-````
-rbenv install 2.1.5
-rbenv global 2.1.5
+$ sudo yum install git
+$ sudo yum install gcc-c++ patch readline readline-devel zlib zlib-devel
+$ sudo yum install libyaml-devel libffi-devel openssl-devel make
+$ sudo yum install bzip2 autoconf automake libtool bison iconv-devel
+$ sudo yum install sqlite-devel
 ````
 
+###PostgreSQL 9.3+
+This will install the PostgreSQL 9.3+ database software needed for jellyfish-core.
 
-####Install bundler
+* <ruby><rt><h2>Documentation for 9.3+ is located at http://www.postgresql.org/download/linux/redhat/#yum</h2></rt></ruby>
+* <ruby><rt><h3>(Don't use `yum install postgresql-server` for RHEL 6.x. This will install PostgreSQL 8.4+)</h3></rt></ruby>
 
+######Install PostgreSQL
+```
+$ sudo yum install http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
+$ sudo yum install postgresql93-server postgresql93-contrib postgresql93-devel
+$ sudo service postgresql-9.3 initdb
+$ sudo chkconfig postgresql-9.3 on
+$ sudo ln -s /usr/pgsql-9.3/bin/p* /usr/local/bin/
+```
+
+###rbenv & Plugins
+This will install the rbenv and plugins needed for jellyfish-core.
+
+* Documentation for rbenv /rbenv-build is located at https://github.com/sstephenson/rbenv#installation
+* Documentation for rbenv-sudo is located at https://github.com/dcarley/rbenv-sudo#installation
+
+######Install rbenv, rbenv-build and rbenv-sudo
+```
+$ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+$ echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+$ type rbenv
+rbenv is a function
+$ mkdir ~/.rbenv/plugins
+$ git clone git://github.com/dcarley/rbenv-sudo.git ~/.rbenv/plugins/rbenv-sudo
+```
+
+####Ruby
+This will install the actual ruby programming language
+
+######Install Ruby 2.1.5
+````
+$ rbenv install 2.1.5
+$ rbenv global 2.1.5
+````
+
+####Bundler
+This will install the bundler used to install or create bundles
+
+######Install bundler
 ````
 gem install bundler
 ````
 
-
-####Install rbenv-default-gems plugin
-
+###rbenv Default Gems Plugin
 This will re-install gems automatically for us whenever we install a new version of Ruby.
 
-````
-brew install rbenv-default-gems
-echo "bundler" >> ~/.rbenv/default-gems
-````
+* Documentation for rbenv-default-gems is located at https://github.com/sstephenson/rbenv-default-gems#installation
 
-
-####Skip rdoc generation (OPTIONAL)
-
-````
-echo "gem: --no-document" >> ~/.gemrc
-````
-
-
-####Install rails gem
-
-````
-gem install rails
-echo "rails" >> ~/.rbenv/default-gems
-````
-
-
-####Install pg gem
-
-````
-gem install pg
+######Install rbenv-default-gems plugin
+```
+$ git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
+$ echo "bundler" >> ~/.rbenv/default-gems
 ```
 
+####<ins>OPTIONAL</ins>: RDoc
+This will generate documentation from ruby source files
 
-####Check out the latest code
+* **<ins>This step is optional</ins>**
 
+######Install RDoc
 ````
-git clone https://github.com/booz-allen-hamilton/jellyfish-core.git
-````
-
-
-####Install any dependencies
-
-````
-bundle install
+$ echo "gem: --no-document" >> ~/.gemrc
 ````
 
+####Rails gem
+This will install the rails framework
 
-####Add this data to ./config/application.yml
+######Install rails gem
+````
+$ gem install rails
+$ echo "rails" >> ~/.rbenv/default-gems
+````
+
+####PostgreSQL Gem
+This will install the gem that will allow the rails framework to communicate with PostgreSQL
+
+######Install PostgreSQL Gem
+````
+$ gem install pg
+```
+
+####Clone Repository
+This will checkout the latest version of the jellyfish-core code
+
+* Because jellyfish-core is private, you must user your GitHub credetintials to log in
+
+######Git Clone
+````
+$ git clone https://USERNAME:PASSWORD@github.com/booz-allen-hamilton/jellyfish-core.git
+````
+
+####Dependencies
+This will install any dependancies for the application
+
+######Install dependancies
+````
+$ cd jellyfish-core
+$ bundle install
+````
+
+####Configure application
+You must configure your `./config/application.yml` file
 
 You will need to create this file yourself (it is already in the .gitignore),
 the Figaro gem uses this to to "create" ENVIRONMENT variables.  Alternatively,
 you can simply create ENVIRONMENT vars yourself.
 
-Note: You will need to install PostgreSQL per their directions
+* **Note**: You will need to install PostgreSQL per their directions
 
+########./config/application.yml Contents
 ````
 DATABASE_URL:     "postgres://jellyfish_user:jellyfish_pass@localhost:5432/jellyfish"
 CORS_ALLOW_ORIGIN: [fqdn of ux server]
 ````
 
+####Application Database
+This will create and populate the database to be used by the application
 
-####Populate the database
-
-Run the following rake commands.  You only need to run "rake sample:jenkins" if
-you are wanting, sample data (useful for development).  Please note that this
-rake task does not create the database or the database user (those will need
-to be created based on the DB you are using)
+* <ins>OPTIONAL</ins>: You only need to run "rake sample:jenkins" sample data is needed (useful for development)
+* Please note that this rake task does not create the database or the database user (those will need to be created based on the DB you are using)
 
 ````
 rake db:schema:load
