@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
 
   has_many :alerts, primary_key: 'id', foreign_key: 'project_id', class_name: 'Alert'
+  has_many :latest_alerts, through: :services, class_name: 'Alert'
 
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
@@ -51,7 +52,7 @@ class Project < ActiveRecord::Base
   end
 
   def problem_count
-    0
+    latest_alerts.not_status(:OK).count
   end
 
   def account_number
