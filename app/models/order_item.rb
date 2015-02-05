@@ -42,14 +42,19 @@ class OrderItem < ActiveRecord::Base
   def provision_order_item(order_item)
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
 
+    # TODO: This is a temporary fix, we need to send the MIQ email and token to allow MIQ to talk to core
+    admin = Staff.where(email: 'miq@jellyfish.com').first
+
     @message =
     {
       action: 'order',
       resource: {
         href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
-        id: order_item.id,
+        order_id: order_item.id,
         uuid: order_item.uuid.to_s,
         referer: ENV['DEFAULT_URL'],
+        email: admin.email,
+        token: admin.authentication_token,
         product_details: order_item_details(order_item)
       }
     }

@@ -3,6 +3,7 @@ class OrderItemsController < ApplicationController
 
   before_action :load_order_item, only: [:show, :destroy, :update, :start_service, :stop_service]
   before_action :load_order_item_for_provision_update, only: [:provision_update]
+  before_action :authenticate_user_from_token!, only: [:provision_update]
 
   api :GET, '/orders/:order_id/items/:id', 'Shows order item with :id'
   param :includes, Array, required: false, in: %w(product)
