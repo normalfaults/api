@@ -18,6 +18,8 @@ class Project < ActiveRecord::Base
 
   scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
 
+  enum status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
+
   def order_history
     history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
       order_json = order.as_json
@@ -53,10 +55,6 @@ class Project < ActiveRecord::Base
     else
       false
     end
-  end
-
-  def status
-    2
   end
 
   def monthly_spend
