@@ -191,9 +191,10 @@ sudo /etc/init.d/nginx restart
 ````
 
 Start Core
+````
 cd /home/jellyfish/jellyfish-core
 bundle exec puma -e production -d -b unix:///tmp/myapp_puma.sock
-
+````
 
 ####Upkeep Rake Tasks
 
