@@ -38,10 +38,7 @@ class Project < ActiveRecord::Base
   end
 
   def state
-    case problem_count
-    when 0
-      '0 Problems'
-    when 1
+    if problem_count == 1
       '1 Problem'
     else
       "#{problem_count} Problems"
