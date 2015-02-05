@@ -5,6 +5,9 @@ class OrderItem < ActiveRecord::Base
 
   after_commit :provision, on: :create
 
+  has_many :alerts
+  has_one :latest_alert, primary_key: 'latest_alert_id', foreign_key: 'id', class_name: 'Alert'
+
   belongs_to :order
   belongs_to :product
   belongs_to :cloud

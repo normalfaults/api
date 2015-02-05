@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150201205414) do
+ActiveRecord::Schema.define(version: 20150205020018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150201205414) do
     t.json     "payload_to_miq"
     t.json     "payload_reply_from_miq"
     t.json     "payload_response_from_miq"
+    t.integer  "latest_alert_id"
   end
 
   add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree
