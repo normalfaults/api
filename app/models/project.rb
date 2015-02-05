@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
 
   has_many :alerts, primary_key: 'id', foreign_key: 'project_id', class_name: 'Alert'
+  has_many :latest_alerts, through: :services, class_name: 'Alert'
 
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
@@ -16,6 +17,8 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :project_answers
 
   scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
+
+  enum status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
 
   def order_history
     history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
@@ -35,11 +38,15 @@ class Project < ActiveRecord::Base
   end
 
   def state
-    '2 Problems'
+    if problem_count == 1
+      '1 Problem'
+    else
+      "#{problem_count} Problems"
+    end
   end
 
   def state_ok
-    false
+    problem_count.zero?
   end
 
   def monthly_spend
@@ -51,7 +58,7 @@ class Project < ActiveRecord::Base
   end
 
   def problem_count
-    0
+    latest_alerts.not_status(:OK).count
   end
 
   def account_number
@@ -80,10 +87,6 @@ class Project < ActiveRecord::Base
 
   def ram
     '2 GB'
-  end
-
-  def status
-    2
   end
 
   # Note: these ones are real bad because the names for these relations are different

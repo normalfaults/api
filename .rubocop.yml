@@ -22,5 +22,8 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Max: 38
 
+Metrics/CyclomaticComplexity:
+  Max: 8
+
 Style/GlobalVars:
   AllowedVariables: [$evm]

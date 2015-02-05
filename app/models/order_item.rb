@@ -5,6 +5,9 @@ class OrderItem < ActiveRecord::Base
 
   after_commit :provision, on: :create
 
+  has_many :alerts
+  has_one :latest_alert, primary_key: 'latest_alert_id', foreign_key: 'id', class_name: 'Alert'
+
   belongs_to :order
   belongs_to :product
   belongs_to :cloud
@@ -47,7 +50,7 @@ class OrderItem < ActiveRecord::Base
       action: 'order',
       resource: {
         href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
-        id: order_item.id,
+        order_id: order_item.id,
         uuid: order_item.uuid.to_s,
         referer: ENV['DEFAULT_URL'],
         email: admin.email,
