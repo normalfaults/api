@@ -1,5 +1,5 @@
 class SessionsController < Devise::SessionsController
-  respond_to :json
+  respond_to :json, :html
 
   skip_before_action :verify_signed_out_user, only: :destroy
 
