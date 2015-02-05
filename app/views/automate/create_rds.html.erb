@@ -12,8 +12,7 @@ require 'net/http'
 require 'uri/http'
 require 'json'
 
-def send_order_status(status, order_id, information, message = '')
-  host = 'jellyfish-core-dev.dpi.bah.com'
+def send_order_status(host, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
@@ -54,18 +53,18 @@ end # End of function
 product_details = $evm.root['dialog_product_details']
 $evm.log('info', "CreateRDS: Product Details: #{product_details}")
 product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
-allocated_storage = Integer(product_hash['allocated_storage'])
+allocated_storage = Integer(product_hash['disk_size'])
 db_instance_class = product_hash['db_instance_class']
 engine = product_hash['db_engine']
-username = product_hash['master_username']
-storage_type = product_hash['dialog_storage_type']
+username = 'admin'
+storage_type = product_hash['storage_type']
 security_groups_init = product_hash['security_groups']
 order_id = product_hash['id']
 uuid = $evm.root['dialog_uuid']
 db_instance_id = "id-#{uuid[0..9]}"
-$evm.root['db_instance_id'] = db_instance_id
 access_key_id = product_hash['access_key_id']
 secret_key = product_hash['secret_access_key']
+host = product_hash['host']
 
 $evm.log('info', "CreateRDS: Processing order Id #{order_id}")
 $evm.log('info', "CreateRDS: Processing db_instance_id #{db_instance_id}")
@@ -121,31 +120,31 @@ begin
 rescue AWS::RDS::Errors::InvalidClientTokenId => e
   $evm.log('error', "CreateRDS: Exception caught when creating instance: #{e.message}")
   $evm.root['instance_failed'] = true
-  send_order_status('CRITICAL', order_id,  info, "#{e.message}")
+  send_order_status(host, 'CRITICAL', order_id,  info, "#{e.message}")
   exit
 rescue AWS::RDS::Errors::DBInstanceAlreadyExists => e
   $evm.log('error', "CreateRDS: Instance exists exception: #{e.message}")
-  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
   $evm.root['instance_failed'] = true
   exit
 rescue AWS::RDS::Errors::InvalidParameterValue => e
   $evm.log('error', "CreateRDS: Invalid parameter exception: #{e.message}")
   $evm.root['instance_failed'] = true
-  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::RDS::Errors::StorageTypeNotSupported => e
   $evm.log('error', "CreateRDS: Unsupported storage exception: #{e.message}")
   $evm.root['instance_failed'] = true
-  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::RDS::Errors => e
   $evm.log('error', "CreateRDS: Exception caught when creating instance: #{e.message}")
   $evm.root['instance_failed'] = true
-  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue StandardError => e
   $evm.log('error', "CreateRDS: General exception caught: #{e.message}")
   $evm.root['instance_failed'] = true
-  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 end

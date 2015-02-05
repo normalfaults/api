@@ -82,8 +82,8 @@ Rails.application.routes.draw do
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
 
   # Project Routes
-  resources :projects, defaults: { format: :json, includes: %w(project_answers services), methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history) }, only: [:show]
-  resources :projects, defaults: { format: :json, methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status) }, only: [:index]
+  resources :projects, defaults: { format: :json, includes: %w(project_answers services), methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status monthly_spend users order_history) }, only: [:show]
+  resources :projects, defaults: { format: :json, methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status monthly_spend) }, only: [:index]
   resources :projects, defaults: { format: :json }, except: [:index, :show, :edit, :new] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
@@ -113,6 +113,8 @@ Rails.application.routes.draw do
   get 'automate/retire_rds', to: 'automate#retire_rds'
   get 'automate/retire_s3', to: 'automate#retire_s3'
   get 'automate/retire_ses', to: 'automate#retire_ses'
+  get 'automate/create_vmware_vm', to: 'automate#create_vmware_vm'
+  get 'automate/retire_vmware_vm', to: 'automate#retire_vmware_vm'
 
   root 'welcome#index'
 

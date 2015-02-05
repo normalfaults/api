@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
 
   api :GET, '/projects', 'Returns a collection of projects'
   param :includes, Array, required: false, in: %w(project_answers project_detail services alerts)
-  param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
+  param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history monthly_spend)
   param :page, :number, required: false
   param :per_page, :number, required: false
 
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
   param :includes, Array, required: false, in: %w(project_answers project_detail services)
-  param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history)
+  param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history monthly_spend)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show

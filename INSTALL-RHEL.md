@@ -9,20 +9,20 @@ like CentOS).
 sudo useradd jellyfish
 ````
 
-####Change to teh jellyfish user
+####Change to the jellyfish user
 
 ````
 su - jellyfish
 ````
 
-####Install Pre-reqs
+####Install Pre-Requisites
 
 ````
-yum install git
-yum install gcc-c++ patch readline readline-devel zlib zlib-devel
-yum install libyaml-devel libffi-devel openssl-devel make
-yum install bzip2 autoconf automake libtool bison iconv-devel
-yum install sqlite-devel
+sudo yum install git
+sudo yum install gcc-c++ patch readline readline-devel zlib zlib-devel
+sudo yum install libyaml-devel libffi-devel openssl-devel make
+sudo yum install bzip2 autoconf automake libtool bison iconv-devel
+sudo yum install sqlite-devel
 ````
 
 ####Install PostgreSQL
@@ -106,7 +106,8 @@ Note: You will need to install PostgreSQL per their directions
 
 ````
 DATABASE_URL:     "postgres://jellyfish_user:jellyfish_pass@localhost:5432/jellyfish"
-CORS_ALLOW_ORIGIN: [fqdn of ux server]
+CORS_ALLOW_ORIGIN: "localhost:5000"
+DEFAULT_URL: "http://jellyfish-core-url.server.com"
 ````
 
 

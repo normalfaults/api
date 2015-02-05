@@ -24,7 +24,7 @@ INSTALL-REHL.md - RedHat Linux installation
 
 ####License
 
-See LICENSE.txt
+See LICENSE
 
 
 Copyright 2015 Booz Allen Hamilton
