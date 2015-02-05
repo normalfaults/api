@@ -7,12 +7,19 @@ jellyfish-core
 
 Jellyfish-Core is the API layer of Jellyfish.  It provides access for the UX and for mobile applications.
 
+####Overview
+
+Project Jellyfish is an IT broker system.  It allows admins to create a product catalog of any type of service (IaaS,
+TaaS, PaaS, or even Staff) and allows them to be assigned a cost, and then users can create projects and add those
+services to a project.  Jellyfish current supports IaaS via ManageIQ and Chef.
+
 ####Requirments
 
 Jellyfish-Core has the following requirements
 
 * Ruby 2.1.5
-* PostgreSQL 9.3
+* PostgreSQL 9.3.x
+* ManageIQ (Anand)
 
 ####Installation
 
