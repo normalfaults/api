@@ -17,7 +17,7 @@ The global variable used through ManageIQ to access the options passed through t
 ````
 $evm
 ````
-These scripts take advantage of 2 basic elements of this variable. To access the information passed from the call, use
+These scripts mainly use the root property and log method of this variable. To access the information passed from the call, use
 ````
 $evm.root['dialog_variable_name]
 ````
@@ -25,7 +25,7 @@ To access the logger, use
 ````
 $evm.root('level', 'message')
 ````
-ManageIQ appends a 'dialog_' to every value passed through the payload that isn't one of their required fields. 
+ManageIQ appends a 'dialog_' to every value passed through the payload that isn't one of their required and standard fields.  
 
 To run the provided scripts, you need the aws (http://aws.amazon.com/sdk-for-ruby/) and rbvmomi (https://github.com/rlane/rbvmomi) ruby gems to be installed on your ManageIQ server. 
 
