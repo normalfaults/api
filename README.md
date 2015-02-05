@@ -31,6 +31,8 @@ guide for specifics for how to install.
 INSTALL-OSX.md - Mac OS Installation (generally used for development)
 INSTALL-REHL.md - RedHat Linux installation
 
+MANAGEIQ.md - How to setup ManageIQ to work with Jellyfish-Core
+
 ####License
 
 See LICENSE
