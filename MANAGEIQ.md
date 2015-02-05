@@ -1,5 +1,5 @@
 ## How to create ManageIQ Automation Scripts
-Jellyfish is utilizing the Service Catalog and Automation capabilities provided by ManageIQ to automate the provisioning of additional cloud services. This guide will walk you through the steps of adding catalog item to call an automation script, and getting the information about a catalog item needed to interact with jellyfish-core.
+Jellyfish is utilizing the Service Catalog and Automation capabilities provided by ManageIQ to automate the provisioning of additional cloud services. This guide will walk you through the steps of creating catalog items and automation scripts, and then retrieving the information necessary about a catalog item to interact with jellyfish-core.
 
 ####Download and Install ManageIQ
 Follow the steps provided here: http://manageiq.org/download/
