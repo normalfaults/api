@@ -6,6 +6,9 @@ will allow you to provision additional services such as RDS and Storage buckets.
 ####Download and Install ManageIQ
 Follow the steps provided here: http://manageiq.org/download/
 
+###Creating an Automation Script
+The following steps will guide you through the process of creating an automation script to interact with Jellyfish-UX and Jellyfish-Core. The automation scripts provided are located in in jellyfish-core/app/view/automate
+
 ####Adding an Automate Method
 1. Once logged into ManageIQ, select Explorer under the Automation menu.
 2. From the left side Datastore menu, select the Methods class located under Datastore/[your domain]/Service/Provisioning/StateMachines.
@@ -32,11 +35,24 @@ Follow the steps provided here: http://manageiq.org/download/
 3. From the configuration menu, select 'Add a New Catalog'
 4. Add in a Name and Description.
 5. Select Catalog Items from the left hand side menu.
-6. From the configuration menu, select 'Add a New Catalog Item'
+6. From the Configuration menu, select 'Add a New Catalog Item'
 7. Input a Name and optional Description.
 8. Check the 'display in Dialog' box
 9. Choose a the Catalog that you previously created, or another one
 10. Select whether you'd like to use a Dialog
 11. Select the Provisioning Entry Point to be the Provisioning Template you created under Datastore/[your domain]/Service/Provisioning/StateMachines
 12. For Reconfigure and Retirement entry points, you may select the default. 
+
+####Adding a Dialog
+1. Select Customization under the Automation menu.
+2. On the left hand side, select Service Dialogs.
+3. From the Configuration menu, select 'Add a new Dialog'
+4. Label your Dialog and select a Submit button. 
+5. From the '+' on the top, select 'Add a new Tab to this Dialog'
+6. Label your tab and add an optional description.
+7. From the '+" on the top, select 'Add a new Box to this Tab'
+8. Label your box and add an optional description
+9. From the '+' on the top, select 'Add a new Element to this Box'
+10. Label and name your boxes. The name of the box is the value that will be passed through to your automation script. Depending on the type of Element that you choose, you will have different options.
+11. When complete, select 'Save' from the bottom right hand corner. 
 
