@@ -1,13 +1,11 @@
 ## How to create ManageIQ Automation Scripts
-
-This guide will walk through the steps to create and add automation scripts to your ManageIQ instance. These automation scripts
-will allow you to provision additional services such as RDS and Storage buckets.
+Jellyfish is utilizing the Service Catalog and Automation capabilities provided by ManageIQ to automate the provisioning of additional cloud services. This guide will walk you through the steps of adding catalog item to call an automation script, and getting the information about a catalog item needed to interact with jellyfish-core.
 
 ####Download and Install ManageIQ
 Follow the steps provided here: http://manageiq.org/download/
 
 ###Creating an Automation Script
-The following steps will guide you through the process of creating an automation method to interact with Jellyfish-UX and Jellyfish-Core. The automation scripts provided are located in in jellyfish-core/app/view/automate. For more information regarding automation, such as definitions and additional terminology, please see ManageIQs automation guide: http://manageiq.org/pdf/ManageIQ-0-Lifecycle_and_Automation_Guide-en-US.pdf
+The following steps will guide you through the process of creating an automation method, adding it to a Service Provisioning Template, and then adding them to a Catalog Item. These steps allow them to interact with Jellyfish-UX and Jellyfish-Core. The automation scripts provided are located in in jellyfish-core/app/view/automate. For more information regarding automation, such as definitions and additional terminology, please see ManageIQs automation guide: http://manageiq.org/pdf/ManageIQ-0-Lifecycle_and_Automation_Guide-en-US.pdf
 
 ####Adding an Automate Method
 1. Once logged into ManageIQ, select **Explorer** under the **Automation** menu.
