@@ -36,11 +36,27 @@ class Project < ActiveRecord::Base
   end
 
   def state
-    '2 Problems'
+    pc = problem_count
+    case pc
+    when 0
+      '0 Problems'
+    when 1
+      '1 Problem'
+    else
+      "#{pc} Problems"
+    end
   end
 
   def state_ok
-    false
+    if problem_count == 0
+      true
+    else
+      false
+    end
+  end
+
+  def status
+    2
   end
 
   def monthly_spend
@@ -81,10 +97,6 @@ class Project < ActiveRecord::Base
 
   def ram
     '2 GB'
-  end
-
-  def status
-    2
   end
 
   # Note: these ones are real bad because the names for these relations are different
