@@ -1,5 +1,5 @@
 class AlertsController < ApplicationController
-  respond_to :json, :xml
+  respond_to :json
 
   after_action :verify_authorized
 

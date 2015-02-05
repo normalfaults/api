@@ -201,10 +201,6 @@ GEM
       rdoc (~> 4.0)
     sequel (4.18.0)
     sexp_processor (4.4.4)
-    simple_token_authentication (1.7.0)
-      actionmailer (>= 3.2.6, < 5)
-      actionpack (>= 3.2.6, < 5)
-      devise (~> 3.2)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -281,7 +277,6 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   rubocop
   sdoc (~> 0.4.0)
-  simple_token_authentication (~> 1.0)
   spring
   virtus
   web-console (~> 2.0.0)
