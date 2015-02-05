@@ -1,10 +1,13 @@
 class Staff < ActiveRecord::Base
   include PgSearch
 
+  # Concerns
+  include TokenAuthenticable
+
   self.table_name = :staff
 
   acts_as_paranoid
-  acts_as_token_authenticatable
+  #acts_as_token_authenticatable
 
   has_many :orders
   has_many :user_settings

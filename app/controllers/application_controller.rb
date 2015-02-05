@@ -1,6 +1,7 @@
 # Default controller
 class ApplicationController < ActionController::Base
   respond_to :json
+
   extend Apipie::DSL::Concern
   include Pundit
 
@@ -20,7 +21,8 @@ class ApplicationController < ActionController::Base
   include AssociationResolution
   include QueryBuilder
 
-  acts_as_token_authentication_handler_for Staff
+  # Concerns
+  include TokenAuthentication
 
   def current_user
     current_staff
