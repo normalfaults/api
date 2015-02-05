@@ -38,23 +38,18 @@ class Project < ActiveRecord::Base
   end
 
   def state
-    pc = problem_count
-    case pc
+    case problem_count
     when 0
       '0 Problems'
     when 1
       '1 Problem'
     else
-      "#{pc} Problems"
+      "#{problem_count} Problems"
     end
   end
 
   def state_ok
-    if problem_count == 0
-      true
-    else
-      false
-    end
+    problem_count.zero?
   end
 
   def monthly_spend
