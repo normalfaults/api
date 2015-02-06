@@ -5,9 +5,13 @@ module TokenAuthenticable
   # before editing this file, the discussion is very interesting.
 
   included do
-    private :generate_authentication_token
+    attr_accessor :secret
 
     before_save :ensure_authentication_token
+  end
+
+  def token?(token)
+    ::BCrypt::Password.new(authentication_token) == token
   end
 
   def ensure_authentication_token
@@ -15,11 +19,15 @@ module TokenAuthenticable
     self.authentication_token = generate_authentication_token
   end
 
+  private
+
   def generate_authentication_token
-    loop do
-      token = Devise.friendly_token
-      break token unless Staff.where(authentication_token: token).first
-    end
+    self.secret = SecureRandom.urlsafe_base64 32 unless secret
+    self.authentication_token = ::BCrypt::Password.create(secret, cost: cost)
+  end
+
+  def cost
+    Rails.env.test? ? 1 : 10
   end
 
   module ClassMethods

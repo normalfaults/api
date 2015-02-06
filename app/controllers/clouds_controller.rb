@@ -1,6 +1,4 @@
 class CloudsController < ApplicationController
-  respond_to :json
-
   after_action :verify_authorized
 
   before_action :load_cloud, only: [:show, :update, :destroy]

@@ -1,24 +1,28 @@
 class Project < ActiveRecord::Base
+  # Includes
   acts_as_paranoid
 
+  # Constants
+  STATES = Hash[%w(unknown ok pending warning critical).map.with_index.to_a]
+
+  # Relationships
   has_many :project_answers
   has_many :staff_projects
   has_many :staff, through: :staff_projects
   has_many :services, foreign_key: 'project_id', class_name: 'OrderItem'
-
-  has_many :alerts, primary_key: 'id', foreign_key: 'project_id', class_name: 'Alert'
+  has_many :alerts
   has_many :latest_alerts, through: :services, class_name: 'Alert'
-
   has_many :approvals
   has_many :approvers, through: :approvals, source: :staff
-
   has_one :project_detail
 
   accepts_nested_attributes_for :project_answers
 
-  scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
-
+  # Columns
   enum status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
+
+  # Scopes
+  scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
 
   def order_history
     history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
@@ -27,6 +31,13 @@ class Project < ActiveRecord::Base
       order_json
     end
     history
+  end
+
+  def compute_current_status!
+    self.status = latest_alerts.reduce('unknown') do |m, r|
+      STATES[r.status.downcase] > STATES[m] ? r : m
+    end.to_sym
+    save!
   end
 
   def domain
@@ -38,11 +49,7 @@ class Project < ActiveRecord::Base
   end
 
   def state
-    if problem_count == 1
-      '1 Problem'
-    else
-      "#{problem_count} Problems"
-    end
+    1 == problem_count ? '1 Problem' : "#{problem_count} Problems"
   end
 
   def state_ok
@@ -50,15 +57,13 @@ class Project < ActiveRecord::Base
   end
 
   def monthly_spend
-    total = 0
-    services.each do |service|
-      total += service.setup_price + (service.hourly_price * 750) + service.monthly_price
+    services.reduce(0) do |total, service|
+      total + service.setup_price + (service.hourly_price * 750) + service.monthly_price
     end
-    total
   end
 
   def problem_count
-    latest_alerts.not_status(:OK).count
+    @problem_count ||= latest_alerts.not_status(:OK).count
   end
 
   def account_number

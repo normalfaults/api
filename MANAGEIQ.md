@@ -1,13 +1,35 @@
 ## How to create ManageIQ Automation Scripts
-
-This guide will walk through the steps to create and add automation scripts to your ManageIQ instance. These automation scripts
-will allow you to provision additional services such as RDS and Storage buckets.
+Jellyfish is utilizing the Service Catalog and Automation capabilities provided by ManageIQ to automate the provisioning of additional cloud services. This guide will walk you through the steps of creating catalog items and automation scripts, and then retrieving the information necessary about a catalog item to interact with jellyfish-core.
 
 ####Download and Install ManageIQ
 Follow the steps provided here: http://manageiq.org/download/
 
 ###Creating an Automation Script
-The following steps will guide you through the process of creating an automation method to interact with Jellyfish-UX and Jellyfish-Core. The automation scripts provided are located in in jellyfish-core/app/view/automate. For more information regarding automation, such as definitions and additional terminology, please see ManageIQs automation guide: http://manageiq.org/pdf/ManageIQ-0-Lifecycle_and_Automation_Guide-en-US.pdf
+The following steps will guide you through the process of creating an automation method, adding it to a Service Provisioning Template, and then adding them to a Catalog Item. These steps allow them to interact with Jellyfish-UX and Jellyfish-Core. The automation scripts provided are located in in jellyfish-core/app/view/automate. 
+
+####Automation Basics
+Here are some general basics to understand the automation scripts provided through jellyfish-core. 
+
+**Global Variables**
+
+The global variable used through ManageIQ to access the options passed through the REST call is:
+
+````
+$evm
+````
+These scripts mainly use the root property and log method of this variable. To access the information passed from the call, use
+````
+$evm.root['dialog_variable_name]
+````
+To access the logger, use
+````
+$evm.root('level', 'message')
+````
+ManageIQ appends a 'dialog_' to every value passed through the payload that isn't one of their required and standard fields.  
+
+To run the provided scripts, you need the aws (http://aws.amazon.com/sdk-for-ruby/) and rbvmomi (https://github.com/rlane/rbvmomi) ruby gems to be installed on your ManageIQ server. 
+
+For more information regarding automation, such as definitions and additional terminology, please see ManageIQs automation guide: http://manageiq.org/pdf/ManageIQ-0-Lifecycle_and_Automation_Guide-en-US.pdf
 
 ####Adding an Automate Method
 1. Once logged into ManageIQ, select **Explorer** under the **Automation** menu.

@@ -1,6 +1,4 @@
 class MocksController < ApplicationController
-  respond_to :json
-
   def applications
     data = (1..4).map { |id| JSON.parse(File.read(File.join(Rails.root, 'config', 'data', 'applications', "#{id}.json"))) }
     respond_with data

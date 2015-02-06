@@ -1,8 +1,6 @@
 class Staff < ActiveRecord::Base
-  include PgSearch
-
-  # Concerns
   include TokenAuthenticable
+  include PgSearch
 
   self.table_name = :staff
 

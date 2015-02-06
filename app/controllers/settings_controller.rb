@@ -1,6 +1,4 @@
 class SettingsController < ApplicationController
-  respond_to :json
-
   before_action :load_settings, only: [:index]
   before_action :load_setting, only: [:update, :destroy, :edit]
   before_action :load_setting_by_name, only: [:show]

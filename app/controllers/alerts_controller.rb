@@ -1,6 +1,4 @@
 class AlertsController < ApplicationController
-  respond_to :json
-
   after_action :verify_authorized
 
   before_action :load_all_alerts, only: [:show_all]
@@ -172,17 +170,16 @@ class AlertsController < ApplicationController
     @id_mapping = { project_id: '1', staff_id: '0', order_item_id: '1' }
   end
 
-  # Note: We should move these to named scopes in the model.
   def load_all_alerts
-    @alerts = query_with Alert.all.order('created_at ASC'), :includes, :pagination
+    @alerts = query_with policy_scope(Alert).oldest_first, :includes, :pagination
   end
 
   def load_active_alerts
-    @alerts = query_with policy_scope(Alert).active.recent.not_status(:OK), :includes, :pagination
+    @alerts = query_with policy_scope(Alert).active.oldest_first, :includes, :pagination
   end
 
   def load_inactive_alerts
-    @alerts = query_with Alert.where('end_date < ? OR start_date > ?', DateTime.now, DateTime.now).order('created_at ASC'), :includes, :pagination
+    @alerts = query_with policy_scope(Alert).inactive.oldest_first, :includes, :pagination
   end
 
   def load_alert

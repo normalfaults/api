@@ -1,9 +1,6 @@
 class OrderItemsController < ApplicationController
-  respond_to :json
-
   before_action :load_order_item, only: [:show, :destroy, :update, :start_service, :stop_service]
   before_action :load_order_item_for_provision_update, only: [:provision_update]
-  before_action :authenticate_user_from_token!, only: [:provision_update]
 
   api :GET, '/orders/:order_id/items/:id', 'Shows order item with :id'
   param :includes, Array, required: false, in: %w(product)
@@ -110,7 +107,7 @@ class OrderItemsController < ApplicationController
   end
 
   def order_item_params_for_provision_update
-    params.require(:info).permit(:miq_id, :provision_status, :ip_address, :hostname, :host, :port).merge(payload_response_from_miq: ActionController::Parameters.new(request.body.read))
+    params.require(:info).permit(:miq_id, :provision_status, :ip_address, :hostname, :host, :port).merge(payload_response_from_miq: ActionController::Parameters.new(JSON.parse(request.body.read)))
   end
 
   def load_order_item_for_provision_update

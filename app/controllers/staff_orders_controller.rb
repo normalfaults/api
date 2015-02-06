@@ -1,6 +1,4 @@
 class StaffOrdersController < ApplicationController
-  respond_to :json
-
   before_action :load_staff, only: [:show, :index]
   before_action :load_order, only: [:show]
   before_action :load_orders, only: [:index]

@@ -12,7 +12,7 @@ class AlertPolicy < ApplicationPolicy
   end
 
   def show?
-    admin_or_related
+    admin_or_system
   end
 
   def show_all?
@@ -44,17 +44,12 @@ class AlertPolicy < ApplicationPolicy
       if user.admin?
         scope
       else
-        # Users are only allowed to see alerts for projects that are assigned to them
-        scope.joins('RIGHT JOIN (SELECT DISTINCT project_id FROM staff_projects WHERE staff_id = ? ) a4 ON alerts.project_id = a4.project_id', user.id)
+        scope.joins(project: [:staff]).where('staff.id = ?', user.id)
       end
     end
   end
 
   private
-
-  def admin_or_related
-    user.admin? || record.staff_id == user.id
-  end
 
   def admin_or_system
     user.admin? || system_generated
