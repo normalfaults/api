@@ -6,12 +6,16 @@ class ProvisionWorker
   def perform
     order_item = OrderItem.find @order_item_id
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
+    miq_user = Staff.find(email: 'miq@jellyfish.com').first
 
     @message =
       {
         action: 'order',
         resource: {
           href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
+          referer: ENV['DEFAULT_URL'],
+          email: miq_user.email,
+          token: miq_user.authentication_token,
           order_id: order_item.id,
           uuid: order_item.uuid.to_s,
           referer: ENV['DEFAULT_URL'],
@@ -80,11 +84,13 @@ class ProvisionWorker
     end
 
     # TODO: Are we sure that AWS will always be product type 1?
-    aws_settings = SettingField.where(setting_id: 1).order(load_order: :asc).as_json
+    aws_setting = Setting.where(name: 'AWS').first
+    aws_setting_field = SettingField.where(setting_id: aws_setting.id).order(load_order: :asc).as_json
 
-    if aws_settings[0]['value'] != 'false'
+    if aws_setting_field[0]['value'] != 'false'
       details['access_key_id'] = aws_settings[1]['value']
       details['secret_access_key'] = aws_settings[2]['value']
+      details['image_id'] = 'ami-acca47c4'
     end
 
     details

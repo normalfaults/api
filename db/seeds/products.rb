@@ -148,9 +148,9 @@ rds.questions.create(
   placeholder: '',
   help: '',
   options: [
-    %w(magnetic Magnetic),
-    %w(ssd SSD),
-    %w(iops IOPS)
+    %w(standard standard),
+    %w(gp2 gp2),
+    %w(io1 io1)
   ],
   default: 'ssd',
   required: true,
