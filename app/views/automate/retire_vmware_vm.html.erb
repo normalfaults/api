@@ -5,7 +5,7 @@ require 'net/http'
 require 'uri/http'
 require 'json'
 
-def send_order_status(host, status, order_id, information, message = '')
+def send_order_status(host, headers, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
@@ -45,6 +45,7 @@ password = product_hash['password']
 uuid = product_hash['uuid']
 order_id = product_hash['id']
 instance_name = product_hash['instance_name']
+headers = [$evm.root['dialog_email'], $evm.root['dialog_token']]
 info = {
   'id' => order_id,
   'uuid' => uuid
@@ -57,13 +58,13 @@ begin
   $evm.log('info', 'DeleteVMWareVM: Found datacenter')
   vm = dc.find_vm(instance_name)
   if vm.nil?
-    send_order_status(host, 'CRITICAL', order_id,  info, 'Could not find VM')
+    send_order_status(host, headers, 'CRITICAL', order_id,  info, 'Could not find VM')
     exit
   end
   $evm.log('info', 'DeleteVMWareVM: Found VM')
   vm.Destroy_Task(this: vm)
 rescue StandardError => e
-  send_order_status(host, 'CRITICAL', order_id,  info, "Exception caught while creating VM: #{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id,  info, "Exception caught while creating VM: #{e.message}")
   $evm.log('error', "DeleteVMWareVM: Error while deleting VM: #{e.message}")
   exit
 end

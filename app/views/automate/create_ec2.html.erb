@@ -7,7 +7,7 @@ require 'net/http'
 require 'uri/http'
 require 'json'
 
-def send_order_status(referer, status, order_id, information, message = '')
+def send_order_status(referer, headers, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   host = URI.parse(referer).host
   url = "http://#{host}#{path}"
@@ -24,6 +24,8 @@ def send_order_status(referer, status, order_id, information, message = '')
   begin
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new(uri.path)
+    request.add_field('X-Staff-Email', "#{headers[0]}")
+    request.add_field('X-Staff-Token', "#{headers[1]}")
     request.content_type = 'application/json'
     request.body = json.to_json
     response = http.request(request)
@@ -52,6 +54,7 @@ security_groups = product_hash['security_groups']
 key_name = product_hash['key_name']
 instance_name = product_hash['instance_name']
 host = $evm.root['dialog_referer']
+headers = [$evm.root['dialog_email'], $evm.root['dialog_token']]
 
 # Configure AWS
 AWS.config(
@@ -88,15 +91,15 @@ begin
   instance = ec2.instances.create(options)
 rescue AWS::EC2::Errors::InvalidClientTokenId => e
   $evm.log('error', "CreateEC2: Invalid client token exception. Message: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::EC2::Errors::InvalidParameterValue => e
   $evm.log('error', "CreateEC2: Invalid parameter exception. Message: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue StandardError => e
   $evm.log('error', "CreateEC2: Could not create instance. Error: #{e}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 end
 
@@ -132,6 +135,6 @@ info = {
   'vpc_id' => instance.vpc_id
 }
 
-response = send_order_status(host, 'OK', order_id, info)
+response = send_order_status(host, headers, 'OK', order_id, info)
 
 $evm.log('info', "CreateEC2: Response =  #{response}")

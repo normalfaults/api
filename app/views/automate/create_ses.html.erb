@@ -10,7 +10,7 @@ require 'aws-sdk'
 require 'net/http'
 require 'uri/http'
 
-def send_order_status(referer, status, order_id, information, message = '')
+def send_order_status(referer, headers, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   host = URI.parse(referer).host
   url = "http://#{host}#{path}"
@@ -27,6 +27,8 @@ def send_order_status(referer, status, order_id, information, message = '')
   begin
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new(uri.path)
+    request.add_field('X-Staff-Email', "#{headers[0]}")
+    request.add_field('X-Staff-Token', "#{headers[1]}")
     request.content_type = 'application/json'
     request.body = json.to_json
     response = http.request(request)
@@ -52,6 +54,7 @@ secret_access_key = product_hash['secret_access_key']
 region = product_hash['region']
 email = product_hash['email']
 host = $evm.root['dialog_referer']
+headers = [$evm.root['dialog_email'], $evm.root['dialog_token']]
 
 # Setup the SES Region if region was chosen
 if region != ''
@@ -84,19 +87,19 @@ if email != ''
     end
   rescue AWS::SimpleEmailService::Errors::InvalidClientTokenId => e
     $evm.log('error', "CreateSES: Exception caught when creating instance: #{e.message}")
-    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   rescue AWS::RDS::Errors::InvalidParameterValue => e
     $evm.log('error', "CreateSES: Invalid parameter exception caught: #{e.message}")
-    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   rescue AWS::RDS::Errors => e
     $evm.log('error', "CreateSES: Exception caught: #{e.message}")
-    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   rescue StandardError => e
     $evm.log('error', "CreateSES: Exception caught #{e.message}")
-    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   end
 end
@@ -108,4 +111,4 @@ info = {
 }
 
 $evm.log('info', 'CreateSES: Provision executed successfully.')
-send_order_status(host, 'OK', order_id, info)
+send_order_status(host, headers, 'OK', order_id, info)

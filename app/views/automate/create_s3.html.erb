@@ -9,7 +9,7 @@ require 'net/http'
 require 'uri/http'
 require 'json'
 
-def send_order_status(referer, status, order_id, information, message = '')
+def send_order_status(referer, headers, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   host = URI.parse(referer).host
   url = "http://#{host}#{path}"
@@ -26,6 +26,8 @@ def send_order_status(referer, status, order_id, information, message = '')
   begin
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new(uri.path)
+    request.add_field('X-Staff-Email', "#{headers[0]}")
+    request.add_field('X-Staff-Token', "#{headers[1]}")
     request.content_type = 'application/json'
     request.body = json.to_json
     response = http.request(request)
@@ -49,6 +51,7 @@ access_key_id = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']
 bucket_name = "id-#{uuid[0..9]}"
 host = $evm.root['dialog_referer']
+headers = [$evm.root['dialog_email'], $evm.root['dialog_token']]
 
 S3 = AWS::S3.new(
   access_key_id: access_key_id,
@@ -63,25 +66,25 @@ begin
     S3.buckets.create(bucket_name)
   else
     $evm.log('error', 'CreateS3: Bucket name already exists.')
-    send_order_status(host, 'CRITICAL', order_id, info, 'Bucket already exists.')
+    send_order_status(host, headers, 'CRITICAL', order_id, info, 'Bucket already exists.')
     exit
   end
 rescue AWS::S3::Errors::InvalidClientTokenId => e
   $evm.log('error', "CreateS3: Invalid client token exception caught: #{e.message}.")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::S3::Errors::InvalidParameterValue => e
   $evm.log('error', "CreateS3: Invalid parameter exception caught: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::S3::Errors => e
   $evm.log('error', "Create S3: AWS Exception caught: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue StandardError => e
   $evm.log('error', "CreateS3: General exception caught: #{e.message}")
   $evm.log('error', "CreateS3: General exception back trace: #{e.backtrace}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 end
 
@@ -94,4 +97,4 @@ info = {
   'bucket_name' => "#{bucket_name}"
 }
 
-send_order_status(host, 'OK', order_id, info)
+send_order_status(host, headers, 'OK', order_id, info)
