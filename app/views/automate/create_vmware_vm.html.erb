@@ -6,8 +6,9 @@ require 'net/http'
 require 'uri/http'
 require 'json'
 
-def send_order_status(host, status, order_id, information, message = '')
+def send_order_status(referer, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
+  host = URI.parse(referer).host
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
@@ -27,17 +28,17 @@ def send_order_status(host, status, order_id, information, message = '')
     response = http.request(request)
     $evm.log('info', "send_order_status: HTTP Response code: #{response.code}")
     $evm.log('info', "send_order_status: HTTP Response message: #{response.message}")
-  rescue HTTPExceptions => e
-    $evm.log('error', "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
   rescue StandardError => e
-    $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
+  $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
   end
 end # End of function
 
-# Retrieve all information set from the marketplace 
-product_details = $evm.root['dialog_product_details']
-$evm.log('info', "CreateVMWareVM: Product Details: #{product_details}")
-product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+# Retrieve all information set from the marketplace
+product_details = $evm.root['dialog_order_item']
+order_item_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_hash = order_item_hash['product_details']
+order_id = order_item_hash['id']
+uuid = order_item_hash['uuid']
 datacenter = product_hash['datacenter']
 host = product_hash['host']
 port = Integer(product_hash['port']) unless product_hash['port'].nil || product_hash[port] == ''
@@ -45,8 +46,6 @@ user = product_hash['user']
 password = product_hash['password']
 template = product_hash['template']
 spec_name = product_hash['spec_name']
-uuid = product_hash['uuid']
-order_id = product_hash['id']
 instance_name = product_hash['instance_name']
 info = {
   'id' => order_id,

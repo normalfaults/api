@@ -7,9 +7,9 @@ require 'securerandom'
 require 'uri/http'
 require 'json'
 
-def send_order_status(status, order_id, information, message = '')
-  host = 'jellyfish-core-dev.dpi.bah.com'
+def send_order_status(referer, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
+  host = URI.parse(referer).host
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
@@ -29,8 +29,6 @@ def send_order_status(status, order_id, information, message = '')
     response = http.request(request)
     $evm.log('info', "send_order_status: HTTP Response code: #{response.code}")
     $evm.log('info', "send_order_status: HTTP Response message: #{response.message}")
-  rescue HTTPExceptions => e
-    $evm.log('error', "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
   rescue StandardError => e
     $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
   end
@@ -39,16 +37,17 @@ end # End of function
 # Retrieve properties from request
 # MIQ makes product_details into a string.
 # Must make into a hash
-product_details = $evm.root['dialog_product_details']
-$evm.log('info', "RetireRDS: Product Details: #{product_details}")
-product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_details = $evm.root['dialog_order_item']
+order_item_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_hash = order_item_hash['product_details']
+order_id = order_item_hash['id']
+uuid = order_item_hash['uuid']
 db_instance_id = product_hash['instance_name']
 snapshot_identifier = product_hash['snapshot_identifier']
 final_snapshot = Integer(product_hash['final_snapshot'])
-order_id = product_hash['id']
-uuid = product_hash['uuid']
 access_key = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']
+host = $evm.root['dialog_referer']
 
 $evm.log('info', "RDSRetire: snapshot identifier #{snapshot_identifier}")
 $evm.log('info', "RDSRetire: final snapshot #{final_snapshot}")
@@ -56,8 +55,8 @@ $evm.log('info', "RDSRetire: DB_Instance_ID: #{db_instance_id}")
 
 $evm.log('info', 'RDSRetire: Enter retirement method.')
 rds = AWS::RDS.new(
-    access_key_id: access_key,
-    secret_access_key: secret_access_key
+  access_key_id: access_key,
+  secret_access_key: secret_access_key
 )
 
 # Obtain the selected instance from AWS
@@ -79,11 +78,11 @@ if instance.exists?
       )
     rescue AWS::RDS::Errors::InvalidDBInstanceState => e
       $evm.log('error', "RDSRetire: Invalid Instance state: #{e.message}")
-      send_order_status('CRITICAL', order_id, info, "#{e.message}")
+      send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
       exit
     rescue AWS::RDS::Errors => e
       $evm.log('error', "RDSRetire: Exception caught when deleting instance: #{e.message}")
-      send_order_status('CRITICAL', order_id, info, "#{e.message}")
+      send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
       exit
     end
   elsif final_snapshot == 1
@@ -94,24 +93,24 @@ if instance.exists?
       )
     rescue AWS::RDS::Errors::InvalidDBInstanceState => e
       $evm.log('error', "RDSRetire: Invalid Instance state: #{e.message}")
-      send_order_status('CRITICAL', order_id, info, "#{e.message}")
+      send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
       exit
     rescue AWS::RDS::Errors => e
       $evm.log('error', "RDSRetire: Exception caught when deleting instance: #{e.message}")
-      send_order_status('CRITICAL', order_id, info, "#{e.message}")
+      send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
       exit
     end
   else
     $evm.log('error', 'RDSRetire: Must specify final snapshot value.')
-    send_order_status('CRITICAL', order_id, info, 'Must specify final snapshot value')
+    send_order_status(host, 'CRITICAL', order_id, info, 'Must specify final snapshot value')
   end
   while instance.exists? && instance.status == 'deleting'
     $evm.log('info', 'RDSRetire: Instance is deleting.')
     sleep 5
   end
   $evm.log('info', 'RDSRetire: Instance deletion complete. Begin payload response.')
-  send_order_status('OK', order_id, info, 'Instance retired.')
+  send_order_status(host, 'OK', order_id, info, 'Instance retired.')
 else
   $evm.log('error', "RDSRetire: Instance #{db_instance_id} does not exist.")
-  send_order_status('CRITICAL', order_id, info, 'Instance does not exist')
+  send_order_status(host, 'CRITICAL', order_id, info, 'Instance does not exist')
 end
