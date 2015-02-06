@@ -1,4 +1,6 @@
 class OrderItemsController < ApplicationController
+  after_action :verify_authorized
+
   before_action :load_order_item, only: [:show, :destroy, :update, :start_service, :stop_service]
   before_action :load_order_item_for_provision_update, only: [:provision_update]
 
@@ -8,13 +10,8 @@ class OrderItemsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    # @todo: add policy for order item
-    # authorize @order
-    if @order_item
-      respond_with_params @order_item
-    else
-      record_not_found
-    end
+    authorize @order_item
+    respond_with @order_item
   end
 
   api :DELETE, '/orders/:order_id/items/:id', 'Deletes order item with :id'
@@ -22,14 +19,10 @@ class OrderItemsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
-    # @todo: add policy for order item
-    # authorize @order
-    if @order_item
-      @order_item.destroy
-      respond_with @order_item
-    else
-      record_not_found
-    end
+    return record_not_found unless @order_item
+    authorize @order_item
+    @order_item.destroy
+    respond_with @order_item
   end
 
   api :PUT, '/orders/:order_id/items/:id', 'Updates order item with :id'
@@ -46,6 +39,7 @@ class OrderItemsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
+    authorize @order_item
     @order_item.update_attributes order_item_params
     respond_with @order_item
   end
@@ -54,8 +48,7 @@ class OrderItemsController < ApplicationController
   param :id, :number, required: true
 
   def start_service
-    # @todo: add policy for order item
-    # authorize @order_item
+    authorize OrderItem
     # TODO: Direct ManageIQ to pass along a start request
     render nothing: true, status: :ok
   end
@@ -64,8 +57,7 @@ class OrderItemsController < ApplicationController
   param :id, :number, required: true
 
   def stop_service
-    # @todo: add policy for order item
-    # authorize @order_item
+    authorize OrderItem
     # TODO: Direct ManageIQ to pass along a stop request
     render nothing: true, status: :ok
   end
@@ -88,6 +80,7 @@ class OrderItemsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def provision_update
+    authorize @order_item
     @order_item.update_attributes order_item_params_for_provision_update
     respond_with @order_item
   end
@@ -99,11 +92,12 @@ class OrderItemsController < ApplicationController
   end
 
   def orders_from_params
-    OrderItem.where(id: params.require(:id), order_id: params.require(:order_id))
+    @order = Order.find params.require(:order_id)
+    OrderItem.find params.require(:id)
   end
 
   def load_order_item
-    @order_item = orders_from_params.first
+    @order_item = orders_from_params
   end
 
   def order_item_params_for_provision_update
