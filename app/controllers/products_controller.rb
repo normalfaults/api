@@ -1,6 +1,4 @@
 class ProductsController < ApplicationController
-  respond_to :json
-
   after_action :verify_authorized
 
   before_action :load_product, only: [:show, :update, :destroy]

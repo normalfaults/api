@@ -1,6 +1,4 @@
 class ApprovalsController < ApplicationController
-  respond_to :json
-
   before_action :load_approval, only: [:show, :update, :destroy]
   before_action :load_approval_params, only: [:create, :update]
   before_action :load_approvals, only: [:index]

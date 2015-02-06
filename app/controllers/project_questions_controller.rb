@@ -1,6 +1,4 @@
 class ProjectQuestionsController < ApplicationController
-  respond_to :json
-
   before_action :load_project_question, only: [:show, :update, :destroy]
   before_action :load_project_question_params, only: [:create, :update]
   before_action :load_project_questions, only: [:index]

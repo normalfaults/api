@@ -21,9 +21,6 @@ class ApplicationController < ActionController::Base
   include AssociationResolution
   include QueryBuilder
 
-  # Concerns
-  include TokenAuthentication
-
   def current_user
     current_staff
   end

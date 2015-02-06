@@ -1,6 +1,4 @@
 class OrganizationsController < ApplicationController
-  respond_to :json
-
   before_action :load_organization, only: [:show, :update, :destroy]
   before_action :load_org_params, only: [:create, :update]
   before_action :load_organizations, only: [:index]
