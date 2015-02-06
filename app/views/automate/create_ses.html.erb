@@ -10,8 +10,9 @@ require 'aws-sdk'
 require 'net/http'
 require 'uri/http'
 
-def send_order_status(host, status, order_id, information, message = '')
+def send_order_status(referer, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
+  host = URI.parse(referer).host
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
@@ -31,8 +32,6 @@ def send_order_status(host, status, order_id, information, message = '')
     response = http.request(request)
     $evm.log('info', "send_order_status: HTTP Response code: #{response.code}")
     $evm.log('info', "send_order_status: HTTP Response message: #{response.message}")
-  rescue HTTPExceptions => e
-    $evm.log('error', "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
   rescue StandardError => e
     $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
   end
@@ -43,27 +42,28 @@ $evm.log('info', 'CreateSES: Entering method')
 # Retrieve properties from request
 # MIQ makes product_details into a string.
 # Must make into a hash
-product_details = $evm.root['dialog_product_details']
-$evm.log('info', "CreateSES: Product Details: #{product_details}")
-product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_details = $evm.root['dialog_order_item']
+order_item_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_hash = order_item_hash['product_details']
+order_id = order_item_hash['id']
+uuid = order_item_hash['uuid']
 access_key = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']
 region = product_hash['region']
 email = product_hash['email']
-order_id = product_hash['id']
-uuid = product_hash['uuid']
+host = $evm.root['dialog_referer']
 
 # Setup the SES Region if region was chosen
 if region != ''
   AWS.config(
-      access_key_id: access_key,
-      secret_access_key: secret_access_key,
-      ses: { region: region }
+    access_key_id: access_key,
+    secret_access_key: secret_access_key,
+    ses: { region: region }
   )
 else
   AWS.config(
-      access_key_id: access_key,
-      secret_access_key: secret_access_key
+    access_key_id: access_key,
+    secret_access_key: secret_access_key
   )
 end
 
