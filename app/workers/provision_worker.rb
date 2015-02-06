@@ -6,6 +6,7 @@ class ProvisionWorker
   def perform
     order_item = OrderItem.find @order_item_id
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
+    # TODO: We've hardcoded the token for now and the MIQ user
     miq_user = Staff.where(email: 'miq@jellyfish.com').first
 
     @message =
@@ -15,7 +16,7 @@ class ProvisionWorker
           href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
           referer: ENV['DEFAULT_URL'],
           email: miq_user.email,
-          token: miq_user.authentication_token,
+          token: 'jellyfish-token',
           order_item: {
             id: order_item.id,
             uuid: order_item.uuid.to_s,
