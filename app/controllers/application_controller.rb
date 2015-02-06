@@ -1,6 +1,6 @@
 # Default controller
 class ApplicationController < ActionController::Base
-  respond_to :json, :html
+  respond_to :json
 
   extend Apipie::DSL::Concern
   include Pundit
@@ -20,6 +20,9 @@ class ApplicationController < ActionController::Base
   include Pagination
   include AssociationResolution
   include QueryBuilder
+
+  # Add Token Authentication
+  include TokenAuthentication
 
   def current_user
     current_staff
