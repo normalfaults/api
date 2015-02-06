@@ -7,7 +7,7 @@ addons:
   postgresql: "9.3"
   code_climate:
       repo_token:
-        secure: "MykpZOfpi/kN2Ye4k2hIV/FgZAS9JmDLObq27jBUN+O2hrfGT9wQsQXxMpiah/hyqr/wH+VzxB6wqqeK9+vHSqtpf5O9Y9urcCHnuStkYS7fmfrkblvY6hodK5ly2QXlZguPb0ccuRG1jdWSJxz/Bp8eZhuCzSjr3mwJhgrHaUY="
+        secure: "ai6+gVEZwIp5NUkV4c6WEQ6xGpsQ8jtaXlMST9Yxoptx+PiU4U2IyBrPiuYQfBnCBHfHSSrFe0doGgQiWFDmUX2MlEvXRajoGupFhk+xNcMS1jdLN7K+ktfWenNmyQtCTVx+cLT05uhNrHI2NwxpObFMSR2iPVxtqswROGra5YA="
 
 before_script:
   - cp config/database.yml.travis config/database.yml
@@ -15,7 +15,9 @@ before_script:
 
 notifications:
   slack:
-    secure: lU71I+nRyzLBlFomd6XAHLEGwJhL6l4idw7jThVdyyFiWQbxI7KUryMgAWjU5YqZ0/POB0ou9a0cnsmnRC2Heuw3MibgBpbbwbfjhbgAc/vgQp04A/JGTYpky2OI7958SpFn3y89Uv8/CDKLnG1Hn8rHVwmj6RCOdf2WB8PUOB0=
+    secure: "QaNl/iAYVGEFz2zveWr6rSxH/VHUj/hqWGYJw0isjHQI4XPQIaNSe8wO3F5AXVADMa2/0Wf7ffGZJUpSciF06q/QAdzEV/fznIWX5p65piD/JoDjuCI/qvGmdzExZbWZVFmETF0mXrF77AsEk9ei/8Fv+UerHMSaJpn5LzHzzoE="
+    on_success: change
+    on_failure: always
 
 script:
 - bundle exec rspec
@@ -31,4 +33,3 @@ deploy:
     - "rake"
     - "rake db:seed"
     - "rake sample:jenkins"
-    - "heroku config:set TRAVIS_COMMIT=$TRAVIS_COMMIT"
