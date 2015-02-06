@@ -1,6 +1,4 @@
 class StaffController < ApplicationController
-  respond_to :json
-
   skip_before_action :authenticate_user!, except: [:current_member]
 
   before_action :load_staffs, only: [:index]

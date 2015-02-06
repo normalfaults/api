@@ -1,6 +1,4 @@
 class ProductTypesController < ApplicationController
-  respond_to :json
-
   after_action :verify_authorized
 
   before_action :load_product_type, only: [:show, :update, :destroy, :start_service, :stop_service]

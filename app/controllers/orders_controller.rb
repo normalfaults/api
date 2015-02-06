@@ -1,6 +1,4 @@
 class OrdersController < ApplicationController
-  respond_to :json
-
   after_action :verify_authorized
 
   before_action :load_order, only: [:show, :update, :destroy, :start_service, :stop_service]

@@ -1,9 +1,6 @@
 class Staff < ActiveRecord::Base
   include PgSearch
 
-  # Concerns
-  include TokenAuthenticable
-
   self.table_name = :staff
 
   acts_as_paranoid
