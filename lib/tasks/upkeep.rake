@@ -137,11 +137,11 @@ namespace :upkeep do
   task get_aws_od_pricing: :environment do
     # SPECIFY PATHS
     paths = []
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/linux-od.min.js')       # On-demand Linux
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/rhel-od.min.js')        # On-demand RedHat
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/sles-od.min.js')        # On-demand SUSE
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/mswin-od.min.js')       # On-demand Windows
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/mswinSQL-od.min.js')    # On-demand SQL Standrad
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/linux-od.min.js') # On-demand Linux
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/rhel-od.min.js') # On-demand RedHat
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/sles-od.min.js') # On-demand SUSE
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/mswin-od.min.js') # On-demand Windows
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/mswinSQL-od.min.js') # On-demand SQL Standrad
     paths.append('http://a0.awsstatic.com/pricing/1/ec2/mswinSQLWeb-od.min.js') # On-demand SQL Web
     # BUILD PRICING INFO FROM PATH RESPONSE
     aws_pricing_info = []
@@ -151,9 +151,9 @@ namespace :upkeep do
       res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
       # CONVERT JSONP TO JSON
       jsonp = res.body
-      jsonp.gsub!(/^.*callback\(/, '')  # removes the comment and callback function from the start of the string
-      jsonp.gsub!(/\);$/, '')           # removes the end of the callback function
-      jsonp.gsub!(/(\w+):/, '"\1":')    # puts all key values in quotes
+      jsonp.gsub!(/^.*callback\(/, '') # removes the comment and callback function from the start of the string
+      jsonp.gsub!(/\);$/, '') # removes the end of the callback function
+      jsonp.gsub!(/(\w+):/, '"\1":') # puts all key values in quotes
       aws_data = JSON.parse(jsonp)
       aws_regions = aws_data['config']['regions']
       aws_regions.each do |aws_region|
@@ -186,12 +186,12 @@ namespace :upkeep do
   task get_aws_reserved_pricing: :environment do
     # SPECIFY PATHS
     paths = []
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/linux-unix-shared.min.js')                        # Reserved Linux
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/red-hat-enterprise-linux-shared.min.js')          # Reserved RedHat
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/suse-linux-shared.min.js')                        # Reserved SUSE
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-shared.min.js')                           # Reserved Windows
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-with-sql-server-standard-shared.min.js')  # Reserved SQL Standard
-    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-with-sql-server-web-shared.min.js')       # Reserved SQL Web
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/linux-unix-shared.min.js') # Reserved Linux
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/red-hat-enterprise-linux-shared.min.js') # Reserved RedHat
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/suse-linux-shared.min.js') # Reserved SUSE
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-shared.min.js') # Reserved Windows
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-with-sql-server-standard-shared.min.js') # Reserved SQL Standard
+    paths.append('http://a0.awsstatic.com/pricing/1/ec2/ri-v2/windows-with-sql-server-web-shared.min.js') # Reserved SQL Web
     # BUILD PRICING INFO FROM PATH RESPONSE
     aws_pricing_info = []
     paths.each do |path|
@@ -216,9 +216,9 @@ namespace :upkeep do
       end
       # CONVERT JSONP TO JSON
       jsonp = res.body
-      jsonp.gsub!(/^.*callback\(/, '')  # removes the comment and callback function from the start of the string
-      jsonp.gsub!(/\);$/, '')           # removes the end of the callback function
-      jsonp.gsub!(/(\w+):/, '"\1":')    # puts all key values in quotes
+      jsonp.gsub!(/^.*callback\(/, '') # removes the comment and callback function from the start of the string
+      jsonp.gsub!(/\);$/, '') # removes the end of the callback function
+      jsonp.gsub!(/(\w+):/, '"\1":') # puts all key values in quotes
       aws_data = JSON.parse(jsonp)
       # PROCESS EACH REGION
       aws_regions = aws_data['config']['regions']

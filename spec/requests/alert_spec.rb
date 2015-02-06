@@ -25,7 +25,7 @@ RSpec.describe 'Alerts API' do
     end
   end
 
-  describe 'GET show' do
+  describe 'GET show (as Admin)' do
     before :each  do
       @inactive_alert = create :alert, :inactive
       @active_alert = create :alert, :active
@@ -61,6 +61,23 @@ RSpec.describe 'Alerts API' do
       get "/alerts/#{@active_alert.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
+    end
+  end
+
+  describe 'GET show (as Staff)' do
+    before :each  do
+      staff = create :staff
+      project = create :project
+      project.staff << staff
+      active_alert = create :alert, :active
+      active_alert.project = project
+      active_alert.save!
+      sign_in_as staff
+    end
+
+    it 'verifies show alerts, default behavior show active', :show_in_doc do
+      get '/alerts'
+      expect(json.length).to eq(1)
     end
   end
 

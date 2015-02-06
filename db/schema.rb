@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150201205414) do
+ActiveRecord::Schema.define(version: 20150205040841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150201205414) do
     t.json     "payload_to_miq"
     t.json     "payload_reply_from_miq"
     t.json     "payload_response_from_miq"
+    t.integer  "latest_alert_id"
   end
 
   add_index "order_items", ["cloud_id"], name: "index_order_items_on_cloud_id", using: :btree
@@ -285,6 +286,7 @@ ActiveRecord::Schema.define(version: 20150201205414) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.decimal  "spent",                  precision: 12, scale: 2, default: 0.0
+    t.integer  "status",                                          default: 0
   end
 
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree

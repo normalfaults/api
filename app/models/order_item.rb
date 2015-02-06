@@ -1,19 +1,25 @@
 class OrderItem < ActiveRecord::Base
+  # Includes
   acts_as_paranoid
 
-  before_create :load_order_item_params
-
-  after_commit :provision, on: :create
-
+  # Relationships
   belongs_to :order
   belongs_to :product
   belongs_to :cloud
   belongs_to :project
+  has_many :alerts, inverse_of: :order_item
+  belongs_to :latest_alert, class_name: 'Alert'
 
-  enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
+  # Hooks
+  before_create :inherit_price_data
+  after_commit :provision, on: :create
 
+  # Validations
   validates :product, presence: true
   validate :validate_product_id
+
+  # Columns
+  enum provision_status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
 
   private
 
@@ -21,22 +27,18 @@ class OrderItem < ActiveRecord::Base
     errors.add(:product, 'Product does not exist.') unless Product.exists?(product_id)
   end
 
-  def load_order_item_params
+  def inherit_price_data
     self.hourly_price = product.hourly_price
     self.monthly_price = product.monthly_price
     self.setup_price = product.setup_price
   end
 
   def provision
-    # Calling save inside an after_commit on: :create triggers a :create callback again.
-    # Passed the object to the provision_order_item and called the save there.
-    # https://github.com/rails/rails/issues/14493#issuecomment-39859373
-    order_item = self
-
-    order_item.delay(queue: 'provision_request').provision_order_item(order_item)
+    delay(queue: 'provision_request').provision_order_item(id)
   end
 
-  def provision_order_item(order_item)
+  def provision_order_item(order_item_id)
+    order_item = OrderItem.find order_item_id
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
 
     # TODO: This is a temporary fix, we need to send the MIQ email and token to allow MIQ to talk to core
