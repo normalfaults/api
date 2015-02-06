@@ -19,7 +19,6 @@ class OrderItemsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
-    return record_not_found unless @order_item
     authorize @order_item
     @order_item.destroy
     respond_with @order_item
