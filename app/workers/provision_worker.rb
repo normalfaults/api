@@ -6,7 +6,7 @@ class ProvisionWorker
   def perform
     order_item = OrderItem.find @order_item_id
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
-    miq_user = Staff.find(email: 'miq@jellyfish.com').first
+    miq_user = Staff.where(email: 'miq@jellyfish.com').first
 
     @message =
       {
@@ -16,10 +16,11 @@ class ProvisionWorker
           referer: ENV['DEFAULT_URL'],
           email: miq_user.email,
           token: miq_user.authentication_token,
-          order_id: order_item.id,
-          uuid: order_item.uuid.to_s,
-          referer: ENV['DEFAULT_URL'],
-          product_details: order_item_details(order_item)
+          order_item: {
+            id: order_item.id,
+            uuid: order_item.uuid.to_s,
+            product_details: order_item_details(order_item)
+          }
         }
       }
 
@@ -88,8 +89,8 @@ class ProvisionWorker
     aws_setting_field = SettingField.where(setting_id: aws_setting.id).order(load_order: :asc).as_json
 
     if aws_setting_field[0]['value'] != 'false'
-      details['access_key_id'] = aws_settings[1]['value']
-      details['secret_access_key'] = aws_settings[2]['value']
+      details['access_key_id'] = aws_setting_field[1]['value']
+      details['secret_access_key'] = aws_setting_field[2]['value']
       details['image_id'] = 'ami-acca47c4'
     end
 
