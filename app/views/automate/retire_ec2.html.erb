@@ -8,7 +8,7 @@ require 'json'
 
 $evm.log('error', 'RetireEC2: Enter Method.')
 
-def send_order_status(referer, status, order_id, information, message = '')
+def send_order_status(referer, headers, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   host = URI.parse(referer).host
   url = "http://#{host}#{path}"
@@ -46,6 +46,7 @@ access_key_id = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']
 instance_id = product_hash['instance_id']
 order_id = order_item_hash['id']
+headers = [$evm.root['dialog_email'], $evm.root['dialog_token']]
 
 ec2 = AWS::EC2.new(
   access_key_id: access_key_id,
@@ -62,11 +63,11 @@ begin
   instance = ec2.instances[instance_id]
 rescue AWS::EC2::Errors::InvalidClientTokenId => e
   $evm.log('error', "RetireEC2: Invalid Token Id exception caught: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::EC2::Errors => e
   $evm.log('error', "RetireEC2: EC2 exception caught: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 end
 
@@ -77,19 +78,19 @@ if instance.exists?
     $evm.log('info', 'RetireEC2: instance terminated.')
   rescue AWS::EC2::Errors::InvalidClientTokenId => e
     $evm.log('error', "RetireEC2: Invalid client token exception caught: #{e.message}")
-    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   rescue AWS::EC2::Errors => e
     $evm.log('error', "RetireEC2: Exception caught #{e.message}")
-    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   end
-  send_order_status('OK', order_id, info)
+  send_order_status(host, headers, 'OK', order_id, info)
 else
   $evm.log('error', "RetireEC2: Instance #{instance_id} does not exist.")
-  send_order_status(host, 'CRITICAL', order_id, info, 'instance does not exist')
+  send_order_status(host, headers, 'CRITICAL', order_id, info, 'instance does not exist')
 end
 
 $evm.log('info', 'RetireEC2: Instance retired.')
 
-send_order_status(host, 'OK', order_id, info, 'Instance retired.')
+send_order_status(host, headers, 'OK', order_id, info, 'Instance retired.')

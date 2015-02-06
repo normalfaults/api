@@ -8,7 +8,7 @@ require 'aws-sdk'
 require 'uri/http'
 require 'json'
 
-def send_order_status(referer, status, order_id, information, message = '')
+def send_order_status(referer, headers, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   host = URI.parse(referer).host
   url = "http://#{host}#{path}"
@@ -49,6 +49,7 @@ access_key = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']
 bucket_name = product_hash['instance_name']
 host = $evm.root['dialog_referer']
+headers = [$evm.root['dialog_email'], $evm.root['dialog_token']]
 
 S3 = AWS::S3.new(
   access_key_id: access_key,
@@ -66,27 +67,27 @@ begin
     bucket.delete
   else
     $evm.log('error', 'Retire S3: Bucket does not exist. ')
-    send_order_status(host, 'CRITICAL', order_id, info, 'Bucket does not exist and cannot be deleted')
+    send_order_status(host, headers, 'CRITICAL', order_id, info, 'Bucket does not exist and cannot be deleted')
     exit
   end
 rescue AWS::S3::Errors::InvalidClientTokenId => e
   $evm.log('error', "RetireS3: Invalid client token exception caught: #{e.message}.")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::S3::Errors::InvalidParameterValue => e
   $evm.log('error', "RetireS3: Invalid parameter exception caught: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::S3::Errors => e
   $evm.log('error', "RetireS3: AWS S3 exception caught: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue StandardError => e
   $evm.log('error', "RetireS3: General exception caught: #{e.message}")
   $evm.log('error', "RetireS3: General exception backtrace: #{e.message}")
-  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 end
 
 $evm.log('info', 'RetireS3: Bucket deleted successfully.')
-send_order_status(host, 'OK', order_id, info, 'Instance retired.')
+send_order_status(host, headers, 'OK', order_id, info, 'Instance retired.')

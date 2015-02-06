@@ -7,7 +7,7 @@ require 'securerandom'
 require 'uri/http'
 require 'json'
 
-def send_order_status(referer, status, order_id, information, message = '')
+def send_order_status(referer, headers, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
   host = URI.parse(referer).host
   url = "http://#{host}#{path}"
@@ -48,6 +48,7 @@ final_snapshot = Integer(product_hash['final_snapshot'])
 access_key = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']
 host = $evm.root['dialog_referer']
+headers = [$evm.root['dialog_email'], $evm.root['dialog_token']]
 
 $evm.log('info', "RDSRetire: snapshot identifier #{snapshot_identifier}")
 $evm.log('info', "RDSRetire: final snapshot #{final_snapshot}")
@@ -78,11 +79,11 @@ if instance.exists?
       )
     rescue AWS::RDS::Errors::InvalidDBInstanceState => e
       $evm.log('error', "RDSRetire: Invalid Instance state: #{e.message}")
-      send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+      send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
       exit
     rescue AWS::RDS::Errors => e
       $evm.log('error', "RDSRetire: Exception caught when deleting instance: #{e.message}")
-      send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+      send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
       exit
     end
   elsif final_snapshot == 1
@@ -93,24 +94,24 @@ if instance.exists?
       )
     rescue AWS::RDS::Errors::InvalidDBInstanceState => e
       $evm.log('error', "RDSRetire: Invalid Instance state: #{e.message}")
-      send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+      send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
       exit
     rescue AWS::RDS::Errors => e
       $evm.log('error', "RDSRetire: Exception caught when deleting instance: #{e.message}")
-      send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
+      send_order_status(host, headers, 'CRITICAL', order_id, info, "#{e.message}")
       exit
     end
   else
     $evm.log('error', 'RDSRetire: Must specify final snapshot value.')
-    send_order_status(host, 'CRITICAL', order_id, info, 'Must specify final snapshot value')
+    send_order_status(host, headers, 'CRITICAL', order_id, info, 'Must specify final snapshot value')
   end
   while instance.exists? && instance.status == 'deleting'
     $evm.log('info', 'RDSRetire: Instance is deleting.')
     sleep 5
   end
   $evm.log('info', 'RDSRetire: Instance deletion complete. Begin payload response.')
-  send_order_status(host, 'OK', order_id, info, 'Instance retired.')
+  send_order_status(host, headers, 'OK', order_id, info, 'Instance retired.')
 else
   $evm.log('error', "RDSRetire: Instance #{db_instance_id} does not exist.")
-  send_order_status(host, 'CRITICAL', order_id, info, 'Instance does not exist')
+  send_order_status(host, headers, 'CRITICAL', order_id, info, 'Instance does not exist')
 end
