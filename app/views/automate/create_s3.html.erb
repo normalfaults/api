@@ -9,8 +9,9 @@ require 'net/http'
 require 'uri/http'
 require 'json'
 
-def send_order_status(host, status, order_id, information, message = '')
+def send_order_status(referer, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
+  host = URI.parse(referer).host
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
@@ -30,8 +31,6 @@ def send_order_status(host, status, order_id, information, message = '')
     response = http.request(request)
     $evm.log('info', "send_order_status: HTTP Response code: #{response.code}")
     $evm.log('info', "send_order_status: HTTP Response message: #{response.message}")
-  rescue HTTPExceptions => e
-    $evm.log('error', "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
   rescue StandardError => e
     $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
   end
@@ -41,18 +40,15 @@ $evm.log('info', 'CreateS3: Entering method')
 
 # MIQ makes dialog_product_details into a string.
 # Must convert to a hash.
-product_details = $evm.root['dialog_product_details']
-$evm.log('info', "CreateS3: Product Details: #{product_details}")
-product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
-
-# Retrieve request properties from the product hash
-order_id = product_hash['id']
-host = product_hash['host']
+product_details = $evm.root['dialog_order_item']
+order_item_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_hash = order_item_hash['product_details']
+order_id = order_item_hash['id']
+uuid = order_item_hash['uuid']
 access_key_id = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']
-uuid = $evm.root['dialog_uuid']
 bucket_name = "id-#{uuid[0..9]}"
-host = product_hash['host']
+host = $evm.root['dialog_referer']
 
 S3 = AWS::S3.new(
   access_key_id: access_key_id,
