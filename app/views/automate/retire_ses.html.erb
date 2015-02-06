@@ -11,9 +11,9 @@ require 'json'
 
 $evm.log('info', 'RetireSES: Entering method')
 
-def send_order_status(status, order_id, information, message = '')
-  host = 'jellyfish-core-dev.dpi.bah.com'
+def send_order_status(referer, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
+  host = URI.parse(referer).host
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
@@ -33,8 +33,6 @@ def send_order_status(status, order_id, information, message = '')
     response = http.request(request)
     $evm.log('info', "send_order_status: HTTP Response code: #{response.code}")
     $evm.log('info', "send_order_status: HTTP Response message: #{response.message}")
-  rescue HTTPExceptions => e
-    $evm.log('error', "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
   rescue StandardError => e
     $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
   end
@@ -44,14 +42,15 @@ end # End of function
 # Retrieve properties from request
 # MIQ makes product_details into a string.
 # Must make into a hash
-product_details = $evm.root['dialog_product_details']
-$evm.log('info', "RetireSES: Product Details: #{product_details}")
-product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_details = $evm.root['dialog_order_item']
+order_item_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_hash = order_item_hash['product_details']
+order_id = order_item_hash['id']
+uuid = order_item_hash['uuid']
 access_key = product_hash['access_key_id']
 secret_access_key = product_hash['secret_access_key']
 email = product_hash['email']
-order_id = product_hash['id']
-uuid = product_hash['uuid']
+host = $evm.root['dialog_referer']
 
 AWS.config(
   access_key_id: access_key,
@@ -78,21 +77,21 @@ if email != ''
     end
   rescue AWS::SimpleEmailService::Errors::InvalidClientTokenId => e
     $evm.log('error', "RetireSES: Exception caught when creating instance: #{e.message}")
-    send_order_status('CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   rescue AWS::SimpleEmailService::Errors::InvalidParameterValue => e
     $evm.log('error', "RetireSES: Invalid parameter exception caught: #{e.message}")
-    send_order_status('CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   rescue AWS::SimpleEmailService::Errors => e
     $evm.log('error', "RetireSES: Exception caught: #{e.message}")
-    send_order_status('CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   rescue StandardError => e
     $evm.log('error', "RetireSES: Exception caught #{e.message}")
-    send_order_status('CRITICAL', order_id, info, "#{e.message}")
+    send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
     exit
   end
 end
 
-send_order_status('OK', order_id, info, 'Instance retired.')
+send_order_status(host, 'OK', order_id, info, 'Instance retired.')

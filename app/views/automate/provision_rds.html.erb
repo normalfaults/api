@@ -13,9 +13,9 @@ require 'json'
 
 $evm.log('info', 'ProvisionRDS: Entering Method.')
 
-def send_order_status(status, order_id, information, message = '')
-  host = 'jellyfish-core-dev.dpi.bah.com'
+def send_order_status(referer, status, order_id, information, message = '')
   path = "/order_items/#{order_id}/provision_update"
+  host = URI.parse(referer).host
   url = "http://#{host}#{path}"
   uri = URI.parse(url)
 
@@ -35,8 +35,6 @@ def send_order_status(status, order_id, information, message = '')
     response = http.request(request)
     $evm.log('info', "send_order_status: HTTP Response code: #{response.code}")
     $evm.log('info', "send_order_status: HTTP Response message: #{response.message}")
-  rescue HTTPExceptions => e
-    $evm.log('error', "send_order_status: HTTP Exception caught while sending response back to core: #{e.message}")
   rescue StandardError => e
     $evm.log('error', "send_order_status: Exception caught while sending response back to core: #{e.message}")
   end
@@ -52,19 +50,20 @@ end
 
 # MIQ makes dialog_product_details into a string.
 # Must convert to a hash.
-product_details = $evm.root['dialog_product_details']
-$evm.log('info', "ProvisionRDS: Product Details: #{product_details}")
-product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
-order_id = product_hash['id']
-uuid = product_hash['uuid']
+product_details = $evm.root['dialog_order_item']
+order_item_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_hash = order_item_hash['product_details']
+order_id = order_item_hash['id']
+uuid = order_item_hash['uuid']
 access_key_id = product_hash['access_key_id']
 secret_key = product_hash['secret_access_key']
 db_instance_id = $evm.root['db_instance_id']
+host = $evm.root['dialog_referer']
 
 # Retrieve request properties from the product hash
 rds = AWS::RDS.new(
-    access_key_id: access_key_id,
-    secret_access_key: secret_key
+  access_key_id: access_key_id,
+  secret_access_key: secret_key
 )
 
 # Get the instance name of the variable created
@@ -77,11 +76,11 @@ begin
   }
 rescue AWS::RDS::Errors::InvalidClientTokenId => e
   $evm.log('error', 'ProvisionRDS: Exception caught when creating instance: #{e.message}')
-  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 rescue AWS::RDS::Errors => e
   $evm.log('error', "ProvisionRDS: Exception caught when creating instance: #{e.message}")
-  send_order_status('CRITICAL', order_id, info, "#{e.message}")
+  send_order_status(host, 'CRITICAL', order_id, info, "#{e.message}")
   exit
 end
 
@@ -97,8 +96,8 @@ if instance.exists?
   information = {
     'id' => order_id,
     'uuid' => uuid,
-    'db_endpoint_address' => "#{instance.endpoint_address}",
-    'db_endpoint_port' => "#{instance.endpoint_port}",
+    'hostname' => "#{instance.endpoint_address}",
+    'port' => "#{instance.endpoint_port}",
     'username' => "#{instance.master_username}",
     'password' => "#{$evm.root['root_sec_pw']}",
     'instance_name' => "#{$evm.root['dialog_instance_name']}",
@@ -106,13 +105,13 @@ if instance.exists?
     'instance_storage' => "#{$evm.root['dialog_allocated_storage']}"
   }
   $evm.log('info', "ProvisionRDS: Generated the RDS with the following information #{information}")
-  send_order_status('OK', order_id, information)
+  send_order_status(host, 'OK', order_id, information)
 else # If the instance did not exist
   $evm.log('info', "ProvisionRDS: Instance #{db_instance_id} was not created and does not exist")
   info = {
     'order_id' => "#{order_id}"
   }
-  send_order_status('CRITICAL', order_id, info, 'Instance was not created and does not exist')
+  send_order_status(host, 'CRITICAL', order_id, info, 'Instance was not created and does not exist')
 end
 
 $evm.log('info', "ProvisionRDS: Instance #{db_instance_id} created")
