@@ -46,10 +46,13 @@ class OrderItem < ActiveRecord::Base
       action: 'order',
       resource: {
         href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
-        order_id: order_item.id,
-        uuid: order_item.uuid.to_s,
-        referer: ENV['DEFAULT_URL'],
-        product_details: order_item_details(order_item)
+        referrer: ENV['DEFAULT_URL'],
+        order_item: {
+          order_id: order_item.id,
+          uuid: order_item.uuid.to_s,
+          referer: ENV['DEFAULT_URL'],
+          product_details: order_item_details(order_item)
+        }
       }
     }
 
@@ -112,11 +115,13 @@ class OrderItem < ActiveRecord::Base
     end
 
     # TODO: Are we sure that AWS will always be product type 1?
-    aws_settings = SettingField.where(setting_id: 1).order(load_order: :asc).as_json
+    aws_setting = Setting.find_by_name('AWS').first
+    aws_setting_field = SettingField.where(setting_id: aws_setting.id).order(load_order: :asc).as_json
 
-    if aws_settings[0]['value'] != 'false'
+    if aws_setting_field[0]['value'] != 'false'
       details['access_key_id'] = aws_settings[1]['value']
       details['secret_access_key'] = aws_settings[2]['value']
+      details['image_id'] = 'ami-acca47c4'
     end
 
     details
