@@ -14,7 +14,6 @@ services to a project.  Jellyfish current supports IaaS via ManageIQ and Chef.
 Project Jellyfish has 3 main components: Jellyfish-API, Jellyfish-UX, and ManageIQ.  Jellyfish-API is the API layer
 of Jellyfish.  It provides a REST based API for Jellyfish-UX and for the Jellyfish Mobile application.
 
-
 ####Requirments
 
 Jellyfish-API has the following requirements
