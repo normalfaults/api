@@ -1,22 +1,24 @@
 class AlertsController < ApplicationController
   after_action :verify_authorized
 
-  before_action :load_all_alerts, only: [:show_all]
-  before_action :load_active_alerts, only: [:index, :show_active]
-  before_action :load_inactive_alerts, only: [:show_inactive]
+  before_action :load_alerts, only: [:index]
   before_action :load_alert, only: [:show, :edit, :update, :destroy]
   before_action :load_update_params, only: [:update]
   before_action :load_create_params, only: [:create]
+
   before_action :load_sensu_params, only: [:sensu]
   before_action :load_alert_id, only: [:create, :sensu]
 
-  api :GET, '/alerts', 'Returns all active alerts. (Default behavior)'
+  api :GET, '/alerts', 'Returns all alerts.'
+  param :active, :bool, required: false
+  param :sort, Array, required: false
+  param :not_status, Array, required: false
   param :includes, Array, required: false, in: %w(project)
   param :page, :number, required: false
   param :per_page, :number, required: false
 
   def index
-    authorize Alert.new
+    authorize Alert
     respond_with_params @alerts
   end
 
@@ -27,34 +29,6 @@ class AlertsController < ApplicationController
   def show
     authorize @alert
     respond_with @alert
-  end
-
-  # note: seems like this could be removed. Does the same thing as index
-  api :GET, '/alerts/all', 'Shows all alerts, both active and inactive.'
-  param :page, :number, required: false
-  param :per_page, :number, required: false
-
-  def show_all
-    authorize @alerts
-    respond_with @alerts
-  end
-
-  api :GET, '/alerts/active', 'Shows all active alerts. Where end_date is null or has yet to occur and start is null or has already occurred.'
-  param :page, :number, required: false
-  param :per_page, :number, required: false
-
-  def show_active
-    authorize @alerts
-    respond_with @alerts
-  end
-
-  api :GET, '/alerts/inactive', 'Shows all inactive alerts. Where end_date has already occurred or start_date has yet to occur.'
-  param :page, :number, required: false
-  param :per_page, :number, required: false
-
-  def show_inactive
-    authorize @alerts
-    respond_with @alerts
   end
 
   api :POST, '/alerts/sensu', 'Create new Sensu alert.'
@@ -95,18 +69,18 @@ class AlertsController < ApplicationController
   def create
     @alert = Alert.new @alert_params
     authorize @alert
-    if !service_alerts_exist
-      save_new_alert
+    last_alert = last_alert_for_service
+    if last_alert.nil? || last_alert.status != @alert.status
+      # Save a new alert if none exist, or if statuses differ
+      @alert.save
     else
-      if last_alert_for_service.nil? || (last_alert_for_service.status != @alert.status)
-        save_new_alert
-      else
-        params[:id] = @alert_id
-        load_alert
-        load_update_params
-        update
-      end
+      # Update an existing alert
+      @alert = Alert.find @alert_id
+      authorize @alert
+      load_update_params
+      @alert.update_attributes @alert_params
     end
+    respond_with @alert
   end
 
   api :PUT, '/alerts/:id', 'Updates alert with given :id'
@@ -119,12 +93,8 @@ class AlertsController < ApplicationController
 
   def update
     authorize @alert
-    if @alert.update_attributes @alert_params
-      @alert.touch
-      respond_with @alert
-    else
-      respond_with @alert, status: :unprocessable_entity
-    end
+    @alert.update_attributes @alert_params
+    respond_with @alert
   end
 
   api :DELETE, '/alerts/:id', 'Deletes alert with :id'
@@ -133,11 +103,8 @@ class AlertsController < ApplicationController
 
   def destroy
     authorize @alert
-    if @alert.destroy
-      respond_with @alert
-    else
-      respond_with @alert, status: :unprocessable_entity
-    end
+    @alert.destroy
+    respond_with @alert
   end
 
   private
@@ -159,6 +126,7 @@ class AlertsController < ApplicationController
     params.require :status
     params.require :service
     params.require :message
+    # TODO : Should refactor so params is not modified to make a request
     load_staff_and_project_id
     params[:project_id] = @id_mapping[:project_id]
     params[:staff_id] = @id_mapping[:staff_id]
@@ -167,19 +135,27 @@ class AlertsController < ApplicationController
   end
 
   def load_staff_and_project_id
-    @id_mapping = { project_id: '1', staff_id: '0', order_item_id: '1' }
+    # TODO : This is a system setting; It should be saved into system configuration
+    @id_mapping = { project_id: 1, staff_id: 0, order_item_id: 1 }
   end
 
-  def load_all_alerts
-    @alerts = query_with policy_scope(Alert).oldest_first, :includes, :pagination
-  end
-
-  def load_active_alerts
-    @alerts = query_with policy_scope(Alert).active.oldest_first, :includes, :pagination
-  end
-
-  def load_inactive_alerts
-    @alerts = query_with policy_scope(Alert).inactive.oldest_first, :includes, :pagination
+  def load_alerts
+    params.permit(:active, :not_status, :sort, :page, :per_page, :includes)
+    query = policy_scope(Alert)
+    if params[:active].present?
+      query = params[:alert] ? query.active : query.inactive
+    end
+    if params[:not_status].present?
+      (%w(OK WARNING CRITICAL PENDING UNKNOWN) & params[:not_status]).each do |status|
+        query = query.not_status(status)
+      end
+    end
+    if params[:sort].present?
+      (%w(project_order oldest_first newest_first) & params[:sort]).each do |sort|
+        query = query.send sort.to_sym
+      end
+    end
+    @alerts = query_with query.where(nil), :includes, :pagination
   end
 
   def load_alert
@@ -187,33 +163,19 @@ class AlertsController < ApplicationController
   end
 
   def load_alert_id
-    conditions = {}
-    conditions[:project_id] = @alert_params['project_id']
-    conditions[:order_item_id] = @alert_params['order_item_id']
-    conditions[:status] = @alert_params['status']
-    result = Alert.where(conditions).order('updated_at DESC').first
-    @alert_id = (result.nil? || result.id.nil?) ? nil : result.id
-  end
-
-  def service_alerts_exist
-    conditions = {}
-    conditions[:project_id] = @alert_params['project_id']
-    conditions[:order_item_id] = @alert_params['order_item_id']
-    !Alert.where(conditions).first.nil?
+    conditions = {
+      project_id: @alert_params['project_id'],
+      order_item_id: @alert_params['order_item_id'],
+      status: @alert_params['status']
+    }
+    @alert_id = Alert.where(conditions).pluck(:id).first
   end
 
   def last_alert_for_service
-    conditions = {}
-    conditions[:project_id] = @alert_params['project_id']
-    conditions[:order_item_id] = @alert_params['order_item_id']
-    Alert.where(conditions).order('updated_at DESC').first
-  end
-
-  def save_new_alert
-    if @alert.save
-      respond_with @alert
-    else
-      respond_with @alert, status: :unprocessable_entity
-    end
+    conditions = {
+      project_id: @alert_params['project_id'],
+      order_item_id: @alert_params['order_item_id']
+    }
+    Alert.where(conditions).order('updated_at DESC').limit(1).first
   end
 end

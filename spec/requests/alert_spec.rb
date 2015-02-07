@@ -15,20 +15,26 @@ RSpec.describe 'Alerts API' do
     end
 
     it 'returns a collection of all alerts', :show_in_doc do
-      get '/alerts/all'
+      get '/alerts'
       expect(json.length).to eq(6)
     end
 
     it 'paginates the alerts' do
-      get '/alerts/all', page: 1, per_page: 5
+      get '/alerts', page: 1, per_page: 5
       expect(json.length).to eq(5)
     end
   end
 
   describe 'GET show (as Admin)' do
     before :each  do
-      @inactive_alert = create :alert, :inactive
-      @active_alert = create :alert, :active
+      @active_alert = create :alert, :active, status: 'OK'
+      create :alert, :inactive, status: 'OK'
+      create :alert, :active, status: 'OK'
+      create :alert, :active, status: 'WARNING'
+      create :alert, :active, status: 'CRITICAL'
+      create :alert, :inactive, status: 'OK'
+      create :alert, :inactive, status: 'WARNING'
+      create :alert, :inactive, status: 'CRITICAL'
       sign_in_as create :staff, :admin
     end
 
@@ -37,24 +43,35 @@ RSpec.describe 'Alerts API' do
       expect(json['id']).to eq(@active_alert.id)
     end
 
-    it 'verifies show alerts, default behavior show active', :show_in_doc do
+    it 'shows all alerts', :show_in_doc do
       get '/alerts'
-      expect(json.length).to eq(1)
+      expect(json.length).to eq(8)
     end
 
-    it 'verifies show all alerts', :show_in_doc do
-      get '/alerts/all'
+    it 'shows all active alerts', :show_in_doc do
+      get '/alerts', active: true
+      expect(json.length).to eq(4)
+    end
+
+    it 'shows all inactive alerts', :show_in_doc do
+      get '/alerts', active: false
+      expect(json.length).to eq(4)
+    end
+
+    it 'shows all non-OK alerts', :show_in_doc do
+      get '/alerts', not_status: ['OK']
+      expect(json.length).to eq(4)
+    end
+
+    it 'shows all alerts sorted by oldest_first', :show_in_doc do
+      get '/alerts', sort: ['oldest_first']
+      expect(json.length).to eq(8)
+      expect(DateTime.parse(json[0]['updated_at']).to_s).to eq(@active_alert.updated_at.to_datetime.to_s)
+    end
+
+    it 'shows all active non-OK alerts', :show_in_doc do
+      get '/alerts', active: true, not_status: ['OK']
       expect(json.length).to eq(2)
-    end
-
-    it 'verifies show active alerts', :show_in_doc do
-      get '/alerts/active'
-      expect(json.length).to eq(1)
-    end
-
-    it 'verifies show inactive alerts', :show_in_doc do
-      get '/alerts/inactive'
-      expect(json.length).to eq(1)
     end
 
     it 'returns an error when the alert does not exist' do
@@ -69,13 +86,15 @@ RSpec.describe 'Alerts API' do
       staff = create :staff
       project = create :project
       project.staff << staff
-      active_alert = create :alert, :active
-      active_alert.project = project
-      active_alert.save!
+      visible_alert = create :alert, :active
+      visible_alert.project = project
+      visible_alert.save!
+      create :alert, :active
+      create :alert, :active
       sign_in_as staff
     end
 
-    it 'verifies show alerts, default behavior show active', :show_in_doc do
+    it 'verifies show alerts, scoped to the user', :show_in_doc do
       get '/alerts'
       expect(json.length).to eq(1)
     end
@@ -134,7 +153,7 @@ RSpec.describe 'Alerts API' do
       alert_data = { project_id: '1', staff_id: '2', order_item_id: '3', status: 'WARNING', message: 'REVIEW LOGS.' }
       post '/alerts', alert_data
       # VERIFY CREATE/UPDATE LOGIC IS WORKING
-      get '/alerts/all'
+      get '/alerts'
       json = JSON.parse(response.body)
       expect(json.length).to eq(4)
     end
