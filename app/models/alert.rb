@@ -6,8 +6,9 @@ class Alert < ActiveRecord::Base
   scope :inactive, -> { where('end_date < NOW() OR start_date > NOW()') }
   scope :latest, -> { joins(:order_item).where('alerts.id = order_items.latest_alert_id') }
   scope :not_status, ->(status) { where('alerts.status != ?', status) }
-  scope :newest_first, -> { order('project_id, updated_at DESC') }
-  scope :oldest_first, -> { order('project_id, updated_at') }
+  scope :newest_first, -> { order('updated_at DESC') }
+  scope :oldest_first, -> { order(:updated_at) }
+  scope :project_order, -> { order(:project_id) }
 
   after_commit :cache_alert_data, on: [:create, :update]
 
