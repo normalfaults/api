@@ -117,33 +117,4 @@ Rails.application.routes.draw do
   get 'automate/retire_vmware_vm', to: 'automate#retire_vmware_vm'
 
   root 'welcome#index'
-
-  # # Dashboard Routes
-  # resources :dashboard
-  #
-  # # Manage Routes
-  # resources :manage
-  #
-  # # Marketplace Routes
-  # resources :marketplace
-  #
-  # # Service Routes
-  # resources :service
-
-  # Mocks routes
-  # TODO: Remove when implemented
-  get 'applications/:id', to: 'mocks#application', defaults: { format: :json }
-  get 'applications', to: 'mocks#applications', defaults: { format: :json }
-  get 'bundles/:id', to: 'mocks#bundle', defaults: { format: :json }
-  get 'bundles', to: 'mocks#bundles', defaults: { format: :json }
-  get 'services/:id', to: 'mocks#service', defaults: { format: :json }
-  get 'services', to: 'mocks#services', defaults: { format: :json }
-  get 'solutions/:id', to: 'mocks#solution', defaults: { format: :json }
-  get 'solutions', to: 'mocks#solutions', defaults: { format: :json }
-  get 'alerts', to: 'mocks#alerts', defaults: { format: :json }
-  get 'alertPopup', to: 'mocks#alert_popup', defaults: { format: :json }
-  get 'header', to: 'mocks#header', defaults: { format: :json }
-  get 'manage', to: 'mocks#manage', defaults: { format: :json }
-  get 'marketplaceValues', to: 'mocks#marketplace', defaults: { format: :json }
-  get 'new-project', to: 'mocks#new_project', defaults: { format: :json }
 end
