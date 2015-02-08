@@ -6,6 +6,8 @@ class ProductsController < ApplicationController
   before_action :load_products, only: [:index]
   before_action :load_answers, only: [:answers]
 
+  PRODUCT_PRICE_REGEX = /\d{1,6}(\.\d{0,4})?/
+
   api :GET, '/products', 'Returns a collection of products'
   param :page, :number, required: false
   param :per_page, :number, required: false
@@ -36,9 +38,9 @@ class ProductsController < ApplicationController
   param :product_type_id, Integer, desc: 'ProductType Id'
   param :cloud_id, Integer, desc: 'Cloud Id'
   param :options, Array, desc: 'Options', allow_nil: true
-  param :hourly_price, :number, required: false, desc: 'Cost per Hour'
-  param :monthly_price, :number, required: false, desc: 'Cost per Month'
-  param :setup_price, :number, required: false, desc: 'Initial Setup Fee'
+  param :hourly_price, PRODUCT_PRICE_REGEX, required: false, desc: 'Cost per Hour'
+  param :monthly_price, PRODUCT_PRICE_REGEX, required: false, desc: 'Cost per Month'
+  param :setup_price, PRODUCT_PRICE_REGEX, required: false, desc: 'Initial Setup Fee'
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def create
@@ -59,9 +61,9 @@ class ProductsController < ApplicationController
   param :cloud_id, Integer, desc: 'Cloud Id'
   param :active, :bool, desc: 'Product is active and available in the marketplace'
   param :options, Array, desc: 'options', allow_nil: true
-  param :hourly_price, :number, required: false, desc: 'Cost per Hour'
-  param :monthly_price, :number, required: false, desc: 'Cost per Month'
-  param :setup_price, :number, required: false, desc: 'Initial Setup Fee'
+  param :hourly_price, PRODUCT_PRICE_REGEX, required: false, desc: 'Cost per Hour'
+  param :monthly_price, PRODUCT_PRICE_REGEX, required: false, desc: 'Cost per Month'
+  param :setup_price, PRODUCT_PRICE_REGEX, required: false, desc: 'Initial Setup Fee'
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
