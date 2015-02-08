@@ -102,19 +102,25 @@ Rails.application.routes.draw do
   resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:show], param: :name
 
   # Automate Routes
-  get 'automate/catalog_item_initialization', to: 'automate#catalog_item_initialization'
-  get 'automate/update_servicemix_and_chef', to: 'automate#update_servicemix_and_chef'
-  get 'automate/create_rds', to: 'automate#create_rds'
-  get 'automate/provision_rds', to: 'automate#provision_rds'
-  get 'automate/create_ec2', to: 'automate#create_ec2'
-  get 'automate/create_s3', to: 'automate#create_s3'
-  get 'automate/create_ses', to: 'automate#create_ses'
-  get 'automate/retire_ec2', to: 'automate#retire_ec2'
-  get 'automate/retire_rds', to: 'automate#retire_rds'
-  get 'automate/retire_s3', to: 'automate#retire_s3'
-  get 'automate/retire_ses', to: 'automate#retire_ses'
-  get 'automate/create_vmware_vm', to: 'automate#create_vmware_vm'
-  get 'automate/retire_vmware_vm', to: 'automate#retire_vmware_vm'
+  resources :automate, only: [] do
+    collection do
+      get :catalog_item_initialization
+      get :update_servicemix_and_chef
+      get :provision_rds
+
+      get :create_ec2
+      get :create_rds
+      get :create_s3
+      get :create_ses
+      get :create_vmware_vm
+
+      get :retire_ec2
+      get :retire_rds
+      get :retire_s3
+      get :retire_ses
+      get :retire_vmware_vm
+    end
+  end
 
   root 'welcome#index'
 end
