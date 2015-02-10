@@ -62,7 +62,6 @@ gem 'responders'
 
 # Authentication
 gem 'devise'
-# gem 'simple_token_authentication', '~> 1.0'
 
 # Authorization
 gem 'pundit'
@@ -75,6 +74,7 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'license_finder'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'seed_dump'
 end
 
 # Documentation
