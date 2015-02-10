@@ -3,7 +3,7 @@ class SettingField < ActiveRecord::Base
 
   store_accessor :options
 
-  enum field_type: [:check_box, :select_option, :text, :date]
+  enum field_type: [:check_box, :select_option, :text, :date, :password]
 
   def disabled
     @disabled || 'false'

@@ -5,6 +5,7 @@ AllCops:
     - db/schema.rb
     - vendor/**/*
     - bin/**
+    - lib/tasks/sample.rake
   RunRailsCops: true
 
 ClassLength:
