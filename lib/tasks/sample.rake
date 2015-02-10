@@ -11,189 +11,128 @@ namespace :sample do
 
   desc 'Populate sample data for Jenkins'
   task jenkins: :environment do
-    # Create some staff
-    user_data = { last_name: 'Staff', password: 'jellyfish' }
-    user = Staff.create(user_data.merge first_name: 'User', email: 'user@jellyfish.com', role: :user)
-    admin = Staff.where(email: 'admin@jellyfish.com').first
-    Staff.create(user_data.merge first_name: 'Unused', email: 'unused@jellyfish.com', role: :user)
-
-    # AWS Settings
-    aws_setting = Setting.where(name: 'AWS').first
-
-    aws_setting_field = SettingField.where(setting_id: aws_setting.id, label: 'Enabled').first
-    aws_setting_field.value = 'true'
-    aws_setting_field.save
-
-    aws_setting_field = SettingField.where(setting_id: aws_setting.id, label: 'Access Key').first
-    aws_setting_field.value = 'AWS_ACCESS_KEY'
-    aws_setting_field.save
-
-    aws_setting_field = SettingField.where(setting_id: aws_setting.id, label: 'Secret Key').first
-    aws_setting_field.value = 'AWS_SECRET_KEY'
-    aws_setting_field.save
-
-    # Manage IQ Settings
-    miq_setting = Setting.where(name: 'Manage IQ').first
-
-    miq_setting_field = SettingField.where(setting_id: miq_setting.id, label: 'URL').first
-    miq_setting_field.value = 'https://manage_iq_server:3000'
-    miq_setting_field.save
-
-    miq_setting_field = SettingField.where(setting_id: miq_setting.id, label: 'Username').first
-    miq_setting_field.value = 'admin'
-    miq_setting_field.save
-
-    miq_setting_field = SettingField.where(setting_id: miq_setting.id, label: 'Password').first
-    miq_setting_field.value = 'smartvm'
-    miq_setting_field.save
-
-    # Create some cloud entries
-    aws = Cloud.create(name: 'AWS', extra: '{}')
-    Cloud.create(name: 'Azure', extra: '{}')
-    Cloud.create(name: 'Rackspace', extra: '{}')
-
-    # Load some product types
-    ec2_type = ProductType.where(name: 'AWS VM').first
-    rds_type = ProductType.where(name: 'RDS').first
-    s3_type = ProductType.where(name: 'S3 Bucket').first
-
-    # Create some products
-    ec2_data = { description: 'Product description', service_type_id: 8, service_catalog_id: 1, chef_role: '--CHEF-ROLE--', options: {}, cloud: aws, active: true, product_type: ec2_type, img: 'products/aws_ec2.png' }
-    ec2_questions = [
-      ProductTypeQuestion.where(product_type: ec2_type, manageiq_key: 'instance_size').first,
-      ProductTypeQuestion.where(product_type: ec2_type, manageiq_key: 'disk_size').first
-    ]
-    ec2_products = [
-      ['Small', 'Small EC2 Instance', 1.99, 0.001, 0.05, ['t2.micro', '20']],
-      ['Medium', 'Medium EC2 Instance', 2.99, 0.0025, 0.075, ['m3.medium', '40']],
-      ['Large', 'Large EC2 Instance', 3.99, 0.0055, 0.12, ['m3.large', '80']]
-    ].map do |row|
-      data = {
-        name: row[0],
-        description: row[1],
-        setup_price: row[2],
-        hourly_price: row[3],
-        monthly_price: row[4],
-        answers_attributes: [
-          { product_type_question_id: ec2_questions[0].id, answer: row[5][0] },
-          { product_type_question_id: ec2_questions[1].id, answer: row[5][1] }
-        ]
-      }
-      Product.create(ec2_data.merge data)
-    end
-
-    rds_data = { description: 'Product description', service_type_id: 3, service_catalog_id: 1, chef_role: '--CHEF-ROLE--', options: {}, cloud: aws, active: true, product_type: rds_type, img: 'products/aws_rds.png' }
-    rds_questions = [
-      ProductTypeQuestion.where(product_type: rds_type, manageiq_key: 'instance_size').first,
-      ProductTypeQuestion.where(product_type: rds_type, manageiq_key: 'db_engine').first,
-      ProductTypeQuestion.where(product_type: rds_type, manageiq_key: 'disk_size').first,
-      ProductTypeQuestion.where(product_type: rds_type, manageiq_key: 'storage_type').first
-    ]
-    rds_products = [
-      ['Small MySQL', 'Small MySQL', 0.99, 0.001, 0.05, ['db.m3.medium', 'mysql', '20', 'magnetic']],
-      ['Medium MySQL', 'Medium MySQL', 1.99, 0.004, 0.1, ['db.m3.medium', 'mysql', '40', 'magnetic']],
-      ['Medium PostgreSQL', 'Medium PostgreSQL', 2.99, 0.004, 0.25, ['db.m3.medium', 'posgresql', '40', 'ssd']],
-      ['Large PostgreSQL', 'Large PostgreSQL', 3.99, 0.009, 0.50, ['db.m3.large', 'postgresql', '120', 'ssd']],
-      ['Medium Aurora', 'Medium Aurora', 4.99, 0.015, 0.95, ['db.m3.medium', 'aurora', '40', 'magnetic']],
-      ['Large SQL Server', 'Large SQL Server', 5.99, 0.025, 1.29, ['db.m3.xlarge', 'sqlserver', '120', 'ssd']]
-    ].map do |row|
-      data = {
-        name: row[0],
-        description: row[1],
-        setup_price: row[2],
-        hourly_price: row[3],
-        monthly_price: row[4],
-        answers_attributes: [
-          { product_type_question_id: rds_questions[0].id, answer: row[5][0] },
-          { product_type_question_id: rds_questions[1].id, answer: row[5][1] },
-          { product_type_question_id: rds_questions[2].id, answer: row[5][2] },
-          { product_type_question_id: rds_questions[3].id, answer: row[5][3] }
-        ]
-      }
-      Product.create(rds_data.merge data)
-    end
-
-    s3_data = { description: 'Product description', service_type_id: 5, service_catalog_id: 1, chef_role: '--CHEF-ROLE--', options: {}, cloud: aws, active: true, product_type: s3_type, img: 'products/aws_s3.png' }
-    s3_questions = [
-      ProductTypeQuestion.where(product_type: s3_type, manageiq_key: 'availability').first,
-      ProductTypeQuestion.where(product_type: s3_type, manageiq_key: 'region').first
-    ]
-    s3_products = [
-      ['Standard Storage', 'Normal, US-Standard', 0.99, 0.001, 0.05, ['normal', '']],
-      ['West Coast Storage', 'Normal, Northern California', 0.99, 0.001, 0.05, ['normal', 'us-west-1']],
-      ['West Coast Storage', 'Normal, Oregon', 0.99, 0.001, 0.05, ['normal', 'us-west-2']],
-      ['Reduced Storage', 'Reduced, US-Standard', 0.99, 0.0001, 0.005, ['reduced', '']],
-      ['West Coast Storage', 'Reduced, Northern California', 0.99, 0.0001, 0.005, ['reduced', 'us-west-1']],
-      ['West Coast Storage', 'Reduced, Oregon', 0.99, 0.0001, 0.005, ['reduced', 'us-west-2']]
-    ].map do |row|
-      data = {
-        name: row[0],
-        description: row[1],
-        setup_price: row[2],
-        hourly_price: row[3],
-        monthly_price: row[4],
-        answers_attributes: [
-          { product_type_question_id: s3_questions[0].id, answer: row[5][0] },
-          { product_type_question_id: s3_questions[1].id, answer: row[5][1] }
-        ]
-      }
-      Product.create(s3_data.merge data)
-    end
-
-    # Create some projects
-    starts = DateTime.now
-    ends = starts + 9.months
-    project_data = { description: 'Project description', cc: '--CC--', staff_id: '--STAFF_ID--', budget: 123_654, spent: 0.0, start_date: starts, end_date: ends }
-
-    project = Project.create(project_data.merge name: 'Project 1', approved: false)
-    approved_project = Project.create(project_data.merge name: 'Mobile App API', approved: true)
-    website_project = Project.create(project_data.merge name: 'Blog', approved: true)
-    files_project = Project.create(project_data.merge name: 'Cloud File Share', approved: true)
-
-    # Add some staff
-    StaffProject.create(staff: user, project: project)
-    StaffProject.create(staff: user, project: approved_project)
-
-    # Apply some approvals
-    Approval.create(project: project, staff: user, approved: false)
-    Approval.create(project: approved_project, staff: user, approved: true)
-
-    # Create some orders
-    order_data = { options: {}, staff: admin }
-    order_item_data = { provision_status: :pending, cloud: aws }
-
-    # Approved project
-    Order.create(order_data.merge(
-        order_items_attributes: [
-          order_item_data.merge(product: ec2_products[0], project: approved_project),
-          order_item_data.merge(product: ec2_products[0], project: approved_project),
-          order_item_data.merge(product: rds_products[2], project: approved_project),
-          order_item_data.merge(product: s3_products[0], project: approved_project)
-        ]
-      )
-    )
-
-    # Blog project
-    Order.create(order_data.merge(
-        order_items_attributes: [
-          order_item_data.merge(product: ec2_products[1], project: website_project),
-          order_item_data.merge(product: ec2_products[1], project: website_project),
-          order_item_data.merge(product: ec2_products[1], project: website_project),
-          order_item_data.merge(product: rds_products[1], project: website_project)
-        ]
-      )
-    )
-
-    # Cloud share project
-    Order.create(order_data.merge(
-        order_items_attributes: [
-          order_item_data.merge(product: ec2_products[1], project: files_project),
-          order_item_data.merge(product: ec2_products[1], project: files_project),
-          order_item_data.merge(product: rds_products[3], project: files_project),
-          order_item_data.merge(product: s3_products[0], project: files_project),
-          order_item_data.merge(product: s3_products[1], project: files_project)
-        ]
-      )
-    )
+    Staff.create!([
+      {first_name: "User", last_name: "Staff", email: "user@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, authentication_token: "$2a$10$0sv1Tg1cTv8LeXizBBdMD.8iJBv1HBtOfypJmGl2OzjKIA.JRM5ge"},
+      {first_name: "Unused", last_name: "Staff", email: "unused@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, authentication_token: "$2a$10$7cWESfjrjeOHNlr2Mz3yOeCLZLJhzKYSDwmb1lbGp4x22LJnXYvy6"},
+      {first_name: "ManageIQ", last_name: "Staff", email: "miq@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 17, current_sign_in_at: "2015-02-06 17:04:10", last_sign_in_at: "2015-02-06 16:57:41", current_sign_in_ip: "54.172.90.47", last_sign_in_ip: "54.172.90.47", role: 1, deleted_at: nil, authentication_token: "$2a$10$mxWpQVgSh7OlnDDf38JW9uD8mPeJV.LTBGsUsFmR0FzNfn4864kby"},
+      {first_name: "Admin", last_name: "Staff", email: "admin@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 14, current_sign_in_at: "2015-02-10 01:54:51", last_sign_in_at: "2015-02-10 01:30:24", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "72.183.103.55", role: 1, deleted_at: nil, authentication_token: "$2a$10$hcfEvuKKlJiaY.IXO8VMo.3tSFTZH6TybvBwJWJouYjKcNHMwyn5q"}
+    ])
+    Alert.create!([
+      {project_id: 3, staff_id: 0, status: "CRITICAL", message: "$200 of $2,000 budget remaining. Please increase funding or instance will be retired.", start_date: nil, end_date: nil, order_item_id: 6},
+      {project_id: 2, staff_id: 0, status: "WARNING", message: "Medium PostgreSQL is approaching capacity. Please increase DB size or add addtional resources to avoid service interruptions.", start_date: nil, end_date: nil, order_item_id: 3}
+    ])
+    Approval.create!([
+      {staff_id: 3, project_id: 1, approved: false},
+      {staff_id: 3, project_id: 2, approved: true}
+    ])
+    Cloud.create!([
+      {name: "AWS", description: nil, extra: "{}", deleted_at: nil},
+      {name: "Azure", description: nil, extra: "{}", deleted_at: nil},
+      {name: "Rackspace", description: nil, extra: "{}", deleted_at: nil},
+      {name: "VMware", description: nil, extra: nil, deleted_at: nil},
+      {name: "Google", description: nil, extra: nil, deleted_at: nil},
+      {name: "Other", description: nil, extra: nil, deleted_at: nil}
+    ])
+    Product.create!([
+      {name: "Small", description: "Small EC2 Instance", service_type_id: 8, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_ec2.png", options: {}, deleted_at: nil, product_type_id: 1, setup_price: "1.99", hourly_price: "0.001", monthly_price: "0.05"},
+      {name: "Medium", description: "Medium EC2 Instance", service_type_id: 8, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_ec2.png", options: {}, deleted_at: nil, product_type_id: 1, setup_price: "2.99", hourly_price: "0.0025", monthly_price: "0.075"},
+      {name: "Large", description: "Large EC2 Instance", service_type_id: 8, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_ec2.png", options: {}, deleted_at: nil, product_type_id: 1, setup_price: "3.99", hourly_price: "0.0055", monthly_price: "0.12"},
+      {name: "Medium MySQL", description: "Medium MySQL", service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_rds.png", options: {}, deleted_at: nil, product_type_id: 3, setup_price: "1.99", hourly_price: "0.004", monthly_price: "0.1"},
+      {name: "Medium PostgreSQL", description: "Medium PostgreSQL", service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_rds.png", options: {}, deleted_at: nil, product_type_id: 3, setup_price: "2.99", hourly_price: "0.004", monthly_price: "0.25"},
+      {name: "Large PostgreSQL", description: "Large PostgreSQL", service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_rds.png", options: {}, deleted_at: nil, product_type_id: 3, setup_price: "3.99", hourly_price: "0.009", monthly_price: "0.5"},
+      {name: "Medium Aurora", description: "Medium Aurora", service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_rds.png", options: {}, deleted_at: nil, product_type_id: 3, setup_price: "4.99", hourly_price: "0.015", monthly_price: "0.95"},
+      {name: "Large SQL Server", description: "Large SQL Server", service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_rds.png", options: {}, deleted_at: nil, product_type_id: 3, setup_price: "5.99", hourly_price: "0.025", monthly_price: "1.29"},
+      {name: "West Coast Storage", description: "Normal, Northern California", service_type_id: 5, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_s3.png", options: {}, deleted_at: nil, product_type_id: 4, setup_price: "0.99", hourly_price: "0.001", monthly_price: "0.05"},
+      {name: "Small MySQL", description: "Small MySQL", service_type_id: 3, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_rds.png", options: {}, deleted_at: nil, product_type_id: 3, setup_price: "1.0", hourly_price: "1.0", monthly_price: "1.0"},
+      {name: "LAMP Stack", description: "Linux, Apache, MySQL, PHP", service_type_id: 0, service_catalog_id: 0, cloud_id: 1, chef_role: "0", active: true, img: "products/php.png", options: nil, deleted_at: nil, product_type_id: 5, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "LAMP Stack", description: "Linux, Apache, MySQL, PHP", service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "0", active: true, img: "products/php.png", options: nil, deleted_at: nil, product_type_id: 5, setup_price: "20.0", hourly_price: "20.0", monthly_price: "20.0"},
+      {name: "Rails Stack", description: "Ruby on Rails Stack", service_type_id: 0, service_catalog_id: 0, cloud_id: 1, chef_role: "0", active: true, img: "products/rails.png", options: nil, deleted_at: nil, product_type_id: 5, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "MEAN Stack", description: "MongoDB, ExpressJS, AngularJS, NodeJS.", service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "0", active: true, img: "products/mean.png", options: nil, deleted_at: nil, product_type_id: 5, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "Sr. Java Developer", description: "", service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", active: true, img: "products/woman.png", options: nil, deleted_at: nil, product_type_id: 7, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "Sr. System Administrator", description: "Sr. System Administrator", service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", active: true, img: "products/woman.png", options: nil, deleted_at: nil, product_type_id: 7, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "Project Manager", description: "Project Manager", service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", active: true, img: "products/man.png", options: nil, deleted_at: nil, product_type_id: 7, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "JIRA Project", description: "A project in corporate JIRA instance.", service_type_id: 0, service_catalog_id: 0, cloud_id: 4, chef_role: "0", active: true, img: "products/jira.png", options: nil, deleted_at: nil, product_type_id: 6, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "Confluence Project", description: "Confluence Project", service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", active: true, img: "products/confluence.png", options: nil, deleted_at: nil, product_type_id: 6, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "Bugzilla Instance", description: "Bugzilla Instance", service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", active: true, img: "products/bugzilla.png", options: nil, deleted_at: nil, product_type_id: 6, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "1GB NetApps Storage", description: "NetApps Storage", service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", active: true, img: "products/netapp.png", options: nil, deleted_at: nil, product_type_id: 4, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "S3 Storage", description: "", service_type_id: 5, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_s3.png", options: {}, deleted_at: nil, product_type_id: 4, setup_price: "1.0", hourly_price: "1.0", monthly_price: "1.0"},
+      {name: "100 Node Hadoop Cluster", description: nil, service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", active: true, img: "products/hadoop.png", options: nil, deleted_at: nil, product_type_id: 2, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "Teradata", description: "Teradata", service_type_id: 0, service_catalog_id: 0, cloud_id: 6, chef_role: "0", active: true, img: "products/teradata.png", options: nil, deleted_at: nil, product_type_id: 2, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"},
+      {name: "10 Node Hadoop Cluster", description: nil, service_type_id: 0, service_catalog_id: 0, cloud_id: 1, chef_role: "0", active: true, img: "products/hadoop.png", options: nil, deleted_at: nil, product_type_id: 2, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"}
+    ])
+    ProductAnswer.create!([
+      {product_id: 1, product_type_question_id: 1, answer: "t2.micro"},
+      {product_id: 1, product_type_question_id: 2, answer: "20"},
+      {product_id: 2, product_type_question_id: 1, answer: "m3.medium"},
+      {product_id: 2, product_type_question_id: 2, answer: "40"},
+      {product_id: 3, product_type_question_id: 1, answer: "m3.large"},
+      {product_id: 3, product_type_question_id: 2, answer: "80"},
+      {product_id: 4, product_type_question_id: 6, answer: "db.m3.medium"},
+      {product_id: 4, product_type_question_id: 7, answer: "mysql"},
+      {product_id: 4, product_type_question_id: 8, answer: "20"},
+      {product_id: 5, product_type_question_id: 6, answer: "db.m3.medium"},
+      {product_id: 5, product_type_question_id: 7, answer: "mysql"},
+      {product_id: 5, product_type_question_id: 8, answer: "40"},
+      {product_id: 5, product_type_question_id: 9, answer: "magnetic"},
+      {product_id: 6, product_type_question_id: 6, answer: "db.m3.medium"},
+      {product_id: 6, product_type_question_id: 7, answer: "posgresql"},
+      {product_id: 6, product_type_question_id: 8, answer: "40"},
+      {product_id: 6, product_type_question_id: 9, answer: "ssd"},
+      {product_id: 7, product_type_question_id: 6, answer: "db.m3.large"},
+      {product_id: 7, product_type_question_id: 7, answer: "postgresql"},
+      {product_id: 7, product_type_question_id: 8, answer: "120"},
+      {product_id: 7, product_type_question_id: 9, answer: "ssd"},
+      {product_id: 8, product_type_question_id: 6, answer: "db.m3.medium"},
+      {product_id: 8, product_type_question_id: 7, answer: "aurora"},
+      {product_id: 8, product_type_question_id: 8, answer: "40"},
+      {product_id: 8, product_type_question_id: 9, answer: "magnetic"},
+      {product_id: 9, product_type_question_id: 6, answer: "db.m3.xlarge"},
+      {product_id: 9, product_type_question_id: 7, answer: "sqlserver"},
+      {product_id: 9, product_type_question_id: 8, answer: "120"},
+      {product_id: 9, product_type_question_id: 9, answer: "ssd"},
+      {product_id: 10, product_type_question_id: 10, answer: "normal"},
+      {product_id: 11, product_type_question_id: 10, answer: "normal"},
+      {product_id: 11, product_type_question_id: 11, answer: "us-west-1"},
+      {product_id: 12, product_type_question_id: 10, answer: "normal"},
+      {product_id: 12, product_type_question_id: 11, answer: "us-west-2"},
+      {product_id: 13, product_type_question_id: 10, answer: "reduced"},
+      {product_id: 13, product_type_question_id: 11, answer: ""},
+      {product_id: 14, product_type_question_id: 10, answer: "reduced"},
+      {product_id: 14, product_type_question_id: 11, answer: "us-west-1"},
+      {product_id: 15, product_type_question_id: 10, answer: "reduced"},
+      {product_id: 15, product_type_question_id: 11, answer: "us-west-2"},
+      {product_id: 4, product_type_question_id: 9, answer: "standard"},
+      {product_id: 26, product_type_question_id: 10, answer: "normal"},
+      {product_id: 26, product_type_question_id: 11, answer: "us-west-1"},
+      {product_id: 10, product_type_question_id: 11, answer: "us-west-2"},
+      {product_id: 27, product_type_question_id: 3, answer: "4"},
+      {product_id: 27, product_type_question_id: 4, answer: "40"},
+      {product_id: 27, product_type_question_id: 5, answer: "2"},
+      {product_id: 28, product_type_question_id: 3, answer: "4"},
+      {product_id: 28, product_type_question_id: 4, answer: "40"},
+      {product_id: 28, product_type_question_id: 5, answer: "2"},
+      {product_id: 29, product_type_question_id: 3, answer: "4"},
+      {product_id: 29, product_type_question_id: 4, answer: "40"},
+      {product_id: 29, product_type_question_id: 5, answer: "1"}
+    ])
+    ProductType.create!([
+      {name: "Storage", description: "Storage Solutions"},
+      {name: "Big Data", description: "Big Data Platforms"},
+      {name: "Services", description: "Other services"},
+      {name: "Platforms", description: "Development Platforms"},
+      {name: "Staff", description: "Staff for projects"},
+      {name: "AWS VM", description: "Amazon EC2 VMs"},
+      {name: "RDS", description: "Description of the RDS product type"}
+    ])
+    Project.create!([
+      {name: "Blog", description: "Project description", cc: "--CC--", budget: 2000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", approved: true, img: "/images/128x128-wordpress.png", deleted_at: nil, spent: "1800.0", status: 0},
+      {name: "Cloud File Share", description: "Project description", cc: "--CC--", budget: 123654.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", approved: true, img: "/images/cloud-checkmark-128.png", deleted_at: nil, spent: "0.0", status: 0},
+      {name: "Project 1", description: "Project description", cc: "--CC--", budget: 123654.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", approved: false, img: "/images/documentation.png", deleted_at: nil, spent: "0.0", status: 0},
+      {name: "Mobile App API", description: "Project description", cc: "--CC--", budget: 3000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", approved: true, img: "/images/icon-mobile-orange.png", deleted_at: nil, spent: "2000.0", status: 0}
+    ])
+    StaffProject.create!([
+      {staff_id: 3, project_id: 1},
+      {staff_id: 3, project_id: 2}
+    ])
   end
 end

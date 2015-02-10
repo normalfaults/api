@@ -112,8 +112,7 @@ class SettingsController < ApplicationController
         setting_fields.each do |setting_field|
           if setting_field.label.downcase == key[1].underscore.humanize.downcase
             setting_field.value = value
-            #setting_field.disabled = 'true'
-            setting_field.disabled=('true')
+            setting_field.options = {disabled: 'true'}
           end
         end
       end
