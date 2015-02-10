@@ -74,10 +74,49 @@ class SettingsController < ApplicationController
   end
 
   def load_setting_by_name
-    @setting = Setting.find_by(name: params.require(:id))
+    @setting_params = params
+    @setting = Setting.includes(@setting_params[:includes]).find_by(name: params.require(:id))
+    check_env(@setting)
   end
 
   def load_settings
     @settings = query_with Setting.all, :includes, :pagination
+    check_env(@settings)
+  end
+
+  def check_env(settings)
+    unless ENV.nil?
+      ENV.each do |key, value|
+        if key =~ /^__.*__$/
+          key = key.gsub('__', '')
+          key_keys = key.split('_')
+
+          if settings.respond_to? :each
+            settings.each do |setting|
+              replace_env(setting, key_keys, value)
+            end
+          else
+            replace_env(settings, key_keys, value)
+          end
+        end
+      end
+    end
+  end
+
+  def replace_env(setting, key, value)
+    if setting.name.downcase == key[0].underscore.humanize.downcase
+      setting_fields = setting.setting_fields
+      #Rails.logger.debug setting_fields.to_json
+
+      if setting_fields.respond_to? :each
+        setting_fields.each do |setting_field|
+          if setting_field.label.downcase == key[1].underscore.humanize.downcase
+            setting_field.value = value
+            #setting_field.disabled = 'true'
+            setting_field.disabled=('true')
+          end
+        end
+      end
+    end
   end
 end
