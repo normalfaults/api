@@ -159,8 +159,8 @@ rds.questions.create(
 )
 
 s3 = ProductType.create(
-  name: 'S3 Bucket',
-  description: 'Amazon S3 Buckets'
+  name: 'Storage',
+  description: 'Storage Solutions'
 )
 
 s3.questions.create(
