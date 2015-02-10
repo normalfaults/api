@@ -12,10 +12,10 @@ namespace :sample do
   desc 'Populate sample data for Jenkins'
   task jenkins: :environment do
     Staff.create!([
-      {first_name: "User", last_name: "Staff", email: "user@projectjellyfish.org", phone: nil, encrypted_password: "$2a$10$bynEL3.p88qbPDtUglarDuqhhTliXxkC9azXvZgg6h.NgqfT9pdde", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, authentication_token: "$2a$10$0sv1Tg1cTv8LeXizBBdMD.8iJBv1HBtOfypJmGl2OzjKIA.JRM5ge"},
-      {first_name: "Unused", last_name: "Staff", email: "unused@projectjellyfish.org", phone: nil, encrypted_password: "$2a$10$RztaZ3OtXO7/VLH1MRU8gua9jHAl1df3JhrDT1tAV3SZRnBxyiEEe", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, authentication_token: "$2a$10$7cWESfjrjeOHNlr2Mz3yOeCLZLJhzKYSDwmb1lbGp4x22LJnXYvy6"},
-      {first_name: "ManageIQ", last_name: "Staff", email: "miq@projectjellyfish.org", phone: nil, encrypted_password: "$2a$10$Spz4Gcw2v/uUSiMSXfmeRuvMDbc28Q4PjefDl2qZMt2/b6ymySsdi", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 17, current_sign_in_at: "2015-02-06 17:04:10", last_sign_in_at: "2015-02-06 16:57:41", current_sign_in_ip: "54.172.90.47", last_sign_in_ip: "54.172.90.47", role: 1, deleted_at: nil, authentication_token: "$2a$10$mxWpQVgSh7OlnDDf38JW9uD8mPeJV.LTBGsUsFmR0FzNfn4864kby"},
-      {first_name: "Admin", last_name: "Staff", email: "admin@projectjellyfish.org", phone: nil, encrypted_password: "$2a$10$v2oQ6LgCVev9B5MkbVvIWuFBR2x7g/bqK0.VrS/ViiFCb99RpZY1u", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 14, current_sign_in_at: "2015-02-10 01:54:51", last_sign_in_at: "2015-02-10 01:30:24", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "72.183.103.55", role: 1, deleted_at: nil, authentication_token: "$2a$10$hcfEvuKKlJiaY.IXO8VMo.3tSFTZH6TybvBwJWJouYjKcNHMwyn5q"}
+      {first_name: "User", last_name: "Staff", email: "user@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, authentication_token: "$2a$10$0sv1Tg1cTv8LeXizBBdMD.8iJBv1HBtOfypJmGl2OzjKIA.JRM5ge"},
+      {first_name: "Unused", last_name: "Staff", email: "unused@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, authentication_token: "$2a$10$7cWESfjrjeOHNlr2Mz3yOeCLZLJhzKYSDwmb1lbGp4x22LJnXYvy6"},
+      {first_name: "ManageIQ", last_name: "Staff", email: "miq@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 17, current_sign_in_at: "2015-02-06 17:04:10", last_sign_in_at: "2015-02-06 16:57:41", current_sign_in_ip: "54.172.90.47", last_sign_in_ip: "54.172.90.47", role: 1, deleted_at: nil, authentication_token: "$2a$10$mxWpQVgSh7OlnDDf38JW9uD8mPeJV.LTBGsUsFmR0FzNfn4864kby"},
+      {first_name: "Admin", last_name: "Staff", email: "admin@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 14, current_sign_in_at: "2015-02-10 01:54:51", last_sign_in_at: "2015-02-10 01:30:24", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "72.183.103.55", role: 1, deleted_at: nil, authentication_token: "$2a$10$hcfEvuKKlJiaY.IXO8VMo.3tSFTZH6TybvBwJWJouYjKcNHMwyn5q"}
     ])
     Alert.create!([
       {project_id: 3, staff_id: 0, status: "CRITICAL", message: "$200 of $2,000 budget remaining. Please increase funding or instance will be retired.", start_date: nil, end_date: nil, order_item_id: 6},
@@ -130,37 +130,6 @@ namespace :sample do
       {name: "Project 1", description: "Project description", cc: "--CC--", budget: 123654.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", approved: false, img: "/images/documentation.png", deleted_at: nil, spent: "0.0", status: 0},
       {name: "Mobile App API", description: "Project description", cc: "--CC--", budget: 3000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", approved: true, img: "/images/icon-mobile-orange.png", deleted_at: nil, spent: "2000.0", status: 0}
     ])
-    ProjectAnswer.create!([
-      {project_id: 3, project_question_id: 7, answer: nil},
-      {project_id: 3, project_question_id: 6, answer: nil},
-      {project_id: 3, project_question_id: 5, answer: nil},
-      {project_id: 3, project_question_id: 4, answer: nil},
-      {project_id: 3, project_question_id: 3, answer: nil},
-      {project_id: 3, project_question_id: 2, answer: nil},
-      {project_id: 3, project_question_id: 1, answer: nil},
-      {project_id: 4, project_question_id: 7, answer: nil},
-      {project_id: 4, project_question_id: 6, answer: nil},
-      {project_id: 4, project_question_id: 5, answer: nil},
-      {project_id: 4, project_question_id: 4, answer: nil},
-      {project_id: 4, project_question_id: 3, answer: nil},
-      {project_id: 4, project_question_id: 2, answer: nil},
-      {project_id: 4, project_question_id: 1, answer: nil},
-      {project_id: 1, project_question_id: 1, answer: nil},
-      {project_id: 1, project_question_id: 2, answer: nil},
-      {project_id: 1, project_question_id: 3, answer: nil},
-      {project_id: 1, project_question_id: 4, answer: nil},
-      {project_id: 1, project_question_id: 5, answer: nil},
-      {project_id: 1, project_question_id: 6, answer: nil},
-      {project_id: 1, project_question_id: 7, answer: nil},
-      {project_id: 2, project_question_id: 1, answer: nil},
-      {project_id: 2, project_question_id: 2, answer: nil},
-      {project_id: 2, project_question_id: 3, answer: nil},
-      {project_id: 2, project_question_id: 4, answer: nil},
-      {project_id: 2, project_question_id: 5, answer: nil},
-      {project_id: 2, project_question_id: 6, answer: nil},
-      {project_id: 2, project_question_id: 7, answer: nil}
-    ])
-
     StaffProject.create!([
       {staff_id: 3, project_id: 1},
       {staff_id: 3, project_id: 2}
