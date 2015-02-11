@@ -18,8 +18,6 @@ before_script:
 notifications:
   slack:
     secure: "QaNl/iAYVGEFz2zveWr6rSxH/VHUj/hqWGYJw0isjHQI4XPQIaNSe8wO3F5AXVADMa2/0Wf7ffGZJUpSciF06q/QAdzEV/fznIWX5p65piD/JoDjuCI/qvGmdzExZbWZVFmETF0mXrF77AsEk9ei/8Fv+UerHMSaJpn5LzHzzoE="
-    on_success: change
-    on_failure: always
 
 script:
 - bundle exec rspec
