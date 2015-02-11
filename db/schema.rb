@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205040841) do
+ActiveRecord::Schema.define(version: 20150211174722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -293,15 +293,17 @@ ActiveRecord::Schema.define(version: 20150205040841) do
 
   create_table "setting_fields", force: true do |t|
     t.string   "label"
-    t.integer  "field_type",           default: 0
+    t.integer  "field_type",             default: 0
     t.string   "help_text"
     t.json     "options"
     t.string   "value"
-    t.string   "required",   limit: 1
+    t.string   "required",     limit: 1
     t.integer  "load_order"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "setting_id"
+    t.string   "env_var_name"
+    t.boolean  "disabled",               default: false
   end
 
   add_index "setting_fields", ["setting_id"], name: "index_setting_fields_on_setting_id", using: :btree

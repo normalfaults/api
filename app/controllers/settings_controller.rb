@@ -55,9 +55,6 @@ class SettingsController < ApplicationController
   param :admin_settings_fields, Array, required: false, desc: 'Setting field' do
     param :id, :number, required: true
     param :value, String, required: true
-    param :options, Hash, required: false do
-      param :disabled, String, required: false
-    end
   end
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
@@ -70,16 +67,8 @@ class SettingsController < ApplicationController
   protected
 
   def load_setting
-    @setting_params = params.permit(setting_fields: [:id, :value, options: [:disabled]])
-    if @setting_params[:setting_fields].respond_to? :each
-      @setting_params[:setting_fields_attributes] = []
-
-      @setting_params[:setting_fields].each do |setting_field|
-        if setting_field[:options].nil? || (!setting_field[:options].nil? && setting_field[:options][:disabled] != 'true')
-          @setting_params[:setting_fields_attributes] << setting_field
-        end
-      end
-    end
+    @setting_params = params.permit(setting_fields: [:id, :value])
+    @setting_params[:setting_fields_attributes] = @setting_params[:setting_fields] unless @setting_params[:setting_fields].nil?
     @setting_params.delete(:setting_fields) unless @setting_params[:setting_fields].nil?
     @setting = Setting.find(params.require(:id))
   end
@@ -87,44 +76,9 @@ class SettingsController < ApplicationController
   def load_setting_by_name
     @setting_params = params
     @setting = Setting.includes(@setting_params[:includes]).find_by(name: params.require(:id))
-    check_env(@setting)
   end
 
   def load_settings
     @settings = query_with Setting.all, :includes, :pagination
-    check_env(@settings)
-  end
-
-  def check_env(settings)
-    return if ENV.nil?
-
-    ENV.each do |key, value|
-      next unless key =~ /^__.*__$/
-      key = key.gsub('__', '')
-      key_keys = key.split('_')
-
-      if settings.respond_to? :each
-        settings.each do |setting|
-          replace_env(setting, key_keys, value)
-        end
-      else
-        replace_env(settings, key_keys, value)
-      end
-    end
-  end
-
-  def replace_env(setting, key, value)
-    return if setting.nil? || setting.name.downcase != key[0].underscore.humanize.downcase
-
-    setting_fields = setting.setting_fields
-
-    return unless setting_fields.respond_to? :each
-
-    setting_fields.each do |setting_field|
-      if setting_field.label.downcase == key[1].underscore.humanize.downcase
-        setting_field.value = value
-        setting_field.options = { disabled: 'true' }
-      end
-    end
   end
 end
