@@ -89,8 +89,10 @@ Rails.application.routes.draw do
       get :staff, to: 'projects#staff', as: :staff_for
       match 'staff/:staff_id' => 'projects#add_staff', :via => :post, as: :add_staff_to
       match 'staff/:staff_id' => 'projects#remove_staff', :via => :delete, as: :remove_staff_from
-      match 'approve' => 'projects#approve', :via => :put, as: :approve_project
-      match 'reject' => 'projects#reject', :via => :put, as: :reject_project
+
+      match 'approvals' => 'projects#approvals', :via => :get, as: :project_approvals
+      match 'approve' => 'projects#approve', :via => :post, as: :approve_project
+      match 'reject' => 'projects#reject', :via => :post, as: :reject_project
     end
   end
 

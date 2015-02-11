@@ -138,48 +138,69 @@ RSpec.describe 'Projects API' do
   end
 
   context 'Approvals' do
+    describe 'GET approvals' do
+      before :each do
+        sign_in_as create :staff, :admin
+        @approved_project = create :project
+        @approved_project.approvals << create(:approval)
+
+        @reason = 'Because reasons'
+        @rejected_project = create :project
+        @rejected_project.approvals << create(:approval, :unapproved, :reason => @reason)
+      end
+
+      it 'has a positive approval' do
+        get "projects/#{@approved_project.id}/approvals"
+        expect(json.length).to eq(1)
+        expect(json[0]['approved']).to eq(true)
+      end
+
+      it 'has a rejected approval' do
+        get "projects/#{@rejected_project.id}/approvals"
+        expect(json.length).to eq(1)
+        expect(json[0]['approved']).to eq(false)
+        expect(json[0]['reason']).to eq(@reason)
+      end
+    end
+
     describe 'PUT approve' do
       before :each do
-        @staff = create :staff, :user
         @project = create :project
-        @extra_project = create :project
-        @approval = build :approval
-        @approval.staff = @staff
-        @project.approvals << @approval
-        sign_in_as @staff
       end
 
-      it 'approves an approval' do
-        put "/projects/#{@project.id}/approve"
-        @approval.reload
-        expect(@approval.approved).to eq(true)
+      it 'approves a project' do
+        sign_in_as create :staff, :admin
+        post "/projects/#{@project.id}/approve"
+        @project.reload
+        expect(@project.approved).to eq(true)
+        expect(json['approved']).to eq(true)
       end
 
-      it 'non-approvers cannot approve' do
-        put "/projects/#{@extra_project.id}/approve"
+      it 'returns an error for users' do
+        sign_in_as create :staff
+        post "/projects/#{@project.id}/approve"
         expect(response.status).to eq(403)
       end
     end
 
     describe 'PUT reject' do
       before :each do
-        @staff = create :staff, :user
         @project = create :project
-        @extra_project = create :project
-        @approval = build :approval
-        @approval.staff = @staff
-        @project.approvals << @approval
-        sign_in_as @staff
+        @reason = 'Because reasons'
       end
 
-      it 'rejects an approval' do
-        put "/projects/#{@project.id}/reject"
-        @approval.reload
-        expect(@approval.approved).to eq(false)
+      it 'rejects a project' do
+        sign_in_as create :staff, :admin
+        post "/projects/#{@project.id}/reject", :reason => @reason
+        @project.reload
+        expect(@project.approved).to eq(false)
+        expect(json['approved']).to eq(false)
+        expect(json['reason']).to eq(@reason)
       end
 
-      it 'non-approvers cannot reject' do
-        put "/projects/#{@extra_project.id}/reject"
+      it 'returns an error for users' do
+        sign_in_as create :staff
+        post "/projects/#{@project.id}/reject"
         expect(response.status).to eq(403)
       end
     end

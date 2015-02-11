@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   before_action :load_project_questions, only: [:show]
   before_action :load_projects, only: [:index]
-  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff, :approve, :reject]
+  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff, :approvals, :approve, :reject]
   before_action :load_staff, only: [:add_staff, :remove_staff]
   before_action :load_project_params, only: [:create, :update]
   before_action :load_approval, only: [:approve, :reject]
@@ -138,23 +138,41 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def approvals
+    authorize @project
+    respond_with @project.approvals
+  end
+
   def approve
     authorize @project
-    @approval.approved = true
-    if @approval.save
-      respond_with @approval
-    else
-      respond_with @approval, status: :unprocessable_entity
+    Approval.transaction do
+      begin
+        @approval.approved = true
+        @approval.save!
+        @project.approved = true
+        @project.save!
+      rescue ActiveRecord::RecordInvalid => ex
+        respond_with ex.record
+      else
+        respond_with @approval
+      end
     end
   end
 
   def reject
     authorize @project
-    @approval.approved = false
-    if @approval.save
-      respond_with @approval
-    else
-      respond_with @approval, status: :unprocessable_entity
+    Approval.transaction do
+      begin
+        @approval.approved = false
+        @approval.reason = params[:reason]
+        @approval.save!
+        @project.approved = false
+        @project.save!
+      rescue ActiveRecord::RecordInvalid => ex
+        respond_with ex.record
+      else
+        respond_with @approval
+      end
     end
   end
 
@@ -193,6 +211,6 @@ class ProjectsController < ApplicationController
   end
 
   def load_approval
-    @approval = Approval.where(project_id: params.require(:id), staff_id: current_user.id).first
+    @approval = Approval.find_or_initialize_by(project_id: params.require(:id), staff_id: current_user.id)
   end
 end
