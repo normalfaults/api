@@ -36,12 +36,16 @@ class ProjectPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def approvals?
+    true
+  end
+
   def approve?
-    record.approver_ids.include? user.id
+    user.admin?
   end
 
   def reject?
-    record.approver_ids.include? user.id
+    user.admin?
   end
 
   class Scope < Scope
