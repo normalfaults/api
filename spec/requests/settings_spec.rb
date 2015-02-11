@@ -52,7 +52,7 @@ RSpec.describe 'Setting API' do
       expect(SettingField.first.value).to eq('new')
     end
 
-    it 'returns an error when the cloud does not exist' do
+    it 'returns an error when the setting does not exist' do
       put "/settings/#{@setting.id + 999}"
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
