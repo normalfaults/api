@@ -110,6 +110,7 @@ Rails.application.routes.draw do
       get :create_s3
       get :create_ses
       get :create_vmware_vm
+      get :create_chef_node
 
       get :retire_ec2
       get :retire_rds
