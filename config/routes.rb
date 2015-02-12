@@ -37,27 +37,22 @@ Rails.application.routes.draw do
     end
   end
 
-  # Approvals
-  resources :approvals, except: [:edit, :new], defaults: { format: :json }
-
   # Organizations
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Provision Request Response
-  resources :order_items, defaults: { format: :json }, only: [:update] do
+  resources :order_items, defaults: { format: :json }, only: [:show, :update, :destroy] do
     member do
+      put :start_service
+      put :stop_service
       put :provision_update
     end
   end
 
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
-    # Order Items
-    resources :items, controller: 'order_items', except: [:index, :edit, :new, :create], defaults: { format: :json, includes: [] } do
-      member do
-        put :start_service
-        put :stop_service
-      end
+    member do
+      get :items, defaults: { includes: [] }
     end
   end
 
