@@ -88,4 +88,19 @@ RSpec.describe 'Orders API' do
       expect(json).to eq('error' => 'Not found.')
     end
   end
+
+  context 'Items' do
+
+    describe 'GET /orders/:id/items' do
+      before :each do
+        @order = create :order, :with_items
+        sign_in_as create :staff, :admin
+      end
+
+      it 'returns a list of items' do
+        get "/orders/#{@order.id}/items"
+        expect(json.length).to eq(2)
+      end
+    end
+  end
 end

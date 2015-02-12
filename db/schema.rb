@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211160012) do
+ActiveRecord::Schema.define(version: 20150212005927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,13 +281,13 @@ ActiveRecord::Schema.define(version: 20150211160012) do
     t.string   "staff_id"
     t.date     "start_date"
     t.date     "end_date"
-    t.boolean  "approved"
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.decimal  "spent",                  precision: 12, scale: 2, default: 0.0
     t.integer  "status",                                          default: 0
+    t.integer  "approval",                                        default: 0
   end
 
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
