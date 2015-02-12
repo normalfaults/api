@@ -7,7 +7,7 @@ require 'chef/http'
 require 'json'
 
 def send_order_status(referer, headers, status, information, message = '')
-  order_id = information['id']
+  order_id = information[:id]
   $evm.log('info', "send_order_status: Got order_id: #{order_id}")
   path = "/order_items/#{order_id}/provision_update"
   host = URI.parse(referer).host
