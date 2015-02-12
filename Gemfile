@@ -33,8 +33,8 @@ gem 'rake', group: :test
 # for console, rake
 gem 'highline'
 
-# Figaro Gem
-gem 'figaro'
+# .Env gem Gem
+gem 'dotenv-rails'
 
 # Rubocop for testing
 gem 'rubocop', group: [:development, :test]
