@@ -35,4 +35,8 @@ class ApplicationController < ActionController::Base
   def user_session
     staff_session
   end
+
+  def default_serializer_options
+    { root: false }
+  end
 end

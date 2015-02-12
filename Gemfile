@@ -75,6 +75,7 @@ group :development, :test do
   gem 'license_finder'
   gem 'codeclimate-test-reporter', require: nil
   gem 'seed_dump'
+  gem 'annotate' # Improves your sanity by annotating models
 end
 
 # Documentation
@@ -101,3 +102,6 @@ gem 'delayed_job_active_record'
 
 # Daemons for DelayedJob
 gem 'daemons'
+
+# Get picky about what is put into responses
+gem 'active_model_serializers', '~> 0.8.0'
