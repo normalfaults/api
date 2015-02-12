@@ -8,6 +8,7 @@ require 'json'
 
 def send_order_status(referer, headers, status, information, message = '')
   order_id = information['id']
+  $evm.log('info', "send_order_status: Got order_id: #{order_id}")
   path = "/order_items/#{order_id}/provision_update"
   host = URI.parse(referer).host
   url = "http://#{host}#{path}"
@@ -37,16 +38,18 @@ def send_order_status(referer, headers, status, information, message = '')
 end # End of function
 
 # Retrieve properties from payload from core
-
-product_details = $evm.root['dialog_product_details']
-$evm.log('info', "CreateEC2: Product Details: #{product_details}")
-product_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
-uuid = $evm.root['dialog_uuid']
-order_id = product_hash['id']
+product_details = $evm.root['dialog_order_item']
+order_item_hash = JSON.parse(product_details.gsub("'", '"').gsub('=>', ':'))
+product_hash = order_item_hash['product_details']
+order_id = order_item_hash['id']
+uuid = order_item_hash['uuid']
+$evm.log('info', "chef_automation: Product Details: #{product_details}")
 ip_address = product_hash['ip_address']
-$evm.root('info', "chef_automation: ip address #{ip_address}")
+$evm.log('info', "chef_automation: ip address #{ip_address}")
+exit if product_hash['chef_role'].empty? || product_hash['chef_role'].nil?
 chef_role = product_hash['chef_role']
-$evm.root('info', "chef_automation: chef role #{chef_role}")
+$evm.log('info', 'chef_automation: chef role was not nil.')
+$evm.log('info', "chef_automation: chef role #{chef_role}")
 chef_run_list = product_hash['chef_run_list']
 referer = $evm.root['dialog_referer']
 headers = [$evm.root['dialog_email'], $evm.root['dialog_token']]
@@ -58,7 +61,13 @@ info = {
 
 # This is the standard location for the chef client file
 # on a server
-Chef::Config.from_file('//etc/chef/client.rb')
+begin
+  Chef::Config.from_file('//etc/chef/client.rb')
+rescue StandardError => e
+  send_order_status(referer, headers, 'CRITICAL', info, e.message)
+  $evm.log('error', 'chef_automation: Did not create the node.')
+  exit
+end
 
 hash = {
   'name' => "#{ip_address}",
@@ -82,4 +91,7 @@ begin
   new_node.create
 rescue StandardError => e
   send_order_status(referer, headers, 'CRITICAL', info, e.message)
+  $evm.log('error', 'chef_automation: Did not create the node.')
+  exit
 end
+$evm.log('info', 'chef_automation: Created the node.')
