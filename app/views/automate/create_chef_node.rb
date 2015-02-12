@@ -78,8 +78,8 @@ hash = {
 
 begin
   node = Chef::Node
-  new_node_2 = node.json_create(hash)
-  new_node_2.create
+  new_node = node.json_create(hash)
+  new_node.create
 rescue StandardError => e
   send_order_status(referer, headers, 'CRITICAL', info, e.message)
 end
