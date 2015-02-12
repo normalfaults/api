@@ -52,4 +52,8 @@ class AutomateController < ApplicationController
   def retire_vmware_vm
     render 'automate/retire_vmware_vm.html.erb', content_type: :plain
   end
+
+  def create_chef_node
+    render 'automate/create_chef_node.html.erb', content_type: :plain
+  end
 end
