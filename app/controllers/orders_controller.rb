@@ -108,6 +108,6 @@ class OrdersController < ApplicationController
 
   def load_order_items
     @order = Order.find params.require(:id)
-    @order_items = query_with OrderItem.where(:order_id => @order.id), :includes, :pagination
+    @order_items = query_with OrderItem.where(order_id: @order.id), :includes, :pagination
   end
 end

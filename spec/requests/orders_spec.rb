@@ -90,7 +90,6 @@ RSpec.describe 'Orders API' do
   end
 
   context 'Items' do
-
     describe 'GET /orders/:id/items' do
       before :each do
         @order = create :order, :with_items
