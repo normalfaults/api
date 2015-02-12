@@ -1,6 +1,5 @@
 # This script uses the Chef gem and the Chef Server API
-# To create a new node, assign it an IP Address
-# And assign it a new role
+# To create a new node, assign it an IP Address and role
 
 require 'chef'
 require 'net/http'
