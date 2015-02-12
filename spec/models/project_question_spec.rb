@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: project_questions
+#
+#  id         :integer          not null, primary key
+#  question   :string(255)
+#  help_text  :string(255)
+#  required   :boolean
+#  created_at :datetime
+#  updated_at :datetime
+#  deleted_at :datetime
+#  load_order :integer
+#  options    :json
+#  field_type :integer          default(0)
+#
+# Indexes
+#
+#  index_project_questions_on_deleted_at  (deleted_at)
+#
+
 describe ProjectQuestion do
   context 'associations' do
     it 'has many project answers' do

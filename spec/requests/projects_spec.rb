@@ -54,15 +54,14 @@ RSpec.describe 'Projects API' do
     end
 
     it 'creates a new project record' do
-      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img' }
+      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, img: 'img' }
       post '/projects', project_data
       expect(json['name']).to eq(project_data[:name])
     end
 
     it 'creates a new project record w/ project answers', :show_in_doc do
-      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
+      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
       post '/projects', project_data.merge(includes: %w(project_answers))
-
       expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
     end
   end
@@ -75,14 +74,14 @@ RSpec.describe 'Projects API' do
 
     it 'changes existing project' do
       put "/projects/#{@project.id}", name: 'Updated', budget: 1.99
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(204)
     end
 
     it 'updates a project record w/ project answers', :show_in_doc do
-      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, approved: 'Y', img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
-      put "/projects/#{@project.id}", project_data.merge(includes: %w(project_answers))
-
-      expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
+      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
+      put "/projects/#{@project.id}", project_data
+      @project.reload
+      expect(@project.project_answers.length).to eq(1)
     end
 
     it 'returns an error when the project does not exist' do
@@ -138,48 +137,79 @@ RSpec.describe 'Projects API' do
   end
 
   context 'Approvals' do
-    describe 'PUT approve' do
+    describe 'GET approvals' do
       before :each do
-        @staff = create :staff, :user
+        sign_in_as create :staff, :admin
+        @approved_project = create :project
+        @approved_project.approvals << create(:approval)
+
+        @reason = 'Because reasons'
+        @rejected_project = create :project
+        @rejected_project.approvals << create(:approval, :unapproved, reason: @reason)
+      end
+
+      it 'has a positive approval' do
+        get "projects/#{@approved_project.id}/approvals"
+        expect(json.length).to eq(1)
+        expect(json[0]['approved']).to eq(true)
+      end
+
+      it 'has a rejected approval' do
+        get "projects/#{@rejected_project.id}/approvals"
+        expect(json.length).to eq(1)
+        expect(json[0]['approved']).to eq(false)
+        expect(json[0]['reason']).to eq(@reason)
+      end
+    end
+
+    describe 'POST approve' do
+      before :each do
         @project = create :project
-        @extra_project = create :project
-        @approval = build :approval
-        @approval.staff = @staff
-        @project.approvals << @approval
-        sign_in_as @staff
       end
 
-      it 'approves an approval' do
-        put "/projects/#{@project.id}/approve"
-        @approval.reload
-        expect(@approval.approved).to eq(true)
+      it 'approves a project' do
+        sign_in_as create :staff, :admin
+        post "/projects/#{@project.id}/approve", includes: %w(approvals)
+        @project.reload
+        expect(@project.approval).to eq('approved')
+        expect(json['approval']).to eq('approved')
+        expect(json['approvals'].length).to eq(1)
+        expect(json['approvals'][0]['approved']).to eq(true)
       end
 
-      it 'non-approvers cannot approve' do
-        put "/projects/#{@extra_project.id}/approve"
+      it 'returns an error for users' do
+        sign_in_as create :staff
+        post "/projects/#{@project.id}/approve"
         expect(response.status).to eq(403)
       end
     end
 
-    describe 'PUT reject' do
+    describe 'POST reject' do
       before :each do
-        @staff = create :staff, :user
         @project = create :project
-        @extra_project = create :project
-        @approval = build :approval
-        @approval.staff = @staff
-        @project.approvals << @approval
-        sign_in_as @staff
+        @reason = 'Because reasons'
       end
 
-      it 'rejects an approval' do
-        put "/projects/#{@project.id}/reject"
-        @approval.reload
-        expect(@approval.approved).to eq(false)
+      it 'rejects a project' do
+        sign_in_as create :staff, :admin
+        post "/projects/#{@project.id}/reject", reason: @reason, includes: %w(approvals)
+        @project.reload
+        expect(@project.approval).to eq('rejected')
+        expect(json['approval']).to eq('rejected')
+        expect(json['approvals'].length).to eq(1)
+        expect(json['approvals'][0]['approved']).to eq(false)
+        expect(json['approvals'][0]['reason']).to eq(@reason)
       end
 
-      it 'non-approvers cannot reject' do
-        put "/projects/#{@extra_project.id}/reject"
+      it 'returns an error when no reason is provided' do
+        sign_in_as create :staff, :admin
+        post "/projects/#{@project.id}/reject"
+        expect(response.status).to eq(422)
+      end
+
+      it 'returns an error for users' do
+        sign_in_as create :staff
+        post "/projects/#{@project.id}/reject", reason: @reason
         expect(response.status).to eq(403)
       end
     end

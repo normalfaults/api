@@ -1,9 +1,10 @@
 class OrdersController < ApplicationController
   after_action :verify_authorized
 
-  before_action :load_order, only: [:show, :update, :destroy, :start_service, :stop_service]
+  before_action :load_order, only: [:show, :update, :destroy]
   before_action :load_order_params, only: [:create, :update]
   before_action :load_orders, only: [:index]
+  before_action :load_order_items, only: [:items]
 
   api :GET, '/orders', 'Returns a collection of orders'
   param :page, :number, required: false
@@ -78,6 +79,17 @@ class OrdersController < ApplicationController
     respond_with @order
   end
 
+  api :GET, '/orders/:id/items', 'Gets a list of order items for the order'
+  param :id, :number, required: true
+  param :page, :number, required: false
+  param :per_page, :number, required: false
+  param :includes, Array, required: false, in: %w(product latest_alert)
+
+  def items
+    authorize @order
+    respond_with_params @order_items
+  end
+
   protected
 
   def load_order_params
@@ -92,5 +104,10 @@ class OrdersController < ApplicationController
 
   def load_orders
     @orders = query_with Order.all, :includes, :pagination
+  end
+
+  def load_order_items
+    @order = Order.find params.require(:id)
+    @order_items = query_with OrderItem.where(order_id: @order.id), :includes, :pagination
   end
 end
