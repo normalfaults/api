@@ -44,18 +44,8 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :project_answers
 
   # Columns
-  enum status: {
-      ok: 0,
-      warning: 1,
-      critical: 2,
-      unknown: 3,
-      pending: 4
-    }
-  enum approval: {
-      undecided: 0, # Cannot reuse :pending
-      approved: 1,
-      rejected: 2
-    }
+  enum status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
+  enum approval: { undecided: 0, approved: 1, rejected: 2 }
 
   # Scopes
   scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }

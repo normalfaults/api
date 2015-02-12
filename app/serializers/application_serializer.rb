@@ -3,7 +3,7 @@ class ApplicationSerializer < ActiveModel::Serializer
     return unless @options[:include].present?
 
     @options.delete(:include).each_pair do |association, includes|
-      include! association, :include => includes
+      include! association, include: includes
     end
   end
 end

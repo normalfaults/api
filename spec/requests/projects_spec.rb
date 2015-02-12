@@ -145,7 +145,7 @@ RSpec.describe 'Projects API' do
 
         @reason = 'Because reasons'
         @rejected_project = create :project
-        @rejected_project.approvals << create(:approval, :unapproved, :reason => @reason)
+        @rejected_project.approvals << create(:approval, :unapproved, reason: @reason)
       end
 
       it 'has a positive approval' do
