@@ -104,10 +104,6 @@ class Project < ActiveRecord::Base
     'MB'
   end
 
-  def icon
-    '/images/assets/projects/1.png'
-  end
-
   def cpu
     8
   end
@@ -119,13 +115,4 @@ class Project < ActiveRecord::Base
   def ram
     '2 GB'
   end
-
-  # Note: these ones are real bad because the names for these relations are different
-  # in the ux. I am adding placeholders until I have time to change the ux.
-
-  def users
-    staff.as_json
-  end
-
-  # END OF STUBS
 end

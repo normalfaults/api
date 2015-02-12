@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   before_action :load_rejection_params, only: [:reject]
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :includes, Array, required: false, in: %w(approvals project_answers project_detail services alerts latest_alerts)
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services staff alerts latest_alerts)
   param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history monthly_spend)
   param :page, :number, required: false
   param :per_page, :number, required: false
@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :includes, Array, required: false, in: %w(approvals project_answers project_detail services alerts latest_alerts)
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services staff alerts latest_alerts)
   param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history monthly_spend)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
   param :end_date, String, required: false
   param :approved, String, required: false
   param :img, String, required: false
-  param :includes, Array, required: false, in: %w(approvals project_answers project_detail services alerts latest_alerts)
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
@@ -140,7 +140,7 @@ class ProjectsController < ApplicationController
   end
 
   api :POST, '/projects/:id/approve', 'Set or change the approval for current_user for a project'
-  param :includes, Array, required: false, in: %w(approvals project_answers project_detail services alerts latest_alerts)
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
   param :id, :number, required: true
 
   def approve
@@ -160,7 +160,7 @@ class ProjectsController < ApplicationController
   end
 
   api :POST, '/projects/:id/reject', 'Set or change the approval for current_user for a project'
-  param :includes, Array, required: false, in: %w(approvals project_answers project_detail services alerts latest_alerts)
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
   param :id, :number, required: true
   param :reason, String, required: true
   error code: 422, desc: ParameterValidation::Messages.missing
