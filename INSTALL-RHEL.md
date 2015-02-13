@@ -1,6 +1,6 @@
-## How to install on RedHat Linux
+## How to install on Red Hat Enterprise Linux
 
-This guide will walk you through how to install and run Jellyfish-Core on RedHat Enterprise Linux (or similar,
+This guide will walk you through how to install and run Jellyfish-Core on Red Hat Enterprise Linux (or similar,
 like CentOS).
 
 ####Create jellyfish user
