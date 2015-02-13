@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  description :text
+#  cc          :string(10)
+#  budget      :float
+#  staff_id    :string(255)
+#  start_date  :date
+#  end_date    :date
+#  img         :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  deleted_at  :datetime
+#  spent       :decimal(12, 2)   default(0.0)
+#  status      :integer          default(0)
+#  approval    :integer          default(0)
+#
+# Indexes
+#
+#  index_projects_on_deleted_at  (deleted_at)
+#
+
 class Project < ActiveRecord::Base
   # Includes
   acts_as_paranoid
@@ -20,6 +45,7 @@ class Project < ActiveRecord::Base
 
   # Columns
   enum status: { ok: 0, warning: 1, critical: 2, unknown: 3, pending: 4 }
+  enum approval: { undecided: 0, approved: 1, rejected: 2 }
 
   # Scopes
   scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
@@ -78,10 +104,6 @@ class Project < ActiveRecord::Base
     'MB'
   end
 
-  def icon
-    '/images/assets/projects/1.png'
-  end
-
   def cpu
     8
   end
@@ -93,13 +115,4 @@ class Project < ActiveRecord::Base
   def ram
     '2 GB'
   end
-
-  # Note: these ones are real bad because the names for these relations are different
-  # in the ux. I am adding placeholders until I have time to change the ux.
-
-  def users
-    staff.as_json
-  end
-
-  # END OF STUBS
 end

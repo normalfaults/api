@@ -23,11 +23,7 @@ class OrderPolicy < ApplicationPolicy
     admin_or_related
   end
 
-  def start_service?
-    admin_or_related
-  end
-
-  def stop_service?
+  def items?
     admin_or_related
   end
 
