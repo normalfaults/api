@@ -74,8 +74,7 @@ class SettingsController < ApplicationController
   end
 
   def load_setting_by_name
-    @setting_params = params
-    @setting = Setting.includes(@setting_params[:includes]).find_by(name: params.require(:id))
+    @setting = Setting.find_by(name: params.require(:id))
   end
 
   def load_settings
