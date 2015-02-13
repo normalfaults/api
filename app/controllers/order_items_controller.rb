@@ -4,17 +4,17 @@ class OrderItemsController < ApplicationController
   before_action :load_order_item, only: [:show, :destroy, :update, :start_service, :stop_service]
   before_action :load_order_item_for_provision_update, only: [:provision_update]
 
-  api :GET, '/orders/:order_id/items/:id', 'Shows order item with :id'
+  api :GET, '/order_items/:id', 'Shows order item with :id'
   param :includes, Array, required: false, in: %w(product)
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
     authorize @order_item
-    respond_with @order_item
+    respond_with_params @order_item
   end
 
-  api :DELETE, '/orders/:order_id/items/:id', 'Deletes order item with :id'
+  api :DELETE, '/order_items/:id', 'Deletes order item with :id'
   param :id, :number, required: true
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -24,16 +24,14 @@ class OrderItemsController < ApplicationController
     respond_with @order_item
   end
 
-  api :PUT, '/orders/:order_id/items/:id', 'Updates order item with :id'
+  api :PUT, '/order_items/:id', 'Updates order item with :id'
   param :id, :number, required: true
-  param :order_id, :number, required: true
   param :port, :number, required: false
   param :host, String, required: false
   param :provision_status, %w(ok warning critical unknown pending)
   param :hourly_price, :number, required: false
   param :monthly_price, :number, required: false
   param :setup_price, :number, required: false
-
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -43,7 +41,7 @@ class OrderItemsController < ApplicationController
     respond_with @order_item
   end
 
-  api :PUT, '/orders/:order_id/items/:id/start_service', 'Starts service for order item'
+  api :PUT, '/order_items/:id/start_service', 'Starts service for order item'
   param :id, :number, required: true
 
   def start_service
@@ -52,7 +50,7 @@ class OrderItemsController < ApplicationController
     render nothing: true, status: :ok
   end
 
-  api :PUT, '/orders/:order_id/items/:id/stop_service', 'Stops service for order item'
+  api :PUT, '/order_items/:id/stop_service', 'Stops service for order item'
   param :id, :number, required: true
 
   def stop_service
@@ -87,16 +85,11 @@ class OrderItemsController < ApplicationController
   private
 
   def order_item_params
-    params.permit(:uuid, :order_id, :port, :host, :provision_status, :ip_address, :hostname, :hourly_price, :monthly_price, :setup_price)
-  end
-
-  def orders_from_params
-    @order = Order.find params.require(:order_id)
-    OrderItem.find params.require(:id)
+    params.permit(:uuid, :port, :host, :provision_status, :ip_address, :hostname, :hourly_price, :monthly_price, :setup_price)
   end
 
   def load_order_item
-    @order_item = orders_from_params
+    @order_item = OrderItem.find params.require(:id)
   end
 
   def order_item_params_for_provision_update

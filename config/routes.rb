@@ -37,27 +37,22 @@ Rails.application.routes.draw do
     end
   end
 
-  # Approvals
-  resources :approvals, except: [:edit, :new], defaults: { format: :json }
-
   # Organizations
   resources :organizations, except: [:edit, :new], defaults: { format: :json }
 
   # Provision Request Response
-  resources :order_items, defaults: { format: :json }, only: [:update] do
+  resources :order_items, defaults: { format: :json }, only: [:show, :update, :destroy] do
     member do
+      put :start_service
+      put :stop_service
       put :provision_update
     end
   end
 
   # Orders
   resources :orders, except: [:edit, :new], defaults: { format: :json, includes: %w(order_items) } do
-    # Order Items
-    resources :items, controller: 'order_items', except: [:index, :edit, :new, :create], defaults: { format: :json, includes: [] } do
-      member do
-        put :start_service
-        put :stop_service
-      end
+    member do
+      get :items, defaults: { includes: [] }
     end
   end
 
@@ -82,15 +77,17 @@ Rails.application.routes.draw do
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
 
   # Project Routes
-  resources :projects, defaults: { format: :json, includes: %w(project_answers services), methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status monthly_spend users order_history) }, only: [:show]
-  resources :projects, defaults: { format: :json, methods: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status monthly_spend) }, only: [:index]
+  resources :projects, defaults: { format: :json, methods: %w(domain url state state_ok problem_count account_number resources resources_unit cpu hdd ram status monthly_spend order_history) }, only: [:show]
+  resources :projects, defaults: { format: :json, methods: %w(domain url state state_ok problem_count account_number resources resources_unit cpu hdd ram status monthly_spend) }, only: [:index]
   resources :projects, defaults: { format: :json }, except: [:index, :show, :edit, :new] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
       match 'staff/:staff_id' => 'projects#add_staff', :via => :post, as: :add_staff_to
       match 'staff/:staff_id' => 'projects#remove_staff', :via => :delete, as: :remove_staff_from
-      match 'approve' => 'projects#approve', :via => :put, as: :approve_project
-      match 'reject' => 'projects#reject', :via => :put, as: :reject_project
+
+      match 'approvals' => 'projects#approvals', :via => :get, as: :project_approvals
+      match 'approve' => 'projects#approve', :via => :post, as: :approve_project
+      match 'reject' => 'projects#reject', :via => :post, as: :reject_project
     end
   end
 
@@ -113,6 +110,7 @@ Rails.application.routes.draw do
       get :create_s3
       get :create_ses
       get :create_vmware_vm
+      get :create_chef_node
 
       get :retire_ec2
       get :retire_rds

@@ -6,6 +6,7 @@ FactoryGirl.define do
 
     trait :unapproved do
       approved false
+      reason 'Unapproved'
     end
   end
 end

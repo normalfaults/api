@@ -3,13 +3,14 @@ class ProjectsController < ApplicationController
 
   before_action :load_project_questions, only: [:show]
   before_action :load_projects, only: [:index]
-  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff, :approve, :reject]
+  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff, :approvals, :approve, :reject]
   before_action :load_staff, only: [:add_staff, :remove_staff]
   before_action :load_project_params, only: [:create, :update]
   before_action :load_approval, only: [:approve, :reject]
+  before_action :load_rejection_params, only: [:reject]
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :includes, Array, required: false, in: %w(project_answers project_detail services alerts latest_alerts)
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services staff alerts latest_alerts)
   param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history monthly_spend)
   param :page, :number, required: false
   param :per_page, :number, required: false
@@ -22,7 +23,7 @@ class ProjectsController < ApplicationController
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :includes, Array, required: false, in: %w(project_answers project_detail services)
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services staff alerts latest_alerts)
   param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history monthly_spend)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -45,22 +46,15 @@ class ProjectsController < ApplicationController
   param :end_date, String, required: false
   param :approved, String, required: false
   param :img, String, required: false
-  param :includes, Array, required: false, in: %w(staff project_answers)
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
     authorize Project
-
     @project = Project.create @project_params
-
     # Relate user if not an admin
     @project.staff << current_user unless current_user.admin?
-
-    if @project
-      respond_with_params @project
-    else
-      respond_with @project, status: :unprocessable_entity
-    end
+    respond_with_params @project
   end
 
   api :PUT, '/projects/:id', 'Updates project with :id'
@@ -76,7 +70,6 @@ class ProjectsController < ApplicationController
   param :end_data, Date, required: false
   param :approved, String, required: false
   param :img, String, required: false
-  param :include, Array, required: false, in: %w(staff project_answers)
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -138,23 +131,54 @@ class ProjectsController < ApplicationController
     end
   end
 
+  api :GET, '/projects/:id/approvals', 'Returns a list of all approvals for a project'
+  param :id, :number, required: true
+
+  def approvals
+    authorize @project
+    respond_with @project.approvals
+  end
+
+  api :POST, '/projects/:id/approve', 'Set or change the approval for current_user for a project'
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
+  param :id, :number, required: true
+
   def approve
     authorize @project
-    @approval.approved = true
-    if @approval.save
-      respond_with @approval
-    else
-      respond_with @approval, status: :unprocessable_entity
+    Approval.transaction do
+      begin
+        @approval.approved = true
+        @approval.save!
+        @project.approval = :approved
+        @project.save!
+      rescue ActiveRecord::RecordInvalid => ex
+        respond_with ex.record
+      else
+        respond_with_params @project
+      end
     end
   end
 
+  api :POST, '/projects/:id/reject', 'Set or change the approval for current_user for a project'
+  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
+  param :id, :number, required: true
+  param :reason, String, required: true
+  error code: 422, desc: ParameterValidation::Messages.missing
+
   def reject
     authorize @project
-    @approval.approved = false
-    if @approval.save
-      respond_with @approval
-    else
-      respond_with @approval, status: :unprocessable_entity
+    Approval.transaction do
+      begin
+        @approval.approved = false
+        @approval.reason = params[:reason]
+        @approval.save!
+        @project.approval = :rejected
+        @project.save!
+      rescue ActiveRecord::RecordInvalid => ex
+        respond_with ex.record
+      else
+        respond_with_params @project
+      end
     end
   end
 
@@ -173,7 +197,6 @@ class ProjectsController < ApplicationController
   end
 
   def load_projects
-    # TODO: Use a QueryObject to encapsulate search filters, ordering, pagination
     @projects = query_with policy_scope(Project).main_inclusions, :includes, :pagination
   end
 
@@ -193,6 +216,10 @@ class ProjectsController < ApplicationController
   end
 
   def load_approval
-    @approval = Approval.where(project_id: params.require(:id), staff_id: current_user.id).first
+    @approval = Approval.find_or_initialize_by(project_id: params.require(:id), staff_id: current_user.id)
+  end
+
+  def load_rejection_params
+    params.require(:reason)
   end
 end
