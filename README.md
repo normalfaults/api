@@ -9,7 +9,7 @@ jellyfish-core
 
 Project Jellyfish is a broker system.  It allows admins to create a product catalog of any type of service (IaaS,
 TaaS, PaaS, or even Staff) and allows them to be assigned a cost, and then users can create projects and add those
-services to a project.  Jellyfish current supports IaaS via ManageIQ and Chef.
+services to a project.  Jellyfish current supports IaaS via [ManageIQ](http://manageiq.org) and [Chef](https://www.chef.io).
 
 Project Jellyfish has 3 main components: Jellyfish-API, Jellyfish-UX, and ManageIQ.  Jellyfish-API is the API layer
 of Jellyfish.  It provides a REST based API for Jellyfish-UX and for the Jellyfish Mobile application.
