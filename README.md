@@ -28,7 +28,8 @@ Jellyfish-API is a Ruby on Rails app, and you can install it as such.  Please se
 for specifics for how to install.
 
 INSTALL-OSX.md - Mac OS Installation (generally used for development)
-INSTALL-REHL.md - RedHat Linux installation
+
+INSTALL-RHEL.md - Red Hat Enterprise Linux installation
 
 MANAGEIQ.md - How to setup ManageIQ to work with Jellyfish-API
 
