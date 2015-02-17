@@ -5,7 +5,26 @@ class ProvisionWorker
 
   def perform
     order_item = OrderItem.find @order_item_id
+    manage_iq = Setting.where(name: 'Manage IQ').first
+    miq_enabled = SettingField.where(setting_id: manage_iq.id, label: 'Enabled').first.value
+    if miq_enabled == 'true'
+      miq_provision(order_item)
+    else
+      cloud = Cloud.where(id: order_item.cloud_id).first.name
+      case cloud
+      when 'AWS'
+        ProvisionFogAws.new(order_item)
+      when 'Azure'
+      end
+    end
+  end
+
+  private
+
+  def miq_provision(order_item)
+    # order_item = OrderItem.find @order_item_id
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
+    Delayed::Worker.logger.debug "MIQ settings: #{@miq_settings}"
     # TODO: We've hardcoded the token for now and the MIQ user
     miq_user = Staff.where(email: 'miq@jellyfish.com').first
 
@@ -24,7 +43,7 @@ class ProvisionWorker
           }
         }
       }
-
+    Delayed::Worker.logger.debug "Message: #{@message}"
     order_item.provision_status = :unknown
     order_item.payload_to_miq = @message.to_json
     order_item.save
@@ -41,8 +60,6 @@ class ProvisionWorker
 
     handle_response(order_item)
   end
-
-  private
 
   def handle_response(order_item)
     response = @resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post @message.to_json, content_type: 'application/json'
