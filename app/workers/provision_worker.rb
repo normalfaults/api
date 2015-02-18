@@ -26,7 +26,7 @@ class ProvisionWorker
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
     Delayed::Worker.logger.debug "MIQ settings: #{@miq_settings}"
     # TODO: We've hardcoded the token for now and the MIQ user
-    miq_user = Staff.where(email: 'miq@jellyfish.com').first
+    miq_user = Staff.where(first_name: 'ManageIQ').first
 
     @message =
       {

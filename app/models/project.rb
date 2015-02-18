@@ -54,6 +54,7 @@ class Project < ActiveRecord::Base
     history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
       order_json = order.as_json
       order_json[:item_count] = order.item_count_for_project_id(id)
+      order_json[:total] = order.total_per_order(order.id)
       order_json
     end
     history

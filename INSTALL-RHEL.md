@@ -96,18 +96,18 @@ bundle install
 ````
 
 
-####Add this data to ./config/application.yml
+####Add this data to ./.env
 
 You will need to create this file yourself (it is already in the .gitignore),
-the Figaro gem uses this to to "create" ENVIRONMENT variables.  Alternatively,
+the dotEnv gem uses this to to "create" ENVIRONMENT variables.  Alternatively,
 you can simply create ENVIRONMENT vars yourself.
 
 Note: You will need to install PostgreSQL per their directions
 
 ````
-DATABASE_URL:     "postgres://jellyfish_user:jellyfish_pass@localhost:5432/jellyfish"
-CORS_ALLOW_ORIGIN: "localhost:5000"
-DEFAULT_URL: "http://jellyfish-core-url.server.com"
+DATABASE_URL=postgres://jellyfish_user:jellyfish_pass@localhost:5432/jellyfish
+CORS_ALLOW_ORIGIN=localhost:5000
+DEFAULT_URL=http://jellyfish-core-url.server.com
 ````
 
 
