@@ -19,6 +19,23 @@ class AddHidsToSettings < ActiveRecord::Migration
     Setting.where(name: 'Footer Links').update_all(hid: 'footer')
     Setting.where(name: 'Header Links').update_all(hid: 'header')
 
+    SettingField.where(label: ['Enable', 'Enabled', 'Enable External Server', 'Enable LDAP']).update_all(label: 'Enabled', hid: 'enabled')
+    SettingField.where(label: ['URL', 'API URL', 'vCenter URL']).update_all(hid: 'url')
+    SettingField.where(label: 'Username').update_all(hid: 'username')
+    SettingField.where(label: ['Password', 'Bind Password']).update_all(hid: 'password')
+    SettingField.where(label: 'Access Key').update_all(hid: 'access_key')
+    SettingField.where(label: 'Secret Key').update_all(hid: 'secret_key')
+    SettingField.where(label: 'API Key').update_all(hid: 'api_key')
+    SettingField.where(label: 'Server').update_all(hid: 'server')
+    SettingField.where(label: 'Send As').update_all(hid: 'send_as')
+    SettingField.where(label: 'Use SSL').update_all(hid: 'ssl')
+    SettingField.where(label: 'Port').update_all(hid: 'port')
+    SettingField.where(label: 'Bind DN').update_all(hid: 'bind_dn')
+    SettingField.where(label: 'Base DN').update_all(hid: 'base_dn')
+    (1..4).each do |n|
+      SettingField.where(label: "Link #{n} Label").update_all(hid: "label_#{n}")
+      SettingField.where(label: "Link #{n} URL").update_all(hid: "url_#{n}")
+    end
   end
 
   def down

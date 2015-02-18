@@ -4,6 +4,7 @@
 #
 #  id   :integer          not null, primary key
 #  name :string(255)
+#  hid  :string(255)
 #
 
 describe Setting do

@@ -212,7 +212,7 @@ end
 
 email_setting = Setting.find_or_create_by(name: 'Email', hid: 'email')
 
-email_setting.setting_fields.find_or_create_by(label: 'Enable External Server', hid: 'enabled') do |field|
+email_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -296,7 +296,7 @@ ldap_setting.setting_fields.find_or_create_by(label: 'Bind DN', hid: 'bind_dn') 
   field.env_var_name = 'LDAP_BIND_DN'
 end
 
-ldap_setting.setting_fields.find_or_create_by(label: 'Bind Password', hid: 'bind_password') do |field|
+ldap_setting.setting_fields.find_or_create_by(label: 'Bind Password', hid: 'password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -351,7 +351,6 @@ saml_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') 
   f.load_order = 0
   f.env_var_name = 'SAML_ENABLED'
 end
-
 
 # VMWare Settings
 
