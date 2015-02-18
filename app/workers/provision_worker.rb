@@ -7,7 +7,7 @@ class ProvisionWorker
     order_item = OrderItem.find @order_item_id
     @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
     # TODO: We've hardcoded the token for now and the MIQ user
-    miq_user = Staff.where(email: 'miq@jellyfish.com').first
+    miq_user = Staff.where(first_name: 'ManageIQ').first
 
     @message =
       {
