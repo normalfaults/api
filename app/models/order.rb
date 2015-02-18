@@ -35,4 +35,12 @@ class Order < ActiveRecord::Base
   def item_count_for_project_id(pid)
     order_items.where(project_id: pid).count
   end
+
+  def total_per_order(oid)
+    total = 0
+    order_items.where(order_id: oid).each do |order_item|
+      total = total + order_item.setup_price + order_item.monthly_price + (order_item.hourly_price * 750)
+    end
+    total
+  end
 end
