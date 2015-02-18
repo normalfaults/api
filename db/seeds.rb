@@ -345,11 +345,11 @@ saml_setting.setting_fields.find_or_create_by(label: 'Cert Fingerprint', hid: 'f
   f.env_var_name = 'SAML_FINGERPRINT'
 end
 
-saml_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |f|
-  f.value = 'false'
-  f.field_type = :check_box
-  f.load_order = 0
-  f.env_var_name = 'SAML_ENABLED'
+saml_setting.setting_fields.find_or_create_by(label: 'Login URL', hid: 'url') do |f|
+  f.value = ''
+  f.field_type = :text
+  f.load_order = 4
+  f.env_var_name = 'SAML_LOGIN_URL'
 end
 
 # VMWare Settings
