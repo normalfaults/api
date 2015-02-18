@@ -3,9 +3,9 @@ namespace :secret do
   task scan: :environment do
     matches = SecretScanner.scan_dirs('.')
     unless matches.empty?
-      puts "***                                   ***"
-      puts "*** Possible credentials in code      ***"
-      puts "***                                   ***"
+      puts '***                                   ***'
+      puts '*** Possible credentials in code      ***'
+      puts '***                                   ***'
       puts matches
       exit(1)
     end
