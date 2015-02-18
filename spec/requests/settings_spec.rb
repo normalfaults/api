@@ -28,13 +28,13 @@ RSpec.describe 'Setting API' do
       sign_in_as create :staff, :admin
     end
 
-    it 'returns an settings', :show_in_doc do
-      get "/settings/#{@setting.name}"
+    it 'returns an settings; lookup done by hid', :show_in_doc do
+      get "/settings/#{@setting.hid}"
       expect(response.body).to eq(@setting.to_json(include: %w(setting_fields)))
     end
 
     it 'returns an error when the setting does not exist' do
-      get '/settings/BadName'
+      get '/settings/bad_hid'
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end

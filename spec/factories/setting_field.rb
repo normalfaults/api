@@ -6,6 +6,10 @@ FactoryGirl.define do
     help_text 'AWS Access Key'
     options []
 
+    sequence :hid do |n|
+      "hid_#{n}"
+    end
+
     trait :select_box do
       field_type :select_box
       options %w(a b c)

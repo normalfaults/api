@@ -1,7 +1,7 @@
 class SettingsController < ApplicationController
   before_action :load_settings, only: [:index]
   before_action :load_setting, only: [:update, :destroy, :edit]
-  before_action :load_setting_by_name, only: [:show]
+  before_action :load_setting_by_hid, only: [:show]
 
   api :GET, '/settings', 'Returns a collection of admin settings'
   param :includes, Array, required: false, in: %w(setting_fields)
@@ -12,24 +12,7 @@ class SettingsController < ApplicationController
     respond_with_params @settings
   end
 
-  api :GET, '/settings/new', 'Get new setting JSON'
-
-  def new
-    @setting = Setting.new
-    authorize @setting
-    render json: @setting
-  end
-
-  api :GET, '/settings/:id/edit', 'Get edit JSON for setting with :id'
-  param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-
-  def edit
-    authorize @setting
-    respond_with @setting
-  end
-
-  api :GET, '/settings/:name', 'Returns the settings with the matching name'
+  api :GET, '/settings/:hid', 'Returns the settings with the matching hid'
   param :includes, Array, required: false, in: %w(setting_fields)
 
   def show
@@ -73,8 +56,8 @@ class SettingsController < ApplicationController
     @setting = Setting.find(params.require(:id))
   end
 
-  def load_setting_by_name
-    @setting = Setting.find_by(name: params.require(:id))
+  def load_setting_by_hid
+    @setting = Setting.find_by(hid: params.require(:id))
   end
 
   def load_settings

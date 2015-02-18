@@ -33,6 +33,10 @@ class SettingField < ActiveRecord::Base
   before_save :check_override_setting?
   after_find :override_setting
 
+  def to_param
+    hid
+  end
+
   private
 
   def check_override_setting?

@@ -3,10 +3,26 @@ class AddHidsToSettings < ActiveRecord::Migration
     add_column :settings, :hid, :string, unique: true
     add_column :setting_fields, :hid, :string
 
+    add_index :settings, [:hid], unique: true
     add_index :setting_fields, [:setting_id, :hid], unique: true
 
     # seeds.rb is being rerun in some environments. Update the settings
-    # data so duplication does not happen.
+    # data so duplication and unique constraint errors do not happen.
+    up_settings
+    up_setting_fields
+  end
+
+  def down
+    remove_column :settings, :hid, :string, unique: true
+    remove_column :setting_fields, :hid, :string
+
+    remove_index :setting_fields, [:setting_id, :hid]
+    remove_index :settings, [:hid]
+  end
+
+  private
+
+  def up_settings
     Setting.where(name: 'AWS').update_all(hid: 'aws')
     Setting.where(name: 'Manage IQ').update_all(hid: 'manageiq')
     Setting.where(name: 'Chef').update_all(hid: 'chef')
@@ -18,7 +34,9 @@ class AddHidsToSettings < ActiveRecord::Migration
     Setting.where(name: 'VMware').update_all(hid: 'vmware')
     Setting.where(name: 'Footer Links').update_all(hid: 'footer')
     Setting.where(name: 'Header Links').update_all(hid: 'header')
+  end
 
+  def up_setting_fields
     SettingField.where(label: ['Enable', 'Enabled', 'Enable External Server', 'Enable LDAP']).update_all(label: 'Enabled', hid: 'enabled')
     SettingField.where(label: ['URL', 'API URL', 'vCenter URL']).update_all(hid: 'url')
     SettingField.where(label: 'Username').update_all(hid: 'username')
@@ -36,13 +54,5 @@ class AddHidsToSettings < ActiveRecord::Migration
       SettingField.where(label: "Link #{n} Label").update_all(hid: "label_#{n}")
       SettingField.where(label: "Link #{n} URL").update_all(hid: "url_#{n}")
     end
-  end
-
-  def down
-    remove_column :settings, :hid, :string, unique: true
-    remove_column :setting_fields, :hid, :string
-
-    remove_index :setting_fields, [:setting_id, :hid]
-
   end
 end
