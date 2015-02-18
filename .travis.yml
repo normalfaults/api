@@ -32,4 +32,4 @@ deploy:
     - "rake db:schema:load"
     - "rake"
     - "rake db:seed"
-    - "rake sample:jenkins"
+    - "rake sample:demo"
