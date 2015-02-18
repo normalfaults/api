@@ -62,6 +62,8 @@ gem 'responders'
 
 # Authentication
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-saml'
 
 # Authorization
 gem 'pundit'

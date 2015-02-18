@@ -27,7 +27,7 @@ class SettingField < ActiveRecord::Base
   enum field_type: [:check_box, :select_option, :text, :date, :password]
 
   before_save :check_override_setting?
-  after_find :override_setting
+#  after_find :override_setting
 
   private
 

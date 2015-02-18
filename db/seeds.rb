@@ -3,9 +3,9 @@
 # require_relative 'seeds/staff.rb'
 
 # AWS Settings
-aws_setting = Setting.find_or_create_by(name: 'AWS')
+aws_setting = Setting.find_or_create_by(name: 'AWS', hid: 'aws')
 
-aws_setting.setting_fields.find_or_create_by(label: 'Enabled') do |field|
+aws_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -13,7 +13,7 @@ aws_setting.setting_fields.find_or_create_by(label: 'Enabled') do |field|
   field.env_var_name = 'AWS_ENABLED'
 end
 
-aws_setting.setting_fields.find_or_create_by(label: 'Access Key') do |field|
+aws_setting.setting_fields.find_or_create_by(label: 'Access Key', hid: 'access_key') do |field|
   field.value =  ''
   field.field_type = :text
   field.load_order = 1
@@ -21,7 +21,7 @@ aws_setting.setting_fields.find_or_create_by(label: 'Access Key') do |field|
   field.env_var_name = 'AWS_ACCESS_KEY'
 end
 
-aws_setting.setting_fields.find_or_create_by(label: 'Secret Key') do |field|
+aws_setting.setting_fields.find_or_create_by(label: 'Secret Key', hid: 'secret_key') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -30,9 +30,9 @@ aws_setting.setting_fields.find_or_create_by(label: 'Secret Key') do |field|
 end
 
 # Manage IQ Settings
-miq_setting = Setting.find_or_create_by(name: 'Manage IQ')
+miq_setting = Setting.find_or_create_by(name: 'Manage IQ', hid: 'manageiq')
 
-miq_setting.setting_fields.find_or_create_by(label: 'URL') do |field|
+miq_setting.setting_fields.find_or_create_by(label: 'URL', hid: 'url') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 0
@@ -40,7 +40,7 @@ miq_setting.setting_fields.find_or_create_by(label: 'URL') do |field|
   field.env_var_name = 'MIQ_URL'
 end
 
-miq_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
+miq_setting.setting_fields.find_or_create_by(label: 'Username', hid: 'username') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -48,7 +48,7 @@ miq_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
   field.env_var_name = 'MIQ_USERNAME'
 end
 
-miq_setting.setting_fields.find_or_create_by(label: 'Password') do |field|
+miq_setting.setting_fields.find_or_create_by(label: 'Password', hid: 'password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -58,9 +58,9 @@ end
 
 # Chef Settings
 
-chef_setting = Setting.find_or_create_by(name: 'Chef')
+chef_setting = Setting.find_or_create_by(name: 'Chef', hid: 'chef')
 
-chef_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
+chef_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -68,7 +68,7 @@ chef_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
   field.env_var_name = 'CHEF_ENABLED'
 end
 
-chef_setting.setting_fields.find_or_create_by(label: 'API URL') do |field|
+chef_setting.setting_fields.find_or_create_by(label: 'API URL', hid: 'url') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -76,7 +76,7 @@ chef_setting.setting_fields.find_or_create_by(label: 'API URL') do |field|
   field.env_var_name = 'CHEF_API_URL'
 end
 
-chef_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
+chef_setting.setting_fields.find_or_create_by(label: 'Username', hid: 'username') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -84,7 +84,7 @@ chef_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
   field.env_var_name = 'CHEF_USERNAME'
 end
 
-chef_setting.setting_fields.find_or_create_by(label: 'Password') do |field|
+chef_setting.setting_fields.find_or_create_by(label: 'Password', hid: 'password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -94,9 +94,9 @@ end
 
 # JIRA Settings
 
-jira_setting = Setting.find_or_create_by(name: 'JIRA')
+jira_setting = Setting.find_or_create_by(name: 'JIRA', hid: 'jira')
 
-jira_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
+jira_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -104,7 +104,7 @@ jira_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
   field.env_var_name = 'JIRA_ENABLED'
 end
 
-jira_setting.setting_fields.find_or_create_by(label: 'API URL') do |field|
+jira_setting.setting_fields.find_or_create_by(label: 'API URL', hid: 'url') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -112,7 +112,7 @@ jira_setting.setting_fields.find_or_create_by(label: 'API URL') do |field|
   field.env_var_name = 'JIRA_API_URL'
 end
 
-jira_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
+jira_setting.setting_fields.find_or_create_by(label: 'Username', hid: 'username') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -120,7 +120,7 @@ jira_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
   field.env_var_name = 'JIRA_USERNAME'
 end
 
-jira_setting.setting_fields.find_or_create_by(label: 'Password') do |field|
+jira_setting.setting_fields.find_or_create_by(label: 'Password', hid: 'password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -130,9 +130,9 @@ end
 
 # Confluence Settings
 
-confluence_setting = Setting.find_or_create_by(name: 'Confluence')
+confluence_setting = Setting.find_or_create_by(name: 'Confluence', hid: 'confluence')
 
-confluence_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
+confluence_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -140,7 +140,7 @@ confluence_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
   field.env_var_name = 'CONFLUENCE_ENABLED'
 end
 
-confluence_setting.setting_fields.find_or_create_by(label: 'API URL') do |field|
+confluence_setting.setting_fields.find_or_create_by(label: 'API URL', hid: 'url') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -148,7 +148,7 @@ confluence_setting.setting_fields.find_or_create_by(label: 'API URL') do |field|
   field.env_var_name = 'CONFLUENCE_API_URL'
 end
 
-confluence_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
+confluence_setting.setting_fields.find_or_create_by(label: 'Username', hid: 'username') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -156,7 +156,7 @@ confluence_setting.setting_fields.find_or_create_by(label: 'Username') do |field
   field.env_var_name = 'CONFLUENCE_USERNAME'
 end
 
-confluence_setting.setting_fields.find_or_create_by(label: 'Password') do |field|
+confluence_setting.setting_fields.find_or_create_by(label: 'Password', hid: 'password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -166,9 +166,9 @@ end
 
 # Jenkins
 
-jenkins_setting = Setting.find_or_create_by(name: 'Jenkins')
+jenkins_setting = Setting.find_or_create_by(name: 'Jenkins', hid: 'jenkins')
 
-jenkins_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
+jenkins_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -176,7 +176,7 @@ jenkins_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
   field.env_var_name = 'JENKINS_ENABLED'
 end
 
-jenkins_setting.setting_fields.find_or_create_by(label: 'API URL') do |field|
+jenkins_setting.setting_fields.find_or_create_by(label: 'API URL', hid: 'url') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -184,7 +184,7 @@ jenkins_setting.setting_fields.find_or_create_by(label: 'API URL') do |field|
   field.env_var_name = 'JENKINS_API_URL'
 end
 
-jenkins_setting.setting_fields.find_or_create_by(label: 'API Key') do |field|
+jenkins_setting.setting_fields.find_or_create_by(label: 'API Key', hid: 'api_key') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -192,7 +192,7 @@ jenkins_setting.setting_fields.find_or_create_by(label: 'API Key') do |field|
   field.env_var_name = 'JENKINS_API_KEY'
 end
 
-jenkins_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
+jenkins_setting.setting_fields.find_or_create_by(label: 'Username', hid: 'username') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -200,7 +200,7 @@ jenkins_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
   field.env_var_name = 'JENKINS_USERNAME'
 end
 
-jenkins_setting.setting_fields.find_or_create_by(label: 'Password') do |field|
+jenkins_setting.setting_fields.find_or_create_by(label: 'Password', hid: 'password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 4
@@ -210,9 +210,9 @@ end
 
 # Email
 
-email_setting = Setting.find_or_create_by(name: 'Email')
+email_setting = Setting.find_or_create_by(name: 'Email', hid: 'email')
 
-email_setting.setting_fields.find_or_create_by(label: 'Enable External Server') do |field|
+email_setting.setting_fields.find_or_create_by(label: 'Enable External Server', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -220,7 +220,7 @@ email_setting.setting_fields.find_or_create_by(label: 'Enable External Server') 
   field.env_var_name = 'EMAIL_EXT_SERVER_ENABLED'
 end
 
-email_setting.setting_fields.find_or_create_by(label: 'Server') do |field|
+email_setting.setting_fields.find_or_create_by(label: 'Server', hid: 'server') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -228,7 +228,7 @@ email_setting.setting_fields.find_or_create_by(label: 'Server') do |field|
   field.env_var_name = 'EMAIL_SERVER'
 end
 
-email_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
+email_setting.setting_fields.find_or_create_by(label: 'Username', hid: 'username') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -236,7 +236,7 @@ email_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
   field.env_var_name = 'EMAIL_USERNAME'
 end
 
-email_setting.setting_fields.find_or_create_by(label: 'Password') do |field|
+email_setting.setting_fields.find_or_create_by(label: 'Password', hid: 'password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -244,7 +244,7 @@ email_setting.setting_fields.find_or_create_by(label: 'Password') do |field|
   field.env_var_name = 'EMAIL_PASSWORD'
 end
 
-email_setting.setting_fields.find_or_create_by(label: 'Send As') do |field|
+email_setting.setting_fields.find_or_create_by(label: 'Send As', hid: 'send_as') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 4
@@ -252,7 +252,7 @@ email_setting.setting_fields.find_or_create_by(label: 'Send As') do |field|
   field.env_var_name = 'EMAIL_SEND_AS'
 end
 
-email_setting.setting_fields.find_or_create_by(label: 'Port') do |field|
+email_setting.setting_fields.find_or_create_by(label: 'Port', hid: 'port') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 5
@@ -260,7 +260,7 @@ email_setting.setting_fields.find_or_create_by(label: 'Port') do |field|
   field.env_var_name = 'EMAIL_PORT'
 end
 
-email_setting.setting_fields.find_or_create_by(label: 'Use SSL') do |field|
+email_setting.setting_fields.find_or_create_by(label: 'Use SSL', hid: 'ssl') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 6
@@ -270,9 +270,9 @@ end
 
 # LDAP
 
-ldap_setting = Setting.find_or_create_by(name: 'LDAP')
+ldap_setting = Setting.find_or_create_by(name: 'LDAP', hid: 'ldap')
 
-ldap_setting.setting_fields.find_or_create_by(label: 'Enable LDAP') do |field|
+ldap_setting.setting_fields.find_or_create_by(label: 'Enable LDAP', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -280,7 +280,7 @@ ldap_setting.setting_fields.find_or_create_by(label: 'Enable LDAP') do |field|
   field.env_var_name = 'LDAP_ENABLED'
 end
 
-ldap_setting.setting_fields.find_or_create_by(label: 'Server') do |field|
+ldap_setting.setting_fields.find_or_create_by(label: 'Server', hid: 'server') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -288,7 +288,7 @@ ldap_setting.setting_fields.find_or_create_by(label: 'Server') do |field|
   field.env_var_name = 'LDAP_SERVER'
 end
 
-ldap_setting.setting_fields.find_or_create_by(label: 'Bind DN') do |field|
+ldap_setting.setting_fields.find_or_create_by(label: 'Bind DN', hid: 'bind_dn') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -296,7 +296,7 @@ ldap_setting.setting_fields.find_or_create_by(label: 'Bind DN') do |field|
   field.env_var_name = 'LDAP_BIND_DN'
 end
 
-ldap_setting.setting_fields.find_or_create_by(label: 'Bind Password') do |field|
+ldap_setting.setting_fields.find_or_create_by(label: 'Bind Password', hid: 'bind_password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -304,7 +304,7 @@ ldap_setting.setting_fields.find_or_create_by(label: 'Bind Password') do |field|
   field.env_var_name = 'LDAP_BIND_PASSWORD'
 end
 
-ldap_setting.setting_fields.find_or_create_by(label: 'Base DN') do |field|
+ldap_setting.setting_fields.find_or_create_by(label: 'Base DN', hid: 'base_dn') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 4
@@ -312,11 +312,52 @@ ldap_setting.setting_fields.find_or_create_by(label: 'Base DN') do |field|
   field.env_var_name = 'LDAP_BASE_DN'
 end
 
+# SAML
+
+saml_setting = Setting.find_or_create_by(name: 'SAML', hid: 'saml')
+
+saml_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |f|
+  f.value = 'false'
+  f.field_type = :check_box
+  f.load_order = 0
+  f.env_var_name = 'SAML_ENABLED'
+end
+
+saml_setting.setting_fields.find_or_create_by(label: 'Issuer', hid: 'issuer') do |f|
+  f.value = 'urn:'
+  f.field_type = :text
+  f.load_order = 1
+  f.help_text 'urn:foo.bar.com'
+  f.env_var_name = 'SAML_ISSUER'
+end
+
+saml_setting.setting_fields.find_or_create_by(label: 'Certificate', hid: 'certificate') do |f|
+  f.value = ''
+  f.field_type = :textarea
+  f.load_order = 2
+  f.env_var_name = 'SAML_CERTIFICATE'
+end
+
+saml_setting.setting_fields.find_or_create_by(label: 'Cert Fingerprint', hid: 'fingerprint') do |f|
+  f.value = ''
+  f.field_type = :text
+  f.load_order = 3
+  f.env_var_name = 'SAML_FINGERPRINT'
+end
+
+saml_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |f|
+  f.value = 'false'
+  f.field_type = :check_box
+  f.load_order = 0
+  f.env_var_name = 'SAML_ENABLED'
+end
+
+
 # VMWare Settings
 
-vmware_setting = Setting.find_or_create_by(name: 'VMware')
+vmware_setting = Setting.find_or_create_by(name: 'VMware', hid: 'vmware')
 
-vmware_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
+vmware_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -324,7 +365,7 @@ vmware_setting.setting_fields.find_or_create_by(label: 'Enable') do |field|
   field.env_var_name = 'VMWARE_ENABLED'
 end
 
-vmware_setting.setting_fields.find_or_create_by(label: 'vCenter URL') do |field|
+vmware_setting.setting_fields.find_or_create_by(label: 'vCenter URL', hid: 'url') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -332,7 +373,7 @@ vmware_setting.setting_fields.find_or_create_by(label: 'vCenter URL') do |field|
   field.env_var_name = 'VMWARE_VCENTER_URL'
 end
 
-vmware_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
+vmware_setting.setting_fields.find_or_create_by(label: 'Username', hid: 'username') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -340,7 +381,7 @@ vmware_setting.setting_fields.find_or_create_by(label: 'Username') do |field|
   field.env_var_name = 'VMWARE_USERNAME'
 end
 
-vmware_setting.setting_fields.find_or_create_by(label: 'Password') do |field|
+vmware_setting.setting_fields.find_or_create_by(label: 'Password', hid: 'password') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -350,9 +391,9 @@ end
 
 # Footer Links
 
-footer_setting = Setting.find_or_create_by(name: 'Footer Links')
+footer_setting = Setting.find_or_create_by(name: 'Footer Links', hid: 'footer')
 
-footer_setting.setting_fields.find_or_create_by(label: 'Link 1 Label') do |field|
+footer_setting.setting_fields.find_or_create_by(label: 'Link 1 Label', hid: 'label_1') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 0
@@ -360,7 +401,7 @@ footer_setting.setting_fields.find_or_create_by(label: 'Link 1 Label') do |field
   field.env_var_name = 'FOOTER_LINK_1_LABEL'
 end
 
-footer_setting.setting_fields.find_or_create_by(label: 'Link 1 URL') do |field|
+footer_setting.setting_fields.find_or_create_by(label: 'Link 1 URL', hid: 'url_1') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 0
@@ -368,7 +409,7 @@ footer_setting.setting_fields.find_or_create_by(label: 'Link 1 URL') do |field|
   field.env_var_name = 'FOOTER_LINK_1_URL'
 end
 
-footer_setting.setting_fields.find_or_create_by(label: 'Link 2 Label') do |field|
+footer_setting.setting_fields.find_or_create_by(label: 'Link 2 Label', hid: 'label_2') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -376,7 +417,7 @@ footer_setting.setting_fields.find_or_create_by(label: 'Link 2 Label') do |field
   field.env_var_name = 'FOOTER_LINK_2_LABEL'
 end
 
-footer_setting.setting_fields.find_or_create_by(label: 'Link 2 URL') do |field|
+footer_setting.setting_fields.find_or_create_by(label: 'Link 2 URL', hid: 'url_2') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -384,7 +425,7 @@ footer_setting.setting_fields.find_or_create_by(label: 'Link 2 URL') do |field|
   field.env_var_name = 'FOOTER_LINK_2_URL'
 end
 
-footer_setting.setting_fields.find_or_create_by(label: 'Link 3 Label') do |field|
+footer_setting.setting_fields.find_or_create_by(label: 'Link 3 Label', hid: 'label_3') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -392,7 +433,7 @@ footer_setting.setting_fields.find_or_create_by(label: 'Link 3 Label') do |field
   field.env_var_name = 'FOOTER_LINK_3_LABEL'
 end
 
-footer_setting.setting_fields.find_or_create_by(label: 'Link 3 URL') do |field|
+footer_setting.setting_fields.find_or_create_by(label: 'Link 3 URL', hid: 'url_3') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -400,7 +441,7 @@ footer_setting.setting_fields.find_or_create_by(label: 'Link 3 URL') do |field|
   field.env_var_name = 'FOOTER_LINK_3_URL'
 end
 
-footer_setting.setting_fields.find_or_create_by(label: 'Link 4 Label') do |field|
+footer_setting.setting_fields.find_or_create_by(label: 'Link 4 Label', hid: 'label_4') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -408,7 +449,7 @@ footer_setting.setting_fields.find_or_create_by(label: 'Link 4 Label') do |field
   field.env_var_name = 'FOOTER_LINK_4_LABEL'
 end
 
-footer_setting.setting_fields.find_or_create_by(label: 'Link 4 URL') do |field|
+footer_setting.setting_fields.find_or_create_by(label: 'Link 4 URL', hid: 'url_4') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -418,9 +459,9 @@ end
 
 # Header Links
 
-header_setting = Setting.find_or_create_by(name: 'Header Links')
+header_setting = Setting.find_or_create_by(name: 'Header Links', hid: 'header')
 
-header_setting.setting_fields.find_or_create_by(label: 'Link 1 Label') do |field|
+header_setting.setting_fields.find_or_create_by(label: 'Link 1 Label', hid: 'label_1') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 0
@@ -428,7 +469,7 @@ header_setting.setting_fields.find_or_create_by(label: 'Link 1 Label') do |field
   field.env_var_name = 'HEADER_LINK_1_LABEL'
 end
 
-header_setting.setting_fields.find_or_create_by(label: 'Link 1 URL') do |field|
+header_setting.setting_fields.find_or_create_by(label: 'Link 1 URL', hid: 'url_1') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 0
@@ -436,7 +477,7 @@ header_setting.setting_fields.find_or_create_by(label: 'Link 1 URL') do |field|
   field.env_var_name = 'HEADER_LINK_1_URL'
 end
 
-header_setting.setting_fields.find_or_create_by(label: 'Link 2 Label') do |field|
+header_setting.setting_fields.find_or_create_by(label: 'Link 2 Label', hid: 'label_2') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -444,7 +485,7 @@ header_setting.setting_fields.find_or_create_by(label: 'Link 2 Label') do |field
   field.env_var_name = 'HEADER_LINK_2_LABEL'
 end
 
-header_setting.setting_fields.find_or_create_by(label: 'Link 2 URL') do |field|
+header_setting.setting_fields.find_or_create_by(label: 'Link 2 URL', hid: 'url_2') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 1
@@ -452,7 +493,7 @@ header_setting.setting_fields.find_or_create_by(label: 'Link 2 URL') do |field|
   field.env_var_name = 'HEADER_LINK_2_URL'
 end
 
-header_setting.setting_fields.find_or_create_by(label: 'Link 3 Label') do |field|
+header_setting.setting_fields.find_or_create_by(label: 'Link 3 Label', hid: 'label_3') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -460,7 +501,7 @@ header_setting.setting_fields.find_or_create_by(label: 'Link 3 Label') do |field
   field.env_var_name = 'HEADER_LINK_3_LABEL'
 end
 
-header_setting.setting_fields.find_or_create_by(label: 'Link 3 URL') do |field|
+header_setting.setting_fields.find_or_create_by(label: 'Link 3 URL', hid: 'url_3') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 2
@@ -468,7 +509,7 @@ header_setting.setting_fields.find_or_create_by(label: 'Link 3 URL') do |field|
   field.env_var_name = 'HEADER_LINK_3_URL'
 end
 
-header_setting.setting_fields.find_or_create_by(label: 'Link 4 Label') do |field|
+header_setting.setting_fields.find_or_create_by(label: 'Link 4 Label', hid: 'label_4') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
@@ -476,7 +517,7 @@ header_setting.setting_fields.find_or_create_by(label: 'Link 4 Label') do |field
   field.env_var_name = 'HEADER_LINK_4_LABEL'
 end
 
-header_setting.setting_fields.find_or_create_by(label: 'Link 4 URL') do |field|
+header_setting.setting_fields.find_or_create_by(label: 'Link 4 URL', hid: 'url_4') do |field|
   field.value = ''
   field.field_type = :text
   field.load_order = 3
