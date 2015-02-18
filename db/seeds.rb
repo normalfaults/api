@@ -272,7 +272,7 @@ end
 
 ldap_setting = Setting.find_or_create_by(name: 'LDAP', hid: 'ldap')
 
-ldap_setting.setting_fields.find_or_create_by(label: 'Enable LDAP', hid: 'enabled') do |field|
+ldap_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') do |field|
   field.value = 'false'
   field.field_type = :check_box
   field.load_order = 0
@@ -327,7 +327,7 @@ saml_setting.setting_fields.find_or_create_by(label: 'Issuer', hid: 'issuer') do
   f.value = 'urn:'
   f.field_type = :text
   f.load_order = 1
-  f.help_text 'urn:foo.bar.com'
+  f.help_text = 'urn:foo.bar.com'
   f.env_var_name = 'SAML_ISSUER'
 end
 

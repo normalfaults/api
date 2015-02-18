@@ -28,10 +28,10 @@ class SettingField < ActiveRecord::Base
 
   store_accessor :options
 
-  enum field_type: [:check_box, :select_option, :text, :date, :password]
+  enum field_type: { check_box: 0, select_option: 1, text: 2, date: 3, password: 4, textarea: 5 }
 
   before_save :check_override_setting?
-#  after_find :override_setting
+  after_find :override_setting
 
   private
 
