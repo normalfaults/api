@@ -36,7 +36,7 @@ class SettingField < ActiveRecord::Base
   end
 
   def override_setting
-    return false if env_var_name.nil? || ENV[env_var_name].nil?
+    return if env_var_name.nil? || ENV[env_var_name].nil?
     self.value = ENV[env_var_name]
     self.disabled = true
   end
