@@ -6,10 +6,6 @@
 #  name :string(255)
 #  hid  :string(255)
 #
-# Indexes
-#
-#  index_settings_on_hid  (hid)
-#
 
 class Setting < ActiveRecord::Base
   has_many :setting_fields,  -> { order('load_order') }
@@ -17,5 +13,18 @@ class Setting < ActiveRecord::Base
 
   def to_param
     hid
+  end
+
+  def settings_hash
+    setting_fields.map do |setting|
+      p setting.field_type
+      value = case setting.field_type
+      when 'check_box'
+        'true' == setting.value ? true : false
+      else
+        setting.value
+      end
+      [setting.hid.to_sym, value]
+    end.to_h
   end
 end

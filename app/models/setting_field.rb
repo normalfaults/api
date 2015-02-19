@@ -7,7 +7,7 @@
 #  field_type   :integer          default(0)
 #  help_text    :string(255)
 #  options      :json
-#  value        :string(255)
+#  value        :text
 #  required     :string(1)
 #  load_order   :integer
 #  created_at   :datetime
