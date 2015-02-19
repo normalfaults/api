@@ -10,7 +10,7 @@ it to run on a different port, you will need to use Apache or Nginx (this doc wi
 xcode-select --install
 ````
 
-#### Install Toughtbot Laptop Tools
+#### Install Thoughtbot Laptop Tools
 
 ````
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
