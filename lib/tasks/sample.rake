@@ -12,11 +12,11 @@ namespace :sample do
   desc 'Generates demo data'
   task demo: :environment do
     Staff.create!([
-       { id: 4, first_name: "Unused", last_name: "Staff", email: "unused@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil},
-       { id: 2, first_name: "ManageIQ", last_name: "Staff", email: "miq@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 17, current_sign_in_at: "2015-02-06 17:04:10", last_sign_in_at: "2015-02-06 16:57:41", current_sign_in_ip: "54.172.90.47", last_sign_in_ip: "54.172.90.47", role: 1, deleted_at: nil},
-       { id: 3, first_name: "User", last_name: "Staff", email: "user@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 4, current_sign_in_at: "2015-02-13 18:00:54", last_sign_in_at: "2015-02-12 19:37:15", current_sign_in_ip: "128.229.4.2", last_sign_in_ip: "128.229.4.2", role: 0, deleted_at: nil},
-       { id: 5, first_name: "All", last_name: "Users", email: "projectjellyfish@bah.com", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil},
-       { id: 1, first_name: "Admin", last_name: "Staff", email: "admin@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 36, current_sign_in_at: "2015-02-18 00:39:32", last_sign_in_at: "2015-02-17 20:28:51", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "108.45.125.67", role: 1, deleted_at: nil}
+       { id: 4, first_name: "Unused", last_name: "Staff", email: "unused@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, secret: 'jellyfish-token'},
+       { id: 2, first_name: "ManageIQ", last_name: "Staff", email: "miq@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 17, current_sign_in_at: "2015-02-06 17:04:10", last_sign_in_at: "2015-02-06 16:57:41", current_sign_in_ip: "54.172.90.47", last_sign_in_ip: "54.172.90.47", role: 1, deleted_at: nil, secret: 'jellyfish-token'},
+       { id: 3, first_name: "User", last_name: "Staff", email: "user@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 4, current_sign_in_at: "2015-02-13 18:00:54", last_sign_in_at: "2015-02-12 19:37:15", current_sign_in_ip: "128.229.4.2", last_sign_in_ip: "128.229.4.2", role: 0, deleted_at: nil, secret: 'jellyfish-token'},
+       { id: 5, first_name: "All", last_name: "Users", email: "projectjellyfish@bah.com", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, role: 0, deleted_at: nil, secret: 'jellyfish-token'},
+       { id: 1, first_name: "Admin", last_name: "Staff", email: "admin@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 36, current_sign_in_at: "2015-02-18 00:39:32", last_sign_in_at: "2015-02-17 20:28:51", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "108.45.125.67", role: 1, deleted_at: nil, secret: 'jellyfish-token'}
     ])
     Cloud.create!([
        { id: 1, name: "AWS", description: nil, extra: "{}", deleted_at: nil},
@@ -153,56 +153,6 @@ namespace :sample do
        { id: 6, question: "Will this run in production?", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["Yes", "No"], field_type: 1},
        { id: 7, question: "FISMA Classification", help_text: "", required: true, deleted_at: nil, load_order: nil, options: ["Low", "Medium", "High"], field_type: 1},
        { id: 8, question: "Period of Performance", help_text: "in months", required: nil, deleted_at: nil, load_order: 1, options: nil, field_type: 2}
-    ])
-    ProjectAnswer.create!([
-       { id: 1, :project => Project.where(id: 3).first, :project_question => ProjectQuestion.where(id: 7).first, answer: nil},
-       { id: 2, :project => Project.where(id: 3).first, :project_question => ProjectQuestion.where(id: 6).first, answer: nil},
-       { id: 3, :project => Project.where(id: 3).first, :project_question => ProjectQuestion.where(id: 5).first, answer: nil},
-       { id: 4, :project => Project.where(id: 3).first, :project_question => ProjectQuestion.where(id: 4).first, answer: nil},
-       { id: 5, :project => Project.where(id: 3).first, :project_question => ProjectQuestion.where(id: 3).first, answer: nil},
-       { id: 6, :project => Project.where(id: 3).first, :project_question => ProjectQuestion.where(id: 2).first, answer: nil},
-       { id: 7, :project => Project.where(id: 3).first, :project_question => ProjectQuestion.where(id: 1).first, answer: nil},
-       { id: 8, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 7).first, answer: nil},
-       { id: 9, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 6).first, answer: nil},
-       { id: 10, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 5).first, answer: nil},
-       { id: 11, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 4).first, answer: nil},
-       { id: 12, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 3).first, answer: nil},
-       { id: 13, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 2).first, answer: nil},
-       { id: 14, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 1).first, answer: nil},
-       { id: 15, :project => Project.where(id: 1).first, :project_question => ProjectQuestion.where(id: 1).first, answer: nil},
-       { id: 16, :project => Project.where(id: 1).first, :project_question => ProjectQuestion.where(id: 2).first, answer: nil},
-       { id: 17, :project => Project.where(id: 1).first, :project_question => ProjectQuestion.where(id: 3).first, answer: nil},
-       { id: 18, :project => Project.where(id: 1).first, :project_question => ProjectQuestion.where(id: 4).first, answer: nil},
-       { id: 19, :project => Project.where(id: 1).first, :project_question => ProjectQuestion.where(id: 5).first, answer: nil},
-       { id: 20, :project => Project.where(id: 1).first, :project_question => ProjectQuestion.where(id: 6).first, answer: nil},
-       { id: 21, :project => Project.where(id: 1).first, :project_question => ProjectQuestion.where(id: 7).first, answer: nil},
-       { id: 22, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 1).first, answer: nil},
-       { id: 23, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 2).first, answer: nil},
-       { id: 24, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 3).first, answer: nil},
-       { id: 25, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 4).first, answer: nil},
-       { id: 26, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 5).first, answer: nil},
-       { id: 27, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 6).first, answer: nil},
-       { id: 28, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 7).first, answer: nil},
-       { id: 29, :project => Project.where(id: 5).first, :project_question => ProjectQuestion.where(id: 1).first, answer: "Cloud Exchange for Client X"},
-       { id: 30, :project => Project.where(id: 5).first, :project_question => ProjectQuestion.where(id: 2).first, answer: "M0M00004567889"},
-       { id: 31, :project => Project.where(id: 5).first, :project_question => ProjectQuestion.where(id: 3).first, answer: "2015-02-28T05:00:00.000Z"},
-       { id: 32, :project => Project.where(id: 5).first, :project_question => ProjectQuestion.where(id: 4).first, answer: "true"},
-       { id: 33, :project => Project.where(id: 5).first, :project_question => ProjectQuestion.where(id: 5).first, answer: "East Coast Data Center"},
-       { id: 34, :project => Project.where(id: 5).first, :project_question => ProjectQuestion.where(id: 6).first, answer: "No"},
-       { id: 35, :project => Project.where(id: 5).first, :project_question => ProjectQuestion.where(id: 7).first, answer: "Low"},
-       { id: 36, :project => Project.where(id: 3).first, :project_question => ProjectQuestion.where(id: 8).first, answer: nil},
-       { id: 37, :project => Project.where(id: 5).first, :project_question => ProjectQuestion.where(id: 8).first, answer: nil},
-       { id: 38, :project => Project.where(id: 4).first, :project_question => ProjectQuestion.where(id: 8).first, answer: nil},
-       { id: 39, :project => Project.where(id: 1).first, :project_question => ProjectQuestion.where(id: 8).first, answer: nil},
-       { id: 40, :project => Project.where(id: 2).first, :project_question => ProjectQuestion.where(id: 8).first, answer: nil},
-       { id: 41, :project => Project.where(id: 6).first, :project_question => ProjectQuestion.where(id: 1).first, answer: "a test project"},
-       { id: 42, :project => Project.where(id: 6).first, :project_question => ProjectQuestion.where(id: 2).first, answer: "g0"},
-       { id: 43, :project => Project.where(id: 6).first, :project_question => ProjectQuestion.where(id: 3).first, answer: "2015-02-14T05:00:00.000Z"},
-       { id: 44, :project => Project.where(id: 6).first, :project_question => ProjectQuestion.where(id: 4).first, answer: nil},
-       { id: 45, :project => Project.where(id: 6).first, :project_question => ProjectQuestion.where(id: 5).first, answer: "East Coast Data Center"},
-       { id: 46, :project => Project.where(id: 6).first, :project_question => ProjectQuestion.where(id: 6).first, answer: "Yes"},
-       { id: 47, :project => Project.where(id: 6).first, :project_question => ProjectQuestion.where(id: 7).first, answer: "Medium"},
-       { id: 48, :project => Project.where(id: 6).first, :project_question => ProjectQuestion.where(id: 8).first, answer: "5"}
     ])
     Approval.create!([
        { id: 1, staff_id: 3, project_id: 1, approved: false, reason: nil},
