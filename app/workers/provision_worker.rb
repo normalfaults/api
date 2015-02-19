@@ -5,17 +5,36 @@ class ProvisionWorker
 
   def perform
     order_item = OrderItem.find @order_item_id
-    @miq_settings = SettingField.where(setting_id: 2).order(load_order: :asc).as_json
-    # TODO: We've hardcoded the token for now and the MIQ user
-    miq_user = Staff.where(first_name: 'ManageIQ').first
+    # TODO: Get Enabled Setting for ManageIQ
+    # manage_iq = Setting.where(name: 'Manage IQ').first.id
+    # miq_enabled = SettingField.where(setting_id: manage_iq, label: 'Enabled').first.value
+    miq_enabled = 'true'
+    if miq_enabled == 'true' # Temporarily default to true while fog.io is not integrated
+      miq_provision(order_item)
+    else
+      cloud = Cloud.where(id: order_item.cloud_id).first.name
+      # TODO: Provision according to cloud provider using fog.io
+      case cloud
+      when 'AWS'
+      when 'Azure'
+      end
+    end
+  end
 
+  private
+
+  def miq_provision(order_item)
+    @miq_setting_id = Setting.where(name: 'Manage IQ').first.id
+    @miq_settings = SettingField.where(setting_id: @miq_setting_id).order(load_order: :asc).as_json
+    # TODO: We've hardcoded the token for now and the MIQ user
+    @miq_user = Staff.where(first_name: 'ManageIQ').first
     @message =
       {
         action: 'order',
         resource: {
           href: "#{@miq_settings[0]['value']}/api/service_templates/#{order_item.product.service_type_id}",
           referer: ENV['DEFAULT_URL'],
-          email: miq_user.email,
+          email: @miq_user.email,
           token: 'jellyfish-token',
           order_item: {
             id: order_item.id,
@@ -24,7 +43,6 @@ class ProvisionWorker
           }
         }
       }
-
     order_item.provision_status = :unknown
     order_item.payload_to_miq = @message.to_json
     order_item.save
@@ -38,11 +56,8 @@ class ProvisionWorker
       timeout: 120,
       open_timeout: 60
     )
-
     handle_response(order_item)
   end
-
-  private
 
   def handle_response(order_item)
     response = @resource["api/service_catalogs/#{order_item.product.service_catalog_id}/service_templates"].post @message.to_json, content_type: 'application/json'
