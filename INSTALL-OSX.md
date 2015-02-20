@@ -10,12 +10,26 @@ it to run on a different port, you will need to use Apache or Nginx (this doc wi
 xcode-select --install
 ````
 
-#### Install Thoughtbot Laptop Tools
+#### Install thoughtbot Laptop Tools
 
 ````
 curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
 sh mac 2>&1 | tee ~/laptop.log
 ```
+
+#### Get thoughtbot dotFiles
+
+````
+cd ~
+git clone git://github.com/thoughtbot/dotfiles.git
+env RCRC=$HOME/dotfiles/rcrc rcup
+````
+
+#### Clone the Repo
+
+````
+git clone git@github.com:projectjellyfish/api.git
+````
 
 #### Add this data to ./.env
 
