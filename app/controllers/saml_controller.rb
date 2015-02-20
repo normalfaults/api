@@ -1,33 +1,64 @@
 class SamlController < ApplicationController
 
-  before_action :load_saml_settings
+  before_action :saml_enabled?
 
-  def callback
-    response = OneLogin::RubySaml::Response.new(params[:SAMLResponse])
-    response.settings = @saml_settings
-    @saml_info = response
+  def init
+    redirect_to idp_login_request_url request
+  end
+
+  def consume
+    response = idp_response params
+    response.settings = saml_settings request
+    if response.is_valid?
+      user = Staff.find_by email: response.email
+      if user.nil?
+        return saml_failure
+      end
+      sso_sign_in user
+      redirect_to @settings[:redirect_url]
+    else
+      saml_failure
+    end
   end
 
   private
 
-  def load_saml_settings
+  def saml_enabled?
     @settings = Setting.find_by(hid: 'saml').settings_hash
 
-    p @settings
-
     unless @settings[:enabled]
-      head 404, content_type: :plain
-      return false
+      return saml_failure
     end
 
-    @saml_settings = OneLogin::RubySaml::Settings.new
+    true
+  end
 
-    @saml_settings.assertion_consumer_service_url = "http://#{request.host}/saml/finalize"
-    @saml_settings.issuer = @settings[:issuer]
-    @saml_settings.idp_sso_target_url = @settings[:url]
-    #@saml_settings.idp_entity_id = "https://app.onelogin.com/saml/metadata/#{OneLoginAppId}"
-    @saml_settings.idp_cert_fingerprint = @settings[:fingerprint]
-    @saml_settings.name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+  def saml_failure
+    head 404, content_type: :plain
+    false
+  end
+
+  def idp_response(params)
+    OneLogin::RubySaml::Response.new(params[:SAMLResponse])
+  end
+
+  def saml_settings(request)
+    settings = OneLogin::RubySaml::Settings.new
+
+    settings.assertion_consumer_service_url = saml_consume_url host: request.host
+    settings.issuer                         = "http://#{request.port == 80 ? request.host : request.host_with_port}"
+    settings.idp_sso_target_url             = @settings[:target_url]
+    settings.idp_cert_fingerprint           = @settings[:fingerprint]
+    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"
+    # Optional for most SAML IdPs
+    settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+
+    settings
+  end
+
+  def idp_login_request_url(request)
+    idp_request = OneLogin::RubySaml::Authrequest.new
+    idp_request.create saml_settings request
   end
 
 end

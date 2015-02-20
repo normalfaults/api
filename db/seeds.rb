@@ -345,11 +345,18 @@ saml_setting.setting_fields.find_or_create_by(label: 'Cert Fingerprint', hid: 'f
   f.env_var_name = 'SAML_FINGERPRINT'
 end
 
-saml_setting.setting_fields.find_or_create_by(label: 'Login URL', hid: 'url') do |f|
+saml_setting.setting_fields.find_or_create_by(label: 'SSO Target URL', hid: 'target_url') do |f|
   f.value = ''
   f.field_type = :text
   f.load_order = 4
-  f.env_var_name = 'SAML_LOGIN_URL'
+  f.env_var_name = 'SAML_TARGET_URL'
+end
+
+saml_setting.setting_fields.find_or_create_by(label: 'Redirect URL', hid: 'redirect_url') do |f|
+  f.value = ''
+  f.field_type = :text
+  f.load_order = 5
+  f.env_var_name = 'SAML_REDIRECT_URL'
 end
 
 # VMWare Settings

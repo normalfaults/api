@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   # Auth
   devise_for :staff, controllers: { sessions: 'sessions' }
 
-  post 'saml/callback', to: 'saml#callback'
+  get 'saml/init', to: 'saml#init'
+  post 'saml/consume', to: 'saml#consume'
 
   # Alerts Routes
   resources :alerts, defaults: { format: :json } do
