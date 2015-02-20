@@ -14,7 +14,7 @@ aws_setting.setting_fields.find_or_create_by(label: 'Enabled', hid: 'enabled') d
 end
 
 aws_setting.setting_fields.find_or_create_by(label: 'Access Key', hid: 'access_key') do |field|
-  field.value =  ''
+  field.value = ''
   field.field_type = :text
   field.load_order = 1
   field.help_text = 'AWS Access Key'

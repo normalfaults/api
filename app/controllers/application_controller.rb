@@ -44,15 +44,13 @@ class ApplicationController < ActionController::Base
 
   def sso_sign_in(user)
     cookies.signed[:sso_token] = {
-      email: user.email,
+      email: user.email
     }
     sign_in user
   end
 
   def user_from_sso_token
-    if sso_token.blank?
-      return nil
-    end
+    return nil if sso_token.blank?
     user = Staff.find_by(email: sso_token[:email])
     return nil if user.nil?
     user.tap { |u| sign_in u }

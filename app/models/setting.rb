@@ -8,7 +8,7 @@
 #
 
 class Setting < ActiveRecord::Base
-  has_many :setting_fields,  -> { order('load_order') }
+  has_many :setting_fields, -> { order('load_order') }
   accepts_nested_attributes_for :setting_fields
 
   def to_param
@@ -17,13 +17,12 @@ class Setting < ActiveRecord::Base
 
   def settings_hash
     setting_fields.map do |setting|
-      p setting.field_type
       value = case setting.field_type
-      when 'check_box'
-        'true' == setting.value ? true : false
-      else
-        setting.value
-      end
+              when 'check_box'
+                'true' == setting.value ? true : false
+              else
+                setting.value
+              end
       [setting.hid.to_sym, value]
     end.to_h
   end
