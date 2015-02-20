@@ -1,0 +1,586 @@
+---
+- name: AWS
+  hid: aws
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: Enable AWS services.
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: AWS_ENABLED
+    hid: enabled
+  - label: Access Key
+    field_type: text
+    help_text: AWS Access Key
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: AWS_ACCESS_KEY
+    hid: access_key
+  - label: Secret Key
+    field_type: text
+    help_text: AWS Secret Key
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: AWS_SECRET_KEY
+    hid: secret_key
+- name: Manage IQ
+  hid: manageiq
+  setting_fields:
+  - label: URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 0
+    env_var_name: MIQ_URL
+    hid: url
+  - label: Username
+    field_type: text
+    help_text: Username
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: MIQ_USERNAME
+    hid: username
+  - label: Password
+    field_type: text
+    help_text: Password
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: MIQ_PASSWORD
+    hid: password
+- name: Chef
+  hid: chef
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: CHEF_ENABLED
+    hid: enabled
+  - label: API URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: CHEF_API_URL
+    hid: url
+  - label: Username
+    field_type: text
+    help_text: user1
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: CHEF_USERNAME
+    hid: username
+  - label: Password
+    field_type: text
+    help_text: pass123
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: CHEF_PASSWORD
+    hid: password
+- name: JIRA
+  hid: jira
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: JIRA_ENABLED
+    hid: enabled
+  - label: API URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: JIRA_API_URL
+    hid: url
+  - label: Username
+    field_type: text
+    help_text: user1
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: JIRA_USERNAME
+    hid: username
+  - label: Password
+    field_type: text
+    help_text: pass123
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: JIRA_PASSWORD
+    hid: password
+- name: Confluence
+  hid: confluence
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: CONFLUENCE_ENABLED
+    hid: enabled
+  - label: API URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: CONFLUENCE_API_URL
+    hid: url
+  - label: Username
+    field_type: text
+    help_text: user1
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: CONFLUENCE_USERNAME
+    hid: username
+  - label: Password
+    field_type: text
+    help_text: pass123
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: CONFLUENCE_PASSWORD
+    hid: password
+- name: Jenkins
+  hid: jenkins
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: JENKINS_ENABLED
+    hid: enabled
+  - label: API URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: JENKINS_API_URL
+    hid: url
+  - label: API Key
+    field_type: text
+    help_text: TOKEN
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: JENKINS_API_KEY
+    hid: api_key
+  - label: Username
+    field_type: text
+    help_text: user1
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: JENKINS_USERNAME
+    hid: username
+  - label: Password
+    field_type: text
+    help_text: pass123
+    options:
+    value: ''
+    required:
+    load_order: 4
+    env_var_name: JENKINS_PASSWORD
+    hid: password
+- name: Email
+  hid: email
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: EMAIL_EXT_SERVER_ENABLED
+    hid: enabled
+  - label: Server
+    field_type: text
+    help_text: smtp.example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: EMAIL_SERVER
+    hid: server
+  - label: Username
+    field_type: text
+    help_text: user1
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: EMAIL_USERNAME
+    hid: username
+  - label: Password
+    field_type: text
+    help_text: pass123
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: EMAIL_PASSWORD
+    hid: password
+  - label: Send As
+    field_type: text
+    help_text: ''
+    options:
+    value: ''
+    required:
+    load_order: 4
+    env_var_name: EMAIL_SEND_AS
+    hid: send_as
+  - label: Port
+    field_type: text
+    help_text: '25'
+    options:
+    value: ''
+    required:
+    load_order: 5
+    env_var_name: EMAIL_PORT
+    hid: port
+  - label: Use SSL
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 6
+    env_var_name: EMAIL_USE_SSL
+    hid: ssl
+- name: LDAP
+  hid: ldap
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: LDAP_ENABLED
+    hid: enabled
+  - label: Server
+    field_type: text
+    help_text: example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: LDAP_SERVER
+    hid: server
+  - label: Bind DN
+    field_type: text
+    help_text: user1
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: LDAP_BIND_DN
+    hid: bind_dn
+  - label: Bind Password
+    field_type: text
+    help_text: pass123
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: LDAP_BIND_PASSWORD
+    hid: password
+  - label: Base DN
+    field_type: text
+    help_text: ''
+    options:
+    value: ''
+    required:
+    load_order: 4
+    env_var_name: LDAP_BASE_DN
+    hid: base_dn
+- name: SAML
+  hid: saml
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text:
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: SAML_ENABLED
+    hid: enabled
+  - label: Issuer
+    field_type: text
+    help_text:
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: SAML_ISSUER
+    hid: issuer
+  - label: Certificate
+    field_type: textarea
+    help_text:
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: SAML_CERTIFICATE
+    hid: certificate
+  - label: Cert Fingerprint
+    field_type: text
+    help_text:
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: SAML_FINGERPRINT
+    hid: fingerprint
+  - label: Login URL
+    field_type: text
+    help_text:
+    options:
+    value: ''
+    required:
+    load_order: 4
+    env_var_name: SAML_LOGIN_URL
+    hid: login_url
+  - label: Redirect URL
+    field_type: text
+    help_text:
+    options:
+    value: ''
+    required:
+    load_order: 4
+    env_var_name: SAML_REDIRECT_URL
+    hid: redirect_url
+- name: VMware
+  hid: vmware
+  setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: VMWARE_ENABLED
+    hid: enabled
+  - label: vCenter URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: VMWARE_VCENTER_URL
+    hid: url
+  - label: Username
+    field_type: text
+    help_text: user1
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: VMWARE_USERNAME
+    hid: username
+  - label: Password
+    field_type: text
+    help_text: pass123
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: VMWARE_PASSWORD
+    hid: password
+- name: Footer Links
+  hid: footer
+  setting_fields:
+  - label: Link 1 Label
+    field_type: text
+    help_text: Example
+    options:
+    value: ''
+    required:
+    load_order: 0
+    env_var_name: FOOTER_LINK_1_LABEL
+    hid: label_1
+  - label: Link 1 URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 0
+    env_var_name: FOOTER_LINK_1_URL
+    hid: url_1
+  - label: Link 2 URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: FOOTER_LINK_2_URL
+    hid: url_2
+  - label: Link 2 Label
+    field_type: text
+    help_text: Example
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: FOOTER_LINK_2_LABEL
+    hid: label_2
+  - label: Link 3 Label
+    field_type: text
+    help_text: Example
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: FOOTER_LINK_3_LABEL
+    hid: label_3
+  - label: Link 3 URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: FOOTER_LINK_3_URL
+    hid: url_3
+  - label: Link 4 Label
+    field_type: text
+    help_text: Example
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: FOOTER_LINK_4_LABEL
+    hid: label_4
+  - label: Link 4 URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: FOOTER_LINK_4_URL
+    hid: url_4
+- name: Header Links
+  hid: header
+  setting_fields:
+  - label: Link 1 Label
+    field_type: text
+    help_text: Example
+    options:
+    value: ''
+    required:
+    load_order: 0
+    env_var_name: HEADER_LINK_1_LABEL
+    hid: label_1
+  - label: Link 1 URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 0
+    env_var_name: HEADER_LINK_1_URL
+    hid: url_1
+  - label: Link 2 URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: HEADER_LINK_2_URL
+    hid: url_2
+  - label: Link 2 Label
+    field_type: text
+    help_text: Example
+    options:
+    value: ''
+    required:
+    load_order: 1
+    env_var_name: HEADER_LINK_2_LABEL
+    hid: label_2
+  - label: Link 3 Label
+    field_type: text
+    help_text: Example
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: HEADER_LINK_3_LABEL
+    hid: label_3
+  - label: Link 3 URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 2
+    env_var_name: HEADER_LINK_3_URL
+    hid: url_3
+  - label: Link 4 Label
+    field_type: text
+    help_text: Example
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: HEADER_LINK_4_LABEL
+    hid: label_4
+  - label: Link 4 URL
+    field_type: text
+    help_text: http://example.com
+    options:
+    value: ''
+    required:
+    load_order: 3
+    env_var_name: HEADER_LINK_4_URL
+    hid: url_4
