@@ -14,7 +14,7 @@ class SamlController < ApplicationController
     if response.is_valid?
       user = Staff.find_by email: response_email(response)
       return saml_failure if user.nil?
-      sso_sign_in user
+      sign_in user
       redirect_to @settings[:redirect_url]
     else
       saml_failure
