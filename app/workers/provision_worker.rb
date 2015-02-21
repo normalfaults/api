@@ -79,10 +79,11 @@ class ProvisionWorker
       end
 
     rescue => e
-      message = e.fetch :response, 'Request Timeout'
-      error = e.fetch :message, "Action response was out of bounds, or something happened that wasn't expected"
       order_item.provision_status = :unknown
-      order_item.payload_reply_from_miq = { error: error, message: message }.to_json
+      order_item.payload_reply_from_miq = {
+        error: e.try(:response) || 'Request Timeout',
+        message: e.try(:message) || "Action response was out of bounds, or something happened that wasn't expected"
+      }.to_json
 
       # Since the exception was caught delayed_jobs wouldn't requeue the job, let's raise an exception
       raise 'error'
