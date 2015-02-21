@@ -316,6 +316,8 @@ ActiveRecord::Schema.define(version: 20150219012226) do
     t.string "hid"
   end
 
+  add_index "settings", ["hid"], name: "index_settings_on_hid", unique: true, using: :btree
+
   create_table "staff", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"

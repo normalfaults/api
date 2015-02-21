@@ -32,13 +32,22 @@
 - name: ManageIQ
   hid: manageiq
   setting_fields:
+  - label: Enabled
+    field_type: check_box
+    help_text: ''
+    options:
+    value: 'false'
+    required:
+    load_order: 0
+    env_var_name: MIQ_ENABLED
+    hid: enabled
   - label: URL
     field_type: text
     help_text: http://example.com
     options:
     value: ''
     required:
-    load_order: 0
+    load_order: 1
     env_var_name: MIQ_URL
     hid: url
   - label: Username
@@ -47,7 +56,7 @@
     options:
     value: ''
     required:
-    load_order: 1
+    load_order: 2
     env_var_name: MIQ_USERNAME
     hid: username
   - label: Password
@@ -56,9 +65,18 @@
     options:
     value: ''
     required:
-    load_order: 2
+    load_order: 3
     env_var_name: MIQ_PASSWORD
     hid: password
+  - label: ManageIQ User Email
+    field_type: text
+    help_text: Email Address
+    options:
+    value: ''
+    required:
+    load_order: 4
+    env_var_name: MIQ_USER_EMAIL
+    hid: email
 - name: Chef
   hid: chef
   setting_fields:

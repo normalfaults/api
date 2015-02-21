@@ -1,7 +1,7 @@
 class AddHidsToSettings < ActiveRecord::Migration
   def up
-    add_column :settings, :hid, :string, unique: true
-    add_column :setting_fields, :hid, :string
+    add_column :settings, :hid, :string, unique: true, null: false
+    add_column :setting_fields, :hid, :string, null: false
 
     add_index :settings, [:hid], unique: true
     add_index :setting_fields, [:setting_id, :hid], unique: true

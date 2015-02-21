@@ -2,7 +2,10 @@ class SamlController < ApplicationController
   before_action :saml_enabled?
 
   def init
-    redirect_to idp_login_request_url request
+    respond_to do |format|
+      format.html { redirect_to idp_login_request_url request }
+      format.json { render json: { url: saml_init_url } }
+    end
   end
 
   def consume
