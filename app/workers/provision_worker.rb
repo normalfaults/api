@@ -35,9 +35,9 @@ class ProvisionWorker
         action: 'order',
         resource: {
           href: "#{miq_settings[:url]}/api/service_templates/#{order_item.product.service_type_id}",
-          referer: ENV['DEFAULT_URL'],
+          referer: ENV['DEFAULT_URL'], # TODO: Move this into a manageiq setting
           email: miq_user.email,
-          token: 'jellyfish-token',
+          token: miq_settings[:token],
           order_item: {
             id: order_item.id,
             uuid: order_item.uuid.to_s,

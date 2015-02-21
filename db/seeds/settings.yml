@@ -77,6 +77,15 @@
     load_order: 4
     env_var_name: MIQ_USER_EMAIL
     hid: email
+  - label: ManageIQ User Token
+    field_type: text
+    help_text: Authentication Token
+    options:
+    value: ''
+    required:
+    load_order: 5
+    env_var_name: MIQ_USER_TOKEN
+    hid: token
 - name: Chef
   hid: chef
   setting_fields:

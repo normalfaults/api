@@ -226,11 +226,12 @@ namespace :sample do
     ])
     StaffProject.connection.execute("ALTER SEQUENCE staff_projects_id_seq RESTART #{StaffProject.all.order('id DESC').first.id + 1}")
 
-    # Find and set the ManageIQ user email
-    Setting.find_by(hid: 'manageiq').setting_fields.find_by(hid: 'email').update_attributes(value: 'miq@projectjellyfish.org')
-
     # Assume ManageIQ is enabled
     Setting.find_by(hid: 'manageiq').setting_fields.find_by(hid: 'enabled').update_attributes(value: 'true')
+
+    # Find and set the ManageIQ user email and token
+    Setting.find_by(hid: 'manageiq').setting_fields.find_by(hid: 'email').update_attributes(value: 'miq@projectjellyfish.org')
+    Setting.find_by(hid: 'manageiq').setting_fields.find_by(hid: 'token').update_attributes(value: 'jellyfish-token')
   end
 
 end
