@@ -26,7 +26,7 @@ class ProvisionWorker
   end
 
   def miq_user
-    @miq_user ||= Staff.find_by email: settings[:email]
+    @miq_user ||= Staff.find_by email: miq_settings[:email]
   end
 
   def miq_provision
