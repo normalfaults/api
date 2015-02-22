@@ -1,6 +1,6 @@
 class AddHidsToSettings < ActiveRecord::Migration
   def up
-    add_column :settings, :hid, :string, unique: true
+    add_column :settings, :hid, :string
     add_column :setting_fields, :hid, :string
 
     # seeds.rb is being rerun in some environments. Update the settings
