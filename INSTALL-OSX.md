@@ -42,6 +42,16 @@ DATABASE_URL=postgres://YOUR_LOCAL_USERNAME:@localhost:5432/jellyfish
 CORS_ALLOW_ORIGIN=localhost:5000
 DEFAULT_URL=http://localhost:3000
 ````
+
+#### Create the database
+
+Running this CLI command will create the database for you in PostgreSQL
+
+````
+createdb jellyfish
+````
+
+
 #### Populate the database
 
 Run the following rake commands.  You only need to run "rake sample:demo" if
