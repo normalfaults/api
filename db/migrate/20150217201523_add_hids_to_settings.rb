@@ -1,15 +1,20 @@
 class AddHidsToSettings < ActiveRecord::Migration
   def up
-    add_column :settings, :hid, :string, unique: true, null: false
-    add_column :setting_fields, :hid, :string, null: false
-
-    add_index :settings, [:hid], unique: true
-    add_index :setting_fields, [:setting_id, :hid], unique: true
+    add_column :settings, :hid, :string, unique: true
+    add_column :setting_fields, :hid, :string
 
     # seeds.rb is being rerun in some environments. Update the settings
     # data so duplication and unique constraint errors do not happen.
     up_settings
     up_setting_fields
+
+    # Do not allow nulls in the hid column
+    change_column_null :settings, :hid, false
+    change_column_null :setting_fields, :hid, false
+
+    # Index the columns without nulls
+    add_index :settings, [:hid], unique: true
+    add_index :setting_fields, [:setting_id, :hid], unique: true
   end
 
   def down
