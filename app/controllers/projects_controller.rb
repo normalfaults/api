@@ -5,10 +5,8 @@ class ProjectsController < ApplicationController
 
   before_action :load_project_questions, only: [:show]
   before_action :load_projects, only: [:index]
-  before_action :load_project, only: [:show, :update, :destroy, :approvals, :approve, :reject]
+  before_action :load_project, only: [:show, :update, :destroy]
   before_action :load_project_params, only: [:create, :update]
-  before_action :load_approval, only: [:approve, :reject]
-  before_action :load_rejection_params, only: [:reject]
 
   def self.document_project_params
     with_options required: false do |api|
@@ -90,57 +88,6 @@ class ProjectsController < ApplicationController
       respond_with @project
     else
       respond_with @project, status: :unprocessable_entity
-    end
-  end
-
-  api :GET, '/projects/:id/approvals', 'Returns a list of all approvals for a project'
-  param :id, :number, required: true
-
-  def approvals
-    authorize @project
-    respond_with @project.approvals
-  end
-
-  api :POST, '/projects/:id/approve', 'Set or change the approval for current_user for a project'
-  param :id, :number, required: true
-  param :includes, Array, required: false, in: (PROJECT_FIELDS - ['staff'])
-
-  def approve
-    authorize @project
-    Approval.transaction do
-      begin
-        @approval.approved = true
-        @approval.save!
-        @project.approval = :approved
-        @project.save!
-      rescue ActiveRecord::RecordInvalid => ex
-        respond_with ex.record
-      else
-        respond_with_params @project
-      end
-    end
-  end
-
-  api :POST, '/projects/:id/reject', 'Set or change the approval for current_user for a project'
-  param :id, :number, required: true
-  param :includes, Array, required: false, in: (PROJECT_FIELDS - ['staff'])
-  param :reason, String, required: true
-  error code: 422, desc: ParameterValidation::Messages.missing
-
-  def reject
-    authorize @project
-    Approval.transaction do
-      begin
-        @approval.approved = false
-        @approval.reason = params[:reason]
-        @approval.save!
-        @project.approval = :rejected
-        @project.save!
-      rescue ActiveRecord::RecordInvalid => ex
-        respond_with ex.record
-      else
-        respond_with_params @project
-      end
     end
   end
 

@@ -80,16 +80,13 @@ Rails.application.routes.draw do
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
 
   # Project Routes
-  resources :projects, defaults: { format: :json }, except: [:edit, :new] do
-    member do
-      match 'approvals' => 'projects#approvals', :via => :get, as: :project_approvals
-      match 'approve' => 'projects#approve', :via => :post, as: :approve_project
-      match 'reject' => 'projects#reject', :via => :post, as: :reject_project
-    end
-  end
+  resources :projects, defaults: { format: :json }, except: [:edit, :new]
   get 'projects/:project_id/staff' => 'project_staff#index', as: :project_staff_index
   post 'projects/:project_id/staff/:id' => 'project_staff#create', as: :project_staff
   delete 'projects/:project_id/staff/:id' => 'project_staff#destroy'
+  get 'projects/:project_id/approvals' => 'project_approvals#index', as: :project_approvals
+  post 'projects/:project_id/approve' => 'project_approvals#update', as: :approve_project
+  delete 'projects/:project_id/reject' => 'project_approvals#destroy', as: :reject_project
 
   # ProjectQuestion Routes
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
