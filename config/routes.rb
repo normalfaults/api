@@ -80,9 +80,7 @@ Rails.application.routes.draw do
   resources :clouds, except: [:edit, :new], defaults: { format: :json }
 
   # Project Routes
-  resources :projects, defaults: { format: :json }, only: [:show]
-  resources :projects, defaults: { format: :json }, only: [:index]
-  resources :projects, defaults: { format: :json }, except: [:index, :show, :edit, :new] do
+  resources :projects, defaults: { format: :json }, except: [:edit, :new] do
     member do
       get :staff, to: 'projects#staff', as: :staff_for
       match 'staff/:staff_id' => 'projects#add_staff', :via => :post, as: :add_staff_to
