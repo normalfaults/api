@@ -1,7 +1,6 @@
 language: ruby
 
-rvm:
-- 2.1.5
+rvm: 2.2.0
 
 sudo: false
 
@@ -28,8 +27,4 @@ deploy:
   api_key:
     secure: "ZDWFn6pTVtqg4DwXu0ge5wkFu8pVJV3c0px0KAXubOr8H0VNa4j1pOocS7JiCOAfsU1GVm1idyvCPS5Dyz5HqnZIqGYKS0TSiK4ezA10a1nb3MTPEiCtAyb6c/wxwPrtQ+7EvbI5oL7bWtXXhWXo7czNMG22+IhsQw3FPEnOxVQ="
   app: jellyfish-core-dev
-  run:
-    - "rake db:schema:load"
-    - "rake"
-    - "rake db:seed"
-    - "rake sample:demo"
+  run: "rake db:schema:load spec db:seed sample:demo"
