@@ -15,7 +15,7 @@ class SamlController < ApplicationController
       user = Staff.find_by email: response_email(response)
       return saml_failure if user.nil?
       sign_in user
-      redirect_to @settings[:redirect_url]
+      redirect_to authenticated_url
     else
       saml_failure
     end
@@ -62,5 +62,11 @@ class SamlController < ApplicationController
   def idp_login_request_url(request)
     idp_request = OneLogin::RubySaml::Authrequest.new
     idp_request.create saml_settings request
+  end
+
+  # User Redirection urls
+
+  def authenticated_url
+    @settings[:redirect_url]
   end
 end
