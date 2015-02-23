@@ -5,8 +5,7 @@ class ProjectsController < ApplicationController
 
   before_action :load_project_questions, only: [:show]
   before_action :load_projects, only: [:index]
-  before_action :load_project, only: [:show, :update, :destroy, :staff, :add_staff, :remove_staff, :approvals, :approve, :reject]
-  before_action :load_staff, only: [:add_staff, :remove_staff]
+  before_action :load_project, only: [:show, :update, :destroy, :approvals, :approve, :reject]
   before_action :load_project_params, only: [:create, :update]
   before_action :load_approval, only: [:approve, :reject]
   before_action :load_rejection_params, only: [:reject]
@@ -94,45 +93,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  api :GET, '/projects/:id/staff', 'Shows collection of staff for a project :id'
-  param :id, :number, required: true
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-
-  def staff
-    authorize @project
-    respond_with @project.staff
-  end
-
-  api :POST, '/projects/:id/staff/:staff_id', 'Adds staff to a project'
-  param :id, :number, required: true
-  param :staff_id, :number, desc: 'Staff'
-  error code: 422, desc: MissingRecordDetection::Messages.not_found
-
-  def add_staff
-    authorize @project
-    if @project.staff << @staff
-      respond_with @staff
-    else
-      respond_with @project, status: :unprocessable_entity
-    end
-  end
-
-  api :DELETE, '/projects/:id/staff/:staff_id', 'Deletes staff from a project'
-  param :id, :number, required: true
-  param :staff, Hash, desc: 'Staff' do
-    param :id, :number, required: true
-  end
-  error code: 404, desc: MissingRecordDetection::Messages.not_found
-
-  def remove_staff
-    authorize @project
-    if @project.staff.delete @staff
-      respond_with @staff
-    else
-      respond_with @project, status: :unprocessable_entity
-    end
-  end
-
   api :GET, '/projects/:id/approvals', 'Returns a list of all approvals for a project'
   param :id, :number, required: true
 
@@ -211,10 +171,6 @@ class ProjectsController < ApplicationController
   def load_project
     @project = Project.find(params.require(:id))
     add_empty_answers_to_project @project
-  end
-
-  def load_staff
-    @staff = Staff.find params.require(:staff_id)
   end
 
   def load_approval

@@ -82,15 +82,14 @@ Rails.application.routes.draw do
   # Project Routes
   resources :projects, defaults: { format: :json }, except: [:edit, :new] do
     member do
-      get :staff, to: 'projects#staff', as: :staff_for
-      match 'staff/:staff_id' => 'projects#add_staff', :via => :post, as: :add_staff_to
-      match 'staff/:staff_id' => 'projects#remove_staff', :via => :delete, as: :remove_staff_from
-
       match 'approvals' => 'projects#approvals', :via => :get, as: :project_approvals
       match 'approve' => 'projects#approve', :via => :post, as: :approve_project
       match 'reject' => 'projects#reject', :via => :post, as: :reject_project
     end
   end
+  get 'projects/:project_id/staff' => 'project_staff#index', as: :project_staff_index
+  post 'projects/:project_id/staff/:id' => 'project_staff#create', as: :project_staff
+  delete 'projects/:project_id/staff/:id' => 'project_staff#destroy'
 
   # ProjectQuestion Routes
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }

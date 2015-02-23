@@ -91,51 +91,6 @@ RSpec.describe 'Projects API' do
     end
   end
 
-  context 'Staff' do
-    describe 'GET' do
-      before :each do
-        @staff = create :staff, :user
-        @project = create :project
-        @project.staff << @staff
-        sign_in_as create :staff, :admin
-      end
-
-      it 'retrieves a list of related staff', :show_in_doc do
-        get "/projects/#{@project.id}/staff"
-        expect(response.status).to eq(200)
-        expect(json.length).to eq(1)
-      end
-    end
-
-    describe 'POST' do
-      before :each do
-        @staff = create :staff, :user
-        @project = create :project
-        sign_in_as create :staff, :admin
-      end
-
-      it 'adds related staff', :show_in_doc do
-        post "/projects/#{@project.id}/staff/#{@staff.id}"
-        expect(response.status).to eq(201)
-        expect(json['first_name']).to eq(@staff.first_name)
-      end
-    end
-
-    describe 'DELETE' do
-      before :each do
-        @staff = create :staff, :user
-        @project = create :project
-        @project.staff << @staff
-        sign_in_as create :staff, :admin
-      end
-
-      it 'removes related staff', :show_in_doc do
-        delete "/projects/#{@project.id}/staff/#{@staff.id}"
-        expect(response.status).to eq(204)
-      end
-    end
-  end
-
   context 'Approvals' do
     describe 'GET approvals' do
       before :each do
