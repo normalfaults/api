@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  PROJECT_FIELDS = %w(alerts approvals approvers latest_alerts project_answers project_detail services staff)
+  PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users)
   after_action :verify_authorized
 
   before_action :load_project_questions, only: [:show]
@@ -10,21 +12,25 @@ class ProjectsController < ApplicationController
   before_action :load_rejection_params, only: [:reject]
 
   api :GET, '/projects', 'Returns a collection of projects'
-  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services staff alerts latest_alerts)
-  param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history monthly_spend)
-  param :page, :number, required: false
-  param :per_page, :number, required: false
+  with_options required: false do |api|
+    api.param :includes, Array, in: PROJECT_FIELDS
+    api.param :methods, Array, in: PROJECT_METHODS
+    api.param :page, :number
+    api.param :per_page, :number
+  end
 
   def index
     authorize Project.new
-    render_params[:include][:project_answers][:include] = :project_question unless render_params[:include].nil? || render_params[:include][:project_answers].nil?
+    if render_params[:include] && render_params[:include][:project_answers]
+      render_params[:include][:project_answers][:include] = :project_question
+    end
     respond_with_params @projects
   end
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services staff alerts latest_alerts)
-  param :methods, Array, required: false, in: %w(domain url state state_ok problem_count account_number resources resources_unit icon cpu hdd ram status users order_history monthly_spend)
+  param :includes, Array, required: false, in: PROJECT_FIELDS
+  param :methods, Array, required: false, in: PROJECT_METHODS
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
@@ -34,19 +40,21 @@ class ProjectsController < ApplicationController
   end
 
   api :POST, '/projects', 'Creates projects'
-  param :project_answers, Array, desc: 'Project answers', required: false do
-    param :project_question_id, :number, desc: 'Id for valid project question', require: true
+  with_options required: false do |api|
+    api.param :approved, String
+    api.param :budget, :real_number, required: true
+    api.param :cc, String
+    api.param :description, String
+    api.param :end_date, String
+    api.param :img, String
+    api.param :includes, Array, in: (PROJECT_FIELDS - ['staff'])
+    api.param :name, String, required: true
+    api.param :project_answers, Array, desc: 'Project answers' do
+      api.param :project_question_id, :number, desc: 'Id for valid project question', require: true
+    end
+    api.param :staff_id, String
+    api.param :start_date, String
   end
-  param :name, String, required: true
-  param :description, String, required: false
-  param :cc, String, required: false
-  param :budget, :real_number, required: true
-  param :staff_id, String, required: false
-  param :start_date, String, required: false
-  param :end_date, String, required: false
-  param :approved, String, required: false
-  param :img, String, required: false
-  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
@@ -58,18 +66,20 @@ class ProjectsController < ApplicationController
   end
 
   api :PUT, '/projects/:id', 'Updates project with :id'
-  param :id, :number, required: true
-  param :project_answers, Array, desc: 'Project answers', required: false do
-    param :project_question_id, :number, desc: 'Id for valid project question', require: true
+  with_options required: false do |api|
+    api.param :approved, String
+    api.param :budget, :real_number, required: true
+    api.param :cc, String
+    api.param :description, String
+    api.param :end_data, Date
+    api.param :id, :number, required: true
+    api.param :img, String
+    api.param :name, String
+    api.param :project_answers, Array, desc: 'Project answers' do
+      api.param :project_question_id, :number, desc: 'Id for valid project question', require: true
+    end
+    api.param :staff_id, String
   end
-  param :name, String, required: false
-  param :description, String, required: false
-  param :cc, String, required: false
-  param :budget, :real_number, required: true
-  param :staff_id, String, required: false
-  param :end_data, Date, required: false
-  param :approved, String, required: false
-  param :img, String, required: false
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
@@ -140,8 +150,8 @@ class ProjectsController < ApplicationController
   end
 
   api :POST, '/projects/:id/approve', 'Set or change the approval for current_user for a project'
-  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
   param :id, :number, required: true
+  param :includes, Array, required: false, in: (PROJECT_FIELDS - ['staff'])
 
   def approve
     authorize @project
@@ -160,8 +170,8 @@ class ProjectsController < ApplicationController
   end
 
   api :POST, '/projects/:id/reject', 'Set or change the approval for current_user for a project'
-  param :includes, Array, required: false, in: %w(approvals approvers project_answers project_detail services alerts latest_alerts)
   param :id, :number, required: true
+  param :includes, Array, required: false, in: (PROJECT_FIELDS - ['staff'])
   param :reason, String, required: true
   error code: 422, desc: ParameterValidation::Messages.missing
 
