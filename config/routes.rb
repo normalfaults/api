@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # Auth
   devise_for :staff, controllers: { sessions: 'sessions' }
 
+  get 'saml/init', to: 'saml#init'
+  post 'saml/consume', to: 'saml#consume'
+
   # Alerts Routes
   resources :alerts, defaults: { format: :json } do
     collection do
@@ -95,8 +98,8 @@ Rails.application.routes.draw do
   resources :project_questions, except: [:edit, :new], defaults: { format: :json }
 
   # Admin Settings
-  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:index, :update, :show, :edit, :new, :destroy]
-  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:show], param: :name
+  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:index, :update, :show, :destroy]
+  resources :settings, defaults: { format: :json, includes: %w(setting_fields)  }, only: [:show], param: :hid
 
   # Automate Routes
   resources :automate, only: [] do

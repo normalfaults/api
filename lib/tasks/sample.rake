@@ -19,6 +19,7 @@ namespace :sample do
        { id: 1, first_name: "Admin", last_name: "Staff", email: "admin@projectjellyfish.org", phone: nil, password: "jellyfish", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 36, current_sign_in_at: "2015-02-18 00:39:32", last_sign_in_at: "2015-02-17 20:28:51", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "108.45.125.67", role: 1, deleted_at: nil, secret: 'jellyfish-token'}
     ])
     Staff.connection.execute("ALTER SEQUENCE staff_id_seq RESTART #{Staff.all.order('id DESC').first.id + 1}")
+
     Cloud.create!([
        { id: 1, name: "AWS", description: nil, extra: "{}", deleted_at: nil},
        { id: 2, name: "Azure", description: nil, extra: "{}", deleted_at: nil},
@@ -29,6 +30,7 @@ namespace :sample do
        { id: 7, name: "OpenStack", description: nil, extra: nil, deleted_at: nil}
     ])
     Cloud.connection.execute("ALTER SEQUENCE clouds_id_seq RESTART #{Cloud.all.order('id DESC').first.id + 1}")
+
     Product.create!([
        { id: 1, name: "Small", description: "Small EC2 Instance", service_type_id: 8, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_ec2.png", options: {}, deleted_at: nil, product_type_id: 1, setup_price: "1.99", hourly_price: "0.001", monthly_price: "0.05"},
        { id: 2, name: "Medium", description: "Medium EC2 Instance", service_type_id: 8, service_catalog_id: 1, cloud_id: 1, chef_role: "--CHEF-ROLE--", active: true, img: "products/aws_ec2.png", options: {}, deleted_at: nil, product_type_id: 1, setup_price: "2.99", hourly_price: "0.0025", monthly_price: "0.075"},
@@ -62,6 +64,7 @@ namespace :sample do
        { id: 29, name: "10 Node Hadoop Cluster", description: nil, service_type_id: 0, service_catalog_id: 0, cloud_id: 1, chef_role: "0", active: true, img: "products/hadoop.png", options: nil, deleted_at: nil, product_type_id: 2, setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0"}
     ])
     Product.connection.execute("ALTER SEQUENCE products_id_seq RESTART #{Product.all.order('id DESC').first.id + 1}")
+
     ProductAnswer.create!([
        { id: 1, product_id: 1, product_type_question_id: 1, answer: "t2.micro"},
        { id: 2, product_id: 1, product_type_question_id: 2, answer: "20"},
@@ -118,6 +121,7 @@ namespace :sample do
        { id: 53, product_id: 29, product_type_question_id: 5, answer: "1"}
     ])
     ProductAnswer.connection.execute("ALTER SEQUENCE product_answers_id_seq RESTART #{ProductAnswer.all.order('id DESC').first.id + 1}")
+
     ProductType.create!([
        { id: 1, name: "Infrastructure", description: "Available Infrastructure"},
        { id: 5, name: "Platforms", description: "Available Platforms\n"},
@@ -128,6 +132,7 @@ namespace :sample do
        { id: 7, name: "Staff", description: "Available Staff"}
     ])
     ProductType.connection.execute("ALTER SEQUENCE product_types_id_seq RESTART #{ProductType.all.order('id DESC').first.id + 1}")
+
     ProductTypeQuestion.create!([
        { id: 1, product_type_id: 1, label: "Instance Size", field_type: "select", placeholder: "", help: "", options: [["t2.micro", "t2.micro"], ["m3.medium", "m3.medium"], ["m3.large", "m3.large"]], default: "m3.medium", required: true, load_order: 0, manageiq_key: "instance_size"},
        { id: 2, product_type_id: 1, label: "Disk Size", field_type: "text", placeholder: "Size in GBs", help: "", options: nil, default: "40", required: true, load_order: 1, manageiq_key: "disk_size"},
@@ -142,6 +147,7 @@ namespace :sample do
        { id: 11, product_type_id: 4, label: "Region", field_type: "select", placeholder: "", help: "", options: [["", "US Standard"], ["us-west-1", "US-West (Northern California)"], ["us-west-2", "US-West (Oregon)"], ["EU", "EU (Ireland)"], ["ap-northeast-1", "Asia Pacific (Tokyo)"], ["ap-southeast-1", "Asia Pacific (Singapore)"], ["ap-southeast-2", "Asia Pacific (Sydney)"]], default: "", required: true, load_order: 1, manageiq_key: "region"}
     ])
     ProductTypeQuestion.connection.execute("ALTER SEQUENCE product_type_questions_id_seq RESTART #{ProductTypeQuestion.all.order('id DESC').first.id + 1}")
+
     Project.create!([
        { id: 1, name: "Project 1", description: "Project description", cc: "--CC--", budget: 123654.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "images/documentation.png", deleted_at: nil, spent: "0.0", status: 0, approval: 0},
        { id: 2, name: "Mobile App API", description: "Project description", cc: "--CC--", budget: 3000.0, staff_id: "--STAFF_ID--", start_date: "2015-02-06", end_date: "2015-11-06", img: "images/icon-mobile-orange.png", deleted_at: nil, spent: "2000.0", status: 0, approval: 1},
@@ -151,6 +157,7 @@ namespace :sample do
        { id: 6, name: "Project Jellyfish Demo", description: nil, cc: nil, budget: 10000.0, staff_id: nil, start_date: "2015-02-13", end_date: "2015-03-13", img: nil, deleted_at: nil, spent: "0.0", status: 0, approval: 0}
     ])
     Project.connection.execute("ALTER SEQUENCE projects_id_seq RESTART #{Project.all.order('id DESC').first.id + 1}")
+
     ProjectQuestion.create!([
        { id: 1, question: "Project Description", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 2},
        { id: 2, question: "Project Charge Code", help_text: "", required: true, deleted_at: nil, load_order: nil, options: [], field_type: 2},
@@ -162,11 +169,13 @@ namespace :sample do
        { id: 8, question: "Period of Performance", help_text: "in months", required: nil, deleted_at: nil, load_order: 1, options: nil, field_type: 2}
     ])
     ProjectQuestion.connection.execute("ALTER SEQUENCE project_questions_id_seq RESTART #{ProjectQuestion.all.order('id DESC').first.id + 1}")
+
     Approval.create!([
        { id: 1, staff_id: 3, project_id: 1, approved: false, reason: nil},
        { id: 2, staff_id: 3, project_id: 2, approved: true, reason: nil}
     ])
     Approval.connection.execute("ALTER SEQUENCE approvals_id_seq RESTART #{Approval.all.order('id DESC').first.id + 1}")
+
     Order.create!([
        { id: 1, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: {}, deleted_at: nil, total: 0.0},
        { id: 2, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: {}, deleted_at: nil, total: 0.0},
@@ -179,6 +188,7 @@ namespace :sample do
        { id: 9, :staff => Staff.where(id: 1).first, engine_response: nil, active: nil, options: nil, deleted_at: nil, total: 0.0}
     ])
     Order.connection.execute("ALTER SEQUENCE orders_id_seq RESTART #{Order.all.order('id DESC').first.id + 1}")
+
     OrderItem.create!([
        { id: 9, order_id: 3, cloud_id: 1, :product => Product.where(id: 2).first, service_id: nil, provision_status: 0, deleted_at: nil, :project => Project.where(id: 4).first, host: nil, port: nil, miq_id: nil, ip_address: nil, hostname: nil, uuid: "54048bdc-3cab-4e71-85ca-3b50a3879a31", setup_price: "2.99", hourly_price: "0.0025", monthly_price: "0.075", payload_to_miq: nil, payload_reply_from_miq: nil, payload_response_from_miq: nil, latest_alert_id: nil},
        { id: 8, order_id: 2, cloud_id: 1, :product => Product.where(id: 5).first, service_id: nil, provision_status: 2, deleted_at: nil, :project => Project.where(id: 3).first, host: nil, port: nil, miq_id: nil, ip_address: nil, hostname: nil, uuid: "4f249639-17ca-493d-8548-9b0728bfc99b", setup_price: "1.99", hourly_price: "0.004", monthly_price: "0.1", payload_to_miq: nil, payload_reply_from_miq: nil, payload_response_from_miq: nil, latest_alert_id: nil},
@@ -200,11 +210,13 @@ namespace :sample do
        { id: 21, order_id: 9, cloud_id: 2, :product => Product.where(id: 34).first, service_id: nil, provision_status: nil, deleted_at: nil, :project => Project.where(id: 3).first, host: nil, port: nil, miq_id: nil, ip_address: nil, hostname: nil, uuid: "add8e14e-6ac2-4476-a9f5-84c6b351a716", setup_price: "10.0", hourly_price: "10.0", monthly_price: "10.0", payload_to_miq: nil, payload_reply_from_miq: nil, payload_response_from_miq: nil, latest_alert_id: nil},
     ])
     OrderItem.connection.execute("ALTER SEQUENCE order_items_id_seq RESTART #{OrderItem.all.order('id DESC').first.id + 1}")
+
     Alert.create!([
        { id: 1, project_id: 3, staff_id: 0, status: "CRITICAL", message: "$200 of $2,000 budget remaining. Please increase funding or instance will be retired.", start_date: nil, end_date: nil, order_item_id: 6},
        { id: 2, project_id: 2, staff_id: 0, status: "WARNING", message: "Medium PostgreSQL is approaching capacity. Please increase DB size or add addtional resources to avoid service interruptions.", start_date: nil, end_date: nil, order_item_id: 3}
     ])
     Alert.connection.execute("ALTER SEQUENCE alerts_id_seq RESTART #{Alert.all.order('id DESC').first.id + 1}")
+
     StaffProject.create!([
        { id: 1, staff_id: 3, project_id: 1},
        { id: 2, staff_id: 3, project_id: 2},
@@ -213,6 +225,13 @@ namespace :sample do
        { id: 6, staff_id: 2, project_id: 3}
     ])
     StaffProject.connection.execute("ALTER SEQUENCE staff_projects_id_seq RESTART #{StaffProject.all.order('id DESC').first.id + 1}")
+
+    # Assume ManageIQ is enabled
+    Setting.find_by(hid: 'manageiq').setting_fields.find_by(hid: 'enabled').update_attributes(value: 'true')
+
+    # Find and set the ManageIQ user email and token
+    Setting.find_by(hid: 'manageiq').setting_fields.find_by(hid: 'email').update_attributes(value: 'miq@projectjellyfish.org')
+    Setting.find_by(hid: 'manageiq').setting_fields.find_by(hid: 'token').update_attributes(value: 'jellyfish-token')
   end
 
 end
