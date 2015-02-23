@@ -52,9 +52,7 @@ class ProjectsController < ApplicationController
   def create
     authorize Project
     project = Project.create project_params
-    unless current_user.admin?
-      project.staff << current_user
-    end
+    project.staff << current_user unless current_user.admin?
     respond_with_params project
   end
 
@@ -84,20 +82,16 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    @_project_params ||= params
-      .permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer, :id])
-      .tap do |project|
-        if params[:project_answers]
-          project[:project_answers_attributes] = project.delete(:project_answers)
-        end
+    @_project_params ||= params.permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer, :id]).tap do |project|
+      if params[:project_answers]
+        project[:project_answers_attributes] = project.delete(:project_answers)
       end
+    end
   end
 
   def authorize_and_normalize(project)
     authorize project
-    if render_params[:include] && render_params[:include][:project_answers]
-      render_params[:include][:project_answers][:include] = :project_question
-    end
+    render_params[:include][:project_answers][:include] = :project_question if render_params[:include] && render_params[:include][:project_answers]
   end
 
   def build_empty_answers_to_questions(project)
