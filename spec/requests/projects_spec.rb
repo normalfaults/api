@@ -54,13 +54,13 @@ RSpec.describe 'Projects API' do
     end
 
     it 'creates a new project record' do
-      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, img: 'img' }
+      project_data = attributes_for(:project)
       post '/projects', project_data
       expect(json['name']).to eq(project_data[:name])
     end
 
     it 'creates a new project record w/ project answers', :show_in_doc do
-      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
+      project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
       post '/projects', project_data.merge(includes: %w(project_answers))
       expect(json['project_answers'][0]['id']).to eq(ProjectAnswer.first.id)
     end
@@ -78,14 +78,14 @@ RSpec.describe 'Projects API' do
     end
 
     it 'updates a project record w/ project answers', :show_in_doc do
-      project_data = { name: 'Created', description: 'description', cc: 'cc', staff_id: 'staff_id', budget: 1, start_date: DateTime.now.to_date, end_date: DateTime.now.to_date + 1.week, img: 'img', project_answers: [{ project_question_id: question_model.id, answer: answer }] }
+      project_data = attributes_for(:project, project_answers: [{ project_question_id: question_model.id, answer: answer }])
       put "/projects/#{@project.id}", project_data
       @project.reload
       expect(@project.project_answers.length).to eq(1)
     end
 
     it 'returns an error when the project does not exist' do
-      put "/projects/#{@project.id + 999}", name: 'Updated'
+      put "/projects/#{@project.id + 999}", attributes_for(:project)
       expect(response.status).to eq(404)
       expect(json).to eq('error' => 'Not found.')
     end

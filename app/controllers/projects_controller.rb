@@ -3,11 +3,6 @@ class ProjectsController < ApplicationController
   PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users)
   after_action :verify_authorized
 
-  before_action :load_project_questions, only: [:show]
-  before_action :load_projects, only: [:index]
-  before_action :load_project, only: [:show, :update, :destroy]
-  before_action :load_project_params, only: [:create, :update]
-
   def self.document_project_params
     with_options required: false do |api|
       api.param :approved, String
@@ -33,11 +28,9 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    authorize Project.new
-    if render_params[:include] && render_params[:include][:project_answers]
-      render_params[:include][:project_answers][:include] = :project_question
-    end
-    respond_with_params @projects
+    projects = query_with policy_scope(Project).main_inclusions, :includes, :pagination
+    authorize_and_normalize(Project.new)
+    respond_with_params projects
   end
 
   api :GET, '/projects/:id', 'Shows project with :id'
@@ -47,22 +40,22 @@ class ProjectsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def show
-    authorize @project
-    render_params[:include][:project_answers][:include] = :project_question unless render_params[:include].nil? || render_params[:include][:project_answers].nil?
-    respond_with_params @project
+    build_empty_answers_to_questions(project)
+    authorize_and_normalize(project)
+    respond_with_params project
   end
 
   api :POST, '/projects', 'Creates projects'
   document_project_params
   param :start_date, String, required: false
-  error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
     authorize Project
-    @project = Project.create @project_params
-    # Relate user if not an admin
-    @project.staff << current_user unless current_user.admin?
-    respond_with_params @project
+    project = Project.create project_params
+    unless current_user.admin?
+      project.staff << current_user
+    end
+    respond_with_params project
   end
 
   api :PUT, '/projects/:id', 'Updates project with :id'
@@ -73,9 +66,9 @@ class ProjectsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    authorize @project
-    @project.update @project_params
-    respond_with_params @project
+    authorize project
+    project.update project_params
+    respond_with_params project
   end
 
   api :DELETE, '/projects/:id', 'Deletes project with :id'
@@ -83,48 +76,39 @@ class ProjectsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
-    authorize @project
-    if @project.destroy
-      respond_with @project
-    else
-      respond_with @project, status: :unprocessable_entity
-    end
+    authorize project
+    project.destroy
+    respond_with project
   end
 
   private
 
-  def load_project_questions
-    @project_questions = ProjectQuestion.all
+  def project_params
+    @_project_params ||= params
+      .permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer, :id])
+      .tap do |project|
+        if params[:project_answers]
+          project[:project_answers_attributes] = project.delete(:project_answers)
+        end
+      end
   end
 
-  def add_empty_answers_to_project(project)
-    @project_questions.each do |pq|
+  def authorize_and_normalize(project)
+    authorize project
+    if render_params[:include] && render_params[:include][:project_answers]
+      render_params[:include][:project_answers][:include] = :project_question
+    end
+  end
+
+  def build_empty_answers_to_questions(project)
+    ProjectQuestion.all.each do |pq|
       unless project.project_answers.any? { |pa| pa.project_question_id == pq.id }
         project.project_answers << ProjectAnswer.new(project_question: pq)
       end
-    end if @project_questions
+    end
   end
 
-  def load_projects
-    @projects = query_with policy_scope(Project).main_inclusions, :includes, :pagination
-  end
-
-  def load_project_params
-    @project_params = params.permit(:name, :description, :cc, :budget, :staff_id, :start_date, :end_date, :approved, :img, project_answers: [:project_question_id, :answer, :id])
-    @project_params[:project_answers_attributes] = @project_params[:project_answers] unless @project_params[:project_answers].nil?
-    @project_params.delete(:project_answers) unless @project_params[:project_answers].nil?
-  end
-
-  def load_project
-    @project = Project.find(params.require(:id))
-    add_empty_answers_to_project @project
-  end
-
-  def load_approval
-    @approval = Approval.find_or_initialize_by(project_id: params.require(:id), staff_id: current_user.id)
-  end
-
-  def load_rejection_params
-    params.require(:reason)
+  def project
+    @_project ||= Project.find(params[:id])
   end
 end
