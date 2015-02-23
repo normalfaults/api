@@ -35,11 +35,11 @@ Please install PostgreSQL 9.3+ via their docs
 Install rbenv as per the rbenv / rbenv-build / rbenv-sudo installation guide.
 
 
-####Install to Ruby 2.1.5, and set that as the global version
+####Install to Ruby 2.2.0, and set that as the global version
 
 ````
-rbenv install 2.1.5
-rbenv global 2.1.5
+rbenv install 2.2.0
+rbenv global 2.2.0
 ````
 
 
@@ -119,10 +119,9 @@ rake task does not create the database or the database user (those will need
 to be created based on the DB you are using)
 
 ````
-rake db:schema:load
-rake
+rake db:setup
 rake db:seed
-rake sample:jenkins
+rake sample:demo
 ````
 
 
