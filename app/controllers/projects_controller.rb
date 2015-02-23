@@ -11,6 +11,22 @@ class ProjectsController < ApplicationController
   before_action :load_approval, only: [:approve, :reject]
   before_action :load_rejection_params, only: [:reject]
 
+  def self.document_project_params
+    with_options required: false do |api|
+      api.param :approved, String
+      api.param :budget, :real_number, required: true
+      api.param :cc, String
+      api.param :description, String
+      api.param :end_date, String
+      api.param :img, String
+      api.param :name, String, required: true
+      api.param :project_answers, Array, desc: 'Project answers' do
+        api.param :project_question_id, :number, desc: 'Id for valid project question', require: true
+      end
+      api.param :staff_id, String
+    end
+  end
+
   api :GET, '/projects', 'Returns a collection of projects'
   with_options required: false do |api|
     api.param :includes, Array, in: PROJECT_FIELDS
@@ -40,21 +56,8 @@ class ProjectsController < ApplicationController
   end
 
   api :POST, '/projects', 'Creates projects'
-  with_options required: false do |api|
-    api.param :approved, String
-    api.param :budget, :real_number, required: true
-    api.param :cc, String
-    api.param :description, String
-    api.param :end_date, String
-    api.param :img, String
-    api.param :includes, Array, in: (PROJECT_FIELDS - ['staff'])
-    api.param :name, String, required: true
-    api.param :project_answers, Array, desc: 'Project answers' do
-      api.param :project_question_id, :number, desc: 'Id for valid project question', require: true
-    end
-    api.param :staff_id, String
-    api.param :start_date, String
-  end
+  document_project_params
+  param :start_date, String, required: false
   error code: 422, desc: MissingRecordDetection::Messages.not_found
 
   def create
@@ -66,20 +69,9 @@ class ProjectsController < ApplicationController
   end
 
   api :PUT, '/projects/:id', 'Updates project with :id'
-  with_options required: false do |api|
-    api.param :approved, String
-    api.param :budget, :real_number, required: true
-    api.param :cc, String
-    api.param :description, String
-    api.param :end_data, Date
-    api.param :id, :number, required: true
-    api.param :img, String
-    api.param :name, String
-    api.param :project_answers, Array, desc: 'Project answers' do
-      api.param :project_question_id, :number, desc: 'Id for valid project question', require: true
-    end
-    api.param :staff_id, String
-  end
+  param :id, :number, required: true
+  param :includes, Array, in: (PROJECT_FIELDS - ['staff']), required: false
+  document_project_params
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing
 
