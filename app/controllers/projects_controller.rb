@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  PROJECT_FIELDS = %w(alerts approvals approvers latest_alerts project_answers project_detail services staff)
+  PROJECT_INCLUDES = %w(alerts approvals approvers latest_alerts project_answers project_detail services staff)
   PROJECT_METHODS = %w(account_number cpu domain hdd icon monthly_spend order_history problem_count ram resources resources_unit state state_ok status url users)
   after_action :verify_authorized
 
@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
 
   api :GET, '/projects', 'Returns a collection of projects'
   with_options required: false do |api|
-    api.param :includes, Array, in: PROJECT_FIELDS
+    api.param :includes, Array, in: PROJECT_INCLUDES
     api.param :methods, Array, in: PROJECT_METHODS
     api.param :page, :number
     api.param :per_page, :number
@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
 
   api :GET, '/projects/:id', 'Shows project with :id'
   param :id, :number, required: true
-  param :includes, Array, required: false, in: PROJECT_FIELDS
+  param :includes, Array, required: false, in: PROJECT_INCLUDES
   param :methods, Array, required: false, in: PROJECT_METHODS
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
 
   api :PUT, '/projects/:id', 'Updates project with :id'
   param :id, :number, required: true
-  param :includes, Array, in: (PROJECT_FIELDS - ['staff']), required: false
+  param :includes, Array, in: (PROJECT_INCLUDES - ['staff']), required: false
   document_project_params
   error code: 404, desc: MissingRecordDetection::Messages.not_found
   error code: 422, desc: ParameterValidation::Messages.missing

@@ -3,31 +3,25 @@ class ProjectApprovalsController < ApplicationController
   param :project_id, :number, required: true
 
   def index
-    project = Project.find(params[:project_id])
-    authorize project
     respond_with project.approvals
   end
 
   api :POST, '/projects/:id/approve', 'Set or change the approval for current_user for a project'
   param :project_id, :number, required: true
-  param :includes, Array, required: false, in: (ProjectsController::PROJECT_FIELDS - ['staff'])
+  param :includes, Array, required: false, in: (ProjectsController::PROJECT_INCLUDES - ['staff'])
 
   def update
-    project = Project.find(params[:project_id])
     approval = project.approvals.find_or_initialize_by(staff_id: current_user.id)
-    authorize project
     perform_in_transaction(project) { approval.approve! }
   end
 
   api :DELETE, '/projects/:project_id/reject', 'Set or change the approval for current_user for a project'
   param :project_id, :number, required: true
-  param :includes, Array, required: false, in: (ProjectsController::PROJECT_FIELDS - ['staff'])
+  param :includes, Array, required: false, in: (ProjectsController::PROJECT_INCLUDES - ['staff'])
   param :reason, String, required: true
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def destroy
-    project = Project.find(params[:project_id])
-    authorize project
     approval = project.approvals.find_or_initialize_by(staff_id: current_user.id)
     perform_in_transaction(project) { approval.reject!(params[:reason]) }
   end
@@ -39,5 +33,9 @@ class ProjectApprovalsController < ApplicationController
     respond_with_params project
   rescue ActiveRecord::RecordInvalid => ex
     respond_with ex.record
+  end
+
+  def project
+    @_project ||= Project.find(params[:project_id]).tap { |proj| authorize(proj) }
   end
 end
