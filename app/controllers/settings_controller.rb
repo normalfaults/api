@@ -14,11 +14,7 @@ class SettingsController < ApplicationController
 
   def show
     hid_setting = Setting.find_by! hid: params.require(:id)
-    if hid_setting.present?
-      respond_with_params hid_setting
-    else
-      record_not_found
-    end
+    respond_with_params hid_setting
   end
 
   api :DELETE, '/settings/:id', 'Deletes setting with :id'
