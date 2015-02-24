@@ -8,7 +8,7 @@ class SettingFieldSerializer < ApplicationSerializer
   has_one :setting
 
   def value
-    '' if object.secret?
+    object.secret? ? nil : object.value
   end
 
   # Useful for letting clients know a value has been set when it is secret
