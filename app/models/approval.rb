@@ -19,4 +19,23 @@
 class Approval < ActiveRecord::Base
   belongs_to :staff
   belongs_to :project
+
+  def approve!
+    self.class.transaction do
+      self.approved = true
+      save!
+      project.approval = :approved
+      project.save!
+    end
+  end
+
+  def reject!(reason)
+    self.class.transaction do
+      self.approved = false
+      self.reason = reason
+      save!
+      project.approval = :rejected
+      project.save!
+    end
+  end
 end
