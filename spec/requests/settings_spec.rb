@@ -13,7 +13,8 @@ RSpec.describe 'Setting API' do
 
     it 'returns a collection of all of the settings' do
       get '/settings'
-      expect(response.body).to eq(@settings.to_json(include: %w(setting_fields)))
+      expect(json.length).to eq(1)
+      expect(json[0]['setting_fields'].length).to eq(1)
     end
 
     it 'paginates the settings' do

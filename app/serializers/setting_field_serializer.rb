@@ -1,6 +1,6 @@
 class SettingFieldSerializer < ApplicationSerializer
-  attributes :id, :hid, :setting_id, :label, :help_text, :field_type, :field_options, :value, :load_order,
-    :required, :disabled, :secret, :setting_given, :env_var_name
+  attributes :id, :hid, :setting_id, :label, :help_text, :field_type, :field_options, :value
+  attributes :load_order, :required, :disabled, :secret, :setting_given, :env_var_name
 
   # Declare a second time to keep position but rename the key
   attribute :field_options, key: :options
