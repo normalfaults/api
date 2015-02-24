@@ -1,23 +1,21 @@
 class SettingsController < ApplicationController
-  before_action :load_settings, only: [:index]
-  before_action :load_setting, only: [:update, :destroy, :edit]
-  before_action :load_setting_by_hid, only: [:show]
-
   api :GET, '/settings', 'Returns a collection of admin settings'
   param :includes, Array, required: false, in: %w(setting_fields)
   param :page, :number, required: false
   param :per_page, :number, required: false
 
   def index
-    respond_with_params @settings
+    settings = query_with Setting.all, :includes, :pagination
+    respond_with_params settings
   end
 
   api :GET, '/settings/:hid', 'Returns the settings with the matching hid'
   param :includes, Array, required: false, in: %w(setting_fields)
 
   def show
-    if @setting
-      respond_with_params @setting
+    hid_setting = Setting.find_by! hid: params.require(:id)
+    if hid_setting.present?
+      respond_with_params hid_setting
     else
       record_not_found
     end
@@ -28,9 +26,8 @@ class SettingsController < ApplicationController
   error code: 404, desc: MissingRecordDetection::Messages.not_found
 
   def destroy
-    authorize @setting
-    @setting.destroy
-    respond_with @setting
+    setting.destroy
+    respond_with setting
   end
 
   api :PUT, '/settings/:id', 'Updates value for setting with :id'
@@ -43,24 +40,21 @@ class SettingsController < ApplicationController
   error code: 422, desc: ParameterValidation::Messages.missing
 
   def update
-    @setting.update @setting_params
-    respond_with @setting
+    setting.update setting_params
+    respond_with setting
   end
 
-  protected
+  private
 
-  def load_setting
-    @setting_params = params.permit(setting_fields: [:id, :value])
-    @setting_params[:setting_fields_attributes] = @setting_params[:setting_fields] unless @setting_params[:setting_fields].nil?
-    @setting_params.delete(:setting_fields) unless @setting_params[:setting_fields].nil?
-    @setting = Setting.find(params.require(:id))
+  def setting
+    @setting ||= Setting.find(params.require(:id)).tap { |obj| authorize obj }
   end
 
-  def load_setting_by_hid
-    @setting = Setting.find_by(hid: params.require(:id))
-  end
-
-  def load_settings
-    @settings = query_with Setting.all, :includes, :pagination
+  def setting_params
+    @setting_params ||= params.permit(:id, :name, setting_fields: [:id, :value]).tap do |settings|
+      if params[:setting_fields]
+        settings[:setting_fields_attributes] = settings.delete(:setting_fields)
+      end
+    end
   end
 end
