@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224021514) do
+ActiveRecord::Schema.define(version: 20150224190535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,7 +305,7 @@ ActiveRecord::Schema.define(version: 20150224021514) do
     t.integer  "setting_id"
     t.string   "env_var_name"
     t.boolean  "disabled",               default: false
-    t.string   "hid"
+    t.string   "hid",                                    null: false
     t.boolean  "secret",                 default: false, null: false
   end
 
@@ -314,7 +314,7 @@ ActiveRecord::Schema.define(version: 20150224021514) do
 
   create_table "settings", force: true do |t|
     t.string "name"
-    t.string "hid"
+    t.string "hid",  null: false
   end
 
   add_index "settings", ["hid"], name: "index_settings_on_hid", unique: true, using: :btree

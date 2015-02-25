@@ -44,7 +44,7 @@ RSpec.describe 'Setting API' do
   describe 'PUT update' do
     before(:each) do
       @setting = create :setting
-      @setting.setting_fields.create(value: 'old')
+      @setting.setting_fields.create(value: 'old', hid: 'testhid')
       sign_in_as create :staff, :admin
     end
 
