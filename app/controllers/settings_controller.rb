@@ -47,7 +47,7 @@ class SettingsController < ApplicationController
   end
 
   def setting_params
-    @setting_params ||= params.permit(:id, :name, setting_fields: [:id, :value]).tap do |settings|
+    @setting_params ||= params.permit(:id, :name, setting_fields: [:id, :value, :value_withheld]).tap do |settings|
       if params[:setting_fields]
         settings[:setting_fields_attributes] = settings.delete(:setting_fields)
       end
