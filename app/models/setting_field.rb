@@ -16,6 +16,7 @@
 #  env_var_name :string(255)
 #  disabled     :boolean          default(FALSE)
 #  hid          :string(255)
+#  secret       :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -24,13 +25,14 @@
 #
 
 class SettingField < ActiveRecord::Base
+  attr_accessor :value_withheld
+
   belongs_to :setting
 
   store_accessor :options
 
   enum field_type: { check_box: 0, select_option: 1, text: 2, date: 3, password: 4, textarea: 5 }
 
-  before_save :check_override_setting?
   after_find :override_setting
 
   def to_param
@@ -38,10 +40,6 @@ class SettingField < ActiveRecord::Base
   end
 
   private
-
-  def check_override_setting?
-    return false unless env_var_name.nil? || value != ENV[env_var_name]
-  end
 
   def override_setting
     return if env_var_name.nil? || ENV[env_var_name].nil?

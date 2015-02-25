@@ -5,20 +5,22 @@
 #  id   :integer          not null, primary key
 #  name :string(255)
 #  hid  :string(255)
-#  foo  :string(255)
 #
 # Indexes
 #
-#  index_settings_on_foo  (foo)
 #  index_settings_on_hid  (hid) UNIQUE
 #
 
 class Setting < ActiveRecord::Base
   has_many :setting_fields, -> { order('load_order') }
-  accepts_nested_attributes_for :setting_fields
+  accepts_nested_attributes_for :setting_fields, reject_if: :nil_values
 
   def to_param
     hid
+  end
+
+  def nil_values(field)
+    field['value_withheld'] && field['value'].nil?
   end
 
   # Returns a hash of setting_fields with their hids as the key and their value as the value
