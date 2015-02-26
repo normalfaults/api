@@ -2,10 +2,19 @@
 
 This guide will walk you through how to install and run Jellyfish-Core on Windows.
 
+####Preface
+This guide only provides steps for installing with Ruby2.1.5. Jellyfish may require a higher version. There are
+four primary methods of installing the Jellyfish stack on Windows. Check if any of these methods are appropriate for
+you. Note: This version of the install guide uses RailsInstaller.
+* RailsInstaller
+* RubyInstaller
+* Adapted RubyInstaller for newer version (https://github.com/oneclick/rubyinstaller)
+* Compile from source
+
 ####Install Ruby, Rails, Bundler, and DevKit
 
 Note: Use the 32-bit installer.
-Use the appropriate installer for the version of Ruby that Jellyfish needs at http://railsinstaller.org/en
+Download and run the appropriate installer for the version of Ruby that Jellyfish needs at http://railsinstaller.org/en
 
 ####Update your Rubygems install
 
@@ -39,16 +48,21 @@ echo "gem: --no-document" >> ~/.gemrc
 gem install rails
 ````
 
-####Install pg gem
+####Install pg gem and tzinfo-data
 
-Note: pg 1.17 might be broken on Windows
+Note: These gems are specific to Windows and may be the cause of unwanted behavior.
 ````
 gem install pg --pre
+gem install tzinfo-data
 ```
-ADD SOMETHING LIKE:
+
+If these gems are ever to be added to the Jellyfish API Gemfile, we would add something like:
+
+````
 if RUBY_PLATFORM=~ /win32/
     gem 'pg', '~> 0.18.0'
     gem 'tzinfo-data'
+````
 
 ####Check out the latest code
 
