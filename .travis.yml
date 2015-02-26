@@ -16,7 +16,7 @@ before_script:
 
 notifications:
   slack:
-    secure: "QaNl/iAYVGEFz2zveWr6rSxH/VHUj/hqWGYJw0isjHQI4XPQIaNSe8wO3F5AXVADMa2/0Wf7ffGZJUpSciF06q/QAdzEV/fznIWX5p65piD/JoDjuCI/qvGmdzExZbWZVFmETF0mXrF77AsEk9ei/8Fv+UerHMSaJpn5LzHzzoE="
+    secure: "htdM8Tv7Z2FLsRhwOhjpL7r2O5YJOVvt838SRcI2tLFWDGtdWD/lg5GlQ7swxOXaEYiPD8RjKMh27v9lb6fxKbi3Pdu8kwR7GmjAGwGB9h0JwnrESbiSGCCC+J6APvWdq5Vs7iGMFUS7oOjw8fzyyHeRRbyf0SWiT7S9EUt3dec="
 
 script:
 - bundle exec rspec
