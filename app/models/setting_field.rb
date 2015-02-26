@@ -15,7 +15,7 @@
 #  setting_id   :integer
 #  env_var_name :string(255)
 #  disabled     :boolean          default(FALSE)
-#  hid          :string(255)
+#  hid          :string(255)      not null
 #  secret       :boolean          default(FALSE), not null
 #
 # Indexes
