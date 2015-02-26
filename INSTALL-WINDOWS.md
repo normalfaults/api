@@ -1,6 +1,6 @@
 ## How to install on Windows
 
-This guide will walk you through how to install and run Jellyfish-Core on Windows.
+This guide will walk you through how to install and run Jellyfish-API on Windows.
 
 ####Preface
 This guide only provides steps for installing with Ruby2.1.5. Jellyfish may require a higher version. There are
@@ -11,14 +11,19 @@ you. Note: This version of the install guide uses RailsInstaller.
 * Adapted RubyInstaller for newer version (https://github.com/oneclick/rubyinstaller)
 * Compile from source
 
-####Install Ruby, Rails, Bundler, and DevKit
+####Install Ruby, Rails, Bundler, Git and DevKit with RailsInstaller
 
-Note: Use the 32-bit installer.
-Download and run the appropriate installer for the version of Ruby that Jellyfish needs at http://railsinstaller.org/en
+Navigate to http://railsinstaller.org/en to select and download the latest RailsInstaller for Windows.
+Run the installer. Click next. Accept all of the licenses and click next. Use the default installation path and check
+the boxes for installing Git and adding Ruby, DevKit and Git to the path. Click install.
+When the installation finishes, keep the box checked to have Git and SSH set up for you. Click finish to exit.
 
 ####Update your Rubygems install
 
-Note: You may run into SSL errors on this step.
+Note: You may run into SSL errors on this step. If you are behind a proxy server, attempt to run this with a direct
+internet connection. If this is not the case, attempt the instructions at
+https://gist.github.com/luislavena/f064211759ee0f806c88. This will provide you with an updated CA cert.
+
 ````
 gem update --system
 ````
@@ -48,7 +53,7 @@ echo "gem: --no-document" >> ~/.gemrc
 gem install rails
 ````
 
-####Install pg gem and tzinfo-data
+####Install the pg and tzinfo-data gems
 
 Note: These gems are specific to Windows and may be the cause of unwanted behavior.
 ````
@@ -66,11 +71,17 @@ if RUBY_PLATFORM=~ /win32/
 
 ####Check out the latest code
 
+Change your current working directory to the parent directory of where you want Jellyfish-API installed.
+Then, get the latest version of Jellyfish by cloning the repo using Git in command prompt:
+
 ````
+cd C:\my_projects
 git clone https://github.com/booz-allen-hamilton/jellyfish-core.git
 ````
 
 ####Install any dependencies
+
+Run this command from the directory that you just cloned into:
 
 ````
 bundle install
@@ -80,11 +91,17 @@ bundle install
 
 Navigate to http://www.postgresql.org/download/windows/ and select the desired installer (32-bit Windows, PostgreSQL
 version supported by Jellyfish).
-Follow installation steps, listen on localhost:5432, and remember your root login credentials.
+Follow installation steps, listen on localhost:5432 (set by default), and remember your root login credentials (you
+will be asked to type these in).
 
 ####Configure PostgreSQL for Jellyfish on Windows
 
-Add 'C:\Program Files\PostgreSQL\9.0\bin' to your Path.
+Add 'C:\Program Files (x86)\PostgreSQL\9.0\bin' to your Path.
+
+````
+setx path "%PATH%;C:\Program Files (x86)\PostgreSQL\9.0\bin"
+````
+
 Either through pgAdmin or psql, create a new login role. USE THE WINDOWS ACCOUNT NAME YOU ARE LOGGED INTO (e.g. 'jdoe').
 Give this role a password, the ability to create databases, and superuser.
 
