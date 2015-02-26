@@ -312,7 +312,7 @@ ActiveRecord::Schema.define(version: 20150225203330) do
     t.integer  "setting_id"
     t.string   "env_var_name"
     t.boolean  "disabled",               default: false
-    t.string   "hid"
+    t.string   "hid",                                    null: false
     t.boolean  "secret",                 default: false, null: false
   end
 
@@ -321,7 +321,7 @@ ActiveRecord::Schema.define(version: 20150225203330) do
 
   create_table "settings", force: true do |t|
     t.string "name"
-    t.string "hid"
+    t.string "hid",  null: false
   end
 
   add_index "settings", ["hid"], name: "index_settings_on_hid", unique: true, using: :btree
