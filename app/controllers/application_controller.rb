@@ -24,6 +24,9 @@ class ApplicationController < ActionController::Base
   # Add Token Authentication
   include TokenAuthentication
 
+  protect_from_forgery
+  skip_before_action :verify_authenticity_token, if: :json_request?
+
   def current_user
     current_staff
   end
@@ -36,7 +39,14 @@ class ApplicationController < ActionController::Base
     staff_session
   end
 
+  # Used by ActiveModelSerializers
   def default_serializer_options
     { root: false }
+  end
+
+  private
+
+  def json_request?
+    request.format.json?
   end
 end
