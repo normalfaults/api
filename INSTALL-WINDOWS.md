@@ -76,7 +76,7 @@ Then, get the latest version of Jellyfish by cloning the repo using Git in comma
 
 ````
 cd C:\my_projects
-git clone https://github.com/booz-allen-hamilton/jellyfish-core.git
+git clone https://github.com/projectjellyfish/api.git
 ````
 
 ####Install any dependencies
@@ -89,8 +89,8 @@ bundle install
 
 ####Install PostgreSQL
 
-Navigate to http://www.postgresql.org/download/windows/ and select the desired installer (32-bit Windows, PostgreSQL
-version supported by Jellyfish).
+Navigate to http://www.postgresql.org/download/windows/ and select the desired installer (32-bit Windows and the
+latest version i.e. 9.3+)
 Follow installation steps, listen on localhost:5432 (set by default), and remember your root login credentials (you
 will be asked to type these in).
 
