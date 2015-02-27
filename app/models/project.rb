@@ -17,9 +17,11 @@
 #  spent       :decimal(12, 2)   default(0.0)
 #  status      :integer          default(0)
 #  approval    :integer          default(0)
+#  archived    :datetime
 #
 # Indexes
 #
+#  index_projects_on_archived    (archived)
 #  index_projects_on_deleted_at  (deleted_at)
 #
 
@@ -49,6 +51,8 @@ class Project < ActiveRecord::Base
 
   # Scopes
   scope :main_inclusions, -> { includes(:staff).includes(:project_answers).includes(:services) }
+  scope :active, -> { where(archived: nil) }
+  scope :archived, -> { where.not(archived: nil) }
 
   def order_history
     history = Order.where(id: OrderItem.where(project_id: id).select(:order_id)).map do |order|
