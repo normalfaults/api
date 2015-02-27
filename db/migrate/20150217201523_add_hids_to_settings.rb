@@ -1,4 +1,10 @@
 class AddHidsToSettings < ActiveRecord::Migration
+  class Setting < ActiveRecord::Base
+  end
+
+  class SettingField < ActiveRecord::Base
+  end
+
   def up
     add_column :settings, :hid, :string
     add_column :setting_fields, :hid, :string
