@@ -17,7 +17,7 @@
 #  spent       :decimal(12, 2)   default(0.0)
 #  status      :integer          default(0)
 #  approval    :integer          default(0)
-#  archived    :boolean          default(FALSE), not null
+#  archived    :datetime
 #
 # Indexes
 #
