@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227173037) do
+ActiveRecord::Schema.define(version: 20150225203330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
-  enable_extension "tablefunc"
 
   create_table "alerts", force: true do |t|
     t.integer  "project_id"
@@ -296,22 +295,9 @@ ActiveRecord::Schema.define(version: 20150227173037) do
     t.decimal  "spent",                  precision: 12, scale: 2, default: 0.0
     t.integer  "status",                                          default: 0
     t.integer  "approval",                                        default: 0
-    t.datetime "archived"
   end
 
-  add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
-
-  create_table "provision_derivations", force: true do |t|
-    t.integer  "order_item_id"
-    t.text     "name"
-    t.text     "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "provision_derivations", ["id"], name: "index_provision_derivations_on_id", using: :btree
-  add_index "provision_derivations", ["order_item_id"], name: "index_provision_derivations_on_order_item_id", using: :btree
 
   create_table "setting_fields", force: true do |t|
     t.string   "label"
