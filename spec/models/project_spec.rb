@@ -17,11 +17,9 @@
 #  spent       :decimal(12, 2)   default(0.0)
 #  status      :integer          default(0)
 #  approval    :integer          default(0)
-#  archived    :datetime
 #
 # Indexes
 #
-#  index_projects_on_archived    (archived)
 #  index_projects_on_deleted_at  (deleted_at)
 #
 
