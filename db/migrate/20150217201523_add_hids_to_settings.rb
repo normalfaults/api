@@ -15,6 +15,10 @@ class AddHidsToSettings < ActiveRecord::Migration
     # Index the columns without nulls
     add_index :settings, [:hid], unique: true
     add_index :setting_fields, [:setting_id, :hid], unique: true
+
+    # Reload column definitions; Bypasses an annotate_model issue
+    Setting.reset_column_information
+    SettingField.reset_column_information
   end
 
   def down
