@@ -11,7 +11,6 @@ context 'Staff Settings API' do
       get "/staff/#{staff.id}/settings"
       expect(response.status).to eq(200)
     end
-
   end
 
   describe :show do
