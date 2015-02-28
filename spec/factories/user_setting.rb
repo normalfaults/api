@@ -1,7 +1,12 @@
 FactoryGirl.define do
   factory :user_setting do
-    name 'test user setting'
-    value 'test user value'
+    sequence :name do |n|
+      "name #{n}"
+    end
+
+    sequence :value do |n|
+      "value #{n}"
+    end
 
     trait :first do
       name 'first user setting'
