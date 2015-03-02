@@ -22,22 +22,17 @@ Rails.application.routes.draw do
   resources :staff, defaults: { format: :json, methods: %w(gravatar) }, only: [:index]
   resources :staff, defaults: { format: :json }, only: [:show, :create, :update, :destroy] do
     # Staff Orders
-    resources :orders, controller: 'staff_orders', defaults: { format: :json, includes: %w(order_items) }, only: [:show, :index]
+    resources :orders, controller: :staff_orders, defaults: { format: :json, includes: %w(order_items) }, only: [:show, :index]
 
     collection do
       match 'current_member' => 'staff#current_member', via: :get, defaults: { format: :json }
     end
 
-    member do
-      match 'settings' => 'staff#user_settings', :via => :get, as: :user_settings_for
-      match 'settings' => 'staff#add_user_setting', :via => :post, as: :add_user_setting_to
-      match 'settings/:user_setting_id' => 'staff#show_user_setting', :via => :get
-      match 'settings/:user_setting_id' => 'staff#update_user_setting', :via => :put
-      match 'settings/:user_setting_id' => 'staff#remove_user_setting', :via => :delete, as: :remove_user_setting_from
-      get :projects, to: 'staff#projects', as: :projects_for
-      match 'projects/:project_id' => 'staff#add_project', :via => :post, as: :add_project_to
-      match 'projects/:project_id' => 'staff#remove_project', :via => :delete, as: :remove_project_from
-    end
+    # Staff Settings (user_settings)
+    resources :settings, controller: :staff_settings, defaults: { format: :json }, only: [:index, :show, :create, :update, :destroy]
+
+    # Staff Projects
+    resources :projects, controller: :staff_projects, defaults: { format: :json }, only: [:index, :update, :destroy]
   end
 
   # Organizations

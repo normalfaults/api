@@ -39,7 +39,7 @@ class StaffPolicy < ApplicationPolicy
     admin_or_self
   end
 
-  def add_user_setting?
+  def create_user_setting?
     admin_or_self
   end
 
@@ -47,7 +47,7 @@ class StaffPolicy < ApplicationPolicy
     admin_or_self
   end
 
-  def remove_user_setting?
+  def destroy_user_setting?
     admin_or_self
   end
 
